@@ -52,6 +52,12 @@ export function parseCashbackRate(description: string | undefined): ParsedCashba
   const cleanDesc = description.replace(/^(opptil|opp til|up to)\s*/i, "").trim();
 
   // Check for percentage (e.g., "5,4%")
+  // For ranges like "3-5%", use the maximum value for ranking
+  const rangePercentMatch = cleanDesc.match(/(\d+[,.]?\d*)\s*[-\u2013]\s*(\d+[,.]?\d*)\s*%/);
+  if (rangePercentMatch?.[2]) {
+    const value = parseFloat(rangePercentMatch[2].replace(",", "."));
+    return { value, type: "percent", isVariable };
+  }
   const percentMatch = cleanDesc.match(/(\d+[,.]?\d*)\s*%/);
   if (percentMatch?.[1]) {
     const value = parseFloat(percentMatch[1].replace(",", "."));

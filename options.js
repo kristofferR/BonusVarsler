@@ -483,10 +483,15 @@ async function initServices() {
     // Handle checkbox change
     checkbox.addEventListener("change", async () => {
       const checkboxes = container.querySelectorAll('input[type="checkbox"]');
-      const checkedCount = Array.from(checkboxes).filter((cb) => cb.checked).length;
+      // Count only active (non-coming-soon) services
+      const checkedActiveCount = Array.from(checkboxes).filter((cb) => {
+        const serviceId = cb.id.replace("service-", "");
+        const service = SERVICES[serviceId];
+        return cb.checked && service && !service.comingSoon;
+      }).length;
 
-      // Prevent disabling all services
-      if (checkedCount === 0) {
+      // Prevent disabling all active services
+      if (checkedActiveCount === 0) {
         checkbox.checked = true;
         showStatus(i18n("cannotDisableAllServices"));
         return;

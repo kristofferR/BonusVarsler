@@ -160,12 +160,14 @@ export class Settings {
   }
 
   isSiteHidden(host: string): boolean {
-    return this.cache.hiddenSites.has(host);
+    const normalized = this.normalizeHost(host);
+    return this.cache.hiddenSites.has(normalized);
   }
 
   async hideSite(host: string): Promise<void> {
-    if (!this.cache.hiddenSites.has(host)) {
-      this.cache.hiddenSites.add(host);
+    const normalized = this.normalizeHost(host);
+    if (!this.cache.hiddenSites.has(normalized)) {
+      this.cache.hiddenSites.add(normalized);
       await this.storage.set(STORAGE_KEYS.hiddenSites, [...this.cache.hiddenSites]);
     }
   }

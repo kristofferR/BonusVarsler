@@ -227,6 +227,7 @@ export function createNotification(options: NotificationOptions): HTMLElement {
           actionBtn.removeAttribute("target");
         } else {
           actionBtn.classList.remove("adblock");
+          actionBtn.style.animation = "";
           if (actionBtn.childNodes[0]) {
             actionBtn.childNodes[0].textContent = originalText;
           }
@@ -236,6 +237,7 @@ export function createNotification(options: NotificationOptions): HTMLElement {
       } catch {
         // On error, restore original state
         actionBtn.classList.remove("adblock");
+        actionBtn.style.animation = "";
         if (actionBtn.childNodes[0]) {
           actionBtn.childNodes[0].textContent = originalText;
         }
