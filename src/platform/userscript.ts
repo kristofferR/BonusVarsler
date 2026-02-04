@@ -12,7 +12,7 @@ import {
   initialize,
   isOnCashbackPage,
 } from "../main.js";
-import type { PlatformAdapters, InitializeResult } from "../main.js";
+import type { PlatformAdapters } from "../main.js";
 import { createNotification } from "../ui/views/notification.js";
 import { createReminderNotification } from "../ui/views/reminder.js";
 import { createServiceSelector } from "../ui/views/service-selector.js";

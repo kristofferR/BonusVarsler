@@ -518,11 +518,13 @@
       return this.cache.hiddenSites;
     }
     isSiteHidden(host) {
-      return this.cache.hiddenSites.has(host);
+      const normalized = this.normalizeHost(host);
+      return this.cache.hiddenSites.has(normalized);
     }
     async hideSite(host) {
-      if (!this.cache.hiddenSites.has(host)) {
-        this.cache.hiddenSites.add(host);
+      const normalized = this.normalizeHost(host);
+      if (!this.cache.hiddenSites.has(normalized)) {
+        this.cache.hiddenSites.add(normalized);
         await this.storage.set(STORAGE_KEYS.hiddenSites, [...this.cache.hiddenSites]);
       }
     }
@@ -768,6 +770,11 @@
     const normalized = description.toLowerCase().trim();
     const isVariable = normalized.startsWith("opptil") || normalized.startsWith("opp til") || normalized.startsWith("up to") || /\d+\s*[-\u2013]\s*\d+/.test(normalized);
     const cleanDesc = description.replace(/^(opptil|opp til|up to)\s*/i, "").trim();
+    const rangePercentMatch = cleanDesc.match(/(\d+[,.]?\d*)\s*[-\u2013]\s*(\d+[,.]?\d*)\s*%/);
+    if (rangePercentMatch?.[2]) {
+      const value = parseFloat(rangePercentMatch[2].replace(",", "."));
+      return { value, type: "percent", isVariable };
+    }
     const percentMatch = cleanDesc.match(/(\d+[,.]?\d*)\s*%/);
     if (percentMatch?.[1]) {
       const value = parseFloat(percentMatch[1].replace(",", "."));
@@ -2134,6 +2141,7 @@
             actionBtn.removeAttribute("target");
           } else {
             actionBtn.classList.remove("adblock");
+            actionBtn.style.animation = "";
             if (actionBtn.childNodes[0]) {
               actionBtn.childNodes[0].textContent = originalText;
             }
@@ -2142,6 +2150,7 @@
           }
         } catch {
           actionBtn.classList.remove("adblock");
+          actionBtn.style.animation = "";
           if (actionBtn.childNodes[0]) {
             actionBtn.childNodes[0].textContent = originalText;
           }
