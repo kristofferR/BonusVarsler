@@ -11,9 +11,28 @@ import type { I18nAdapter, Messages } from "./types.js";
 const NORWEGIAN_MESSAGES: Messages = {
   // Notification
   cashbackAt: { message: "bonus hos $STORE$", placeholders: { store: { content: "$1" } } },
+  serviceBonusAt: {
+    message: "$SERVICE$-bonus hos $STORE$",
+    placeholders: {
+      service: { content: "$1" },
+      store: { content: "$2" },
+    },
+  },
   clickToGetBonus: { message: "Få $SERVICE$ bonus", placeholders: { service: { content: "$1" } } },
+  getServiceBonus: { message: "Få $SERVICE$-bonus", placeholders: { service: { content: "$1" } } },
+  thisStore: { message: "denne butikken" },
+  rememberTo: { message: "Husk å:" },
+  disableAdblockers: { message: "Deaktivere uBlock/AdGuard Home/Pi-Hole" },
+  acceptAllCookies: { message: "Akseptere alle cookies" },
+  emptyCart: { message: "Tømme handlevognen" },
   rememberToUse: { message: "Husk å bruke lenken under før du handler!" },
+  dontShowOnThisSite: { message: "Ikke vis på denne siden" },
   hideOnThisSite: { message: "Skjul på denne siden" },
+  aboutExtension: { message: "Om denne utvidelsen" },
+  purchaseRegistered: { message: "Hvis alt ble gjort riktig, skal kjøpet ha blitt registrert." },
+  adblockerDetected: { message: "Adblocker funnet!" },
+  checkingAdblock: { message: "Sjekker..." },
+  checkAdblockAgain: { message: "Sjekk på nytt" },
   adblockWarning: { message: "Adblock oppdaget!" },
   adblockNote: { message: "Du må skru av adblock for at sporingen skal fungere." },
 
@@ -24,6 +43,7 @@ const NORWEGIAN_MESSAGES: Messages = {
   dnbInstruction3: { message: "Handelen registreres automatisk" },
   codeCopied: { message: "Kopiert!" },
   copyCode: { message: "Kopier kode" },
+  copyFailed: { message: "Kopiering feilet" },
   openLink: { message: "Åpne lenke" },
 
   // Reminder
@@ -34,15 +54,22 @@ const NORWEGIAN_MESSAGES: Messages = {
 
   // Settings
   settings: { message: "Innstillinger" },
+  appearance: { message: "Utseende" },
   theme: { message: "Tema" },
   themeLight: { message: "Lys" },
   themeDark: { message: "Mørk" },
   themeSystem: { message: "Auto" },
   position: { message: "Posisjon" },
+  defaultPosition: { message: "Posisjon" },
   startMinimized: { message: "Start minimert" },
   hiddenSites: { message: "Skjulte sider" },
   noHiddenSites: { message: "Ingen skjulte sider" },
   hiddenSitesCount: { message: "$COUNT$ skjulte sider", placeholders: { count: { content: "$1" } } },
+  hiddenSitesCountPlural: {
+    message: "$COUNT$ sider skjult",
+    placeholders: { count: { content: "$1" } },
+  },
+  reset: { message: "Nullstill" },
   resetHiddenSites: { message: "Tilbakestill" },
   back: { message: "← Tilbake" },
   services: { message: "Tjenester" },
