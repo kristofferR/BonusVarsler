@@ -319,12 +319,42 @@ async function initHiddenSites() {
 
 // Initialize blacklisted sites
 async function initBlacklistedSites() {
-  const blacklistedSites = await getValue(KEYS.blacklistedSites, []);
+  const storedBlacklist = await getValue(KEYS.blacklistedSites, []);
+  const blacklistedSites = Array.isArray(storedBlacklist) ? storedBlacklist : [];
   const container = document.getElementById("blacklist-container");
   const list = document.getElementById("blacklist-list");
   const actions = document.getElementById("blacklist-actions");
   const input = document.getElementById("blacklist-input");
   const addBtn = document.getElementById("blacklist-add-btn");
+
+  function normalizeHost(host) {
+    let normalized = String(host).trim().toLowerCase();
+    normalized = normalized.replace(/^https?:\/\//, "");
+    normalized = normalized.split("/")[0].split("?")[0].split("#")[0];
+    normalized = normalized.split(":")[0];
+    if (normalized.startsWith("www.")) {
+      normalized = normalized.slice(4);
+    }
+    normalized = normalized.replace(/^\.+|\.+$/g, "");
+    return normalized;
+  }
+
+  // Normalize and deduplicate stored values to keep matching consistent
+  const normalizedStored = Array.from(
+    new Set(
+      blacklistedSites
+        .map((site) => normalizeHost(site))
+        .filter(Boolean)
+    )
+  );
+  if (
+    normalizedStored.length !== blacklistedSites.length ||
+    normalizedStored.some((site, index) => site !== blacklistedSites[index])
+  ) {
+    blacklistedSites.length = 0;
+    blacklistedSites.push(...normalizedStored);
+    await setValue(KEYS.blacklistedSites, blacklistedSites);
+  }
 
   function render() {
     list.innerHTML = "";
@@ -365,31 +395,15 @@ async function initBlacklistedSites() {
 
   render();
 
-  // Normalize host by stripping www. prefix
-  function normalizeHost(host) {
-    return host.startsWith("www.") ? host.slice(4) : host;
-  }
-
   // Add site to blacklist
   async function addSite() {
-    let site = input.value.trim().toLowerCase();
-    if (!site) return;
-
-    // Strip protocol if present
-    site = site.replace(/^https?:\/\//, "");
-    // Strip path, query, and fragment
-    site = site.split("/")[0].split("?")[0].split("#")[0];
-    // Strip port if present for validation, but keep for storage
-    const hostWithoutPort = site.split(":")[0];
+    const normalized = normalizeHost(input.value);
 
     // Basic validation - must look like a domain
-    if (!hostWithoutPort || hostWithoutPort.includes(" ")) {
+    if (!normalized || normalized.includes(" ")) {
       showStatus(i18n("invalidDomain"));
       return;
     }
-
-    // Normalize to avoid www. duplicates
-    const normalized = normalizeHost(site);
 
     if (blacklistedSites.includes(normalized)) {
       showStatus(i18n("siteAlreadyBlacklisted"));
