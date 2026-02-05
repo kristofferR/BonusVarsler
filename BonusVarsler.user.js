@@ -166,9 +166,28 @@
   var NORWEGIAN_MESSAGES = {
     // Notification
     cashbackAt: { message: "bonus hos $STORE$", placeholders: { store: { content: "$1" } } },
+    serviceBonusAt: {
+      message: "$SERVICE$-bonus hos $STORE$",
+      placeholders: {
+        service: { content: "$1" },
+        store: { content: "$2" }
+      }
+    },
     clickToGetBonus: { message: "F\xE5 $SERVICE$ bonus", placeholders: { service: { content: "$1" } } },
+    getServiceBonus: { message: "F\xE5 $SERVICE$-bonus", placeholders: { service: { content: "$1" } } },
+    thisStore: { message: "denne butikken" },
+    rememberTo: { message: "Husk \xE5:" },
+    disableAdblockers: { message: "Deaktivere uBlock/AdGuard Home/Pi-Hole" },
+    acceptAllCookies: { message: "Akseptere alle cookies" },
+    emptyCart: { message: "T\xF8mme handlevognen" },
     rememberToUse: { message: "Husk \xE5 bruke lenken under f\xF8r du handler!" },
+    dontShowOnThisSite: { message: "Ikke vis p\xE5 denne siden" },
     hideOnThisSite: { message: "Skjul p\xE5 denne siden" },
+    aboutExtension: { message: "Om denne utvidelsen" },
+    purchaseRegistered: { message: "Hvis alt ble gjort riktig, skal kj\xF8pet ha blitt registrert." },
+    adblockerDetected: { message: "Adblocker funnet!" },
+    checkingAdblock: { message: "Sjekker..." },
+    checkAdblockAgain: { message: "Sjekk p\xE5 nytt" },
     adblockWarning: { message: "Adblock oppdaget!" },
     adblockNote: { message: "Du m\xE5 skru av adblock for at sporingen skal fungere." },
     // DNB code-based
@@ -178,6 +197,7 @@
     dnbInstruction3: { message: "Handelen registreres automatisk" },
     codeCopied: { message: "Kopiert!" },
     copyCode: { message: "Kopier kode" },
+    copyFailed: { message: "Kopiering feilet" },
     openLink: { message: "\xC5pne lenke" },
     // Reminder
     importantReminder: { message: "Viktig p\xE5minnelse!" },
@@ -186,15 +206,22 @@
     reminderTip: { message: "Tips: Test at lenken fungerer ved \xE5 klikke og se at du blir sendt videre." },
     // Settings
     settings: { message: "Innstillinger" },
+    appearance: { message: "Utseende" },
     theme: { message: "Tema" },
     themeLight: { message: "Lys" },
     themeDark: { message: "M\xF8rk" },
     themeSystem: { message: "Auto" },
     position: { message: "Posisjon" },
+    defaultPosition: { message: "Posisjon" },
     startMinimized: { message: "Start minimert" },
     hiddenSites: { message: "Skjulte sider" },
     noHiddenSites: { message: "Ingen skjulte sider" },
     hiddenSitesCount: { message: "$COUNT$ skjulte sider", placeholders: { count: { content: "$1" } } },
+    hiddenSitesCountPlural: {
+      message: "$COUNT$ sider skjult",
+      placeholders: { count: { content: "$1" } }
+    },
+    reset: { message: "Nullstill" },
     resetHiddenSites: { message: "Tilbakestill" },
     back: { message: "\u2190 Tilbake" },
     services: { message: "Tjenester" },
@@ -2711,9 +2738,23 @@
     title.textContent = STRINGS.selectServices;
     content.appendChild(title);
     const toggleStates = {};
+    let hasActiveDefault = false;
     SERVICE_ORDER.forEach((serviceId) => {
-      toggleStates[serviceId] = serviceId === "trumf";
+      const service = services[serviceId];
+      const enabledByDefault = Boolean(service?.defaultEnabled) && !service?.comingSoon;
+      toggleStates[serviceId] = enabledByDefault;
+      if (enabledByDefault) {
+        hasActiveDefault = true;
+      }
     });
+    if (!hasActiveDefault) {
+      const fallbackServiceId = SERVICE_ORDER.find(
+        (serviceId) => services[serviceId] && !services[serviceId]?.comingSoon
+      );
+      if (fallbackServiceId) {
+        toggleStates[fallbackServiceId] = true;
+      }
+    }
     SERVICE_ORDER.forEach((serviceId) => {
       const service = services[serviceId];
       if (!service) return;
