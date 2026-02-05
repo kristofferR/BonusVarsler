@@ -71,7 +71,12 @@ async function getFeed() {
 
   // Try fallback (Trumf CDN - legacy, Trumf-only)
   feed = await fetchFeedWithRetry(CONFIG.fallbackUrl, 2);
-  return feed;
+  if (feed) {
+    return feed;
+  }
+
+  // Last resort: bundled feed packaged with the extension
+  return fetchBundledFallback();
 }
 
 // Handle messages from content script
