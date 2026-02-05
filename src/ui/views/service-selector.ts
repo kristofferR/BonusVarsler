@@ -81,11 +81,26 @@ export function createServiceSelector(options: ServiceSelectorOptions): HTMLElem
 
   // Use canonical service order from config
   const toggleStates: Record<string, boolean> = {};
+  let hasActiveDefault = false;
 
-  // Initialize with Trumf enabled by default
+  // Initialize from service defaults (fallback to first active service if none)
   SERVICE_ORDER.forEach((serviceId) => {
-    toggleStates[serviceId] = serviceId === "trumf";
+    const service = services[serviceId];
+    const enabledByDefault = Boolean(service?.defaultEnabled) && !service?.comingSoon;
+    toggleStates[serviceId] = enabledByDefault;
+    if (enabledByDefault) {
+      hasActiveDefault = true;
+    }
   });
+
+  if (!hasActiveDefault) {
+    const fallbackServiceId = SERVICE_ORDER.find(
+      (serviceId) => services[serviceId] && !services[serviceId]?.comingSoon
+    );
+    if (fallbackServiceId) {
+      toggleStates[fallbackServiceId] = true;
+    }
+  }
 
   // Create service rows
   SERVICE_ORDER.forEach((serviceId) => {
