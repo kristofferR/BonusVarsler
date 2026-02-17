@@ -99,6 +99,10 @@ function getUserscriptHeader(): string {
 // @description  Varsler om bonuser og cashback fra Trumf, re:member, DNB og andre når du besøker nettsider som tilbyr dette. Norsk utvidelse.
 // @author       kristofferR
 // @match        *://*/*
+// @grant        GM_getValue
+// @grant        GM_setValue
+// @grant        GM_deleteValue
+// @grant        GM_xmlhttpRequest
 // @grant        GM.getValue
 // @grant        GM.setValue
 // @grant        GM.deleteValue
@@ -113,6 +117,12 @@ function getUserscriptHeader(): string {
 // ==/UserScript==
 
 `;
+}
+
+// Safari userscript wrappers can reject strict directives in wrapped function bodies.
+// Strip them from the userscript bundle for cross-manager compatibility.
+function stripStrictDirectives(code: string): string {
+  return code.replace(/^[ \t]*"use strict";\n/gm, "");
 }
 
 async function build() {
@@ -180,8 +190,8 @@ async function build() {
   });
 
   // Prepend userscript header
-  const userscriptCode = userscriptResult.outputFiles?.[0]?.text;
-  if (!userscriptCode || userscriptCode.trim() === "") {
+  const rawUserscriptCode = userscriptResult.outputFiles?.[0]?.text;
+  if (!rawUserscriptCode || rawUserscriptCode.trim() === "") {
     console.error("❌ Userscript build produced empty or missing output");
     console.error("   Build metadata:", JSON.stringify({
       outputFilesCount: userscriptResult.outputFiles?.length ?? 0,
@@ -190,6 +200,7 @@ async function build() {
     }, null, 2));
     process.exit(1);
   }
+  const userscriptCode = stripStrictDirectives(rawUserscriptCode);
   const finalUserscript = getUserscriptHeader() + userscriptCode;
   fs.writeFileSync(path.join(ROOT, "BonusVarsler.user.js"), finalUserscript);
   console.log("   ✓ BonusVarsler.user.js");

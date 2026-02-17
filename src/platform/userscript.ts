@@ -21,8 +21,6 @@ import { SERVICES_FALLBACK } from "../config/services.js";
 
 // Immediate IIFE for early bailout
 (async function () {
-  "use strict";
-
   const currentHost = window.location.hostname;
   const sessionStorage = getGMSessionStorage();
 
@@ -89,30 +87,27 @@ import { SERVICES_FALLBACK } from "../config/services.js";
     // Continue to show notification
   }
 
-  // Check if we should show reminder on cashback portal
-  if (result.status === "match") {
-    const enabledServices = result.settings.getEnabledServices();
-    const services = result.feedManager.getServices();
-    const reminderResult = isOnCashbackPage(
-      currentHost,
-      window.location.pathname,
-      enabledServices,
-      services
-    );
+  // Check if we should show reminder on cashback portal.
+  // This must run even on "no-match" pages, since cashback portals are not merchant pages.
+  const reminderServices = result.status === "match" ? result.feedManager.getServices() : SERVICES_FALLBACK;
+  const reminderResult = isOnCashbackPage(
+    currentHost,
+    window.location.pathname,
+    result.settings.getEnabledServices(),
+    reminderServices
+  );
 
-    // Check if reminder already shown this session
-    const reminderShownKey = `BonusVarsler_ReminderShown`;
-    const reminderShown = sessionStorage.get(reminderShownKey);
+  // Check if reminder already shown this session
+  const reminderShown = sessionStorage.get(STORAGE_KEYS.reminderShown);
 
-    if (reminderResult.isOnPage && reminderResult.service && !reminderShown) {
-      sessionStorage.set(reminderShownKey, "true");
-      createReminderNotification({
-        service: reminderResult.service,
-        settings: result.settings,
-        i18n,
-      });
-      return;
-    }
+  if (reminderResult.isOnPage && reminderResult.service && !reminderShown) {
+    sessionStorage.set(STORAGE_KEYS.reminderShown, "true");
+    createReminderNotification({
+      service: reminderResult.service,
+      settings: result.settings,
+      i18n,
+    });
+    return;
   }
 
   if (result.status !== "match") {

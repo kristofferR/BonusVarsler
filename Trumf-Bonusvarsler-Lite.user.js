@@ -5,6 +5,10 @@
 // @description  Varsler om bonuser og cashback fra Trumf, re:member, DNB og andre når du besøker nettsider som tilbyr dette. Norsk utvidelse.
 // @author       kristofferR
 // @match        *://*/*
+// @grant        GM_getValue
+// @grant        GM_setValue
+// @grant        GM_deleteValue
+// @grant        GM_xmlhttpRequest
 // @grant        GM.getValue
 // @grant        GM.setValue
 // @grant        GM.deleteValue
@@ -18,20 +22,19 @@
 // @homepageURL  https://github.com/kristofferR/BonusVarsler
 // ==/UserScript==
 
-"use strict";
 (() => {
   // src/storage/local-session-storage.ts
   var LocalSessionStorage = class {
     get(key) {
       try {
-        return localStorage.getItem(key);
+        return sessionStorage.getItem(key);
       } catch {
         return null;
       }
     }
     set(key, value) {
       try {
-        localStorage.setItem(key, value);
+        sessionStorage.setItem(key, value);
       } catch {
       }
     }
@@ -926,26 +929,26 @@
   }
 
   // src/main.ts
-  function shouldBailOutEarly(sessionStorage, currentHost) {
+  function shouldBailOutEarly(sessionStorage2, currentHost) {
     if (window.top !== window.self) return true;
     const pageVisitKey = `${PAGE_VISIT_COUNT_PREFIX}${currentHost}`;
-    const currentVisits = parseInt(sessionStorage.get(pageVisitKey) ?? "0", 10);
+    const currentVisits = parseInt(sessionStorage2.get(pageVisitKey) ?? "0", 10);
     const newVisitCount = currentVisits + 1;
-    sessionStorage.set(pageVisitKey, newVisitCount.toString());
+    sessionStorage2.set(pageVisitKey, newVisitCount.toString());
     if (newVisitCount <= CONFIG.pageVisitsBeforeCooldown) {
       return false;
     }
     const messageShownKey = `${MESSAGE_SHOWN_KEY_PREFIX}${currentHost}`;
-    const messageShownTime = sessionStorage.get(messageShownKey);
+    const messageShownTime = sessionStorage2.get(messageShownKey);
     if (messageShownTime) {
       const elapsed = Date.now() - parseInt(messageShownTime, 10);
       if (elapsed < CONFIG.messageDuration) return true;
     }
     return false;
   }
-  function markMessageShown(sessionStorage, currentHost) {
+  function markMessageShown(sessionStorage2, currentHost) {
     const messageShownKey = `${MESSAGE_SHOWN_KEY_PREFIX}${currentHost}`;
-    sessionStorage.set(messageShownKey, Date.now().toString());
+    sessionStorage2.set(messageShownKey, Date.now().toString());
   }
   async function initialize(adapters, currentHost) {
     const { storage, fetcher, i18n } = adapters;
@@ -2030,7 +2033,7 @@
 
   // src/ui/views/notification.ts
   function createNotification(options) {
-    const { match, settings, services, i18n, fetcher, sessionStorage, currentHost, onClose } = options;
+    const { match, settings, services, i18n, fetcher, sessionStorage: sessionStorage2, currentHost, onClose } = options;
     const service = match.service;
     const shadowHost = createShadowHost();
     document.body.appendChild(shadowHost);
@@ -2065,7 +2068,7 @@
     reminder.className = "reminder";
     reminder.textContent = i18n.getMessage("rememberTo");
     const checklist = createChecklist(service, i18n);
-    const { actionBtn, recheckIcon } = createActionButton(match, service, i18n, sessionStorage, currentHost, content);
+    const { actionBtn, recheckIcon } = createActionButton(match, service, i18n, sessionStorage2, currentHost, content);
     const hideSiteLink = document.createElement("span");
     hideSiteLink.className = "hide-site";
     hideSiteLink.textContent = i18n.getMessage("dontShowOnThisSite");
@@ -2324,7 +2327,7 @@
     });
     return checklist;
   }
-  function createActionButton(match, service, i18n, sessionStorage, currentHost, content) {
+  function createActionButton(match, service, i18n, sessionStorage2, currentHost, content) {
     const actionBtn = document.createElement("a");
     actionBtn.className = "action-btn";
     const baseUrl = service.clickthroughUrl || "";
@@ -2362,7 +2365,7 @@
         }, { once: true });
         return;
       }
-      sessionStorage.set(`${MESSAGE_SHOWN_KEY_PREFIX}${currentHost}`, Date.now().toString());
+      sessionStorage2.set(`${MESSAGE_SHOWN_KEY_PREFIX}${currentHost}`, Date.now().toString());
       if (service.type === "code" && match.offer?.code) {
         const copyIcon = actionBtn.querySelector(".copy-icon");
         if (actionBtn.dataset.copied !== "true") {
@@ -2853,15 +2856,14 @@
 
   // src/platform/userscript.ts
   (async function() {
-    "use strict";
     const currentHost = window.location.hostname;
-    const sessionStorage = getGMSessionStorage();
-    if (shouldBailOutEarly(sessionStorage, currentHost)) {
+    const sessionStorage2 = getGMSessionStorage();
+    if (shouldBailOutEarly(sessionStorage2, currentHost)) {
       return;
     }
     const adapters = {
       storage: getGMStorage(),
-      sessionStorage,
+      sessionStorage: sessionStorage2,
       fetcher: getGMFetch(),
       i18n: getStaticI18n()
     };
@@ -2897,39 +2899,35 @@
       await storage.set(STORAGE_KEYS.enabledServices, allServices);
       await storage.set(STORAGE_KEYS.setupComplete, true);
     }
-    if (result.status === "match") {
-      const enabledServices = result.settings.getEnabledServices();
-      const services = result.feedManager.getServices();
-      const reminderResult = isOnCashbackPage(
-        currentHost,
-        window.location.pathname,
-        enabledServices,
-        services
-      );
-      const reminderShownKey = `BonusVarsler_ReminderShown`;
-      const reminderShown = sessionStorage.get(reminderShownKey);
-      if (reminderResult.isOnPage && reminderResult.service && !reminderShown) {
-        sessionStorage.set(reminderShownKey, "true");
-        createReminderNotification({
-          service: reminderResult.service,
-          settings: result.settings,
-          i18n
-        });
-        return;
-      }
+    const reminderServices = result.status === "match" ? result.feedManager.getServices() : SERVICES_FALLBACK;
+    const reminderResult = isOnCashbackPage(
+      currentHost,
+      window.location.pathname,
+      result.settings.getEnabledServices(),
+      reminderServices
+    );
+    const reminderShown = sessionStorage2.get(STORAGE_KEYS.reminderShown);
+    if (reminderResult.isOnPage && reminderResult.service && !reminderShown) {
+      sessionStorage2.set(STORAGE_KEYS.reminderShown, "true");
+      createReminderNotification({
+        service: reminderResult.service,
+        settings: result.settings,
+        i18n
+      });
+      return;
     }
     if (result.status !== "match") {
       return;
     }
     const { settings, feedManager, match } = result;
-    markMessageShown(sessionStorage, currentHost);
+    markMessageShown(sessionStorage2, currentHost);
     createNotification({
       match,
       settings,
       services: feedManager.getServices(),
       i18n,
       fetcher,
-      sessionStorage,
+      sessionStorage: sessionStorage2,
       currentHost
     });
   })();
