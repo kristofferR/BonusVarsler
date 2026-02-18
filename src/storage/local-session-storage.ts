@@ -1,7 +1,7 @@
 /**
- * Session storage using localStorage
+ * Session storage using sessionStorage
  * Shared between extension and userscript platforms
- * Used for per-site session data that doesn't need cross-site sync
+ * Historic name kept for backwards compatibility with imports
  */
 
 import type { SessionStorageAdapter } from "./types.js";
@@ -9,7 +9,7 @@ import type { SessionStorageAdapter } from "./types.js";
 export class LocalSessionStorage implements SessionStorageAdapter {
   get(key: string): string | null {
     try {
-      return localStorage.getItem(key);
+      return sessionStorage.getItem(key);
     } catch {
       return null;
     }
@@ -17,7 +17,7 @@ export class LocalSessionStorage implements SessionStorageAdapter {
 
   set(key: string, value: string): void {
     try {
-      localStorage.setItem(key, value);
+      sessionStorage.setItem(key, value);
     } catch {
       // Storage blocked on this site, fail silently
     }
