@@ -15,7 +15,6 @@
 // @grant        GM.xmlHttpRequest
 // @grant        GM_setClipboard
 // @connect      raw.githubusercontent.com
-// @connect      wlp.tcb-cdn.com
 // @run-at       document-start
 // @downloadURL  https://github.com/kristofferR/BonusVarsler/raw/main/BonusVarsler.user.js
 // @updateURL    https://github.com/kristofferR/BonusVarsler/raw/main/BonusVarsler.user.js

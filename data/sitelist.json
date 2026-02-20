@@ -3,22 +3,30 @@
     "trumf": {
       "name": "Trumf",
       "clickthroughUrl": "https://trumfnetthandel.no/cashback/{urlName}",
-      "reminderDomain": "trumfnetthandel.no",
       "color": "#4D4DFF",
-      "defaultEnabled": true
+      "defaultEnabled": true,
+      "reminderDomain": "trumfnetthandel.no"
     },
     "remember": {
       "name": "re:member",
       "clickthroughUrl": "https://www.remember.no/reward/rabatt/{urlName}",
-      "reminderDomain": "remember.no",
       "color": "#f28d00",
-      "defaultEnabled": false
+      "defaultEnabled": false,
+      "reminderDomain": "remember.no"
     },
     "dnb": {
       "name": "DNB",
       "clickthroughUrl": "https://www.dnb.no/kundeprogram/fordeler/faste-rabatter",
       "color": "#007272",
-      "defaultEnabled": false
+      "defaultEnabled": false,
+      "type": "code"
+    },
+    "obos": {
+      "name": "OBOS",
+      "clickthroughUrl": "https://www.obos.no/medlem/medlemsfordeler/{urlName}",
+      "color": "#0047ba",
+      "defaultEnabled": false,
+      "type": "info"
     }
   },
   "merchants": {
@@ -73,6 +81,11 @@
           "serviceId": "remember",
           "urlName": "strawberry",
           "cashbackDescription": "7%"
+        },
+        {
+          "serviceId": "obos",
+          "urlName": "strawberry",
+          "cashbackDescription": ""
         }
       ]
     },
@@ -397,6 +410,11 @@
           "serviceId": "remember",
           "urlName": "avis",
           "cashbackDescription": "8%"
+        },
+        {
+          "serviceId": "obos",
+          "urlName": "avis",
+          "cashbackDescription": "30 %"
         }
       ]
     },
@@ -1267,6 +1285,11 @@
           "serviceId": "remember",
           "urlName": "samsung",
           "cashbackDescription": "3%"
+        },
+        {
+          "serviceId": "obos",
+          "urlName": "samsung",
+          "cashbackDescription": "30 %"
         }
       ]
     },
@@ -1711,6 +1734,11 @@
           "serviceId": "trumf",
           "urlName": "strim-trumf",
           "cashbackDescription": "270 kr"
+        },
+        {
+          "serviceId": "obos",
+          "urlName": "strim",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -2359,7 +2387,7 @@
         },
         {
           "serviceId": "remember",
-          "urlName": "loccitane",
+          "urlName": "loccitane2",
           "cashbackDescription": "7%"
         },
         {
@@ -3130,6 +3158,11 @@
               "description": "i reward-rabatt på andre kategorier"
             }
           ]
+        },
+        {
+          "serviceId": "obos",
+          "urlName": "elon",
+          "cashbackDescription": "12 %"
         }
       ]
     },
@@ -3483,17 +3516,6 @@
         }
       ]
     },
-    "agoda.com": {
-      "hostName": "agoda.com",
-      "name": "Agoda.com",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "agoda.com",
-          "cashbackDescription": "6%"
-        }
-      ]
-    },
     "amisol.no": {
       "hostName": "amisol.no",
       "name": "Amisol Travel",
@@ -3516,14 +3538,25 @@
         }
       ]
     },
-    "beautycos.no": {
-      "hostName": "beautycos.no",
-      "name": "Beautycos",
+    "agoda.com": {
+      "hostName": "agoda.com",
+      "name": "Agoda.com",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "beautycos",
-          "cashbackDescription": "12%"
+          "urlName": "agoda.com",
+          "cashbackDescription": "6%"
+        }
+      ]
+    },
+    "autoeurope.no": {
+      "hostName": "autoeurope.no",
+      "name": "Auto Europe",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "auto-europe",
+          "cashbackDescription": "9%"
         }
       ]
     },
@@ -3538,14 +3571,37 @@
         }
       ]
     },
-    "autoeurope.no": {
-      "hostName": "autoeurope.no",
-      "name": "Auto Europe",
+    "bokus.com": {
+      "hostName": "bokus.com",
+      "name": "Bokus",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "auto-europe",
-          "cashbackDescription": "9%"
+          "urlName": "bokus",
+          "cashbackDescription": "2.5-5%*",
+          "cashbackDetails": [
+            {
+              "value": 5,
+              "type": "PERCENTAGE",
+              "description": "i reward rabatt ved første bokkjøp"
+            },
+            {
+              "value": 2.5,
+              "type": "PERCENTAGE",
+              "description": "i reward rabatt ved videre kjøp"
+            }
+          ]
+        }
+      ]
+    },
+    "beautycos.no": {
+      "hostName": "beautycos.no",
+      "name": "Beautycos",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "beautycos",
+          "cashbackDescription": "12%"
         }
       ]
     },
@@ -3585,84 +3641,6 @@
               "description": "i reward rabatt ved kjøp av hjul"
             }
           ]
-        }
-      ]
-    },
-    "budget.no": {
-      "hostName": "budget.no",
-      "name": "Budget leiebiler",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "budget-leiebiler",
-          "cashbackDescription": "8%"
-        }
-      ]
-    },
-    "bokus.com": {
-      "hostName": "bokus.com",
-      "name": "Bokus",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "bokus",
-          "cashbackDescription": "2.5-5%*",
-          "cashbackDetails": [
-            {
-              "value": 5,
-              "type": "PERCENTAGE",
-              "description": "i reward rabatt ved første bokkjøp"
-            },
-            {
-              "value": 2.5,
-              "type": "PERCENTAGE",
-              "description": "i reward rabatt ved videre kjøp"
-            }
-          ]
-        }
-      ]
-    },
-    "clarins.no": {
-      "hostName": "clarins.no",
-      "name": "Clarins",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "clarins",
-          "cashbackDescription": "8%"
-        }
-      ]
-    },
-    "cruisedirect.com": {
-      "hostName": "cruisedirect.com",
-      "name": "CruiseDirect",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "cruisedirect",
-          "cashbackDescription": "3%"
-        }
-      ]
-    },
-    "dentaworks.no": {
-      "hostName": "dentaworks.no",
-      "name": "Dentaworks",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "dentaworks",
-          "cashbackDescription": "25%"
-        }
-      ]
-    },
-    "climbing247.no": {
-      "hostName": "climbing247.no",
-      "name": "Climbing247.no",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "climbing247.no",
-          "cashbackDescription": "3.5%"
         }
       ]
     },
@@ -3709,6 +3687,39 @@
         }
       ]
     },
+    "clarins.no": {
+      "hostName": "clarins.no",
+      "name": "Clarins",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "clarins",
+          "cashbackDescription": "8%"
+        }
+      ]
+    },
+    "budget.no": {
+      "hostName": "budget.no",
+      "name": "Budget leiebiler",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "budget-leiebiler",
+          "cashbackDescription": "8%"
+        }
+      ]
+    },
+    "climbing247.no": {
+      "hostName": "climbing247.no",
+      "name": "Climbing247.no",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "climbing247.no",
+          "cashbackDescription": "3.5%"
+        }
+      ]
+    },
     "dustinhome.no": {
       "hostName": "dustinhome.no",
       "name": "Dustin Home",
@@ -3720,36 +3731,14 @@
         }
       ]
     },
-    "euroflorist.no": {
-      "hostName": "euroflorist.no",
-      "name": "Euroflorist",
+    "cruisedirect.com": {
+      "hostName": "cruisedirect.com",
+      "name": "CruiseDirect",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "euroflorist",
-          "cashbackDescription": "10%"
-        }
-      ]
-    },
-    "elite.se": {
-      "hostName": "elite.se",
-      "name": "Elite Hotels",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "elite-hotels",
-          "cashbackDescription": "5%"
-        }
-      ]
-    },
-    "extraoptical.no": {
-      "hostName": "extraoptical.no",
-      "name": "Extra Optical",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "extra-optical",
-          "cashbackDescription": "10%"
+          "urlName": "cruisedirect",
+          "cashbackDescription": "3%"
         }
       ]
     },
@@ -3775,6 +3764,28 @@
         }
       ]
     },
+    "dentaworks.no": {
+      "hostName": "dentaworks.no",
+      "name": "Dentaworks",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "dentaworks",
+          "cashbackDescription": "25%"
+        }
+      ]
+    },
+    "elite.se": {
+      "hostName": "elite.se",
+      "name": "Elite Hotels",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "elite-hotels",
+          "cashbackDescription": "5%"
+        }
+      ]
+    },
     "farmasiet.no": {
       "hostName": "farmasiet.no",
       "name": "Farmasiet",
@@ -3783,6 +3794,33 @@
           "serviceId": "remember",
           "urlName": "farmasiet",
           "cashbackDescription": "5%"
+        },
+        {
+          "serviceId": "obos",
+          "urlName": "farmasiet-apotek-pa-nett",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "euroflorist.no": {
+      "hostName": "euroflorist.no",
+      "name": "Euroflorist",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "euroflorist",
+          "cashbackDescription": "10%"
+        }
+      ]
+    },
+    "extraoptical.no": {
+      "hostName": "extraoptical.no",
+      "name": "Extra Optical",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "extra-optical",
+          "cashbackDescription": "10%"
         }
       ]
     },
@@ -3808,6 +3846,17 @@
         }
       ]
     },
+    "godtlevert.no": {
+      "hostName": "godtlevert.no",
+      "name": "Godt Levert",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "godt-levert",
+          "cashbackDescription": "25%"
+        }
+      ]
+    },
     "grandado.com": {
       "hostName": "grandado.com",
       "name": "Grandado",
@@ -3816,6 +3865,17 @@
           "serviceId": "remember",
           "urlName": "grandado",
           "cashbackDescription": "10%"
+        }
+      ]
+    },
+    "holidayautos.com": {
+      "hostName": "holidayautos.com",
+      "name": "Holiday Autos",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "holiday-autos",
+          "cashbackDescription": "5%"
         }
       ]
     },
@@ -3830,28 +3890,6 @@
         }
       ]
     },
-    "holdit.com": {
-      "hostName": "holdit.com",
-      "name": "Holdit",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "holdit",
-          "cashbackDescription": "5%"
-        }
-      ]
-    },
-    "godtlevert.no": {
-      "hostName": "godtlevert.no",
-      "name": "Godt Levert",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "godt-levert",
-          "cashbackDescription": "25%"
-        }
-      ]
-    },
     "horizn-studios.com": {
       "hostName": "horizn-studios.com",
       "name": "Horizn Studios",
@@ -3863,14 +3901,25 @@
         }
       ]
     },
-    "holidayautos.com": {
-      "hostName": "holidayautos.com",
-      "name": "Holiday Autos",
+    "holdit.com": {
+      "hostName": "holdit.com",
+      "name": "Holdit",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "holiday-autos",
+          "urlName": "holdit",
           "cashbackDescription": "5%"
+        }
+      ]
+    },
+    "hunkemoller.no": {
+      "hostName": "hunkemoller.no",
+      "name": "Hunkemöller",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "hunkemoller",
+          "cashbackDescription": "15%"
         }
       ]
     },
@@ -3896,17 +3945,6 @@
         }
       ]
     },
-    "hunkemoller.no": {
-      "hostName": "hunkemoller.no",
-      "name": "Hunkemöller",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "hunkemoller",
-          "cashbackDescription": "15%"
-        }
-      ]
-    },
     "kitchn.no": {
       "hostName": "kitchn.no",
       "name": "Kitch'n",
@@ -3915,6 +3953,17 @@
           "serviceId": "remember",
           "urlName": "kitchn",
           "cashbackDescription": "4%"
+        }
+      ]
+    },
+    "loopia.no": {
+      "hostName": "loopia.no",
+      "name": "Loopia",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "loopia",
+          "cashbackDescription": "50%"
         }
       ]
     },
@@ -3929,14 +3978,14 @@
         }
       ]
     },
-    "loopia.no": {
-      "hostName": "loopia.no",
-      "name": "Loopia",
+    "munkstore.no": {
+      "hostName": "munkstore.no",
+      "name": "Munk store",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "loopia",
-          "cashbackDescription": "50%"
+          "urlName": "munk-store",
+          "cashbackDescription": "10%"
         }
       ]
     },
@@ -3958,17 +4007,6 @@
         {
           "serviceId": "remember",
           "urlName": "mister-spex",
-          "cashbackDescription": "10%"
-        }
-      ]
-    },
-    "munkstore.no": {
-      "hostName": "munkstore.no",
-      "name": "Munk store",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "munk-store",
           "cashbackDescription": "10%"
         }
       ]
@@ -4001,17 +4039,6 @@
         }
       ]
     },
-    "nordictest.no": {
-      "hostName": "nordictest.no",
-      "name": "Nordic test",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "nordic-test",
-          "cashbackDescription": "20%"
-        }
-      ]
-    },
     "nordicprint.no": {
       "hostName": "nordicprint.no",
       "name": "Nordicprint",
@@ -4019,6 +4046,17 @@
         {
           "serviceId": "remember",
           "urlName": "nordicprint",
+          "cashbackDescription": "20%"
+        }
+      ]
+    },
+    "nordictest.no": {
+      "hostName": "nordictest.no",
+      "name": "Nordic test",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "nordic-test",
           "cashbackDescription": "20%"
         }
       ]
@@ -4034,13 +4072,24 @@
         }
       ]
     },
-    "pyretosnackan.se": {
-      "hostName": "pyretosnackan.se",
-      "name": "Pyret & snäckan",
+    "rentalcars.com": {
+      "hostName": "rentalcars.com",
+      "name": "Rentalcars.com",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "pyret--snackan",
+          "urlName": "rentalcars.com",
+          "cashbackDescription": "6%"
+        }
+      ]
+    },
+    "radissonhotels.com": {
+      "hostName": "radissonhotels.com",
+      "name": "Radisson Hotel Group",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "radisson-hotel-group",
           "cashbackDescription": "4%"
         }
       ]
@@ -4068,6 +4117,17 @@
         }
       ]
     },
+    "pyretosnackan.se": {
+      "hostName": "pyretosnackan.se",
+      "name": "Pyret & snäckan",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "pyret--snackan",
+          "cashbackDescription": "4%"
+        }
+      ]
+    },
     "reforma.no": {
       "hostName": "reforma.no",
       "name": "Reforma",
@@ -4079,17 +4139,6 @@
         }
       ]
     },
-    "radissonhotels.com": {
-      "hostName": "radissonhotels.com",
-      "name": "Radisson Hotel Group",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "radisson-hotel-group",
-          "cashbackDescription": "4%"
-        }
-      ]
-    },
     "royaldesign.no": {
       "hostName": "royaldesign.no",
       "name": "Royal Design",
@@ -4097,28 +4146,6 @@
         {
           "serviceId": "remember",
           "urlName": "royal-design",
-          "cashbackDescription": "5%"
-        }
-      ]
-    },
-    "rentalcars.com": {
-      "hostName": "rentalcars.com",
-      "name": "Rentalcars.com",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "rentalcars.com",
-          "cashbackDescription": "6%"
-        }
-      ]
-    },
-    "rum21.no": {
-      "hostName": "rum21.no",
-      "name": "RUM21",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "rum21",
           "cashbackDescription": "5%"
         }
       ]
@@ -4134,14 +4161,14 @@
         }
       ]
     },
-    "sobling.com": {
-      "hostName": "sobling.com",
-      "name": "Sobling",
+    "rum21.no": {
+      "hostName": "rum21.no",
+      "name": "RUM21",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "sobling",
-          "cashbackDescription": "7%"
+          "urlName": "rum21",
+          "cashbackDescription": "5%"
         }
       ]
     },
@@ -4167,6 +4194,17 @@
         }
       ]
     },
+    "sobling.com": {
+      "hostName": "sobling.com",
+      "name": "Sobling",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "sobling",
+          "cashbackDescription": "7%"
+        }
+      ]
+    },
     "topman.com": {
       "hostName": "topman.com",
       "name": "TOPMAN",
@@ -4189,17 +4227,6 @@
         }
       ]
     },
-    "vybuss.com": {
-      "hostName": "vybuss.com",
-      "name": "Vy buss",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "vy-buss",
-          "cashbackDescription": "3.5%"
-        }
-      ]
-    },
     "wolt.com": {
       "hostName": "wolt.com",
       "name": "Wolt",
@@ -4219,6 +4246,17 @@
           "serviceId": "remember",
           "urlName": "zchocolate.com",
           "cashbackDescription": "20%"
+        }
+      ]
+    },
+    "vybuss.com": {
+      "hostName": "vybuss.com",
+      "name": "Vy buss",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "vy-buss",
+          "cashbackDescription": "3.5%"
         }
       ]
     },
@@ -4399,6 +4437,11 @@
           "urlName": "",
           "cashbackDescription": "10%",
           "code": "DNB2739"
+        },
+        {
+          "serviceId": "obos",
+          "urlName": "vianor",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -4831,6 +4874,1018 @@
           "urlName": "",
           "cashbackDescription": "10%",
           "code": "DNB2739"
+        }
+      ]
+    },
+    "aafkfortuna.no": {
+      "hostName": "aafkfortuna.no",
+      "name": "AaFK Fortuna",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "aafk-fortuna",
+          "cashbackDescription": "50 %"
+        }
+      ]
+    },
+    "www.abbathemuseum.com": {
+      "hostName": "www.abbathemuseum.com",
+      "name": "ABBA The Museum",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "abba-the-museum",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "www.akvariet.no": {
+      "hostName": "www.akvariet.no",
+      "name": "Akvariet i Bergen",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "akvariet-i-bergen",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "www.ammerudbasket.no": {
+      "hostName": "www.ammerudbasket.no",
+      "name": "Ammerud Basket",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "ammerud-basket",
+          "cashbackDescription": "50 %"
+        }
+      ]
+    },
+    "www.antonsport.no": {
+      "hostName": "www.antonsport.no",
+      "name": "Anton Sport",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "anton-sport",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "www.apollo.no": {
+      "hostName": "www.apollo.no",
+      "name": "Apollo",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "apollo",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "aviciiexperience.com": {
+      "hostName": "aviciiexperience.com",
+      "name": "Avicci Experience",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "avicii-experience",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "bergenbysykkel.no": {
+      "hostName": "bergenbysykkel.no",
+      "name": "Bergen Bysykkel",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "bergen-bysykkel",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "bjorneparken.no": {
+      "hostName": "bjorneparken.no",
+      "name": "Bjørneparken",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "bjorneparken",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "www.bohus.no": {
+      "hostName": "www.bohus.no",
+      "name": "Bohus",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "bohus",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "www.bravida.no": {
+      "hostName": "www.bravida.no",
+      "name": "Bravida",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "bravida",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "www.bestwestern.no": {
+      "hostName": "www.bestwestern.no",
+      "name": "BWH Hotels",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "best-western-hotels--resorts",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "www.sommarland.no": {
+      "hostName": "www.sommarland.no",
+      "name": "Bø Sommarland",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "bo-sommarland",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "carls.no": {
+      "hostName": "carls.no",
+      "name": "Carls",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "carls",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "extra.circlekeurope.com": {
+      "hostName": "extra.circlekeurope.com",
+      "name": "Circle K",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "circle-k",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "dns.no": {
+      "hostName": "dns.no",
+      "name": "Den Nationale Scene",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "den-nationale-scene",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "www.operaen.no": {
+      "hostName": "www.operaen.no",
+      "name": "Den Norske Opera & Ballett",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "den-norske-opera-and-ballett",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "www.detnorsketeatret.no": {
+      "hostName": "www.detnorsketeatret.no",
+      "name": "Det Norske Teatret",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "det-norske-teatret",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "eeffy.no": {
+      "hostName": "eeffy.no",
+      "name": "Eeffy",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "eeffy",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "eidsvoll1814.no": {
+      "hostName": "eidsvoll1814.no",
+      "name": "Eidsvoll 1814",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "eidsvoll-1814",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "evofitness.no": {
+      "hostName": "evofitness.no",
+      "name": "EVO treningssenter",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "evo",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "www.festningen.no": {
+      "hostName": "www.festningen.no",
+      "name": "Festningen",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "obosfestningen",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "fkeiktonsberg.no": {
+      "hostName": "fkeiktonsberg.no",
+      "name": "FK Eik Tønsberg",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "fotballklubben-eik-tonsberg",
+          "cashbackDescription": "50 %"
+        }
+      ]
+    },
+    "www.flugger.no": {
+      "hostName": "www.flugger.no",
+      "name": "Flügger farve",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "flugger-farve",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "fonus.no": {
+      "hostName": "fonus.no",
+      "name": "Fonus Begravelsesbyrå",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "fonus-begravelsesbyra",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "www.fredrikstadfk.no": {
+      "hostName": "www.fredrikstadfk.no",
+      "name": "Fredrikstad FK",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "fredrikstad-fk",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "www.gonordiccruiseline.com": {
+      "hostName": "www.gonordiccruiseline.com",
+      "name": "Go Nordic Cruiseline",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "go-nordic-cruiseline",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "www.hadeland.com": {
+      "hostName": "www.hadeland.com",
+      "name": "Hadeland Glassverk",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "hadeland-glassverk",
+          "cashbackDescription": "30 %"
+        }
+      ]
+    },
+    "www.alpinco.com": {
+      "hostName": "www.alpinco.com",
+      "name": "Hafjell, Kvitfjell og Oppdal",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "alpinco-hafjell-kvitfjell-og-oppdal",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "www.hamkam.no": {
+      "hostName": "www.hamkam.no",
+      "name": "HamKam fotball",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "hamkam",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "www.hok.no": {
+      "hostName": "www.hok.no",
+      "name": "Henie Onstad Kunstsenter",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "henie-onstad-kunstsenter",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "holmenkollenskifestival.no": {
+      "hostName": "holmenkollenskifestival.no",
+      "name": "Holmenkollen Skifestival",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "holmenkollen-skifestival",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "www.hth.no": {
+      "hostName": "www.hth.no",
+      "name": "HTH",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "hth",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "hunderfossen.no": {
+      "hostName": "hunderfossen.no",
+      "name": "Hunderfossen Eventyrpark",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "hunderfossen-eventyrpark",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "www.kristiania.no": {
+      "hostName": "www.kristiania.no",
+      "name": "Høyskolen Kristiania",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "hoyskolen-kristiania-nettstudier",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "hoytlavt.no": {
+      "hostName": "hoytlavt.no",
+      "name": "Høyt & Lavt",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "hoyt-and-lavt",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "hoytundertaket.no": {
+      "hostName": "hoytundertaket.no",
+      "name": "Høyt Under Taket",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "hoyt-under-taket",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "www.jugendfest.no": {
+      "hostName": "www.jugendfest.no",
+      "name": "Jugend",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "jugend",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "kaaffa.no": {
+      "hostName": "kaaffa.no",
+      "name": "KFUM Oslo",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "kfum-oslo",
+          "cashbackDescription": "50 %"
+        }
+      ]
+    },
+    "www.kid.no": {
+      "hostName": "www.kid.no",
+      "name": "Kid Interiør",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "kid-interior",
+          "cashbackDescription": "30 %"
+        }
+      ]
+    },
+    "www.kistefosmuseum.com": {
+      "hostName": "www.kistefosmuseum.com",
+      "name": "Kistefos",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "kistefos",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "www.kolstad-handball.no": {
+      "hostName": "www.kolstad-handball.no",
+      "name": "Kolstad Håndball",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "kolstad-handball",
+          "cashbackDescription": "50 %"
+        }
+      ]
+    },
+    "www.kongeparken.no": {
+      "hostName": "www.kongeparken.no",
+      "name": "Kongeparken",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "kongeparken-1",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "www.lsvk.no": {
+      "hostName": "www.lsvk.no",
+      "name": "Lambertseter Bad",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "lambertseter-bad",
+          "cashbackDescription": "50 %"
+        }
+      ]
+    },
+    "www.skiforeningen.no": {
+      "hostName": "www.skiforeningen.no",
+      "name": "Langrennskurs",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "langrennskurs-ski",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "latter.no": {
+      "hostName": "latter.no",
+      "name": "Latter",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "latter",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "legalis.no": {
+      "hostName": "legalis.no",
+      "name": "Legalis",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "legalis",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "www.legoland.dk": {
+      "hostName": "www.legoland.dk",
+      "name": "LEGOLAND",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "legoland",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "www.liseberg.se": {
+      "hostName": "www.liseberg.se",
+      "name": "Liseberg",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "liseberg",
+          "cashbackDescription": "30 %"
+        }
+      ]
+    },
+    "lsk-kvinner.no": {
+      "hostName": "lsk-kvinner.no",
+      "name": "LSK Kvinner",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "lsk-kvinner",
+          "cashbackDescription": "50 %"
+        }
+      ]
+    },
+    "lyndamer.no": {
+      "hostName": "lyndamer.no",
+      "name": "Lyn Damer",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "lyn-damer",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "www.lik.no": {
+      "hostName": "www.lik.no",
+      "name": "Lørenskog Ishockey",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "lorenskog-ishockey",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "www.maxbo.no": {
+      "hostName": "www.maxbo.no",
+      "name": "Maxbo",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "maxbo",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "www.minioya.no": {
+      "hostName": "www.minioya.no",
+      "name": "Miniøya",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "minioya",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "www.monter.no": {
+      "hostName": "www.monter.no",
+      "name": "Montér Stor-Bergen",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "monter-stor-bergen",
+          "cashbackDescription": "40 %"
+        }
+      ]
+    },
+    "www.nationaltheatret.no": {
+      "hostName": "www.nationaltheatret.no",
+      "name": "Nationaltheatret",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "nationaltheatret",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "nobelpeacecenter.org": {
+      "hostName": "nobelpeacecenter.org",
+      "name": "Nobels Fredssenter",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "nobels-fredssenter",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "norskfolkemuseum.no": {
+      "hostName": "norskfolkemuseum.no",
+      "name": "Norsk Folkemuseum",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "norsk-folkemuseum",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "www.novasol.no": {
+      "hostName": "www.novasol.no",
+      "name": "NOVASOL",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "novasol",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "notteroy.kulturhus.no": {
+      "hostName": "notteroy.kulturhus.no",
+      "name": "Nøtterøy Kulturhus",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "notteroy-kulturhus",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "www.odeonkino.no": {
+      "hostName": "www.odeonkino.no",
+      "name": "ODEON Kino",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "odeon-kino",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "oslo.diamondleague.com": {
+      "hostName": "oslo.diamondleague.com",
+      "name": "Oslo Bislett Games",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "bislett-games",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "oslobysykkel.no": {
+      "hostName": "oslobysykkel.no",
+      "name": "Oslo Bysykkel",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "oslo-bysykkel",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "oslonye.no": {
+      "hostName": "oslonye.no",
+      "name": "Oslo Nye Teater",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "oslo-nye-teater",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "www.oslotaxi.no": {
+      "hostName": "www.oslotaxi.no",
+      "name": "Oslo Taxi",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "oslo-taxi",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "otovo.no": {
+      "hostName": "otovo.no",
+      "name": "Otovo",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "otovo",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "renbolig.no": {
+      "hostName": "renbolig.no",
+      "name": "Ren Bolig",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "ren-bolig-fredrikstad",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "www.rogaland-teater.no": {
+      "hostName": "www.rogaland-teater.no",
+      "name": "Rogaland Teater",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "rogaland-teater",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "roseslottet.no": {
+      "hostName": "roseslottet.no",
+      "name": "Roseslottet",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "roseslottet",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "www.sectoralarm.no": {
+      "hostName": "www.sectoralarm.no",
+      "name": "Sector Alarm",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "sector-alarm",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "www.brann.no": {
+      "hostName": "www.brann.no",
+      "name": "SK Brann",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "sk-brann",
+          "cashbackDescription": "50 %"
+        }
+      ]
+    },
+    "skeid.no": {
+      "hostName": "skeid.no",
+      "name": "Skeid",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "skeid",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "slottsfjell.no": {
+      "hostName": "slottsfjell.no",
+      "name": "Slottsfjell",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "slottsfjell",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "snooslo.no": {
+      "hostName": "snooslo.no",
+      "name": "SNØ",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "sno",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "www.sparta.no": {
+      "hostName": "www.sparta.no",
+      "name": "Sparta Sarpsborg",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "sparta-sarpsborg",
+          "cashbackDescription": "50 %"
+        }
+      ]
+    },
+    "www.spireu18.no": {
+      "hostName": "www.spireu18.no",
+      "name": "Spirefest",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "spirefest",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "www.stabak.no": {
+      "hostName": "www.stabak.no",
+      "name": "Stabæk Fotball Kvinner",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "stabaek-fotball-kvinner",
+          "cashbackDescription": "50 %"
+        }
+      ]
+    },
+    "www.storhamarhandball.no": {
+      "hostName": "www.storhamarhandball.no",
+      "name": "Storhamar Håndball",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "storhamar-handball",
+          "cashbackDescription": "50 %"
+        }
+      ]
+    },
+    "www.sil.no": {
+      "hostName": "www.sil.no",
+      "name": "Storhamar Ishockey",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "storhamar-ishockey",
+          "cashbackDescription": "50 %"
+        }
+      ]
+    },
+    "talkmore.no": {
+      "hostName": "talkmore.no",
+      "name": "Talkmore",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "talkmore",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "tibber.com": {
+      "hostName": "tibber.com",
+      "name": "Tibber",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "tibber",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "trondheimbysykkel.no": {
+      "hostName": "trondheimbysykkel.no",
+      "name": "Trondheim Bysykkel",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "trondheim-bysykkel",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "www.tryg.no": {
+      "hostName": "www.tryg.no",
+      "name": "Tryg Forsikring",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "tryg-forsikring",
+          "cashbackDescription": "23 %"
+        }
+      ]
+    },
+    "www.trondelag-teater.no": {
+      "hostName": "www.trondelag-teater.no",
+      "name": "Trøndelag Teater",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "trondelag-teater",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "www.tusenfryd.no": {
+      "hostName": "www.tusenfryd.no",
+      "name": "TusenFryd",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "tusenfryd",
+          "cashbackDescription": "Opptil 30 %"
+        }
+      ]
+    },
+    "www.utopia.no": {
+      "hostName": "www.utopia.no",
+      "name": "Utopia",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "utopia",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "www.vikingfotball.no": {
+      "hostName": "www.vikingfotball.no",
+      "name": "Viking Fotball",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "viking-fotball",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "www.bademiljo.no": {
+      "hostName": "www.bademiljo.no",
+      "name": "VVS Norge – Bademiljø og Comfort",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "vvs-norge-bademiljo-og-comfort",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "vif-damefotball.no": {
+      "hostName": "vif-damefotball.no",
+      "name": "Vålerenga Damer",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "valerenga-damer",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "www.vif-fotball.no": {
+      "hostName": "www.vif-fotball.no",
+      "name": "Vålerenga Fotball Elite",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "vif-fotball-elite",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "www.vif-hockey.no": {
+      "hostName": "www.vif-hockey.no",
+      "name": "Vålerenga Ishockey",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "valerenga-ishockey",
+          "cashbackDescription": "50 %"
+        }
+      ]
+    },
+    "wallmans.no": {
+      "hostName": "wallmans.no",
+      "name": "Wallmans Oslo",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "wallmans-oslo",
+          "cashbackDescription": "20 %"
         }
       ]
     }
