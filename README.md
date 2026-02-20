@@ -2,11 +2,11 @@
 
 # BonusVarsler
 
-**Trumf | re:member | DNB | OBOS *(kommer snart)* | LOfavør *(kommer snart)***
+**Trumf | re:member | DNB | OBOS | LOfavør *(kommer snart)***
 
 <p align="center">
 
-![Versjon](https://img.shields.io/badge/Versjon-6.0-blue)
+![Versjon](https://img.shields.io/badge/Versjon-7.0-blue)
 ![Lisens](https://img.shields.io/badge/Lisens-GPL--3.0-green)
 ![Støttet i](https://img.shields.io/badge/Støttet_i-Chrome%20|%20Firefox%20|%20Edge%20|%20Safari-yellow)
 
