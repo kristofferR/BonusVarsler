@@ -4,11 +4,8 @@
 const browser = globalThis.browser || globalThis.chrome;
 
 const CONFIG = {
-  // Primary: GitHub-hosted unified feed with multi-service support
   feedUrl:
     "https://raw.githubusercontent.com/kristofferR/BonusVarsler/main/sitelist.json",
-  // Fallback: Trumf-only CDN feed (legacy, no re:member data)
-  fallbackUrl: "https://wlp.tcb-cdn.com/trumf/notifierfeed.json",
   maxRetries: 5,
   retryDelays: [100, 500, 1000, 2000, 4000],
 };
@@ -64,18 +61,12 @@ async function fetchBundledFallback() {
 
 async function getFeed() {
   // Try primary feed (GitHub, updated daily)
-  let feed = await fetchFeedWithRetry(CONFIG.feedUrl);
+  const feed = await fetchFeedWithRetry(CONFIG.feedUrl);
   if (feed) {
     return feed;
   }
 
-  // Try fallback (Trumf CDN - legacy, Trumf-only)
-  feed = await fetchFeedWithRetry(CONFIG.fallbackUrl, 2);
-  if (feed) {
-    return feed;
-  }
-
-  // Last resort: bundled feed packaged with the extension
+  // Fallback: bundled feed packaged with the extension
   return fetchBundledFallback();
 }
 

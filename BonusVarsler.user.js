@@ -288,7 +288,6 @@
   // src/config/constants.ts
   var CONFIG = {
     feedUrl: "https://raw.githubusercontent.com/kristofferR/BonusVarsler/main/sitelist.json",
-    fallbackUrl: "https://wlp.tcb-cdn.com/trumf/notifierfeed.json",
     cacheDuration: 48 * 60 * 60 * 1e3,
     // 48 hours
     messageDuration: 10 * 60 * 1e3,
@@ -776,7 +775,7 @@
         this.cachedFeed = cached;
         return cached;
       }
-      const feed = await this.fetcher.fetchFeed(CONFIG.feedUrl, CONFIG.fallbackUrl);
+      const feed = await this.fetcher.fetchFeed(CONFIG.feedUrl);
       if (feed && isValidFeed(feed)) {
         await this.cacheFeed(feed);
         this.cachedFeed = feed;

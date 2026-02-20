@@ -7,7 +7,6 @@
 export const CONFIG = {
   feedUrl:
     "https://raw.githubusercontent.com/kristofferR/BonusVarsler/main/sitelist.json",
-  fallbackUrl: "https://wlp.tcb-cdn.com/trumf/notifierfeed.json",
   cacheDuration: 48 * 60 * 60 * 1000, // 48 hours
   messageDuration: 10 * 60 * 1000, // 10 minutes
   pageVisitsBeforeCooldown: 3, // Start cooldown after this many page visits per site

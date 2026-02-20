@@ -155,7 +155,7 @@ export class FeedManager {
     }
 
     // Fetch from network
-    const feed = await this.fetcher.fetchFeed<FeedData>(CONFIG.feedUrl, CONFIG.fallbackUrl);
+    const feed = await this.fetcher.fetchFeed<FeedData>(CONFIG.feedUrl);
     if (feed && isValidFeed(feed)) {
       await this.cacheFeed(feed);
       this.cachedFeed = feed;
