@@ -93,10 +93,10 @@ function getUserscriptHeader(): string {
   const version = manifest.version;
 
   return `// ==UserScript==
-// @name         BonusVarsler (for Trumf, DNB, re:member++)
+// @name         BonusVarsler (for Trumf, OBOS, DNB, re:member++)
 // @namespace    http://tampermonkey.net/
 // @version      ${version}
-// @description  Varsler om bonuser og cashback fra Trumf, re:member, DNB og andre når du besøker nettsider som tilbyr dette. Norsk utvidelse.
+// @description  Varsler om bonuser og cashback fra Trumf, OBOS, re:member, DNB og andre når du besøker nettsider som tilbyr dette. Norsk utvidelse.
 // @author       kristofferR
 // @match        *://*/*
 // @grant        GM_getValue
