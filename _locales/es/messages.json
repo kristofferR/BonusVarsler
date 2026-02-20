@@ -309,5 +309,26 @@
   },
   "saveServices": {
     "message": "Guardar servicios"
+  },
+
+  "serviceDiscountAt": {
+    "message": "Descuento $SERVICE$ en $STORE$",
+    "placeholders": {
+      "service": {
+        "content": "$1"
+      },
+      "store": {
+        "content": "$2"
+      }
+    }
+  },
+  "readMoreAboutDiscount": {
+    "message": "Leer más sobre el descuento"
+  },
+  "infoInstruction1": {
+    "message": "Muestra tu membresía"
+  },
+  "infoInstruction2": {
+    "message": "Consulta las condiciones del descuento"
   }
 }

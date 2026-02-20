@@ -12,7 +12,7 @@ export interface Service {
   cashbackPathPatterns?: string[]; // Path prefixes that indicate cashback pages (e.g., ["/cashback/", "/shop/"])
   color: string;
   defaultEnabled?: boolean;
-  type?: "code"; // Only set for code-based services like DNB
+  type?: "code" | "info"; // "code" for code-based (DNB), "info" for informational (OBOS)
   comingSoon?: boolean;
 }
 
@@ -52,8 +52,10 @@ export const SERVICES_FALLBACK: ServiceRegistry = {
   obos: {
     id: "obos",
     name: "OBOS",
+    clickthroughUrl: "https://www.obos.no/medlem/medlemsfordeler/{urlName}",
     color: "#0047ba",
-    comingSoon: true,
+    defaultEnabled: false,
+    type: "info",
   },
   naf: {
     id: "naf",

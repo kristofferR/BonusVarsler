@@ -27,6 +27,8 @@ export const DOMAIN_ALIASES: Record<string, string> = {
   "www.omio.com": "www.omio.no",
   "trip.com": "www.trip.com",
   "no.trip.com": "www.trip.com",
+  "comfort.no": "www.bademiljo.no",
+  "www.comfort.no": "www.bademiljo.no",
 };
 
 /**

@@ -529,11 +529,14 @@ async function checkAllSitesCSP(sitelist) {
     return cache.restrictedSites;
   }
 
-  // Get merchants that have at least one tracking-based service (non-code)
-  // Code-based services (like DNB) skip adblock detection, so CSP doesn't matter
+  // Get merchants that have at least one tracking-based service (non-code, non-info)
+  // Code-based (DNB) and info-based (OBOS) services skip adblock detection, so CSP doesn't matter
   const merchants = Object.entries(sitelist.merchants || {})
     .filter(([_, merchant]) =>
-      merchant.offers.some((offer) => SERVICES_BASE[offer.serviceId]?.type !== "code")
+      merchant.offers.some((offer) => {
+        const type = SERVICES_BASE[offer.serviceId]?.type;
+        return type !== "code" && type !== "info";
+      })
     )
     .map(([host]) => host);
   console.log(`\n🔍 Checking CSP on ${merchants.length} sites with tracking-based services (parallel)...`);

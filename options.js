@@ -27,7 +27,7 @@ const SERVICES_FALLBACK = {
     id: "obos",
     name: "OBOS",
     color: "#0047ba",
-    comingSoon: true,
+    type: "info",
   },
   naf: {
     id: "naf",

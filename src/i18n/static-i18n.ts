@@ -83,6 +83,18 @@ const NORWEGIAN_MESSAGES: Messages = {
   ariaClose: { message: "Lukk" },
   ariaMinimize: { message: "Minimer" },
 
+  // Info-type (OBOS etc.)
+  serviceDiscountAt: {
+    message: "$SERVICE$-rabatt hos $STORE$",
+    placeholders: {
+      service: { content: "$1" },
+      store: { content: "$2" },
+    },
+  },
+  readMoreAboutDiscount: { message: "Les mer om rabatten" },
+  infoInstruction1: { message: "Vis at du er medlem" },
+  infoInstruction2: { message: "Sjekk vilkårene for rabatten" },
+
   // Confirmation
   siteHidden: { message: "Varsler skjult for $SITE$", placeholders: { site: { content: "$1" } } },
 };

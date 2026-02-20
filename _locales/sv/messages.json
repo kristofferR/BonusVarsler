@@ -309,5 +309,26 @@
   },
   "saveServices": {
     "message": "Spara tjänster"
+  },
+
+  "serviceDiscountAt": {
+    "message": "$SERVICE$-rabatt hos $STORE$",
+    "placeholders": {
+      "service": {
+        "content": "$1"
+      },
+      "store": {
+        "content": "$2"
+      }
+    }
+  },
+  "readMoreAboutDiscount": {
+    "message": "Läs mer om rabatten"
+  },
+  "infoInstruction1": {
+    "message": "Visa ditt medlemskap"
+  },
+  "infoInstruction2": {
+    "message": "Kontrollera rabattvillkoren"
   }
 }

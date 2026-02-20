@@ -23,6 +23,7 @@ import { join } from "path";
 const TRUMF_BASE_URL = "https://trumfnetthandel.no";
 const TRUMF_CDN_FEED_URL = "https://wlp.tcb-cdn.com/trumf/notifierfeed.json";
 const DNB_URL = "https://www.dnb.no/kundeprogram/fordeler/faste-rabatter";
+const OBOS_BENEFITS_URL = "https://www.obos.no/medlem/medlemsfordeler";
 
 // Cache configuration
 const CACHE_FILE = join(import.meta.dir, "..", ".scraper-cache.json");
@@ -33,6 +34,7 @@ interface ScraperCache {
   trumfMerchants: ScrapedMerchant[];
   rememberMerchants: ScrapedMerchant[];
   dnbMerchants: ScrapedMerchant[];
+  obosMerchants: ScrapedMerchant[];
   urlNameToHostname: Record<string, string>;
 }
 
@@ -111,7 +113,7 @@ interface ServiceDefinition {
   reminderDomain?: string;
   color: string;
   defaultEnabled: boolean;
-  type?: "code"; // code-based services
+  type?: "code" | "info";
 }
 
 interface SiteList {
@@ -532,6 +534,232 @@ async function scrapeDNB(page: Page): Promise<ScrapedMerchant[]> {
 }
 
 // ===================
+// OBOS Scraping
+// ===================
+
+// OBOS internal products and promotional content to exclude
+const OBOS_EXCLUDED_NAMES = [
+  "obos bostart",
+  "obos-banken",
+  "oslobolig",
+  "forkjøpsrett",
+  "obos deleie",
+  "obos eiendomsmeglere",
+  "obos-ligaen",
+  "nordlys",
+  "barnas holmenkolldag",
+];
+
+async function scrapeOBOS(page: Page): Promise<ScrapedMerchant[]> {
+  console.log("\n=== Scraping OBOS ===");
+  console.log("Loading OBOS benefits page...");
+
+  try {
+    // Use ?view=list to get the full alphabetical list (default page only shows ~5 per category)
+    await page.goto(OBOS_BENEFITS_URL + "?view=list", { waitUntil: "domcontentloaded", timeout: 60000 });
+    await page.waitForTimeout(3000);
+
+    // Scroll to load all lazy content
+    console.log("Scrolling to load all benefits...");
+    let previousCount = 0;
+    let currentCount = 0;
+    let stableCount = 0;
+    let scrollAttempts = 0;
+    const maxScrollAttempts = 100;
+
+    do {
+      previousCount = currentCount;
+      await page.evaluate(() => window.scrollBy(0, window.innerHeight));
+      await page.waitForTimeout(500);
+
+      try {
+        await page.waitForLoadState("networkidle", { timeout: 2000 });
+      } catch {
+        // Timeout is fine
+      }
+
+      currentCount = await page.locator('a[href*="/medlem/medlemsfordeler/"]').count();
+
+      if (currentCount === previousCount) {
+        stableCount++;
+      } else {
+        stableCount = 0;
+      }
+
+      scrollAttempts++;
+      process.stdout.write(
+        `\r  Found ${currentCount} benefit links (scroll ${scrollAttempts}, stable: ${stableCount})...`
+      );
+    } while (stableCount < 5 && scrollAttempts < maxScrollAttempts);
+
+    console.log(`\n  Finished scrolling. Total links: ${currentCount}`);
+
+    // Step 1: Extract benefit cards from list page
+    console.log("Extracting benefit data from list page...");
+    const benefits = await page.evaluate((excludedNames: string[]) => {
+      const results: Array<{
+        name: string;
+        slug: string;
+        cashbackDescription: string;
+      }> = [];
+      const seen = new Set<string>();
+
+      document.querySelectorAll('a[href*="/medlem/medlemsfordeler/"]').forEach((link) => {
+        const href = link.getAttribute("href") || "";
+        // Extract slug from URL path
+        const slugMatch = href.match(/\/medlem\/medlemsfordeler\/([^/?#]+)/);
+        if (!slugMatch) return;
+
+        const slug = decodeURIComponent(slugMatch[1]);
+        if (!slug || seen.has(slug)) return;
+
+        // Skip the main overview page
+        if (slug === "medlemsfordeler" || slug === "") return;
+
+        seen.add(slug);
+
+        // Get benefit name
+        const name =
+          link.querySelector("h2, h3, h4, h5")?.textContent?.trim() ||
+          link.querySelector("img")?.getAttribute("alt")?.trim() ||
+          link.textContent?.trim().split("\n")[0]?.trim() ||
+          "";
+
+        if (!name) return;
+
+        // Check exclusion list
+        const nameLower = name.toLowerCase();
+        if (excludedNames.some((exc) => nameLower.includes(exc))) return;
+
+        // Get cashback description - look for percentage or discount text
+        // Use innerText (not textContent) to preserve visual spacing between elements
+        const allText = link.innerText || link.textContent || "";
+        const discountMatch = allText.match(
+          /(?:^|\s)(\d{1,3}(?:[,.]\d+)?\s*%|Opptil\s+\d{1,3}(?:[,.]\d+)?\s*%|\d+\s*kr\s+rabatt)/i
+        );
+        const cashbackDescription = discountMatch ? discountMatch[0].trim() : "";
+
+        results.push({ name, slug, cashbackDescription });
+      });
+
+      return results;
+    }, OBOS_EXCLUDED_NAMES);
+
+    // Filter out promotional/tagged content and category pages
+    const filtered = benefits.filter((b) => {
+      const nameLower = b.name.toLowerCase();
+      const slugLower = b.slug.toLowerCase();
+      // Skip promotional content
+      if (nameLower.includes("kampanje") || nameLower.includes("utsolgt")) return false;
+      if (nameLower.includes("snart er obos") || nameLower.includes("reiselivsdager")) return false;
+      // Skip category/overview pages
+      if (slugLower === "kategori" || slugLower === "aktuelle-fordeler") return false;
+      if (nameLower.startsWith("se alle fordeler") || nameLower.startsWith("flere aktuelle")) return false;
+      // Skip promotional offers (names starting with discounts, not vendor names)
+      if (/^\d+\s*%\s+rabatt/i.test(nameLower)) return false;
+      if (/^eksklusiv\s+rabatt/i.test(nameLower)) return false;
+      if (/^\d+\s*kr\s+/i.test(nameLower)) return false;
+      // Skip calendar/internal features
+      if (slugLower === "kalender" || nameLower.includes("planlegg med")) return false;
+      return true;
+    });
+
+    console.log(`  Found ${filtered.length} OBOS benefits (from ${benefits.length} total)`);
+
+    // Step 2: Visit detail pages to extract vendor URLs
+    console.log("Visiting detail pages for vendor URLs...");
+    const merchants: ScrapedMerchant[] = [];
+
+    for (let i = 0; i < filtered.length; i++) {
+      const benefit = filtered[i];
+      process.stdout.write(`\r  Processing ${i + 1}/${filtered.length}: ${benefit.name.slice(0, 40)}...`);
+
+      try {
+        await page.goto(`${OBOS_BENEFITS_URL}/${benefit.slug}`, {
+          waitUntil: "domcontentloaded",
+          timeout: 15000,
+        });
+        await page.waitForTimeout(1500);
+
+        // Extract CTA URL and description from detail page
+        const detailData = await page.evaluate(() => {
+          let storeUrl: string | undefined;
+          let description = "";
+
+          // Look for external links (CTA buttons, "Gå til" links)
+          const links = document.querySelectorAll('a[href^="http"]');
+          for (const link of links) {
+            const href = link.getAttribute("href") || "";
+            const text = link.textContent?.trim().toLowerCase() || "";
+            // Skip internal OBOS links and common false positives
+            if (href.includes("obos.no")) continue;
+            if (href.includes("google.com")) continue;
+            if (href.includes("youtube.com")) continue;
+            if (href.includes("facebook.com")) continue;
+            if (href.includes("instagram.com")) continue;
+            if (href.includes("twitter.com")) continue;
+            if (href.includes("aka.ms")) continue;
+            if (href.includes("apps.apple.com")) continue;
+            if (href.includes("play.google.com")) continue;
+            if (href.includes("clarity.microsoft.com")) continue;
+            if (href.includes("microsoft.com/privacy")) continue;
+            // Prefer CTA-like links
+            if (
+              text.includes("gå til") ||
+              text.includes("bestill") ||
+              text.includes("kjøp") ||
+              text.includes("handle") ||
+              text.includes("book") ||
+              link.classList.contains("btn") ||
+              link.classList.contains("button") ||
+              link.closest('[class*="cta"]') ||
+              link.closest('[class*="action"]')
+            ) {
+              storeUrl = href;
+              break;
+            }
+            // Fall back to first external link
+            if (!storeUrl) {
+              storeUrl = href;
+            }
+          }
+
+          // Get description from the page
+          const descEl = document.querySelector(
+            '[class*="description"], [class*="intro"], [class*="lead"], article p'
+          );
+          if (descEl) {
+            description = descEl.textContent?.trim() || "";
+          }
+
+          return { storeUrl, description };
+        });
+
+        merchants.push({
+          name: benefit.name,
+          slug: benefit.slug,
+          cashbackDescription: benefit.cashbackDescription || "",
+          ...(detailData.storeUrl && { storeUrl: detailData.storeUrl }),
+        });
+      } catch {
+        // If detail page fails, still include with data from list page
+        merchants.push({
+          name: benefit.name,
+          slug: benefit.slug,
+          cashbackDescription: benefit.cashbackDescription || "",
+        });
+      }
+    }
+
+    console.log(`\n  Extracted ${merchants.length} OBOS merchants`);
+    return merchants;
+  } catch (error) {
+    console.error("  Error scraping OBOS:", error);
+    return [];
+  }
+}
+
+// ===================
 // Main Logic
 // ===================
 
@@ -555,6 +783,7 @@ async function main() {
   let trumfMerchants: ScrapedMerchant[];
   let rememberMerchants: ScrapedMerchant[];
   let dnbMerchants: ScrapedMerchant[];
+  let obosMerchants: ScrapedMerchant[];
   let urlNameToHostname: Map<string, string>;
 
   if (cache) {
@@ -563,10 +792,12 @@ async function main() {
     trumfMerchants = cache.trumfMerchants;
     rememberMerchants = cache.rememberMerchants;
     dnbMerchants = cache.dnbMerchants;
+    obosMerchants = cache.obosMerchants || [];
     urlNameToHostname = new Map(Object.entries(cache.urlNameToHostname));
     console.log(`  Trumf: ${trumfMerchants.length} merchants`);
     console.log(`  re:member: ${rememberMerchants.length} merchants`);
     console.log(`  DNB: ${dnbMerchants.length} merchants`);
+    console.log(`  OBOS: ${obosMerchants.length} merchants`);
   } else {
     // Launch browser for scraping
     console.log("Launching browser...");
@@ -608,11 +839,18 @@ async function main() {
       dnbMerchants = await scrapeDNB(page);
       console.log(`Scraped ${dnbMerchants.length} DNB merchants`);
 
+      // ===================
+      // Step 5: Scrape OBOS merchants
+      // ===================
+      obosMerchants = await scrapeOBOS(page);
+      console.log(`Scraped ${obosMerchants.length} OBOS merchants`);
+
       // Save to cache
       await saveCache({
         trumfMerchants,
         rememberMerchants,
         dnbMerchants,
+        obosMerchants,
         urlNameToHostname: Object.fromEntries(urlNameToHostname),
       });
     } finally {
@@ -621,7 +859,7 @@ async function main() {
   }
 
   // ===================
-  // Step 5: Build unified merchant list
+  // Step 6: Build unified merchant list
   // ===================
   console.log("\n=== Building unified merchant list ===");
   const merchants: Record<string, MerchantEntry> = {};
@@ -802,11 +1040,102 @@ async function main() {
     }
   }
 
+  // Process OBOS merchants
+  let obosDomainMappings: Record<string, string> = {};
+  try {
+    const mappingContent = await readFile(
+      join(import.meta.dir, "..", "data", "obos-domains.json"),
+      "utf-8"
+    );
+    obosDomainMappings = JSON.parse(mappingContent);
+  } catch {
+    console.log("  Note: Could not load data/obos-domains.json");
+  }
+
+  const unmappedObos: string[] = [];
+  let obosMapped = 0;
+
+  for (const merchant of obosMerchants) {
+    let hostname: string | null = null;
+
+    // 1. Check manual domain mapping
+    if (obosDomainMappings[merchant.slug]) {
+      hostname = obosDomainMappings[merchant.slug];
+    }
+    // 2. Try to extract hostname from store URL found on detail page
+    else if (merchant.storeUrl) {
+      try {
+        const url = new URL(merchant.storeUrl);
+        // Skip internal OBOS URLs
+        if (!url.hostname.includes("obos.no")) {
+          hostname = url.hostname;
+        }
+      } catch {
+        // Invalid URL
+      }
+    }
+
+    if (!hostname || hostname.length < 4) {
+      unmappedObos.push(`${merchant.name} (slug: ${merchant.slug})`);
+      continue;
+    }
+
+    hostname = normalizeHostname(hostname);
+
+    // Find existing merchant (checking www variants) or create new
+    const existingKey = findMerchantKey(hostname);
+    const merchantKey = existingKey || hostname;
+
+    if (!merchants[merchantKey]) {
+      merchants[merchantKey] = {
+        hostName: merchantKey,
+        name: merchant.name,
+        offers: [],
+      };
+    }
+
+    // Add OBOS offer (check for duplicates first)
+    const hasObosOffer = merchants[merchantKey].offers.some(
+      (o) => o.serviceId === "obos"
+    );
+    if (!hasObosOffer) {
+      merchants[merchantKey].offers.push({
+        serviceId: "obos",
+        urlName: merchant.slug,
+        cashbackDescription: merchant.cashbackDescription,
+      });
+      obosMapped++;
+    }
+  }
+
+  console.log(`  OBOS: ${obosMapped} mapped`);
+
   // ===================
-  // Step 6: Write updated sitelist.json
+  // Step 7: Write updated sitelist.json
   // ===================
+  // Load services from canonical source (data/services.json)
+  const servicesJsonPath = join(import.meta.dir, "..", "data", "services.json");
+  const servicesJson: Record<string, ServiceDefinition> = JSON.parse(
+    await readFile(servicesJsonPath, "utf-8")
+  );
+
+  // Build services section: include all non-comingSoon services with feed-relevant fields
+  const services: Record<string, Partial<ServiceDefinition>> = {};
+  for (const [id, svc] of Object.entries(servicesJson)) {
+    if ((svc as any).comingSoon) continue;
+    const entry: Partial<ServiceDefinition> = {
+      name: svc.name,
+      clickthroughUrl: svc.clickthroughUrl,
+      color: svc.color,
+      defaultEnabled: svc.defaultEnabled,
+    };
+    if (svc.reminderDomain) (entry as any).reminderDomain = svc.reminderDomain;
+    if (svc.type) entry.type = svc.type;
+    services[id] = entry;
+  }
+
   const updatedSitelist: SiteList = {
-    services: existingSitelist.services,
+    services: services as Record<string, ServiceDefinition>,
     merchants,
   };
 
@@ -816,7 +1145,7 @@ async function main() {
   );
 
   // ===================
-  // Step 7: Summary
+  // Step 8: Summary
   // ===================
   console.log("\n=== Summary ===");
   console.log(`Total merchants in output: ${Object.keys(merchants).length}`);
@@ -830,13 +1159,18 @@ async function main() {
   const dnbCount = Object.values(merchants).filter((m) =>
     m.offers.some((o) => o.serviceId === "dnb")
   ).length;
+  const obosCount = Object.values(merchants).filter((m) =>
+    m.offers.some((o) => o.serviceId === "obos")
+  ).length;
 
   console.log(`  - With Trumf offers: ${trumfCount}`);
   console.log(`  - With re:member offers: ${rememberCount}`);
   console.log(`  - With DNB offers: ${dnbCount}`);
+  console.log(`  - With OBOS offers: ${obosCount}`);
   console.log(`  - Unmapped Trumf: ${unmappedTrumf.length}`);
   console.log(`  - Unmapped re:member: ${unmappedRemember.length}`);
   console.log(`  - Unmapped DNB: ${unmappedDnb.length}`);
+  console.log(`  - Unmapped OBOS: ${unmappedObos.length}`);
 
   if (unmappedTrumf.length > 0) {
     console.log("\nUnmapped Trumf merchants (need manual hostname mapping):");
@@ -865,6 +1199,16 @@ async function main() {
     }
     if (unmappedDnb.length > 10) {
       console.log(`  ... and ${unmappedDnb.length - 10} more`);
+    }
+  }
+
+  if (unmappedObos.length > 0) {
+    console.log("\nUnmapped OBOS merchants (add to data/obos-domains.json):");
+    for (const m of unmappedObos.slice(0, 10)) {
+      console.log(`  - ${m}`);
+    }
+    if (unmappedObos.length > 10) {
+      console.log(`  ... and ${unmappedObos.length - 10} more`);
     }
   }
 

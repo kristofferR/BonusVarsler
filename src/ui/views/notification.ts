@@ -82,7 +82,8 @@ export function createNotification(options: NotificationOptions): HTMLElement {
   // Subtitle
   const subtitle = document.createElement("span");
   subtitle.className = "subtitle";
-  subtitle.textContent = i18n.getMessage("serviceBonusAt", [
+  const subtitleKey = service.type === "info" ? "serviceDiscountAt" : "serviceBonusAt";
+  subtitle.textContent = i18n.getMessage(subtitleKey, [
     service.name,
     match.name || i18n.getMessage("thisStore"),
   ]);
@@ -202,8 +203,8 @@ export function createNotification(options: NotificationOptions): HTMLElement {
     }
   });
 
-  // Adblock detection (skip for code-based services)
-  if (service.type !== "code") {
+  // Adblock detection (skip for code-based and info-type services)
+  if (service.type !== "code" && service.type !== "info") {
     const originalHref = actionBtn.getAttribute("href") || "";
     const originalText = actionBtn.childNodes[0]?.textContent || "";
 
@@ -403,7 +404,12 @@ function createChecklist(service: Service, i18n: I18nAdapter): HTMLOListElement 
   checklist.className = "checklist";
 
   let items: string[];
-  if (service.id === "dnb") {
+  if (service.type === "info") {
+    items = [
+      i18n.getMessage("infoInstruction1"),
+      i18n.getMessage("infoInstruction2"),
+    ];
+  } else if (service.id === "dnb") {
     items = [
       i18n.getMessage("dnbInstruction1"),
       i18n.getMessage("dnbInstruction2"),
@@ -459,11 +465,13 @@ function createActionButton(
     copyIcon.textContent = "📋";
     copyIcon.title = i18n.getMessage("copyCode") || "Kopier kode";
     actionBtn.appendChild(copyIcon);
+  } else if (service.type === "info") {
+    actionBtn.textContent = i18n.getMessage("readMoreAboutDiscount");
   } else {
     actionBtn.textContent = i18n.getMessage("getServiceBonus", service.name);
   }
 
-  // Create recheck icon
+  // Create recheck icon (hidden for info-type services)
   const recheckIcon = document.createElement("span");
   recheckIcon.className = "recheck-icon";
   recheckIcon.textContent = "↻";
@@ -471,6 +479,9 @@ function createActionButton(
   recheckIcon.setAttribute("role", "button");
   recheckIcon.setAttribute("tabindex", "0");
   recheckIcon.setAttribute("aria-label", i18n.getMessage("checkAdblockAgain"));
+  if (service.type === "info") {
+    recheckIcon.style.display = "none";
+  }
   actionBtn.appendChild(recheckIcon);
 
   // Click handler
@@ -486,6 +497,11 @@ function createActionButton(
     }
 
     sessionStorage.set(`${MESSAGE_SHOWN_KEY_PREFIX}${currentHost}`, Date.now().toString());
+
+    // Info-type services: just let the link open naturally
+    if (service.type === "info") {
+      return;
+    }
 
     // Code-based service handling
     if (service.type === "code" && match.offer?.code) {

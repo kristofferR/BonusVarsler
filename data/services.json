@@ -26,11 +26,10 @@
   "obos": {
     "id": "obos",
     "name": "OBOS",
-    "clickthroughUrl": "",
-    "reminderDomain": "",
+    "clickthroughUrl": "https://www.obos.no/medlem/medlemsfordeler/{urlName}",
     "color": "#0047ba",
     "defaultEnabled": false,
-    "comingSoon": true
+    "type": "info"
   },
   "naf": {
     "id": "naf",
