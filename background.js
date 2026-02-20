@@ -63,20 +63,20 @@ async function fetchBundledFallback() {
 }
 
 async function getFeed() {
-  // Try bundled feed first (always up-to-date with the installed version)
-  let feed = await fetchBundledFallback();
-  if (feed) {
-    return feed;
-  }
-
-  // Try primary feed (GitHub)
-  feed = await fetchFeedWithRetry(CONFIG.feedUrl);
+  // Try primary feed (GitHub, updated daily)
+  let feed = await fetchFeedWithRetry(CONFIG.feedUrl);
   if (feed) {
     return feed;
   }
 
   // Try fallback (Trumf CDN - legacy, Trumf-only)
-  return fetchFeedWithRetry(CONFIG.fallbackUrl, 2);
+  feed = await fetchFeedWithRetry(CONFIG.fallbackUrl, 2);
+  if (feed) {
+    return feed;
+  }
+
+  // Last resort: bundled feed packaged with the extension
+  return fetchBundledFallback();
 }
 
 // Handle messages from content script
