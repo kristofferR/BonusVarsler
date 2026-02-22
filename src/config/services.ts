@@ -66,8 +66,10 @@ export const SERVICES_FALLBACK: ServiceRegistry = {
   lofavor: {
     id: "lofavor",
     name: "LOfavør",
-    color: "#ff0000",
-    comingSoon: true,
+    clickthroughUrl: "https://www.lofavor.no/{urlName}",
+    color: "#66083c",
+    defaultEnabled: false,
+    type: "info",
   },
 };
 

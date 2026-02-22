@@ -38,8 +38,8 @@ const SERVICES_FALLBACK = {
   lofavor: {
     id: "lofavor",
     name: "LOfavør",
-    color: "#ff0000",
-    comingSoon: true,
+    color: "#66083c",
+    type: "info",
   },
 };
 

@@ -9,8 +9,9 @@ import LOGO_ICON_URL from "../../../icons/icon-64.png";
 import LOGO_ICON_REMEMBER_URL from "../../../icons/icon-64-remember.png";
 import LOGO_ICON_DNB_URL from "../../../icons/icon-64-dnb.png";
 import LOGO_ICON_OBOS_URL from "../../../icons/icon-64-obos.png";
+import LOGO_ICON_LOFAVOR_URL from "../../../icons/icon-64-lofavor.png";
 
-export { LOGO_ICON_URL, LOGO_ICON_REMEMBER_URL, LOGO_ICON_DNB_URL, LOGO_ICON_OBOS_URL };
+export { LOGO_ICON_URL, LOGO_ICON_REMEMBER_URL, LOGO_ICON_DNB_URL, LOGO_ICON_OBOS_URL, LOGO_ICON_LOFAVOR_URL };
 
 // Service ID type derived from SERVICE_ORDER
 export type ServiceId = (typeof SERVICE_ORDER)[number];
@@ -21,6 +22,7 @@ const SERVICE_LOGO_ICONS: Readonly<Partial<Record<ServiceId, string>>> = {
   remember: LOGO_ICON_REMEMBER_URL,
   dnb: LOGO_ICON_DNB_URL,
   obos: LOGO_ICON_OBOS_URL,
+  lofavor: LOGO_ICON_LOFAVOR_URL,
 } as const;
 
 // Settings gear icon

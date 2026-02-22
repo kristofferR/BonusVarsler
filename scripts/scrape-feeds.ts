@@ -24,6 +24,54 @@ const TRUMF_BASE_URL = "https://trumfnetthandel.no";
 const TRUMF_CDN_FEED_URL = "https://wlp.tcb-cdn.com/trumf/notifierfeed.json";
 const DNB_URL = "https://www.dnb.no/kundeprogram/fordeler/faste-rabatter";
 const OBOS_BENEFITS_URL = "https://www.obos.no/medlem/medlemsfordeler";
+const LOFAVOR_BASE_URL = "https://www.lofavor.no";
+
+// LOfavør categories to scrape (skip forsikring, bank, juridisk, ungdom — all internal)
+const LOFAVOR_SCRAPE_CATEGORIES = [
+  "/ferie-og-opplevelser",
+  "/hus-og-hjem",
+];
+
+// Internal domains — skip benefits linking to these
+const LOFAVOR_INTERNAL_DOMAINS = [
+  "lofavor.no",
+  "fremtind.no",
+  "sparebank1.no",
+  "sb1b.no",
+  "help.no",
+  "helpforsikring.no",
+  "legalis.no",
+  "advokatchatten.no",
+  "norsktannhelseforsikring.no",
+  "folkehjelp.no",
+  "symbolskgaver.no",
+  "lo.no",
+  // Tracking/cookie/analytics domains that sometimes appear as false positive CTAs
+  "cookieinformation.com",
+  "link.hertz.com",
+  "eloqua.com",
+  "demio.com",
+];
+
+// Names to exclude even if they have external URLs
+const LOFAVOR_EXCLUDED_NAMES = [
+  "lofavør",
+  "reiseforsikring",
+  "norsk folkehjelp",
+  // Internal banking/insurance products that appear in hus-og-hjem
+  "boliglån",
+  "boliglan",
+  "førstehjemslån",
+  "forstehjemslan",
+  "flexilån",
+  "flexilan",
+  "depositumslån",
+  "depositumslan",
+  "husforsikring",
+  "bsu",
+  "sparekonto",
+  "mastercard",
+];
 
 // Cache configuration
 const CACHE_FILE = join(import.meta.dir, "..", ".scraper-cache.json");
@@ -35,6 +83,7 @@ interface ScraperCache {
   rememberMerchants: ScrapedMerchant[];
   dnbMerchants: ScrapedMerchant[];
   obosMerchants: ScrapedMerchant[];
+  lofavorMerchants: ScrapedMerchant[];
   urlNameToHostname: Record<string, string>;
 }
 
@@ -760,6 +809,333 @@ async function scrapeOBOS(page: Page): Promise<ScrapedMerchant[]> {
 }
 
 // ===================
+// LOfavør Scraping
+// ===================
+
+/**
+ * Extract partnerMap from LOfavør website HTML.
+ * Returns domain → partner name mappings (e.g., "apollo.no" → "Apollo").
+ */
+async function fetchLOfavorPartnerMap(): Promise<Record<string, string>> {
+  try {
+    const response = await fetch(`${LOFAVOR_BASE_URL}/ferie-og-opplevelser`);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const html = await response.text();
+
+    // Extract var partnerMap = { ... }
+    const mapMatch = html.match(/var\s+partnerMap\s*=\s*(\{[^}]+\})/);
+    if (!mapMatch) {
+      console.log("  Could not find partnerMap in page source");
+      return {};
+    }
+
+    // Parse the JS object (keys/values may use single or double quotes)
+    const normalized = mapMatch[1]
+      .replace(/'/g, '"')
+      .replace(/,\s*}/, "}"); // trailing comma
+    return JSON.parse(normalized);
+  } catch (error) {
+    console.log("  Could not fetch partnerMap:", error);
+    return {};
+  }
+}
+
+/**
+ * Check if a hostname belongs to an internal LOfavør/LO domain.
+ */
+function isLOfavorInternalDomain(hostname: string): boolean {
+  return LOFAVOR_INTERNAL_DOMAINS.some(
+    (d) => hostname === d || hostname.endsWith(`.${d}`) || hostname === `www.${d}`
+  );
+}
+
+async function scrapeLOfavor(page: Page): Promise<ScrapedMerchant[]> {
+  console.log("\n=== Scraping LOfavør ===");
+
+  try {
+    // Step 1: Fetch partnerMap for domain enrichment
+    console.log("Fetching partnerMap from website...");
+    const partnerMap = await fetchLOfavorPartnerMap();
+    const partnerCount = Object.keys(partnerMap).length;
+    console.log(`  Found ${partnerCount} partner domain mappings`);
+
+    // Build reverse map: partner name (lowercase) → domain
+    const partnerNameToDomain = new Map<string, string>();
+    for (const [domain, name] of Object.entries(partnerMap)) {
+      if (!isLOfavorInternalDomain(domain)) {
+        // Prefer .no domains over others for the same partner
+        const existing = partnerNameToDomain.get((name as string).toLowerCase());
+        if (!existing || domain.endsWith(".no")) {
+          partnerNameToDomain.set((name as string).toLowerCase(), domain);
+        }
+      }
+    }
+
+    // Step 2: Scrape category pages
+    console.log("Scraping category pages...");
+    const allBenefits: Array<{ name: string; slug: string; categoryPath: string }> = [];
+
+    for (const category of LOFAVOR_SCRAPE_CATEGORIES) {
+      const categoryUrl = `${LOFAVOR_BASE_URL}${category}`;
+      console.log(`  Loading ${category}...`);
+
+      await page.goto(categoryUrl, { waitUntil: "domcontentloaded", timeout: 30000 });
+      await page.waitForTimeout(3000);
+
+      // Scroll to load all content
+      for (let i = 0; i < 10; i++) {
+        await page.evaluate(() => window.scrollBy(0, 500));
+        await page.waitForTimeout(300);
+      }
+
+      // Extract product links from both card grids and list sections
+      const benefits = await page.evaluate((cat: string) => {
+        const results: Array<{ name: string; slug: string; categoryPath: string }> = [];
+        const seen = new Set<string>();
+
+        // Strategy 1: a.cat1-link elements (visual cards with h3)
+        document.querySelectorAll("a.cat1-link, a[class*='cat1']").forEach((link) => {
+          const href = link.getAttribute("href") || "";
+          const name = link.querySelector("h3")?.textContent?.trim() ||
+            link.querySelector("h4")?.textContent?.trim() || "";
+          if (name && href && !seen.has(href)) {
+            seen.add(href);
+            // Extract the path after the domain
+            const pathMatch = href.match(/lofavor\.no(\/[^?#]+)/);
+            const path = pathMatch ? pathMatch[1] : href.startsWith("/") ? href : "";
+            if (path) {
+              results.push({ name, slug: path.replace(/^\//, ""), categoryPath: cat });
+            }
+          }
+        });
+
+        // Strategy 2: .product-list-minors li a (text-only link lists)
+        document.querySelectorAll(".product-list-minors li a").forEach((link) => {
+          const href = link.getAttribute("href") || "";
+          const name = link.textContent?.trim() || "";
+          if (name && href && !seen.has(href)) {
+            seen.add(href);
+            const pathMatch = href.match(/lofavor\.no(\/[^?#]+)/);
+            const path = pathMatch ? pathMatch[1] : href.startsWith("/") ? href : "";
+            if (path) {
+              results.push({ name, slug: path.replace(/^\//, ""), categoryPath: cat });
+            }
+          }
+        });
+
+        // Strategy 3: Generic anchor links matching category patterns
+        document.querySelectorAll(`a[href*="${cat}/"], a[href*="${cat.replace("opplevelser", "fritid")}/"]`).forEach((link) => {
+          const href = link.getAttribute("href") || "";
+          const name = link.querySelector("h3, h4, h5")?.textContent?.trim() ||
+            link.textContent?.trim().split("\n")[0]?.trim() || "";
+          if (name && href && !seen.has(href) && name.length < 80) {
+            seen.add(href);
+            const pathMatch = href.match(/lofavor\.no(\/[^?#]+)/);
+            const path = pathMatch ? pathMatch[1] : href.startsWith("/") ? href : "";
+            if (path) {
+              results.push({ name, slug: path.replace(/^\//, ""), categoryPath: cat });
+            }
+          }
+        });
+
+        return results;
+      }, category);
+
+      console.log(`  Found ${benefits.length} benefits in ${category}`);
+      allBenefits.push(...benefits);
+    }
+
+    // Deduplicate by slug
+    const uniqueBenefits = new Map<string, (typeof allBenefits)[0]>();
+    for (const b of allBenefits) {
+      if (!uniqueBenefits.has(b.slug)) {
+        uniqueBenefits.set(b.slug, b);
+      }
+    }
+
+    // Apply name exclusions
+    const filtered = [...uniqueBenefits.values()].filter((b) => {
+      const nameLower = b.name.toLowerCase();
+      return !LOFAVOR_EXCLUDED_NAMES.some((exc) => nameLower.includes(exc));
+    });
+
+    console.log(`  ${filtered.length} benefits after dedup and name filtering (from ${allBenefits.length} total)`);
+
+    // Step 3: Visit detail pages to extract store URLs and discount info
+    console.log("Visiting detail pages for store URLs...");
+    const merchants: ScrapedMerchant[] = [];
+
+    for (let i = 0; i < filtered.length; i++) {
+      const benefit = filtered[i];
+      process.stdout.write(`\r  Processing ${i + 1}/${filtered.length}: ${benefit.name.slice(0, 40)}...`);
+
+      let storeUrl: string | undefined;
+      let cashbackDescription = "";
+
+      try {
+        // Try the slug as-is first, then try ferie-og-fritid variant
+        let loaded = false;
+        const urlVariants = [
+          `${LOFAVOR_BASE_URL}/${benefit.slug}`,
+        ];
+        // Add ferie-og-fritid variant if slug uses ferie-og-opplevelser
+        if (benefit.slug.includes("ferie-og-opplevelser")) {
+          urlVariants.push(`${LOFAVOR_BASE_URL}/${benefit.slug.replace("ferie-og-opplevelser", "ferie-og-fritid")}`);
+        }
+
+        for (const url of urlVariants) {
+          try {
+            const response = await page.goto(url, {
+              waitUntil: "domcontentloaded",
+              timeout: 15000,
+            });
+            if (response && response.status() < 400) {
+              loaded = true;
+              break;
+            }
+          } catch {
+            continue;
+          }
+        }
+
+        if (!loaded) {
+          // Couldn't load detail page, still include with name-based domain lookup
+          merchants.push({
+            name: benefit.name,
+            slug: benefit.slug,
+            cashbackDescription: "",
+          });
+          continue;
+        }
+
+        await page.waitForTimeout(2000);
+
+        // Extract external links and discount info from detail page
+        const detailData = await page.evaluate((internalDomains: string[]) => {
+          let storeUrl: string | undefined;
+          let cashbackDescription = "";
+
+          // Find external links (CTA buttons, partner links)
+          const links = document.querySelectorAll('a[href^="http"]');
+          for (const link of links) {
+            const href = link.getAttribute("href") || "";
+            const text = link.textContent?.trim().toLowerCase() || "";
+            let hostname: string;
+            try {
+              hostname = new URL(href).hostname;
+            } catch {
+              continue;
+            }
+
+            // Skip internal domains
+            const isInternal = internalDomains.some(
+              (d) => hostname === d || hostname.endsWith(`.${d}`) || hostname === `www.${d}`
+            );
+            if (isInternal) continue;
+
+            // Skip social media, app stores, analytics
+            if (
+              hostname.includes("google.com") ||
+              hostname.includes("youtube.com") ||
+              hostname.includes("facebook.com") ||
+              hostname.includes("instagram.com") ||
+              hostname.includes("twitter.com") ||
+              hostname.includes("linkedin.com") ||
+              hostname.includes("apps.apple.com") ||
+              hostname.includes("play.google.com") ||
+              hostname.includes("clarity.microsoft.com") ||
+              hostname.includes("piwik.pro") ||
+              hostname.includes("weglot.com") ||
+              hostname.includes("eloqua.com")
+            ) continue;
+
+            // Prefer CTA-like links
+            if (
+              text.includes("se tilbud") ||
+              text.includes("bestill") ||
+              text.includes("gå til") ||
+              text.includes("kjøp") ||
+              text.includes("book") ||
+              text.includes("les mer") ||
+              link.classList.contains("btn") ||
+              link.classList.contains("button") ||
+              link.closest('[class*="cta"]') ||
+              link.closest('[class*="button"]')
+            ) {
+              storeUrl = href;
+              break;
+            }
+            // Fall back to first external link
+            if (!storeUrl) {
+              storeUrl = href;
+            }
+          }
+
+          // Extract discount description from page content
+          const bodyText = document.body.innerText || "";
+          // Look for common discount patterns
+          const discountPatterns = [
+            /(\d{1,3}(?:[,.]\d+)?\s*(?:%|prosent)\s*rabatt)/i,
+            /(\d+\s*(?:kr|kroner)\s*(?:i\s*)?rabatt)/i,
+            /(rabattkode[:\s]+[A-Z0-9]+)/i,
+          ];
+          for (const pattern of discountPatterns) {
+            const match = bodyText.match(pattern);
+            if (match) {
+              cashbackDescription = match[1].trim();
+              break;
+            }
+          }
+
+          return { storeUrl, cashbackDescription };
+        }, LOFAVOR_INTERNAL_DOMAINS);
+
+        storeUrl = detailData.storeUrl;
+        cashbackDescription = detailData.cashbackDescription;
+      } catch {
+        // Detail page failed, still include benefit
+      }
+
+      merchants.push({
+        name: benefit.name,
+        slug: benefit.slug,
+        cashbackDescription,
+        ...(storeUrl && { storeUrl }),
+      });
+    }
+
+    // Step 4: Enrich merchants with partnerMap domain data
+    // For merchants without a storeUrl, try matching by name against partnerMap
+    for (const merchant of merchants) {
+      if (!merchant.storeUrl) {
+        const nameLower = merchant.name.toLowerCase();
+        const domain = partnerNameToDomain.get(nameLower);
+        if (domain) {
+          merchant.storeUrl = `https://${domain}`;
+        }
+      }
+    }
+
+    // Filter out merchants whose storeUrl points to internal domains
+    const finalMerchants = merchants.filter((m) => {
+      if (!m.storeUrl) return true; // keep unmapped for manual mapping later
+      try {
+        const hostname = new URL(m.storeUrl).hostname;
+        return !isLOfavorInternalDomain(hostname);
+      } catch {
+        return true;
+      }
+    });
+
+    console.log(`\n  Extracted ${finalMerchants.length} LOfavør merchants`);
+    return finalMerchants;
+  } catch (error) {
+    console.error("  Error scraping LOfavør:", error);
+    return [];
+  }
+}
+
+// ===================
 // Main Logic
 // ===================
 
@@ -784,6 +1160,7 @@ async function main() {
   let rememberMerchants: ScrapedMerchant[];
   let dnbMerchants: ScrapedMerchant[];
   let obosMerchants: ScrapedMerchant[];
+  let lofavorMerchants: ScrapedMerchant[];
   let urlNameToHostname: Map<string, string>;
 
   if (cache) {
@@ -793,11 +1170,13 @@ async function main() {
     rememberMerchants = cache.rememberMerchants;
     dnbMerchants = cache.dnbMerchants;
     obosMerchants = cache.obosMerchants || [];
+    lofavorMerchants = cache.lofavorMerchants || [];
     urlNameToHostname = new Map(Object.entries(cache.urlNameToHostname));
     console.log(`  Trumf: ${trumfMerchants.length} merchants`);
     console.log(`  re:member: ${rememberMerchants.length} merchants`);
     console.log(`  DNB: ${dnbMerchants.length} merchants`);
     console.log(`  OBOS: ${obosMerchants.length} merchants`);
+    console.log(`  LOfavør: ${lofavorMerchants.length} merchants`);
   } else {
     // Launch browser for scraping
     console.log("Launching browser...");
@@ -845,12 +1224,19 @@ async function main() {
       obosMerchants = await scrapeOBOS(page);
       console.log(`Scraped ${obosMerchants.length} OBOS merchants`);
 
+      // ===================
+      // Step 6: Scrape LOfavør merchants
+      // ===================
+      lofavorMerchants = await scrapeLOfavor(page);
+      console.log(`Scraped ${lofavorMerchants.length} LOfavør merchants`);
+
       // Save to cache
       await saveCache({
         trumfMerchants,
         rememberMerchants,
         dnbMerchants,
         obosMerchants,
+        lofavorMerchants,
         urlNameToHostname: Object.fromEntries(urlNameToHostname),
       });
     } finally {
@@ -1110,6 +1496,75 @@ async function main() {
 
   console.log(`  OBOS: ${obosMapped} mapped`);
 
+  // Process LOfavør merchants
+  let lofavorDomainMappings: Record<string, string> = {};
+  try {
+    const mappingContent = await readFile(
+      join(import.meta.dir, "..", "data", "lofavor-domains.json"),
+      "utf-8"
+    );
+    lofavorDomainMappings = JSON.parse(mappingContent);
+  } catch {
+    console.log("  Note: Could not load data/lofavor-domains.json");
+  }
+
+  const unmappedLofavor: string[] = [];
+  let lofavorMapped = 0;
+
+  for (const merchant of lofavorMerchants) {
+    let hostname: string | null = null;
+
+    // 1. Check manual domain mapping
+    if (lofavorDomainMappings[merchant.slug]) {
+      hostname = lofavorDomainMappings[merchant.slug];
+    }
+    // 2. Try to extract hostname from store URL found on detail page
+    else if (merchant.storeUrl) {
+      try {
+        const url = new URL(merchant.storeUrl);
+        if (!isLOfavorInternalDomain(url.hostname)) {
+          hostname = url.hostname;
+        }
+      } catch {
+        // Invalid URL
+      }
+    }
+
+    if (!hostname || hostname.length < 4) {
+      unmappedLofavor.push(`${merchant.name} (slug: ${merchant.slug})`);
+      continue;
+    }
+
+    hostname = normalizeHostname(hostname);
+
+    // Find existing merchant (checking www variants) or create new
+    const existingKey = findMerchantKey(hostname);
+    const merchantKey = existingKey || hostname;
+
+    if (!merchants[merchantKey]) {
+      merchants[merchantKey] = {
+        hostName: merchantKey,
+        name: merchant.name,
+        offers: [],
+      };
+    }
+
+    // Add LOfavør offer (check for duplicates first)
+    const hasLofavorOffer = merchants[merchantKey].offers.some(
+      (o) => o.serviceId === "lofavor"
+    );
+    if (!hasLofavorOffer) {
+      merchants[merchantKey].offers.push({
+        serviceId: "lofavor",
+        urlName: merchant.slug,
+        cashbackDescription: merchant.cashbackDescription,
+      });
+      lofavorMapped++;
+    }
+  }
+
+  console.log(`  LOfavør: ${lofavorMapped} mapped`);
+
   // ===================
   // Step 7: Write updated sitelist.json
   // ===================
@@ -1162,15 +1617,20 @@ async function main() {
   const obosCount = Object.values(merchants).filter((m) =>
     m.offers.some((o) => o.serviceId === "obos")
   ).length;
+  const lofavorCount = Object.values(merchants).filter((m) =>
+    m.offers.some((o) => o.serviceId === "lofavor")
+  ).length;
 
   console.log(`  - With Trumf offers: ${trumfCount}`);
   console.log(`  - With re:member offers: ${rememberCount}`);
   console.log(`  - With DNB offers: ${dnbCount}`);
   console.log(`  - With OBOS offers: ${obosCount}`);
+  console.log(`  - With LOfavør offers: ${lofavorCount}`);
   console.log(`  - Unmapped Trumf: ${unmappedTrumf.length}`);
   console.log(`  - Unmapped re:member: ${unmappedRemember.length}`);
   console.log(`  - Unmapped DNB: ${unmappedDnb.length}`);
   console.log(`  - Unmapped OBOS: ${unmappedObos.length}`);
+  console.log(`  - Unmapped LOfavør: ${unmappedLofavor.length}`);
 
   if (unmappedTrumf.length > 0) {
     console.log("\nUnmapped Trumf merchants (need manual hostname mapping):");
@@ -1209,6 +1669,16 @@ async function main() {
     }
     if (unmappedObos.length > 10) {
       console.log(`  ... and ${unmappedObos.length - 10} more`);
+    }
+  }
+
+  if (unmappedLofavor.length > 0) {
+    console.log("\nUnmapped LOfavør merchants (add to data/lofavor-domains.json):");
+    for (const m of unmappedLofavor.slice(0, 10)) {
+      console.log(`  - ${m}`);
+    }
+    if (unmappedLofavor.length > 10) {
+      console.log(`  ... and ${unmappedLofavor.length - 10} more`);
     }
   }
 
