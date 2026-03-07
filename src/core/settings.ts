@@ -330,6 +330,18 @@ export class Settings {
     await this.storage.set(STORAGE_KEYS.setupComplete, complete);
   }
 
+  /**
+   * Verify that setup completion was actually persisted to storage.
+   * Used to detect silent GM storage failures in userscript environments.
+   */
+  async verifySetupComplete(): Promise<boolean> {
+    try {
+      return await this.storage.get<boolean>(STORAGE_KEYS.setupComplete, false);
+    } catch {
+      return false;
+    }
+  }
+
   async incrementSetupShowCount(): Promise<void> {
     this.cache.setupShowCount++;
     await this.storage.set(STORAGE_KEYS.setupShowCount, this.cache.setupShowCount);

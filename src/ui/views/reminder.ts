@@ -10,6 +10,7 @@ import type { Position } from "../../config/constants.js";
 import { getReminderStyles } from "../styles/index.js";
 import {
   createShadowHost,
+  appendToBody,
   applyThemeClass,
   injectStyles,
 } from "../components/shadow-host.js";
@@ -39,7 +40,7 @@ export function createReminderNotification(options: ReminderOptions): HTMLElemen
 
   // Create shadow host
   const shadowHost = createShadowHost();
-  document.body.appendChild(shadowHost);
+  appendToBody(shadowHost);
   const shadowRoot = shadowHost.attachShadow({ mode: "open" });
 
   // Inject styles with service color override (validate color first)

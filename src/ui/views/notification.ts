@@ -14,6 +14,7 @@ import { MESSAGE_SHOWN_KEY_PREFIX } from "../../config/constants.js";
 import { getNotificationStyles } from "../styles/index.js";
 import {
   createShadowHost,
+  appendToBody,
   applyThemeClass,
   applyServiceColor,
   injectStyles,
@@ -42,7 +43,7 @@ export function createNotification(options: NotificationOptions): HTMLElement {
 
   // Create shadow host
   const shadowHost = createShadowHost();
-  document.body.appendChild(shadowHost);
+  appendToBody(shadowHost);
   const shadowRoot = shadowHost.attachShadow({ mode: "open" });
 
   // Inject styles

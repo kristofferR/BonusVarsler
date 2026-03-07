@@ -50,3 +50,17 @@ export function injectStyles(shadowRoot: ShadowRoot, css: string): void {
   styleEl.textContent = css;
   shadowRoot.appendChild(styleEl);
 }
+
+/**
+ * Safely append an element to document.body.
+ * At @run-at document-start (userscript), document.body may not exist yet.
+ */
+export function appendToBody(element: HTMLElement): void {
+  if (document.body) {
+    document.body.appendChild(element);
+  } else {
+    document.addEventListener("DOMContentLoaded", () => {
+      document.body.appendChild(element);
+    }, { once: true });
+  }
+}

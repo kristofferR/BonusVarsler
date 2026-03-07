@@ -8,7 +8,7 @@ import type { Settings } from "../../core/settings.js";
 import type { ServiceRegistry } from "../../config/services.js";
 import { SERVICE_ORDER } from "../../config/services.js";
 import { getServiceSelectorStyles } from "../styles/index.js";
-import { createShadowHost, injectStyles } from "../components/shadow-host.js";
+import { createShadowHost, appendToBody, injectStyles } from "../components/shadow-host.js";
 import { LOGO_ICON_URL } from "../components/icons.js";
 
 // Plain Norwegian strings for first-run UI (no i18n dependency)
@@ -208,6 +208,12 @@ export function createServiceSelector(options: ServiceSelectorOptions): HTMLElem
       await settings.setEnabledServices(enabledServices);
       await settings.setSetupComplete(true);
 
+      // Verify save actually persisted (detects silent GM storage failures)
+      const verified = await settings.verifySetupComplete();
+      if (!verified) {
+        throw new Error("Save verification failed — storage write did not persist");
+      }
+
       // Call onSave callback or reload page
       if (onSave) {
         onSave(enabledServices);
@@ -230,8 +236,8 @@ export function createServiceSelector(options: ServiceSelectorOptions): HTMLElem
   container.appendChild(body);
   shadowRoot.appendChild(container);
 
-  // Append to body after content is ready
-  document.body.appendChild(shadowHost);
+  // Append to body (waits for body at document-start)
+  appendToBody(shadowHost);
 
   return shadowHost;
 }

@@ -84,7 +84,9 @@ export class GMFetch implements FetchAdapter {
       }
     }
 
-    return null;
+    // Retry primary once after brief delay (handles transient network issues)
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    return this.fetchJSON<T>(primaryUrl);
   }
 
   async checkUrlBlocked(url: string): Promise<boolean> {
