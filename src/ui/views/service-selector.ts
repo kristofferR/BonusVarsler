@@ -208,10 +208,10 @@ export function createServiceSelector(options: ServiceSelectorOptions): HTMLElem
       await settings.setEnabledServices(enabledServices);
       await settings.setSetupComplete(true);
 
-      // Verify save actually persisted (detects silent GM storage failures)
-      const verified = await settings.verifySetupComplete();
+      // Verify the full setup state actually persisted
+      const verified = await settings.verifySetupSelection(enabledServices);
       if (!verified) {
-        throw new Error("Save verification failed — storage write did not persist");
+        throw new Error("Save verification failed — setup state did not persist");
       }
 
       // Call onSave callback or reload page

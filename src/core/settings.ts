@@ -331,12 +331,34 @@ export class Settings {
   }
 
   /**
-   * Verify that setup completion was actually persisted to storage.
+   * Verify that first-run setup state was actually persisted to storage.
    * Used to detect silent GM storage failures in userscript environments.
    */
-  async verifySetupComplete(): Promise<boolean> {
+  async verifySetupSelection(expectedServices: string[]): Promise<boolean> {
     try {
-      return await this.storage.get<boolean>(STORAGE_KEYS.setupComplete, false);
+      const persistedSetupComplete = await this.storage.get<boolean>(
+        STORAGE_KEYS.setupComplete,
+        false
+      );
+      const persistedServices = await this.storage.get<string[] | null>(
+        STORAGE_KEYS.enabledServices,
+        null
+      );
+
+      if (!persistedSetupComplete || !persistedServices) {
+        return false;
+      }
+
+      const normalizeServices = (services: string[]): string[] =>
+        [...new Set(services)].sort((a, b) => a.localeCompare(b));
+
+      const actual = normalizeServices(persistedServices);
+      const expected = normalizeServices(expectedServices);
+
+      return (
+        actual.length === expected.length &&
+        actual.every((serviceId, index) => serviceId === expected[index])
+      );
     } catch {
       return false;
     }

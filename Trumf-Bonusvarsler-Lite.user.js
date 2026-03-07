@@ -697,12 +697,26 @@
       await this.storage.set(STORAGE_KEYS.setupComplete, complete);
     }
     /**
-     * Verify that setup completion was actually persisted to storage.
+     * Verify that first-run setup state was actually persisted to storage.
      * Used to detect silent GM storage failures in userscript environments.
      */
-    async verifySetupComplete() {
+    async verifySetupSelection(expectedServices) {
       try {
-        return await this.storage.get(STORAGE_KEYS.setupComplete, false);
+        const persistedSetupComplete = await this.storage.get(
+          STORAGE_KEYS.setupComplete,
+          false
+        );
+        const persistedServices = await this.storage.get(
+          STORAGE_KEYS.enabledServices,
+          null
+        );
+        if (!persistedSetupComplete || !persistedServices) {
+          return false;
+        }
+        const normalizeServices = (services) => [...new Set(services)].sort((a, b) => a.localeCompare(b));
+        const actual = normalizeServices(persistedServices);
+        const expected = normalizeServices(expectedServices);
+        return actual.length === expected.length && actual.every((serviceId, index) => serviceId === expected[index]);
       } catch {
         return false;
       }
@@ -2891,9 +2905,9 @@
       try {
         await settings.setEnabledServices(enabledServices);
         await settings.setSetupComplete(true);
-        const verified = await settings.verifySetupComplete();
+        const verified = await settings.verifySetupSelection(enabledServices);
         if (!verified) {
-          throw new Error("Save verification failed \u2014 storage write did not persist");
+          throw new Error("Save verification failed \u2014 setup state did not persist");
         }
         if (onSave) {
           onSave(enabledServices);
