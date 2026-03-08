@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BonusVarsler (for Trumf, OBOS, LOfavør, DNB, re:member++)
 // @namespace    http://tampermonkey.net/
-// @version      7.1.0
+// @version      7.1.1
 // @description  Varsler om bonuser og cashback fra Trumf, OBOS, LOfavør, re:member, DNB og andre når du besøker nettsider som tilbyr dette. Norsk utvidelse.
 // @author       kristofferR
 // @match        *://*/*
