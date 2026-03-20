@@ -44,7 +44,7 @@
         {
           "serviceId": "trumf",
           "urlName": "trumfhotels-no",
-          "cashbackDescription": "Opptil            \n\t            4,6 %"
+          "cashbackDescription": "Opptil            \n\t            7 %"
         },
         {
           "serviceId": "remember",
@@ -226,7 +226,7 @@
         {
           "serviceId": "trumf",
           "urlName": "trumfradissonhotels",
-          "cashbackDescription": "6,2 %"
+          "cashbackDescription": "7,8 %"
         }
       ]
     },
@@ -246,6 +246,22 @@
         }
       ]
     },
+    "www.scandichotels.no": {
+      "hostName": "www.scandichotels.no",
+      "name": "Scandic Hotels",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "scandic-hotels-trumf",
+          "cashbackDescription": "4,6 %"
+        },
+        {
+          "serviceId": "lofavor",
+          "urlName": "ferie-og-opplevelser/scandic-hotels",
+          "cashbackDescription": "15 % rabatt"
+        }
+      ]
+    },
     "www.adlibris.com": {
       "hostName": "www.adlibris.com",
       "name": "Adlibris",
@@ -259,22 +275,6 @@
           "serviceId": "remember",
           "urlName": "adlibris",
           "cashbackDescription": "6%"
-        }
-      ]
-    },
-    "www.scandichotels.no": {
-      "hostName": "www.scandichotels.no",
-      "name": "Scandic Hotels",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "scandic-hotels-trumf",
-          "cashbackDescription": "3,1 %"
-        },
-        {
-          "serviceId": "lofavor",
-          "urlName": "ferie-og-opplevelser/scandic-hotels",
-          "cashbackDescription": "15 % rabatt"
         }
       ]
     },
@@ -420,6 +420,17 @@
         }
       ]
     },
+    "www.miinto.no": {
+      "hostName": "www.miinto.no",
+      "name": "Miinto",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "trumfsmiinto",
+          "cashbackDescription": "6,2 %"
+        }
+      ]
+    },
     "gymgrossisten.no": {
       "hostName": "gymgrossisten.no",
       "name": "Gymgrossisten",
@@ -436,30 +447,19 @@
         }
       ]
     },
-    "www.ginatricot.com": {
-      "hostName": "www.ginatricot.com",
-      "name": "Gina Tricot",
+    "www.cg.no": {
+      "hostName": "www.cg.no",
+      "name": "Christiania Glasmagasin",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "gina-tricot-trumf",
-          "cashbackDescription": "4,6 %"
+          "urlName": "christiania-glasmagasintrumf",
+          "cashbackDescription": "7,8 %"
         },
         {
           "serviceId": "remember",
-          "urlName": "gina-tricot",
+          "urlName": "christiania-glasmagasin",
           "cashbackDescription": "6%"
-        }
-      ]
-    },
-    "www.miinto.no": {
-      "hostName": "www.miinto.no",
-      "name": "Miinto",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "trumfsmiinto",
-          "cashbackDescription": "6,2 %"
         }
       ]
     },
@@ -475,22 +475,6 @@
         {
           "serviceId": "remember",
           "urlName": "vetzoo.no",
-          "cashbackDescription": "6%"
-        }
-      ]
-    },
-    "www.cg.no": {
-      "hostName": "www.cg.no",
-      "name": "Christiania Glasmagasin",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "christiania-glasmagasintrumf",
-          "cashbackDescription": "7,8 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "christiania-glasmagasin",
           "cashbackDescription": "6%"
         }
       ]
@@ -533,22 +517,6 @@
         }
       ]
     },
-    "www.getyourguide.com": {
-      "hostName": "www.getyourguide.com",
-      "name": "GetYourGuide",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "getyourguide-trumf",
-          "cashbackDescription": "6,2 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "getyourguide",
-          "cashbackDescription": "7%"
-        }
-      ]
-    },
     "www.elektroimportoren.no": {
       "hostName": "www.elektroimportoren.no",
       "name": "Elektroimportøren",
@@ -562,6 +530,33 @@
           "serviceId": "remember",
           "urlName": "elektroimportoren.no",
           "cashbackDescription": "5%"
+        }
+      ]
+    },
+    "www.getyourguide.com": {
+      "hostName": "www.getyourguide.com",
+      "name": "GetYourGuide",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "getyourguide-trumf",
+          "cashbackDescription": "7,8 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "getyourguide",
+          "cashbackDescription": "7%"
+        }
+      ]
+    },
+    "sportsmagasinet.no": {
+      "hostName": "sportsmagasinet.no",
+      "name": "Sportsmagasinet",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "sportsmagasinet-trumf",
+          "cashbackDescription": "12,4 %"
         }
       ]
     },
@@ -583,17 +578,6 @@
           "serviceId": "obos",
           "urlName": "samsung",
           "cashbackDescription": "30 %"
-        }
-      ]
-    },
-    "sportsmagasinet.no": {
-      "hostName": "sportsmagasinet.no",
-      "name": "Sportsmagasinet",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "sportsmagasinet-trumf",
-          "cashbackDescription": "12,4 %"
         }
       ]
     },
@@ -630,22 +614,6 @@
         }
       ]
     },
-    "www.babystore.no": {
-      "hostName": "www.babystore.no",
-      "name": "Babyshop",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "babyshop-trumf",
-          "cashbackDescription": "4,6 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "babyshop",
-          "cashbackDescription": "6%"
-        }
-      ]
-    },
     "www.tilbords.no": {
       "hostName": "www.tilbords.no",
       "name": "Tilbords",
@@ -671,6 +639,22 @@
               "description": "i reward-rabatt på elektronikk"
             }
           ]
+        }
+      ]
+    },
+    "www.babystore.no": {
+      "hostName": "www.babystore.no",
+      "name": "Babyshop",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "babyshop-trumf",
+          "cashbackDescription": "4,6 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "babyshop",
+          "cashbackDescription": "6%"
         }
       ]
     },
@@ -751,7 +735,7 @@
         {
           "serviceId": "trumf",
           "urlName": "trumfexpedia-eu",
-          "cashbackDescription": "Opptil            \n\t            3,1 %"
+          "cashbackDescription": "Opptil            \n\t            3,9 %"
         },
         {
           "serviceId": "remember",
@@ -820,6 +804,17 @@
         }
       ]
     },
+    "www.loepeshop.no": {
+      "hostName": "www.loepeshop.no",
+      "name": "Løpeshop",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "lopeshop-trumf",
+          "cashbackDescription": "2,3 %"
+        }
+      ]
+    },
     "csmegastore.no": {
       "hostName": "csmegastore.no",
       "name": "CS MEGASTORE",
@@ -844,17 +839,6 @@
           "serviceId": "trumf",
           "urlName": "lastminute-trumf",
           "cashbackDescription": "Opptil            \n\t            5,4 %"
-        }
-      ]
-    },
-    "www.loepeshop.no": {
-      "hostName": "www.loepeshop.no",
-      "name": "Løpeshop",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "lopeshop-trumf",
-          "cashbackDescription": "2,3 %"
         }
       ]
     },
@@ -888,22 +872,6 @@
           "urlName": "",
           "cashbackDescription": "10%",
           "code": "DNB6932"
-        }
-      ]
-    },
-    "www.bodystore.no": {
-      "hostName": "www.bodystore.no",
-      "name": "Bodystore",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "bodystore-trumf",
-          "cashbackDescription": "Opptil            \n\t            4,6 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "bodystore.no",
-          "cashbackDescription": "4%"
         }
       ]
     },
@@ -950,14 +918,35 @@
         }
       ]
     },
-    "www.disneyplus.com": {
-      "hostName": "www.disneyplus.com",
-      "name": "Disney+",
+    "www.bodystore.no": {
+      "hostName": "www.bodystore.no",
+      "name": "Bodystore",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "disney-trumfa",
-          "cashbackDescription": "110 kr"
+          "urlName": "bodystore-trumf",
+          "cashbackDescription": "Opptil            \n\t            4,6 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "bodystore.no",
+          "cashbackDescription": "4%"
+        }
+      ]
+    },
+    "www.adidas.no": {
+      "hostName": "www.adidas.no",
+      "name": "Adidas",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "adidas-trumfs",
+          "cashbackDescription": "Opptil            \n\t            4,6 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "adidas",
+          "cashbackDescription": "6%"
         }
       ]
     },
@@ -977,19 +966,14 @@
         }
       ]
     },
-    "www.adidas.no": {
-      "hostName": "www.adidas.no",
-      "name": "Adidas",
+    "www.disneyplus.com": {
+      "hostName": "www.disneyplus.com",
+      "name": "Disney+",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "adidas-trumfs",
-          "cashbackDescription": "Opptil            \n\t            4,6 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "adidas",
-          "cashbackDescription": "6%"
+          "urlName": "disney-trumfa",
+          "cashbackDescription": "110 kr"
         }
       ]
     },
@@ -1032,33 +1016,6 @@
         }
       ]
     },
-    "www.sembo.no": {
-      "hostName": "www.sembo.no",
-      "name": "Sembo",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "sembo-trumf",
-          "cashbackDescription": "Opptil            \n\t            5,4 %"
-        }
-      ]
-    },
-    "framsport.no": {
-      "hostName": "framsport.no",
-      "name": "Framsport",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "framsport-trumf",
-          "cashbackDescription": "4,6 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "framsport",
-          "cashbackDescription": "6%"
-        }
-      ]
-    },
     "www.floyd.no": {
       "hostName": "www.floyd.no",
       "name": "Floyd",
@@ -1073,6 +1030,17 @@
           "urlName": "",
           "cashbackDescription": "10%",
           "code": "DNB6932"
+        }
+      ]
+    },
+    "www.sembo.no": {
+      "hostName": "www.sembo.no",
+      "name": "Sembo",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "sembo-trumf",
+          "cashbackDescription": "Opptil            \n\t            7 %"
         }
       ]
     },
@@ -1104,6 +1072,22 @@
         }
       ]
     },
+    "framsport.no": {
+      "hostName": "framsport.no",
+      "name": "Framsport",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "framsport-trumf",
+          "cashbackDescription": "4,6 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "framsport",
+          "cashbackDescription": "6%"
+        }
+      ]
+    },
     "www.navnelapper.no": {
       "hostName": "www.navnelapper.no",
       "name": "Askeladden Navnelapper",
@@ -1131,22 +1115,6 @@
         }
       ]
     },
-    "www.inkclub.com": {
-      "hostName": "www.inkclub.com",
-      "name": "inkClub.com",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "trumfinkclub-no",
-          "cashbackDescription": "11,7 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "inkclub.com",
-          "cashbackDescription": "15%"
-        }
-      ]
-    },
     "www.bubbleroom.no": {
       "hostName": "www.bubbleroom.no",
       "name": "Bubbleroom",
@@ -1163,17 +1131,6 @@
         }
       ]
     },
-    "www.budget.no": {
-      "hostName": "www.budget.no",
-      "name": "Budget",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "budget-trumf",
-          "cashbackDescription": "6,2 %"
-        }
-      ]
-    },
     "www.zoo.no": {
       "hostName": "www.zoo.no",
       "name": "ZOO",
@@ -1182,6 +1139,22 @@
           "serviceId": "trumf",
           "urlName": "zoo-trumfs",
           "cashbackDescription": "Opptil            \n\t            6,2 %"
+        }
+      ]
+    },
+    "www.inkclub.com": {
+      "hostName": "www.inkclub.com",
+      "name": "inkClub.com",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "trumfinkclub-no",
+          "cashbackDescription": "11,7 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "inkclub2.com",
+          "cashbackDescription": "15%"
         }
       ]
     },
@@ -1196,6 +1169,17 @@
         }
       ]
     },
+    "www.budget.no": {
+      "hostName": "www.budget.no",
+      "name": "Budget",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "budget-trumf",
+          "cashbackDescription": "6,2 %"
+        }
+      ]
+    },
     "junkyard.com": {
       "hostName": "junkyard.com",
       "name": "Junkyard",
@@ -1203,17 +1187,6 @@
         {
           "serviceId": "trumf",
           "urlName": "junkyard-trumf",
-          "cashbackDescription": "Opptil            \n\t            6,2 %"
-        }
-      ]
-    },
-    "www.autodoc.co.no": {
-      "hostName": "www.autodoc.co.no",
-      "name": "Autodoc",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "autodoc-trumf",
           "cashbackDescription": "Opptil            \n\t            6,2 %"
         }
       ]
@@ -1229,25 +1202,14 @@
         }
       ]
     },
-    "www.makeupmekka.com": {
-      "hostName": "www.makeupmekka.com",
-      "name": "Makeup Mekka",
+    "www.autodoc.co.no": {
+      "hostName": "www.autodoc.co.no",
+      "name": "Autodoc",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "makeup-mekka-trumf",
-          "cashbackDescription": "6,2 %"
-        }
-      ]
-    },
-    "www.aimn.com": {
-      "hostName": "www.aimn.com",
-      "name": "AIM'N",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "aimn-trumf",
-          "cashbackDescription": "7,8 %"
+          "urlName": "autodoc-trumf",
+          "cashbackDescription": "Opptil            \n\t            6,2 %"
         }
       ]
     },
@@ -1259,6 +1221,23 @@
           "serviceId": "trumf",
           "urlName": "bik-bok-trumf",
           "cashbackDescription": "4,6 %"
+        }
+      ]
+    },
+    "hoie.no": {
+      "hostName": "hoie.no",
+      "name": "Høie",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "hoie-trumf",
+          "cashbackDescription": "8,1 %"
+        },
+        {
+          "serviceId": "dnb",
+          "urlName": "",
+          "cashbackDescription": "10%",
+          "code": "DNB6932"
         }
       ]
     },
@@ -1286,6 +1265,28 @@
           "serviceId": "remember",
           "urlName": "bildeler",
           "cashbackDescription": "8%"
+        }
+      ]
+    },
+    "www.makeupmekka.com": {
+      "hostName": "www.makeupmekka.com",
+      "name": "Makeup Mekka",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "makeup-mekka-trumf",
+          "cashbackDescription": "6,2 %"
+        }
+      ]
+    },
+    "www.aimn.com": {
+      "hostName": "www.aimn.com",
+      "name": "AIM'N",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "aimn-trumf",
+          "cashbackDescription": "7,8 %"
         }
       ]
     },
@@ -1327,20 +1328,14 @@
         }
       ]
     },
-    "hoie.no": {
-      "hostName": "hoie.no",
-      "name": "Høie",
+    "www.autoeurope.no": {
+      "hostName": "www.autoeurope.no",
+      "name": "Auto Europe no",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "hoie-trumf",
-          "cashbackDescription": "8,1 %"
-        },
-        {
-          "serviceId": "dnb",
-          "urlName": "",
-          "cashbackDescription": "10%",
-          "code": "DNB6932"
+          "urlName": "auto-europe-notrumf",
+          "cashbackDescription": "4,6 %"
         }
       ]
     },
@@ -1387,17 +1382,6 @@
         }
       ]
     },
-    "www.autoeurope.no": {
-      "hostName": "www.autoeurope.no",
-      "name": "Auto Europe no",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "auto-europe-notrumf",
-          "cashbackDescription": "4,6 %"
-        }
-      ]
-    },
     "www.asos.com": {
       "hostName": "www.asos.com",
       "name": "ASOS",
@@ -1406,6 +1390,28 @@
           "serviceId": "trumf",
           "urlName": "trumfasos",
           "cashbackDescription": "Opptil            \n\t            4,6 %"
+        }
+      ]
+    },
+    "www.gullfunn.no": {
+      "hostName": "www.gullfunn.no",
+      "name": "Gullfunn",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "gullfunn-trumf",
+          "cashbackDescription": "6,5 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "gullfunn",
+          "cashbackDescription": "7%"
+        },
+        {
+          "serviceId": "dnb",
+          "urlName": "",
+          "cashbackDescription": "10%",
+          "code": "DNB6932"
         }
       ]
     },
@@ -1444,28 +1450,6 @@
           "serviceId": "remember",
           "urlName": "lunehjem.no",
           "cashbackDescription": "8%"
-        }
-      ]
-    },
-    "www.gullfunn.no": {
-      "hostName": "www.gullfunn.no",
-      "name": "Gullfunn",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "gullfunn-trumf",
-          "cashbackDescription": "6,5 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "gullfunn",
-          "cashbackDescription": "7%"
-        },
-        {
-          "serviceId": "dnb",
-          "urlName": "",
-          "cashbackDescription": "10%",
-          "code": "DNB6932"
         }
       ]
     },
@@ -1666,17 +1650,6 @@
         }
       ]
     },
-    "www.jaktogfriluft.no": {
-      "hostName": "www.jaktogfriluft.no",
-      "name": "Jakt og Friluft",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "jakt-og-friluft",
-          "cashbackDescription": "4,6 %"
-        }
-      ]
-    },
     "www.avast.com": {
       "hostName": "www.avast.com",
       "name": "AVAST Software",
@@ -1699,6 +1672,17 @@
         }
       ]
     },
+    "www.jaktogfriluft.no": {
+      "hostName": "www.jaktogfriluft.no",
+      "name": "Jakt og Friluft",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "jakt-og-friluft",
+          "cashbackDescription": "4,6 %"
+        }
+      ]
+    },
     "www.e-wheels.no": {
       "hostName": "www.e-wheels.no",
       "name": "E-Wheels",
@@ -1710,17 +1694,6 @@
         }
       ]
     },
-    "www.kitchentime.no": {
-      "hostName": "www.kitchentime.no",
-      "name": "KitchenTime",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "kitchentimetrumf",
-          "cashbackDescription": "2,3 %"
-        }
-      ]
-    },
     "www.weekday.com": {
       "hostName": "www.weekday.com",
       "name": "Weekday",
@@ -1729,6 +1702,17 @@
           "serviceId": "trumf",
           "urlName": "weekday-trumf",
           "cashbackDescription": "7,8 %"
+        }
+      ]
+    },
+    "www.kitchentime.no": {
+      "hostName": "www.kitchentime.no",
+      "name": "KitchenTime",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "kitchentimetrumf",
+          "cashbackDescription": "2,3 %"
         }
       ]
     },
@@ -1764,30 +1748,25 @@
         }
       ]
     },
-    "www.asics.com": {
-      "hostName": "www.asics.com",
-      "name": "ASICS",
+    "tonnesen1937.no": {
+      "hostName": "tonnesen1937.no",
+      "name": "Tønnesen",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "asics-trumf",
-          "cashbackDescription": "3,1 %"
+          "urlName": "tonnesen-trumf",
+          "cashbackDescription": "5,4 %"
         }
       ]
     },
-    "dbjourney.com": {
-      "hostName": "dbjourney.com",
-      "name": "Db",
+    "www.skeidar.no": {
+      "hostName": "www.skeidar.no",
+      "name": "Skeidar",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "db-trumf1",
-          "cashbackDescription": "4,6 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "db-journey",
-          "cashbackDescription": "5%"
+          "urlName": "skeidar-trumf",
+          "cashbackDescription": "3,1 %"
         }
       ]
     },
@@ -1807,14 +1786,14 @@
         }
       ]
     },
-    "tonnesen1937.no": {
-      "hostName": "tonnesen1937.no",
-      "name": "Tønnesen",
+    "www.asics.com": {
+      "hostName": "www.asics.com",
+      "name": "ASICS",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "tonnesen-trumf",
-          "cashbackDescription": "5,4 %"
+          "urlName": "asics-trumf",
+          "cashbackDescription": "3,1 %"
         }
       ]
     },
@@ -1826,28 +1805,6 @@
           "serviceId": "trumf",
           "urlName": "foss-sport-trumf",
           "cashbackDescription": "Opptil            \n\t            3,9 %"
-        }
-      ]
-    },
-    "no.oakley.com": {
-      "hostName": "no.oakley.com",
-      "name": "Oakley",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "oakley-trumf",
-          "cashbackDescription": "6,2 %"
-        }
-      ]
-    },
-    "www.omio.no": {
-      "hostName": "www.omio.no",
-      "name": "Omio",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "omio-trumf",
-          "cashbackDescription": "Opptil            \n\t            4,6 %"
         }
       ]
     },
@@ -1864,6 +1821,66 @@
           "serviceId": "remember",
           "urlName": "viking-footwear",
           "cashbackDescription": "8%"
+        }
+      ]
+    },
+    "dbjourney.com": {
+      "hostName": "dbjourney.com",
+      "name": "Db",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "db-trumf1",
+          "cashbackDescription": "6,2 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "db-journey",
+          "cashbackDescription": "5%"
+        }
+      ]
+    },
+    "no.oakley.com": {
+      "hostName": "no.oakley.com",
+      "name": "Oakley",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "oakley-trumf",
+          "cashbackDescription": "6,2 %"
+        }
+      ]
+    },
+    "www.interoptik.no": {
+      "hostName": "www.interoptik.no",
+      "name": "Interoptik",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "interoptik-trumf",
+          "cashbackDescription": "7,8 %"
+        }
+      ]
+    },
+    "myrevolution.no": {
+      "hostName": "myrevolution.no",
+      "name": "MyRevolution",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "myrevolution-trumf",
+          "cashbackDescription": "8,2 %"
+        }
+      ]
+    },
+    "www.omio.no": {
+      "hostName": "www.omio.no",
+      "name": "Omio",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "omio-trumf",
+          "cashbackDescription": "Opptil            \n\t            4,6 %"
         }
       ]
     },
@@ -1894,17 +1911,6 @@
         }
       ]
     },
-    "www.skeidar.no": {
-      "hostName": "www.skeidar.no",
-      "name": "Skeidar",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "skeidar-trumf",
-          "cashbackDescription": "3,1 %"
-        }
-      ]
-    },
     "www.skyshowtime.com": {
       "hostName": "www.skyshowtime.com",
       "name": "SkyShowtime",
@@ -1927,25 +1933,19 @@
         }
       ]
     },
-    "www.qatarairways.com": {
-      "hostName": "www.qatarairways.com",
-      "name": "Qatar Airways",
+    "www.bjornborg.com": {
+      "hostName": "www.bjornborg.com",
+      "name": "Björn Borg",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "qatar-airways-notrumf",
-          "cashbackDescription": "1,5 %"
-        }
-      ]
-    },
-    "www.interoptik.no": {
-      "hostName": "www.interoptik.no",
-      "name": "Interoptik",
-      "offers": [
+          "urlName": "trumfbjörn-borg",
+          "cashbackDescription": "8,5 %"
+        },
         {
-          "serviceId": "trumf",
-          "urlName": "interoptik-trumf",
-          "cashbackDescription": "7,8 %"
+          "serviceId": "remember",
+          "urlName": "bjorn-borg",
+          "cashbackDescription": "10%"
         }
       ]
     },
@@ -1971,30 +1971,25 @@
         }
       ]
     },
-    "www.bjornborg.com": {
-      "hostName": "www.bjornborg.com",
-      "name": "Björn Borg",
+    "www.qatarairways.com": {
+      "hostName": "www.qatarairways.com",
+      "name": "Qatar Airways",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "trumfbjörn-borg",
-          "cashbackDescription": "8,5 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "bjorn-borg",
-          "cashbackDescription": "10%"
+          "urlName": "qatar-airways-notrumf",
+          "cashbackDescription": "1,5 %"
         }
       ]
     },
-    "maanesten.no": {
-      "hostName": "maanesten.no",
-      "name": "Maanesten",
+    "www.kaercher.com": {
+      "hostName": "www.kaercher.com",
+      "name": "Kärcher",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "maanesten-trumf",
-          "cashbackDescription": "8,9 %"
+          "urlName": "karcher-trumf",
+          "cashbackDescription": "10,1 %"
         }
       ]
     },
@@ -2014,14 +2009,25 @@
         }
       ]
     },
-    "www.kaercher.com": {
-      "hostName": "www.kaercher.com",
-      "name": "Kärcher",
+    "maanesten.no": {
+      "hostName": "maanesten.no",
+      "name": "Maanesten",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "karcher-trumf",
-          "cashbackDescription": "10,1 %"
+          "urlName": "maanesten-trumf",
+          "cashbackDescription": "8,9 %"
+        }
+      ]
+    },
+    "outlet.asics.com": {
+      "hostName": "outlet.asics.com",
+      "name": "ASICS Outlet",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "asics-outlet-trumf",
+          "cashbackDescription": "2,3 %"
         }
       ]
     },
@@ -2041,6 +2047,33 @@
         }
       ]
     },
+    "www.electrolux.no": {
+      "hostName": "www.electrolux.no",
+      "name": "Electrolux",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "electrolux-trumf",
+          "cashbackDescription": "3,1 %"
+        }
+      ]
+    },
+    "www.ilovedogs.no": {
+      "hostName": "www.ilovedogs.no",
+      "name": "I Love Dogs",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "i-love-dogs-trumf",
+          "cashbackDescription": "5,4 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "i-love-dogs",
+          "cashbackDescription": "12%"
+        }
+      ]
+    },
     "www.smartphoto.no": {
       "hostName": "www.smartphoto.no",
       "name": "Smartphoto",
@@ -2052,25 +2085,53 @@
         }
       ]
     },
-    "outlet.asics.com": {
-      "hostName": "outlet.asics.com",
-      "name": "ASICS Outlet",
+    "www.kajakk-fritid.no": {
+      "hostName": "www.kajakk-fritid.no",
+      "name": "Kajakk og Fritid",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "asics-outlet-trumf",
+          "urlName": "kajakk-og-fritid-trumf",
           "cashbackDescription": "2,3 %"
         }
       ]
     },
-    "www.electrolux.no": {
-      "hostName": "www.electrolux.no",
-      "name": "Electrolux",
+    "hudprodukter.no": {
+      "hostName": "hudprodukter.no",
+      "name": "Hudprodukter",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "electrolux-trumf",
-          "cashbackDescription": "3,1 %"
+          "urlName": "hudprodukter",
+          "cashbackDescription": "6,2 %"
+        }
+      ]
+    },
+    "nextory.com": {
+      "hostName": "nextory.com",
+      "name": "Nextory",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "nextory-trumfs",
+          "cashbackDescription": "35 kr"
+        }
+      ]
+    },
+    "bagbrokers.no": {
+      "hostName": "bagbrokers.no",
+      "name": "BagBrokers",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "bagbrokers-trumf",
+          "cashbackDescription": "3,9 %"
+        },
+        {
+          "serviceId": "dnb",
+          "urlName": "",
+          "cashbackDescription": "10%",
+          "code": "DNB6932"
         }
       ]
     },
@@ -2096,52 +2157,14 @@
         }
       ]
     },
-    "nextory.com": {
-      "hostName": "nextory.com",
-      "name": "Nextory",
+    "www.newbalance.no": {
+      "hostName": "www.newbalance.no",
+      "name": "New Balance",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "nextory-trumfs",
-          "cashbackDescription": "35 kr"
-        }
-      ]
-    },
-    "hudprodukter.no": {
-      "hostName": "hudprodukter.no",
-      "name": "Hudprodukter",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "hudprodukter",
-          "cashbackDescription": "6,2 %"
-        }
-      ]
-    },
-    "www.ilovedogs.no": {
-      "hostName": "www.ilovedogs.no",
-      "name": "I Love Dogs",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "i-love-dogs-trumf",
-          "cashbackDescription": "5,4 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "i-love-dogs",
-          "cashbackDescription": "12%"
-        }
-      ]
-    },
-    "www.kajakk-fritid.no": {
-      "hostName": "www.kajakk-fritid.no",
-      "name": "Kajakk og Fritid",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "kajakk-og-fritid-trumf",
-          "cashbackDescription": "2,3 %"
+          "urlName": "new-balance-trumf",
+          "cashbackDescription": "3,9 %"
         }
       ]
     },
@@ -2184,31 +2207,30 @@
         }
       ]
     },
-    "bagbrokers.no": {
-      "hostName": "bagbrokers.no",
-      "name": "BagBrokers",
+    "nlyman.com": {
+      "hostName": "nlyman.com",
+      "name": "NLY MAN",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "bagbrokers-trumf",
-          "cashbackDescription": "3,9 %"
+          "urlName": "trumfnly-man",
+          "cashbackDescription": "2,3 %"
         },
         {
-          "serviceId": "dnb",
-          "urlName": "",
-          "cashbackDescription": "10%",
-          "code": "DNB6932"
+          "serviceId": "remember",
+          "urlName": "nly-man",
+          "cashbackDescription": "4%"
         }
       ]
     },
-    "www.newbalance.no": {
-      "hostName": "www.newbalance.no",
-      "name": "New Balance",
+    "www.ebay.com": {
+      "hostName": "www.ebay.com",
+      "name": "eBay",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "new-balance-trumf",
-          "cashbackDescription": "3,9 %"
+          "urlName": "ebay-trumfno",
+          "cashbackDescription": "1 %"
         }
       ]
     },
@@ -2220,6 +2242,39 @@
           "serviceId": "trumf",
           "urlName": "petxl-trumf",
           "cashbackDescription": "Opptil            \n\t            6,2 %"
+        }
+      ]
+    },
+    "drommerom.no": {
+      "hostName": "drommerom.no",
+      "name": "Drømmerom",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "drommerom-trumf",
+          "cashbackDescription": "7 %"
+        }
+      ]
+    },
+    "sillysanta.no": {
+      "hostName": "sillysanta.no",
+      "name": "SillySanta",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "sillysanta-trumf",
+          "cashbackDescription": "9,3 %"
+        }
+      ]
+    },
+    "www.skogstadsport.no": {
+      "hostName": "www.skogstadsport.no",
+      "name": "Skogstad Sport",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "skogstad-sport-trumf",
+          "cashbackDescription": "5,4 %"
         }
       ]
     },
@@ -2239,74 +2294,14 @@
         }
       ]
     },
-    "www.ebay.com": {
-      "hostName": "www.ebay.com",
-      "name": "eBay",
+    "www.lightup.no": {
+      "hostName": "www.lightup.no",
+      "name": "Lightup",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "ebay-trumfno",
-          "cashbackDescription": "1 %"
-        }
-      ]
-    },
-    "drommerom.no": {
-      "hostName": "drommerom.no",
-      "name": "Drømmerom",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "drommerom-trumf",
-          "cashbackDescription": "7 %"
-        }
-      ]
-    },
-    "www.skogstadsport.no": {
-      "hostName": "www.skogstadsport.no",
-      "name": "Skogstad Sport",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "skogstad-sport-trumf",
-          "cashbackDescription": "5,4 %"
-        }
-      ]
-    },
-    "sillysanta.no": {
-      "hostName": "sillysanta.no",
-      "name": "SillySanta",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "sillysanta-trumf",
-          "cashbackDescription": "9,3 %"
-        }
-      ]
-    },
-    "nlyman.com": {
-      "hostName": "nlyman.com",
-      "name": "NLY MAN",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "trumfnly-man",
-          "cashbackDescription": "2,3 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "nly-man",
-          "cashbackDescription": "4%"
-        }
-      ]
-    },
-    "comforth.no": {
-      "hostName": "comforth.no",
-      "name": "Comforth Scandinavia",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "comforth-scandinavia-trumf",
-          "cashbackDescription": "15,6 %"
+          "urlName": "lightup-trumf",
+          "cashbackDescription": "3,9 %"
         }
       ]
     },
@@ -2321,17 +2316,6 @@
         }
       ]
     },
-    "www.lightup.no": {
-      "hostName": "www.lightup.no",
-      "name": "Lightup",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "lightup-trumf",
-          "cashbackDescription": "3,9 %"
-        }
-      ]
-    },
     "www.bladkongen.no": {
       "hostName": "www.bladkongen.no",
       "name": "Bladkongen",
@@ -2343,14 +2327,25 @@
         }
       ]
     },
-    "bokia.no": {
-      "hostName": "bokia.no",
-      "name": "Bokia",
+    "eu.swims.com": {
+      "hostName": "eu.swims.com",
+      "name": "SWIMS",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "bokia-trumf",
-          "cashbackDescription": "11,7 %"
+          "urlName": "swims-trumf",
+          "cashbackDescription": "7,8 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "swims",
+          "cashbackDescription": "8%"
+        },
+        {
+          "serviceId": "dnb",
+          "urlName": "",
+          "cashbackDescription": "10%",
+          "code": "DNB6932"
         }
       ]
     },
@@ -2370,31 +2365,25 @@
         }
       ]
     },
-    "www.urverket.no": {
-      "hostName": "www.urverket.no",
-      "name": "Urverket",
+    "comforth.no": {
+      "hostName": "comforth.no",
+      "name": "Comforth Scandinavia",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "urverket-trumf",
-          "cashbackDescription": "3,1 %"
+          "urlName": "comforth-scandinavia-trumf",
+          "cashbackDescription": "15,6 %"
         }
       ]
     },
-    "www.barbershop.no": {
-      "hostName": "www.barbershop.no",
-      "name": "Barbershop",
+    "bokia.no": {
+      "hostName": "bokia.no",
+      "name": "Bokia",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "barbershop-trumf",
-          "cashbackDescription": "1,9 %"
-        },
-        {
-          "serviceId": "dnb",
-          "urlName": "",
-          "cashbackDescription": "10%",
-          "code": "DNB6932"
+          "urlName": "bokia-trumf",
+          "cashbackDescription": "11,7 %"
         }
       ]
     },
@@ -2414,30 +2403,20 @@
         }
       ]
     },
-    "www.ccleaner.com": {
-      "hostName": "www.ccleaner.com",
-      "name": "CCleaner",
+    "www.barbershop.no": {
+      "hostName": "www.barbershop.no",
+      "name": "Barbershop",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "ccleaner-trumf",
-          "cashbackDescription": "23,4 %"
-        }
-      ]
-    },
-    "www.timarco.com": {
-      "hostName": "www.timarco.com",
-      "name": "Timarco",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "timarcotrumf",
-          "cashbackDescription": "6,2 %"
+          "urlName": "barbershop-trumf",
+          "cashbackDescription": "1,9 %"
         },
         {
-          "serviceId": "remember",
-          "urlName": "timarco",
-          "cashbackDescription": "7%"
+          "serviceId": "dnb",
+          "urlName": "",
+          "cashbackDescription": "10%",
+          "code": "DNB6932"
         }
       ]
     },
@@ -2474,36 +2453,41 @@
         }
       ]
     },
-    "eu.swims.com": {
-      "hostName": "eu.swims.com",
-      "name": "SWIMS",
+    "www.ccleaner.com": {
+      "hostName": "www.ccleaner.com",
+      "name": "CCleaner",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "swims-trumf",
-          "cashbackDescription": "7,8 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "swims",
-          "cashbackDescription": "8%"
-        },
-        {
-          "serviceId": "dnb",
-          "urlName": "",
-          "cashbackDescription": "10%",
-          "code": "DNB6932"
+          "urlName": "ccleaner-trumf",
+          "cashbackDescription": "23,4 %"
         }
       ]
     },
-    "watery.no": {
-      "hostName": "watery.no",
-      "name": "Watery",
+    "www.timarco.com": {
+      "hostName": "www.timarco.com",
+      "name": "Timarco",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "watery-trumf",
-          "cashbackDescription": "Opptil            \n\t            9,3 %"
+          "urlName": "timarcotrumf",
+          "cashbackDescription": "6,2 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "timarco",
+          "cashbackDescription": "7%"
+        }
+      ]
+    },
+    "www.urverket.no": {
+      "hostName": "www.urverket.no",
+      "name": "Urverket",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "urverket-trumf",
+          "cashbackDescription": "3,1 %"
         }
       ]
     },
@@ -2515,6 +2499,17 @@
           "serviceId": "trumf",
           "urlName": "trumfsuperkul",
           "cashbackDescription": "5,4 %"
+        }
+      ]
+    },
+    "watery.no": {
+      "hostName": "watery.no",
+      "name": "Watery",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "watery-trumf",
+          "cashbackDescription": "Opptil            \n\t            9,3 %"
         }
       ]
     },
@@ -2535,6 +2530,17 @@
         }
       ]
     },
+    "www.hunkemoller": {
+      "hostName": "www.hunkemoller",
+      "name": "Hunkemoller",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "hunkemoller-trumf",
+          "cashbackDescription": "5,4 %"
+        }
+      ]
+    },
     "www.lexingtoncompany.com": {
       "hostName": "www.lexingtoncompany.com",
       "name": "Lexington",
@@ -2551,17 +2557,6 @@
         }
       ]
     },
-    "www.hunkemoller": {
-      "hostName": "www.hunkemoller",
-      "name": "Hunkemoller",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "hunkemoller-trumf",
-          "cashbackDescription": "5,4 %"
-        }
-      ]
-    },
     "urbanpioneersstore.no": {
       "hostName": "urbanpioneersstore.no",
       "name": "Urban Pioneers Concept Store",
@@ -2570,17 +2565,6 @@
           "serviceId": "trumf",
           "urlName": "urban-pioneers-concept-store-trumf",
           "cashbackDescription": "8,1 %"
-        }
-      ]
-    },
-    "www.karma.no": {
-      "hostName": "www.karma.no",
-      "name": "Karma",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "karma-trumf",
-          "cashbackDescription": "7,8 %"
         }
       ]
     },
@@ -2595,6 +2579,17 @@
         }
       ]
     },
+    "www.karma.no": {
+      "hostName": "www.karma.no",
+      "name": "Karma",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "karma-trumf",
+          "cashbackDescription": "7,8 %"
+        }
+      ]
+    },
     "youwish.no": {
       "hostName": "youwish.no",
       "name": "YouWish",
@@ -2603,6 +2598,17 @@
           "serviceId": "trumf",
           "urlName": "youwish",
           "cashbackDescription": "6,2 %"
+        }
+      ]
+    },
+    "xplora.no": {
+      "hostName": "xplora.no",
+      "name": "Xplora",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "xplora-trumf",
+          "cashbackDescription": "230 kr"
         }
       ]
     },
@@ -2617,17 +2623,6 @@
         }
       ]
     },
-    "www.stille.no": {
-      "hostName": "www.stille.no",
-      "name": "Stille",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "stille-trumf",
-          "cashbackDescription": "9,3 %"
-        }
-      ]
-    },
     "www.beautymall.no": {
       "hostName": "www.beautymall.no",
       "name": "Beauty Mall",
@@ -2639,13 +2634,13 @@
         }
       ]
     },
-    "sackit.no": {
-      "hostName": "sackit.no",
-      "name": "SACKit",
+    "www.stille.no": {
+      "hostName": "www.stille.no",
+      "name": "Stille",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "sackit-trumf",
+          "urlName": "stille-trumf",
           "cashbackDescription": "9,3 %"
         }
       ]
@@ -2666,6 +2661,17 @@
         }
       ]
     },
+    "sackit.no": {
+      "hostName": "sackit.no",
+      "name": "SACKit",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "sackit-trumf",
+          "cashbackDescription": "9,3 %"
+        }
+      ]
+    },
     "www.tripx.no": {
       "hostName": "www.tripx.no",
       "name": "TripX",
@@ -2679,6 +2685,17 @@
           "serviceId": "remember",
           "urlName": "tripx",
           "cashbackDescription": "5%"
+        }
+      ]
+    },
+    "www.g-star.com": {
+      "hostName": "www.g-star.com",
+      "name": "G-Star",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "g-star-raw-trumf",
+          "cashbackDescription": "Opptil            \n\t            9,3 %"
         }
       ]
     },
@@ -2704,14 +2721,31 @@
         }
       ]
     },
-    "xplora.no": {
-      "hostName": "xplora.no",
-      "name": "Xplora",
+    "www.emp-shop.no": {
+      "hostName": "www.emp-shop.no",
+      "name": "EMP",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "xplora-trumf",
-          "cashbackDescription": "230 kr"
+          "urlName": "emp-trumf",
+          "cashbackDescription": "Opptil            \n\t            5,4 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "emp",
+          "cashbackDescription": "4-7%*",
+          "cashbackDetails": [
+            {
+              "value": 7,
+              "type": "PERCENTAGE",
+              "description": "i reward-rabatt for nye kunder"
+            },
+            {
+              "value": 4,
+              "type": "PERCENTAGE",
+              "description": "i reward-rabatt på bestillingen din"
+            }
+          ]
         }
       ]
     },
@@ -2748,45 +2782,6 @@
         }
       ]
     },
-    "www.g-star.com": {
-      "hostName": "www.g-star.com",
-      "name": "G-Star",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "g-star-raw-trumf",
-          "cashbackDescription": "Opptil            \n\t            9,3 %"
-        }
-      ]
-    },
-    "www.emp-shop.no": {
-      "hostName": "www.emp-shop.no",
-      "name": "EMP",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "emp-trumf",
-          "cashbackDescription": "Opptil            \n\t            5,4 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "emp",
-          "cashbackDescription": "4-7%*",
-          "cashbackDetails": [
-            {
-              "value": 7,
-              "type": "PERCENTAGE",
-              "description": "i reward-rabatt for nye kunder"
-            },
-            {
-              "value": 4,
-              "type": "PERCENTAGE",
-              "description": "i reward-rabatt på bestillingen din"
-            }
-          ]
-        }
-      ]
-    },
     "www.urbanpioneers.no": {
       "hostName": "www.urbanpioneers.no",
       "name": "Urban Pioneers",
@@ -2795,33 +2790,6 @@
           "serviceId": "trumf",
           "urlName": "urban-pioneers-trumf",
           "cashbackDescription": "6,2 %"
-        }
-      ]
-    },
-    "safira.com": {
-      "hostName": "safira.com",
-      "name": "Safira",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "safira-trumf",
-          "cashbackDescription": "6,2 %"
-        }
-      ]
-    },
-    "fyriresort.com": {
-      "hostName": "fyriresort.com",
-      "name": "Fyri Resort",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "fyri-resort-trumf",
-          "cashbackDescription": "5,4 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "fyri-resort",
-          "cashbackDescription": "7%"
         }
       ]
     },
@@ -2842,17 +2810,6 @@
         }
       ]
     },
-    "kouture.no": {
-      "hostName": "kouture.no",
-      "name": "Kouture",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "kouture-trumf",
-          "cashbackDescription": "4,6 %"
-        }
-      ]
-    },
     "www.pilgrim.net": {
       "hostName": "www.pilgrim.net",
       "name": "Pilgrim",
@@ -2861,6 +2818,28 @@
           "serviceId": "trumf",
           "urlName": "pilgrim-trumf",
           "cashbackDescription": "7,8 %"
+        }
+      ]
+    },
+    "www.viatorcom.no": {
+      "hostName": "www.viatorcom.no",
+      "name": "Viator",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "viator-trumf",
+          "cashbackDescription": "3,1 %"
+        }
+      ]
+    },
+    "safira.com": {
+      "hostName": "safira.com",
+      "name": "Safira",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "safira-trumf",
+          "cashbackDescription": "6,2 %"
         }
       ]
     },
@@ -2880,14 +2859,19 @@
         }
       ]
     },
-    "www.smartasaker.no": {
-      "hostName": "www.smartasaker.no",
-      "name": "SmartaSaker",
+    "www.husqvarna.com": {
+      "hostName": "www.husqvarna.com",
+      "name": "Husqvarna",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "smartasaker-trumf",
-          "cashbackDescription": "7,8 %"
+          "urlName": "husqvarna-trumf",
+          "cashbackDescription": "5,4 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "husqvarna",
+          "cashbackDescription": "4%"
         }
       ]
     },
@@ -2902,30 +2886,46 @@
         }
       ]
     },
-    "www.viatorcom.no": {
-      "hostName": "www.viatorcom.no",
-      "name": "Viator",
+    "buy.norton.com": {
+      "hostName": "buy.norton.com",
+      "name": "Norton",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "viator-trumf",
-          "cashbackDescription": "3,1 %"
+          "urlName": "norton-trumf",
+          "cashbackDescription": "19,5 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "norton",
+          "cashbackDescription": "20%"
         }
       ]
     },
-    "www.husqvarna.com": {
-      "hostName": "www.husqvarna.com",
-      "name": "Husqvarna",
+    "fyriresort.com": {
+      "hostName": "fyriresort.com",
+      "name": "Fyri Resort",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "husqvarna-trumf",
+          "urlName": "fyri-resort-trumf",
           "cashbackDescription": "5,4 %"
         },
         {
           "serviceId": "remember",
-          "urlName": "husqvarna",
-          "cashbackDescription": "4%"
+          "urlName": "fyri-resort",
+          "cashbackDescription": "7%"
+        }
+      ]
+    },
+    "kouture.no": {
+      "hostName": "kouture.no",
+      "name": "Kouture",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "kouture-trumf",
+          "cashbackDescription": "4,6 %"
         }
       ]
     },
@@ -2956,30 +2956,14 @@
         }
       ]
     },
-    "kayani.no": {
-      "hostName": "kayani.no",
-      "name": "Kayani",
+    "www.smartasaker.no": {
+      "hostName": "www.smartasaker.no",
+      "name": "SmartaSaker",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "kayani-trumf",
+          "urlName": "smartasaker-trumf",
           "cashbackDescription": "7,8 %"
-        }
-      ]
-    },
-    "buy.norton.com": {
-      "hostName": "buy.norton.com",
-      "name": "Norton",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "norton-trumf",
-          "cashbackDescription": "19,5 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "norton",
-          "cashbackDescription": "20%"
         }
       ]
     },
@@ -2996,6 +2980,17 @@
           "serviceId": "remember",
           "urlName": "daniel-wellington",
           "cashbackDescription": "12%"
+        }
+      ]
+    },
+    "kayani.no": {
+      "hostName": "kayani.no",
+      "name": "Kayani",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "kayani-trumf",
+          "cashbackDescription": "7,8 %"
         }
       ]
     },
@@ -3026,17 +3021,6 @@
         }
       ]
     },
-    "www.autodeler.co.no": {
-      "hostName": "www.autodeler.co.no",
-      "name": "Autodeler",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "autodeler-trumf",
-          "cashbackDescription": "Opptil            \n\t            6,2 %"
-        }
-      ]
-    },
     "www.haglofs.com": {
       "hostName": "www.haglofs.com",
       "name": "Haglöfs",
@@ -3053,6 +3037,22 @@
         }
       ]
     },
+    "www.beautycos.no": {
+      "hostName": "www.beautycos.no",
+      "name": "Beautycos",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "beautycos-trumf",
+          "cashbackDescription": "6,2 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "beautycos",
+          "cashbackDescription": "12%"
+        }
+      ]
+    },
     "onyxcookware.no": {
       "hostName": "onyxcookware.no",
       "name": "ONYX Cookware",
@@ -3064,14 +3064,25 @@
         }
       ]
     },
-    "www.ekstralys.no": {
-      "hostName": "www.ekstralys.no",
-      "name": "Ekstralys",
+    "www.osloskinlab.no": {
+      "hostName": "www.osloskinlab.no",
+      "name": "Oslo Skin Lab",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "trumfekstralys",
-          "cashbackDescription": "7 %"
+          "urlName": "oslo-skin-lab",
+          "cashbackDescription": "5,4 %"
+        }
+      ]
+    },
+    "www.trendcarpet.no": {
+      "hostName": "www.trendcarpet.no",
+      "name": "Trendcarpet",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "trendcarpet-trumf",
+          "cashbackDescription": "6,2 %"
         }
       ]
     },
@@ -3086,14 +3097,14 @@
         }
       ]
     },
-    "www.osloskinlab.no": {
-      "hostName": "www.osloskinlab.no",
-      "name": "Oslo Skin Lab",
+    "www.badstil.no": {
+      "hostName": "www.badstil.no",
+      "name": "Badstil",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "oslo-skin-lab",
-          "cashbackDescription": "5,4 %"
+          "urlName": "badstil-trumf",
+          "cashbackDescription": "3,9 %"
         }
       ]
     },
@@ -3110,6 +3121,28 @@
           "serviceId": "remember",
           "urlName": "stiga-sports",
           "cashbackDescription": "10%"
+        }
+      ]
+    },
+    "www.ekstralys.no": {
+      "hostName": "www.ekstralys.no",
+      "name": "Ekstralys",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "trumfekstralys",
+          "cashbackDescription": "7 %"
+        }
+      ]
+    },
+    "eu.puma.com": {
+      "hostName": "eu.puma.com",
+      "name": "Puma",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "puma-trumf",
+          "cashbackDescription": "3,1 %"
         }
       ]
     },
@@ -3151,66 +3184,6 @@
         }
       ]
     },
-    "www.trendcarpet.no": {
-      "hostName": "www.trendcarpet.no",
-      "name": "Trendcarpet",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "trendcarpet-trumf",
-          "cashbackDescription": "6,2 %"
-        }
-      ]
-    },
-    "www.beautycos.no": {
-      "hostName": "www.beautycos.no",
-      "name": "Beautycos",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "beautycos-trumf",
-          "cashbackDescription": "6,2 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "beautycos",
-          "cashbackDescription": "12%"
-        }
-      ]
-    },
-    "www.iberostar.com": {
-      "hostName": "www.iberostar.com",
-      "name": "Iberostar Hotels and Resorts",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "iberostar-trumf",
-          "cashbackDescription": "4,5 %"
-        }
-      ]
-    },
-    "eu.puma.com": {
-      "hostName": "eu.puma.com",
-      "name": "Puma",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "puma-trumf",
-          "cashbackDescription": "3,1 %"
-        }
-      ]
-    },
-    "www.badstil.no": {
-      "hostName": "www.badstil.no",
-      "name": "Badstil",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "badstil-trumf",
-          "cashbackDescription": "3,9 %"
-        }
-      ]
-    },
     "www.campanyon.com": {
       "hostName": "www.campanyon.com",
       "name": "Campanyon",
@@ -3219,55 +3192,6 @@
           "serviceId": "trumf",
           "urlName": "campanyon-trumf",
           "cashbackDescription": "5,4 %"
-        }
-      ]
-    },
-    "www.nazar.no": {
-      "hostName": "www.nazar.no",
-      "name": "Nazar",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "nazar-trumf",
-          "cashbackDescription": "1,5 %"
-        }
-      ]
-    },
-    "www.amisol.no": {
-      "hostName": "www.amisol.no",
-      "name": "Amisol",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "amisol-trumfs",
-          "cashbackDescription": "2,3 %"
-        }
-      ]
-    },
-    "www.inkmann.no": {
-      "hostName": "www.inkmann.no",
-      "name": "Inkmann",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "inkmann-trumf",
-          "cashbackDescription": "9,3 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "inkmann",
-          "cashbackDescription": "12%"
-        }
-      ]
-    },
-    "www.elite.se": {
-      "hostName": "www.elite.se",
-      "name": "Elite Hotels of Sweden",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "elite-hotels-of-sweden-trumf",
-          "cashbackDescription": "3,9 %"
         }
       ]
     },
@@ -3287,6 +3211,55 @@
         }
       ]
     },
+    "www.iberostar.com": {
+      "hostName": "www.iberostar.com",
+      "name": "Iberostar Hotels and Resorts",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "iberostar-trumf",
+          "cashbackDescription": "4,5 %"
+        }
+      ]
+    },
+    "www.elite.se": {
+      "hostName": "www.elite.se",
+      "name": "Elite Hotels of Sweden",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "elite-hotels-of-sweden-trumf",
+          "cashbackDescription": "3,9 %"
+        }
+      ]
+    },
+    "www.inkmann.no": {
+      "hostName": "www.inkmann.no",
+      "name": "Inkmann",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "inkmann-trumf",
+          "cashbackDescription": "9,3 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "inkmann",
+          "cashbackDescription": "12%"
+        }
+      ]
+    },
+    "kokkeglede.no": {
+      "hostName": "kokkeglede.no",
+      "name": "Kokkeglede",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "kokkeglede-trumf",
+          "cashbackDescription": "7,8 %"
+        }
+      ]
+    },
     "www.directferries.no": {
       "hostName": "www.directferries.no",
       "name": "Direct Ferries",
@@ -3298,6 +3271,17 @@
         }
       ]
     },
+    "www.nazar.no": {
+      "hostName": "www.nazar.no",
+      "name": "Nazar",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "nazar-trumf",
+          "cashbackDescription": "1,5 %"
+        }
+      ]
+    },
     "www.farfetch.com": {
       "hostName": "www.farfetch.com",
       "name": "Farfetch",
@@ -3306,6 +3290,17 @@
           "serviceId": "trumf",
           "urlName": "farfetch-trumf",
           "cashbackDescription": "3,1 %"
+        }
+      ]
+    },
+    "www.amisol.no": {
+      "hostName": "www.amisol.no",
+      "name": "Amisol",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "amisol-trumfs",
+          "cashbackDescription": "2,3 %"
         }
       ]
     },
@@ -3331,14 +3326,14 @@
         }
       ]
     },
-    "kokkeglede.no": {
-      "hostName": "kokkeglede.no",
-      "name": "Kokkeglede",
+    "www.yoursurprise.no": {
+      "hostName": "www.yoursurprise.no",
+      "name": "YourSurprise",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "kokkeglede-trumf",
-          "cashbackDescription": "7,8 %"
+          "urlName": "yoursurprise-trumf",
+          "cashbackDescription": "6,2 %"
         }
       ]
     },
@@ -3353,36 +3348,14 @@
         }
       ]
     },
-    "www.pyretosnackan.no": {
-      "hostName": "www.pyretosnackan.no",
-      "name": "Pyret og Snäckan",
+    "www.evoride.no": {
+      "hostName": "www.evoride.no",
+      "name": "Evoride",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "pyret-and-snackan-trumf",
-          "cashbackDescription": "3,1 %"
-        }
-      ]
-    },
-    "www.": {
-      "hostName": "www.",
-      "name": "MAXA",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "maxa-trumf",
-          "cashbackDescription": "3,1 %"
-        }
-      ]
-    },
-    "www.yoursurprise.no": {
-      "hostName": "www.yoursurprise.no",
-      "name": "YourSurprise",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "yoursurprise-trumf",
-          "cashbackDescription": "6,2 %"
+          "urlName": "evoride-trumf",
+          "cashbackDescription": "7,8 %"
         }
       ]
     },
@@ -3397,6 +3370,28 @@
         }
       ]
     },
+    "www.pyretosnackan.no": {
+      "hostName": "www.pyretosnackan.no",
+      "name": "Pyret og Snäckan",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "pyret-and-snackan-trumf",
+          "cashbackDescription": "3,1 %"
+        }
+      ]
+    },
+    "bemz.com": {
+      "hostName": "bemz.com",
+      "name": "Bemz",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "bemz-trumf",
+          "cashbackDescription": "6,2 %"
+        }
+      ]
+    },
     "www.fyrklovern.com": {
       "hostName": "www.fyrklovern.com",
       "name": "Fyrklövern",
@@ -3408,14 +3403,14 @@
         }
       ]
     },
-    "www.evoride.no": {
-      "hostName": "www.evoride.no",
-      "name": "Evoride",
+    "www.": {
+      "hostName": "www.",
+      "name": "MAXA",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "evoride-trumf",
-          "cashbackDescription": "7,8 %"
+          "urlName": "maxa-trumf",
+          "cashbackDescription": "3,1 %"
         }
       ]
     },
@@ -3427,22 +3422,6 @@
           "serviceId": "trumf",
           "urlName": "elico-trumf",
           "cashbackDescription": "9,3 %"
-        }
-      ]
-    },
-    "www.dentway.no": {
-      "hostName": "www.dentway.no",
-      "name": "Dentway",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "dentway-trumfs",
-          "cashbackDescription": "100 kr"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "dentway",
-          "cashbackDescription": "134 kr"
         }
       ]
     },
@@ -3462,25 +3441,19 @@
         }
       ]
     },
-    "www.londonpass.com": {
-      "hostName": "www.londonpass.com",
-      "name": "Go City",
+    "www.dentway.no": {
+      "hostName": "www.dentway.no",
+      "name": "Dentway",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "go-city-trumf",
-          "cashbackDescription": "3,9 %"
-        }
-      ]
-    },
-    "hamphi.com": {
-      "hostName": "hamphi.com",
-      "name": "Hamphi",
-      "offers": [
+          "urlName": "dentway-trumfs",
+          "cashbackDescription": "100 kr"
+        },
         {
-          "serviceId": "trumf",
-          "urlName": "hamphi-trumf",
-          "cashbackDescription": "7,8 %"
+          "serviceId": "remember",
+          "urlName": "dentway",
+          "cashbackDescription": "134 kr"
         }
       ]
     },
@@ -3495,14 +3468,14 @@
         }
       ]
     },
-    "minifinder.no": {
-      "hostName": "minifinder.no",
-      "name": "MiniFinder",
+    "www.londonpass.com": {
+      "hostName": "www.londonpass.com",
+      "name": "Go City",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "minifinder-trumf",
-          "cashbackDescription": "6,2 %"
+          "urlName": "go-city-trumf",
+          "cashbackDescription": "3,9 %"
         }
       ]
     },
@@ -3514,6 +3487,28 @@
           "serviceId": "trumf",
           "urlName": "click-and-boat-trumf",
           "cashbackDescription": "Opptil            \n\t            4,6 %"
+        }
+      ]
+    },
+    "hamphi.com": {
+      "hostName": "hamphi.com",
+      "name": "Hamphi",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "hamphi-trumf",
+          "cashbackDescription": "7,8 %"
+        }
+      ]
+    },
+    "minifinder.no": {
+      "hostName": "minifinder.no",
+      "name": "MiniFinder",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "minifinder-trumf",
+          "cashbackDescription": "6,2 %"
         }
       ]
     },
@@ -3566,14 +3561,14 @@
         }
       ]
     },
-    "autoeurope.no": {
-      "hostName": "autoeurope.no",
-      "name": "Auto Europe",
+    "agoda.com": {
+      "hostName": "agoda.com",
+      "name": "Agoda.com",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "auto-europe",
-          "cashbackDescription": "9%"
+          "urlName": "agoda.com",
+          "cashbackDescription": "6%"
         }
       ]
     },
@@ -3588,25 +3583,14 @@
         }
       ]
     },
-    "agoda.com": {
-      "hostName": "agoda.com",
-      "name": "Agoda.com",
+    "autoeurope.no": {
+      "hostName": "autoeurope.no",
+      "name": "Auto Europe",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "agoda.com",
-          "cashbackDescription": "6%"
-        }
-      ]
-    },
-    "boohoo.com": {
-      "hostName": "boohoo.com",
-      "name": "Boohoo",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "boohoo",
-          "cashbackDescription": "1%"
+          "urlName": "auto-europe",
+          "cashbackDescription": "9%"
         }
       ]
     },
@@ -3630,78 +3614,6 @@
               "description": "i reward rabatt ved videre kjøp"
             }
           ]
-        }
-      ]
-    },
-    "bose.no": {
-      "hostName": "bose.no",
-      "name": "BOSE",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "bose",
-          "cashbackDescription": "3%"
-        }
-      ]
-    },
-    "byttdekk.no": {
-      "hostName": "byttdekk.no",
-      "name": "Byttdekk",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "byttdekk",
-          "cashbackDescription": "2.5-4%*",
-          "cashbackDetails": [
-            {
-              "value": 2.5,
-              "type": "PERCENTAGE",
-              "description": "i reward rabatt ved kjøp av dekk"
-            },
-            {
-              "value": 2.5,
-              "type": "PERCENTAGE",
-              "description": "i reward rabatt ved kjøp av felger"
-            },
-            {
-              "value": 4,
-              "type": "PERCENTAGE",
-              "description": "i reward rabatt ved kjøp av hjul"
-            }
-          ]
-        }
-      ]
-    },
-    "climbing247.no": {
-      "hostName": "climbing247.no",
-      "name": "Climbing247.no",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "climbing247.no",
-          "cashbackDescription": "3.5%"
-        }
-      ]
-    },
-    "budget.no": {
-      "hostName": "budget.no",
-      "name": "Budget leiebiler",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "budget-leiebiler",
-          "cashbackDescription": "8%"
-        }
-      ]
-    },
-    "clarins.no": {
-      "hostName": "clarins.no",
-      "name": "Clarins",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "clarins",
-          "cashbackDescription": "8%"
         }
       ]
     },
@@ -3748,36 +3660,14 @@
         }
       ]
     },
-    "cruisedirect.com": {
-      "hostName": "cruisedirect.com",
-      "name": "CruiseDirect",
+    "budget.no": {
+      "hostName": "budget.no",
+      "name": "Budget leiebiler",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "cruisedirect",
-          "cashbackDescription": "3%"
-        }
-      ]
-    },
-    "dustinhome.no": {
-      "hostName": "dustinhome.no",
-      "name": "Dustin Home",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "dustin-home",
-          "cashbackDescription": "2%"
-        }
-      ]
-    },
-    "dentaworks.no": {
-      "hostName": "dentaworks.no",
-      "name": "Dentaworks",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "dentaworks",
-          "cashbackDescription": "25%"
+          "urlName": "budget-leiebiler",
+          "cashbackDescription": "8%"
         }
       ]
     },
@@ -3792,6 +3682,89 @@
         }
       ]
     },
+    "cruisedirect.com": {
+      "hostName": "cruisedirect.com",
+      "name": "CruiseDirect",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "cruisedirect",
+          "cashbackDescription": "3%"
+        }
+      ]
+    },
+    "bose.no": {
+      "hostName": "bose.no",
+      "name": "BOSE",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "bose",
+          "cashbackDescription": "3%"
+        }
+      ]
+    },
+    "byttdekk.no": {
+      "hostName": "byttdekk.no",
+      "name": "Byttdekk",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "byttdekk",
+          "cashbackDescription": "2.5-4%*",
+          "cashbackDetails": [
+            {
+              "value": 2.5,
+              "type": "PERCENTAGE",
+              "description": "i reward rabatt ved kjøp av dekk"
+            },
+            {
+              "value": 2.5,
+              "type": "PERCENTAGE",
+              "description": "i reward rabatt ved kjøp av felger"
+            },
+            {
+              "value": 4,
+              "type": "PERCENTAGE",
+              "description": "i reward rabatt ved kjøp av hjul"
+            }
+          ]
+        }
+      ]
+    },
+    "boohoo.com": {
+      "hostName": "boohoo.com",
+      "name": "Boohoo",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "boohoo",
+          "cashbackDescription": "1%"
+        }
+      ]
+    },
+    "climbing247.no": {
+      "hostName": "climbing247.no",
+      "name": "Climbing247.no",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "climbing247.no",
+          "cashbackDescription": "3.5%"
+        }
+      ]
+    },
+    "clarins.no": {
+      "hostName": "clarins.no",
+      "name": "Clarins",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "clarins",
+          "cashbackDescription": "8%"
+        }
+      ]
+    },
     "elite.se": {
       "hostName": "elite.se",
       "name": "Elite Hotels",
@@ -3800,6 +3773,17 @@
           "serviceId": "remember",
           "urlName": "elite-hotels",
           "cashbackDescription": "5%"
+        }
+      ]
+    },
+    "dustinhome.no": {
+      "hostName": "dustinhome.no",
+      "name": "Dustin Home",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "dustin-home",
+          "cashbackDescription": "2%"
         }
       ]
     },
@@ -3825,14 +3809,14 @@
         }
       ]
     },
-    "extraoptical.no": {
-      "hostName": "extraoptical.no",
-      "name": "Extra Optical",
+    "dentaworks.no": {
+      "hostName": "dentaworks.no",
+      "name": "Dentaworks",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "extra-optical",
-          "cashbackDescription": "10%"
+          "urlName": "dentaworks",
+          "cashbackDescription": "25%"
         }
       ]
     },
@@ -3863,17 +3847,6 @@
         }
       ]
     },
-    "gents.no": {
-      "hostName": "gents.no",
-      "name": "Gents",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "gents",
-          "cashbackDescription": "4%"
-        }
-      ]
-    },
     "grandado.com": {
       "hostName": "grandado.com",
       "name": "Grandado",
@@ -3885,14 +3858,14 @@
         }
       ]
     },
-    "hellofresh.no": {
-      "hostName": "hellofresh.no",
-      "name": "HelloFresh",
+    "extraoptical.no": {
+      "hostName": "extraoptical.no",
+      "name": "Extra Optical",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "hellofresh",
-          "cashbackDescription": "200 kr"
+          "urlName": "extra-optical",
+          "cashbackDescription": "10%"
         }
       ]
     },
@@ -3907,14 +3880,25 @@
         }
       ]
     },
-    "holdit.com": {
-      "hostName": "holdit.com",
-      "name": "Holdit",
+    "gents.no": {
+      "hostName": "gents.no",
+      "name": "Gents",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "holdit",
-          "cashbackDescription": "5%"
+          "urlName": "gents",
+          "cashbackDescription": "4%"
+        }
+      ]
+    },
+    "hellofresh.no": {
+      "hostName": "hellofresh.no",
+      "name": "HelloFresh",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "hellofresh",
+          "cashbackDescription": "200 kr"
         }
       ]
     },
@@ -3926,6 +3910,17 @@
           "serviceId": "remember",
           "urlName": "horizn-studios",
           "cashbackDescription": "15%"
+        }
+      ]
+    },
+    "holdit.com": {
+      "hostName": "holdit.com",
+      "name": "Holdit",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "holdit",
+          "cashbackDescription": "5%"
         }
       ]
     },
@@ -3995,17 +3990,6 @@
         }
       ]
     },
-    "lux-case.no": {
-      "hostName": "lux-case.no",
-      "name": "Lux-Case",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "lux-case",
-          "cashbackDescription": "12%"
-        }
-      ]
-    },
     "marshallheadphones.com": {
       "hostName": "marshallheadphones.com",
       "name": "Marshall-hodetelefoner",
@@ -4013,17 +3997,6 @@
         {
           "serviceId": "remember",
           "urlName": "marshall-hodetelefoner",
-          "cashbackDescription": "10%"
-        }
-      ]
-    },
-    "misterspex.no": {
-      "hostName": "misterspex.no",
-      "name": "Mister Spex",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "mister-spex",
           "cashbackDescription": "10%"
         }
       ]
@@ -4039,14 +4012,14 @@
         }
       ]
     },
-    "nordictest.no": {
-      "hostName": "nordictest.no",
-      "name": "Nordic test",
+    "lux-case.no": {
+      "hostName": "lux-case.no",
+      "name": "Lux-Case",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "nordic-test",
-          "cashbackDescription": "20%"
+          "urlName": "lux-case",
+          "cashbackDescription": "12%"
         }
       ]
     },
@@ -4075,6 +4048,28 @@
               "description": "i reward-rabatt på gavekort, Apple Watch, Jordan og våtdrakter."
             }
           ]
+        }
+      ]
+    },
+    "misterspex.no": {
+      "hostName": "misterspex.no",
+      "name": "Mister Spex",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "mister-spex",
+          "cashbackDescription": "10%"
+        }
+      ]
+    },
+    "nordictest.no": {
+      "hostName": "nordictest.no",
+      "name": "Nordic test",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "nordic-test",
+          "cashbackDescription": "20%"
         }
       ]
     },
@@ -4123,17 +4118,6 @@
         }
       ]
     },
-    "pyretosnackan.se": {
-      "hostName": "pyretosnackan.se",
-      "name": "Pyret & snäckan",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "pyret--snackan",
-          "cashbackDescription": "4%"
-        }
-      ]
-    },
     "radissonhotels.com": {
       "hostName": "radissonhotels.com",
       "name": "Radisson Hotel Group",
@@ -4141,6 +4125,17 @@
         {
           "serviceId": "remember",
           "urlName": "radisson-hotel-group",
+          "cashbackDescription": "4%"
+        }
+      ]
+    },
+    "pyretosnackan.se": {
+      "hostName": "pyretosnackan.se",
+      "name": "Pyret & snäckan",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "pyret--snackan",
           "cashbackDescription": "4%"
         }
       ]
@@ -4167,6 +4162,28 @@
         }
       ]
     },
+    "skogstad.no": {
+      "hostName": "skogstad.no",
+      "name": "Skogstad",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "skogstad",
+          "cashbackDescription": "7%"
+        }
+      ]
+    },
+    "scandic.no": {
+      "hostName": "scandic.no",
+      "name": "Scandic",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "scandic",
+          "cashbackDescription": "4%"
+        }
+      ]
+    },
     "royaldesign.no": {
       "hostName": "royaldesign.no",
       "name": "Royal Design",
@@ -4189,17 +4206,6 @@
         }
       ]
     },
-    "scandic.no": {
-      "hostName": "scandic.no",
-      "name": "Scandic",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "scandic",
-          "cashbackDescription": "4%"
-        }
-      ]
-    },
     "sobling.com": {
       "hostName": "sobling.com",
       "name": "Sobling",
@@ -4207,17 +4213,6 @@
         {
           "serviceId": "remember",
           "urlName": "sobling",
-          "cashbackDescription": "7%"
-        }
-      ]
-    },
-    "skogstad.no": {
-      "hostName": "skogstad.no",
-      "name": "Skogstad",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "skogstad",
           "cashbackDescription": "7%"
         }
       ]
@@ -4233,17 +4228,6 @@
         }
       ]
     },
-    "urbanears.com": {
-      "hostName": "urbanears.com",
-      "name": "Urbanears",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "urbanears",
-          "cashbackDescription": "10%"
-        }
-      ]
-    },
     "vybuss.com": {
       "hostName": "vybuss.com",
       "name": "Vy buss",
@@ -4255,14 +4239,14 @@
         }
       ]
     },
-    "wolt.com": {
-      "hostName": "wolt.com",
-      "name": "Wolt",
+    "urbanears.com": {
+      "hostName": "urbanears.com",
+      "name": "Urbanears",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "wolt",
-          "cashbackDescription": "103 kr"
+          "urlName": "urbanears",
+          "cashbackDescription": "10%"
         }
       ]
     },
@@ -4274,6 +4258,17 @@
           "serviceId": "remember",
           "urlName": "zchocolate.com",
           "cashbackDescription": "20%"
+        }
+      ]
+    },
+    "wolt.com": {
+      "hostName": "wolt.com",
+      "name": "Wolt",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "wolt",
+          "cashbackDescription": "103 kr"
         }
       ]
     },
@@ -5395,6 +5390,17 @@
           "serviceId": "lofavor",
           "urlName": "ferie-og-fritid/legoland",
           "cashbackDescription": ""
+        }
+      ]
+    },
+    "liljevalchs.se": {
+      "hostName": "liljevalchs.se",
+      "name": "Liljevalchs",
+      "offers": [
+        {
+          "serviceId": "obos",
+          "urlName": "25-rabatt-pa-liljevalchs",
+          "cashbackDescription": "25 %"
         }
       ]
     },
