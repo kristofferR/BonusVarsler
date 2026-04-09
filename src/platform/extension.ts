@@ -117,6 +117,9 @@ import { SERVICES_FALLBACK } from "../config/services.js";
   const reminderShown = sessionStorage.get(STORAGE_KEYS.reminderShown);
 
   if (reminderResult.isOnPage && reminderResult.service && !reminderShown) {
+    // Ensure i18n messages are loaded (initialize() skips this on no-match pages)
+    const lang = await storage.get<string>(STORAGE_KEYS.language, "no");
+    await i18n.loadMessages(lang);
     sessionStorage.set(STORAGE_KEYS.reminderShown, "true");
     createReminderNotification({
       service: reminderResult.service,

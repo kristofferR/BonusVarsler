@@ -2873,6 +2873,8 @@
     );
     const reminderShown = sessionStorage2.get(STORAGE_KEYS.reminderShown);
     if (reminderResult.isOnPage && reminderResult.service && !reminderShown) {
+      const lang = await storage.get(STORAGE_KEYS.language, "no");
+      await i18n.loadMessages(lang);
       sessionStorage2.set(STORAGE_KEYS.reminderShown, "true");
       createReminderNotification({
         service: reminderResult.service,
