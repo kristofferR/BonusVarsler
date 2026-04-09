@@ -236,6 +236,14 @@
     ariaReminderLabel: { message: "P\xE5minnelse" },
     ariaClose: { message: "Lukk" },
     ariaMinimize: { message: "Minimer" },
+    // Info-type reminder
+    infoReminderTitle: { message: "P\xE5minnelse" },
+    infoReminderMessage: {
+      message: "Logg inn p\xE5 $SERVICE$ for \xE5 se rabattkoden din.",
+      placeholders: {
+        service: { content: "$1" }
+      }
+    },
     // Info-type (OBOS etc.)
     serviceDiscountAt: {
       message: "$SERVICE$-rabatt hos $STORE$",

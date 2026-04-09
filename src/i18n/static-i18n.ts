@@ -83,6 +83,15 @@ const NORWEGIAN_MESSAGES: Messages = {
   ariaClose: { message: "Lukk" },
   ariaMinimize: { message: "Minimer" },
 
+  // Info-type reminder
+  infoReminderTitle: { message: "Påminnelse" },
+  infoReminderMessage: {
+    message: "Logg inn på $SERVICE$ for å se rabattkoden din.",
+    placeholders: {
+      service: { content: "$1" },
+    },
+  },
+
   // Info-type (OBOS etc.)
   serviceDiscountAt: {
     message: "$SERVICE$-rabatt hos $STORE$",
