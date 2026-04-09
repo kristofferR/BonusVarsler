@@ -34,11 +34,12 @@
   "naf": {
     "id": "naf",
     "name": "NAF",
-    "clickthroughUrl": "",
-    "reminderDomain": "",
-    "color": "#ffd816",
+    "clickthroughUrl": "https://www.naf.no/medlemskap/medlemsfordeler/{urlName}",
+    "reminderDomain": "naf.no",
+    "cashbackPathPatterns": ["/medlemskap/medlemsfordeler"],
+    "color": "#c9a000",
     "defaultEnabled": false,
-    "comingSoon": true
+    "type": "info"
   },
   "lofavor": {
     "id": "lofavor",

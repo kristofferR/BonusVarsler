@@ -24,6 +24,7 @@ const TRUMF_BASE_URL = "https://trumfnetthandel.no";
 const TRUMF_CDN_FEED_URL = "https://wlp.tcb-cdn.com/trumf/notifierfeed.json";
 const DNB_URL = "https://www.dnb.no/kundeprogram/fordeler/faste-rabatter";
 const OBOS_BENEFITS_URL = "https://www.obos.no/medlem/medlemsfordeler";
+const NAF_BENEFITS_URL = "https://www.naf.no/medlemskap/medlemsfordeler";
 const LOFAVOR_BASE_URL = "https://www.lofavor.no";
 
 // LOfavør categories to scrape (skip forsikring, bank, juridisk, ungdom — all internal)
@@ -76,6 +77,82 @@ const LOFAVOR_EXCLUDED_NAMES = [
 // Cache configuration
 const CACHE_FILE = join(import.meta.dir, "..", ".scraper-cache.json");
 const CACHE_MAX_AGE = 5 * 60 * 60 * 1000; // 5 hours in ms
+const FEED_HEALTH_FILE = join(import.meta.dir, "..", ".feed-health.json");
+const FAILURE_RATIO_THRESHOLD = 0.5;
+const MIN_DEGRADED_BASELINE = 10;
+const ALERT_FAILURE_THRESHOLD = 2;
+
+// Internal domains — skip benefits linking to these (NAF)
+const NAF_INTERNAL_DOMAINS = [
+  "naf.no",
+  "gjensidige.no",
+  "fremtind.no",
+  "sos.eu", // NAF veihjelp/roadside assistance (appears in footer/header on all pages)
+  // Tracking/redirect domains that appear as false positive CTAs
+  "safelinks.protection.outlook.com",
+  "support.garmin.com",
+];
+
+// Names to exclude from NAF scraping (internal NAF products, not partner discounts)
+const NAF_EXCLUDED_NAMES = [
+  "eu-kontroll",
+  "veihjelp",
+  "nøkkelforsikring",
+  "nokkelforsikring",
+  "egenandelsforsikring",
+  "kjøpekontrakt",
+  "kjopekontrakt",
+  "internasjonalt førerkort",
+  "internasjonalt forerkort",
+  "naf veibok",
+  "øvingsbane",
+  "ovingsbane",
+  "magasinet motor",
+  "juridisk",
+  "bilteknisk",
+  "naf-kontroll",
+  // NAF-branded financial/insurance products
+  "naf forsikring",
+  "naf billån",
+  "naf billan",
+  "naf grønt billån",
+  "naf lease",
+  "naf re-lease",
+  "naf mc-lån",
+  "naf mc-lan",
+  "naf caravanlån",
+  "naf caravanlan",
+  "naf sykkel",
+  "naf xtra",
+  // Generic insurance products (via Gjensidige)
+  "bilforsikring",
+  "mc-forsikring",
+  "reiseforsikring",
+  "ulykkesforsikring",
+  "husforsikring",
+  "bobil- og caravanforsikring",
+  "forsikring for elbil",
+  "forsikring for elsparkesykkel",
+  // Internal NAF services
+  "bilverksted og tester",
+  "dekkhotell",
+  "hjulskift og dekkhotell",
+  "førerutvikling",
+  "forerkurs",
+  "kurs: sikker på mc",
+  "reiseplanlegger mc",
+];
+
+const MONITORED_SERVICE_IDS = [
+  "trumf",
+  "remember",
+  "dnb",
+  "obos",
+  "naf",
+  "lofavor",
+] as const;
+
+type ServiceId = (typeof MONITORED_SERVICE_IDS)[number];
 
 interface ScraperCache {
   timestamp: number;
@@ -83,8 +160,32 @@ interface ScraperCache {
   rememberMerchants: ScrapedMerchant[];
   dnbMerchants: ScrapedMerchant[];
   obosMerchants: ScrapedMerchant[];
+  nafMerchants: ScrapedMerchant[];
   lofavorMerchants: ScrapedMerchant[];
   urlNameToHostname: Record<string, string>;
+}
+
+interface ServiceHealthEntry {
+  consecutiveFailureDays: number;
+  lastFailureDate: string | null;
+  lastFailureReason: string | null;
+  lastSuccessfulCount: number;
+}
+
+interface FeedHealthState {
+  schemaVersion: 1;
+  services: Record<ServiceId, ServiceHealthEntry>;
+}
+
+interface ServiceRunResult {
+  serviceId: ServiceId;
+  serviceName: string;
+  merchants: ScrapedMerchant[];
+  success: boolean;
+  failureReason: string | null;
+  baselineCount: number;
+  currentCount: number;
+  consecutiveFailureDays: number;
 }
 
 async function loadCache(): Promise<ScraperCache | null> {
@@ -245,6 +346,294 @@ function normalizeStoreName(name: string): string {
     // Normalize whitespace
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function formatOsloDate(date: Date): string {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Oslo",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(date);
+
+  const year = parts.find((part) => part.type === "year")?.value;
+  const month = parts.find((part) => part.type === "month")?.value;
+  const day = parts.find((part) => part.type === "day")?.value;
+
+  if (!year || !month || !day) {
+    throw new Error("Failed to format Oslo date");
+  }
+
+  return `${year}-${month}-${day}`;
+}
+
+function getPreviousDateString(dateString: string): string {
+  const [year, month, day] = dateString.split("-").map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  date.setUTCDate(date.getUTCDate() - 1);
+  return formatOsloDate(date);
+}
+
+function countOffersByService(sitelist: SiteList): Record<ServiceId, number> {
+  const counts = Object.fromEntries(
+    MONITORED_SERVICE_IDS.map((serviceId) => [serviceId, 0])
+  ) as Record<ServiceId, number>;
+
+  for (const merchant of Object.values(sitelist.merchants)) {
+    for (const offer of merchant.offers) {
+      if (offer.serviceId in counts) {
+        counts[offer.serviceId as ServiceId]++;
+      }
+    }
+  }
+
+  return counts;
+}
+
+function createDefaultFeedHealth(
+  baselineCounts: Record<ServiceId, number>
+): FeedHealthState {
+  return {
+    schemaVersion: 1,
+    services: Object.fromEntries(
+      MONITORED_SERVICE_IDS.map((serviceId) => [
+        serviceId,
+        {
+          consecutiveFailureDays: 0,
+          lastFailureDate: null,
+          lastFailureReason: null,
+          lastSuccessfulCount: baselineCounts[serviceId],
+        },
+      ])
+    ) as Record<ServiceId, ServiceHealthEntry>,
+  };
+}
+
+async function loadFeedHealth(
+  baselineCounts: Record<ServiceId, number>
+): Promise<FeedHealthState> {
+  const defaultState = createDefaultFeedHealth(baselineCounts);
+
+  try {
+    const content = await readFile(FEED_HEALTH_FILE, "utf-8");
+    const parsed = JSON.parse(content) as Partial<FeedHealthState>;
+    const parsedServices = (parsed.services || {}) as Record<
+      string,
+      Partial<ServiceHealthEntry>
+    >;
+
+    return {
+      schemaVersion: 1,
+      services: Object.fromEntries(
+        MONITORED_SERVICE_IDS.map((serviceId) => {
+          const existing = parsedServices[serviceId] || {};
+          return [
+            serviceId,
+            {
+              consecutiveFailureDays: existing.consecutiveFailureDays ?? 0,
+              lastFailureDate: existing.lastFailureDate ?? null,
+              lastFailureReason: existing.lastFailureReason ?? null,
+              lastSuccessfulCount:
+                existing.lastSuccessfulCount ?? baselineCounts[serviceId],
+            },
+          ];
+        })
+      ) as Record<ServiceId, ServiceHealthEntry>,
+    };
+  } catch {
+    return defaultState;
+  }
+}
+
+async function saveFeedHealth(feedHealth: FeedHealthState): Promise<void> {
+  await writeFile(FEED_HEALTH_FILE, JSON.stringify(feedHealth, null, 2) + "\n");
+}
+
+function cloneOffer(offer: ServiceOffer): ServiceOffer {
+  return {
+    ...offer,
+    ...(offer.cashbackDetails && {
+      cashbackDetails: offer.cashbackDetails.map((detail) => ({ ...detail })),
+    }),
+  };
+}
+
+function restoreServiceOffersFromExisting(
+  merchants: Record<string, MerchantEntry>,
+  existingSitelist: SiteList,
+  serviceId: ServiceId
+): number {
+  let restored = 0;
+
+  for (const existingMerchant of Object.values(existingSitelist.merchants)) {
+    const serviceOffers = existingMerchant.offers.filter(
+      (offer) => offer.serviceId === serviceId
+    );
+
+    if (serviceOffers.length === 0) {
+      continue;
+    }
+
+    if (!merchants[existingMerchant.hostName]) {
+      merchants[existingMerchant.hostName] = {
+        hostName: existingMerchant.hostName,
+        name: existingMerchant.name,
+        offers: [],
+      };
+    }
+
+    for (const offer of serviceOffers) {
+      const hasOffer = merchants[existingMerchant.hostName].offers.some(
+        (existingOffer) =>
+          existingOffer.serviceId === serviceId &&
+          existingOffer.urlName === offer.urlName
+      );
+
+      if (!hasOffer) {
+        merchants[existingMerchant.hostName].offers.push(cloneOffer(offer));
+        restored++;
+      }
+    }
+  }
+
+  return restored;
+}
+
+function evaluateServiceFailure(
+  currentCount: number,
+  baselineCount: number
+): string | null {
+  if (baselineCount === 0 && currentCount === 0) {
+    return "returned 0 merchants on initial scrape";
+  }
+
+  if (baselineCount > 0 && currentCount === 0) {
+    return `returned 0 merchants (last successful count ${baselineCount})`;
+  }
+
+  if (
+    baselineCount >= MIN_DEGRADED_BASELINE &&
+    currentCount > 0 &&
+    currentCount < Math.ceil(baselineCount * FAILURE_RATIO_THRESHOLD)
+  ) {
+    return `returned only ${currentCount} merchants (last successful count ${baselineCount})`;
+  }
+
+  return null;
+}
+
+function recordServiceSuccess(
+  entry: ServiceHealthEntry,
+  count: number
+): ServiceHealthEntry {
+  return {
+    ...entry,
+    consecutiveFailureDays: 0,
+    lastFailureDate: null,
+    lastFailureReason: null,
+    lastSuccessfulCount: count,
+  };
+}
+
+function recordServiceFailure(
+  entry: ServiceHealthEntry,
+  reason: string,
+  today: string
+): ServiceHealthEntry {
+  const yesterday = getPreviousDateString(today);
+
+  let consecutiveFailureDays = 1;
+  if (entry.lastFailureDate === today) {
+    consecutiveFailureDays = Math.max(entry.consecutiveFailureDays, 1);
+  } else if (entry.lastFailureDate === yesterday) {
+    consecutiveFailureDays = entry.consecutiveFailureDays + 1;
+  }
+
+  return {
+    ...entry,
+    consecutiveFailureDays,
+    lastFailureDate: today,
+    lastFailureReason: reason,
+  };
+}
+
+function summarizeError(error: unknown): string {
+  if (error instanceof Error && error.message) {
+    return error.message;
+  }
+
+  return String(error);
+}
+
+async function runServiceScrape({
+  serviceId,
+  serviceName,
+  baselineCount,
+  today,
+  feedHealth,
+  scrape,
+}: {
+  serviceId: ServiceId;
+  serviceName: string;
+  baselineCount: number;
+  today: string;
+  feedHealth: FeedHealthState;
+  scrape: () => Promise<ScrapedMerchant[]>;
+}): Promise<ServiceRunResult> {
+  let merchants: ScrapedMerchant[] = [];
+  let failureReason: string | null = null;
+
+  try {
+    merchants = await scrape();
+  } catch (error) {
+    failureReason = summarizeError(error);
+  }
+
+  if (!failureReason) {
+    failureReason = evaluateServiceFailure(merchants.length, baselineCount);
+  }
+
+  if (failureReason) {
+    const updatedEntry = recordServiceFailure(
+      feedHealth.services[serviceId],
+      failureReason,
+      today
+    );
+    feedHealth.services[serviceId] = updatedEntry;
+    console.log(
+      `  ${serviceName}: scrape failed, reusing previous data (${updatedEntry.consecutiveFailureDays} day streak)`
+    );
+    console.log(`    Reason: ${failureReason}`);
+
+    return {
+      serviceId,
+      serviceName,
+      merchants: [],
+      success: false,
+      failureReason,
+      baselineCount,
+      currentCount: merchants.length,
+      consecutiveFailureDays: updatedEntry.consecutiveFailureDays,
+    };
+  }
+
+  const updatedEntry = recordServiceSuccess(
+    feedHealth.services[serviceId],
+    merchants.length
+  );
+  feedHealth.services[serviceId] = updatedEntry;
+  console.log(`  ${serviceName}: OK (${merchants.length} merchants)`);
+
+  return {
+    serviceId,
+    serviceName,
+    merchants,
+    success: true,
+    failureReason: null,
+    baselineCount,
+    currentCount: merchants.length,
+    consecutiveFailureDays: 0,
+  };
 }
 
 // ===================
@@ -475,8 +864,7 @@ async function scrapeRemember(): Promise<RememberMerchant[]> {
     console.log(`  Found ${merchants.length} re:member merchants`);
     return merchants;
   } catch (error) {
-    console.error("  Error scraping re:member:", error);
-    return [];
+    throw new Error(`re:member scrape failed: ${summarizeError(error)}`);
   }
 }
 
@@ -577,8 +965,7 @@ async function scrapeDNB(page: Page): Promise<ScrapedMerchant[]> {
     console.log(`  Found ${data.merchants.length} DNB merchants`);
     return data.merchants;
   } catch (error) {
-    console.error("  Error scraping DNB:", error);
-    return [];
+    throw new Error(`DNB scrape failed: ${summarizeError(error)}`);
   }
 }
 
@@ -803,8 +1190,321 @@ async function scrapeOBOS(page: Page): Promise<ScrapedMerchant[]> {
     console.log(`\n  Extracted ${merchants.length} OBOS merchants`);
     return merchants;
   } catch (error) {
-    console.error("  Error scraping OBOS:", error);
-    return [];
+    throw new Error(`OBOS scrape failed: ${summarizeError(error)}`);
+  }
+}
+
+// ===================
+// NAF Scraping
+// ===================
+
+/**
+ * Check if a hostname belongs to an internal NAF domain.
+ */
+function isNAFInternalDomain(hostname: string): boolean {
+  return NAF_INTERNAL_DOMAINS.some(
+    (d) => hostname === d || hostname.endsWith(`.${d}`) || hostname === `www.${d}`
+  );
+}
+
+async function scrapeNAF(page: Page): Promise<ScrapedMerchant[]> {
+  console.log("\n=== Scraping NAF ===");
+  console.log("Loading NAF benefits page (rabatter tab)...");
+
+  try {
+    await page.goto(NAF_BENEFITS_URL + "?tabView=rabatter&query=", {
+      waitUntil: "domcontentloaded",
+      timeout: 60000,
+    });
+    await page.waitForTimeout(5000);
+
+    // Click the "Rabatter" tab if not already active
+    try {
+      const rabattTab = page.locator('button:has-text("Rabatter"), [role="tab"]:has-text("Rabatter"), a:has-text("Rabatter")').first();
+      if (await rabattTab.isVisible({ timeout: 3000 })) {
+        await rabattTab.click();
+        await page.waitForTimeout(3000);
+      }
+    } catch {
+      // Tab might already be active or tab system works differently
+    }
+
+    // Scroll to load all content
+    console.log("Scrolling to load all benefits...");
+    let previousHeight = 0;
+    let stableCount = 0;
+    let scrollAttempts = 0;
+    const maxScrollAttempts = 50;
+
+    do {
+      previousHeight = await page.evaluate(() => document.body.scrollHeight);
+      await page.evaluate(() => window.scrollBy(0, window.innerHeight));
+      await page.waitForTimeout(500);
+
+      try {
+        await page.waitForLoadState("networkidle", { timeout: 2000 });
+      } catch {
+        // Timeout is fine
+      }
+
+      const currentHeight = await page.evaluate(() => document.body.scrollHeight);
+      if (currentHeight === previousHeight) {
+        stableCount++;
+      } else {
+        stableCount = 0;
+      }
+
+      scrollAttempts++;
+    } while (stableCount < 5 && scrollAttempts < maxScrollAttempts);
+
+    console.log("  Finished scrolling.");
+
+    // Extract benefit cards from the page
+    console.log("Extracting NAF benefit data...");
+    const benefits = await page.evaluate((excludedNames: string[]) => {
+      const results: Array<{
+        name: string;
+        slug: string;
+        cashbackDescription: string;
+        storeUrl?: string;
+      }> = [];
+      const seen = new Set<string>();
+
+      // Strategy: Find all links to benefit detail pages
+      document.querySelectorAll('a[href*="/medlemskap/medlemsfordeler/"]').forEach((link) => {
+        const href = link.getAttribute("href") || "";
+        const slugMatch = href.match(/\/medlemskap\/medlemsfordeler\/([^/?#]+)/);
+        if (!slugMatch) return;
+
+        const slug = decodeURIComponent(slugMatch[1]);
+        if (!slug || seen.has(slug)) return;
+
+        // Skip the overview page and tab parameters
+        if (slug === "medlemsfordeler" || slug === "") return;
+
+        seen.add(slug);
+
+        // Get benefit name from heading or text
+        const name =
+          link.querySelector("h2, h3, h4, h5")?.textContent?.trim() ||
+          link.querySelector("img")?.getAttribute("alt")?.trim() ||
+          link.textContent?.trim().split("\n")[0]?.trim() ||
+          "";
+
+        if (!name) return;
+
+        // Check exclusion list
+        const nameLower = name.toLowerCase();
+        if (excludedNames.some((exc) => nameLower.includes(exc))) return;
+
+        // Get discount description
+        const allText = link.innerText || link.textContent || "";
+        const discountMatch = allText.match(
+          /(?:^|\s)(\d{1,3}(?:[,.]\d+)?\s*%|Opptil\s+\d{1,3}(?:[,.]\d+)?\s*%|\d+\s*(?:kr|kroner)\s*(?:i\s*)?rabatt)/i
+        );
+        const cashbackDescription = discountMatch ? discountMatch[0].trim() : "";
+
+        results.push({ name, slug, cashbackDescription });
+      });
+
+      // Also try finding cards that aren't links to detail pages
+      // Some card layouts use divs with nested links
+      document.querySelectorAll('[class*="card"], [class*="benefit"], [class*="partner"]').forEach((card) => {
+        const heading = card.querySelector("h2, h3, h4, h5");
+        const name = heading?.textContent?.trim() || "";
+        if (!name) return;
+
+        const nameLower = name.toLowerCase();
+        if (excludedNames.some((exc) => nameLower.includes(exc))) return;
+
+        // Generate slug from name
+        const slug = nameLower
+          .replace(/[æ]/g, "ae").replace(/[ø]/g, "o").replace(/[å]/g, "a")
+          .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+        if (seen.has(slug)) return;
+
+        // Check for external link
+        const externalLink = card.querySelector('a[href^="http"]');
+        let storeUrl: string | undefined;
+        if (externalLink) {
+          const href = externalLink.getAttribute("href") || "";
+          try {
+            const hostname = new URL(href).hostname;
+            if (!hostname.includes("naf.no")) {
+              storeUrl = href;
+            }
+          } catch {
+            // Invalid URL
+          }
+        }
+
+        // Get discount text
+        const allText = card.innerText || card.textContent || "";
+        const discountMatch = allText.match(
+          /(\d{1,3}(?:[,.]\d+)?\s*%|Opptil\s+\d{1,3}(?:[,.]\d+)?\s*%|\d+\s*(?:kr|kroner)\s*(?:i\s*)?rabatt)/i
+        );
+        const cashbackDescription = discountMatch ? discountMatch[1].trim() : "";
+
+        seen.add(slug);
+        results.push({ name, slug, cashbackDescription, ...(storeUrl && { storeUrl }) });
+      });
+
+      return results;
+    }, NAF_EXCLUDED_NAMES);
+
+    // Filter out time-limited campaigns and internal NAF products
+    const filtered = benefits.filter((b) => {
+      const nameLower = b.name.toLowerCase();
+      const slugLower = b.slug.toLowerCase();
+      // Skip time-limited campaigns
+      if (nameLower.includes("kampanje") || nameLower.includes("tidsbegrenset")) return false;
+      // Skip category/overview pages
+      if (slugLower === "rabatter" || slugLower === "tjenester") return false;
+      // Skip promotional content
+      if (/^\d+\s*%\s+rabatt/i.test(nameLower)) return false;
+      return true;
+    });
+
+    console.log(`  Found ${filtered.length} NAF benefits (from ${benefits.length} total)`);
+
+    // Visit detail pages to extract vendor URLs
+    console.log("Visiting detail pages for vendor URLs...");
+    const merchants: ScrapedMerchant[] = [];
+
+    for (let i = 0; i < filtered.length; i++) {
+      const benefit = filtered[i];
+      process.stdout.write(`\r  Processing ${i + 1}/${filtered.length}: ${benefit.name.slice(0, 40)}...`);
+
+      // If we already have a storeUrl from the card, use it
+      if (benefit.storeUrl) {
+        merchants.push({
+          name: benefit.name,
+          slug: benefit.slug,
+          cashbackDescription: benefit.cashbackDescription,
+          storeUrl: benefit.storeUrl,
+        });
+        continue;
+      }
+
+      try {
+        await page.goto(`${NAF_BENEFITS_URL}/${benefit.slug}`, {
+          waitUntil: "domcontentloaded",
+          timeout: 15000,
+        });
+        await page.waitForTimeout(2000);
+
+        // Extract CTA URL and description from detail page
+        const detailData = await page.evaluate((internalDomains: string[]) => {
+          let storeUrl: string | undefined;
+          let cashbackDescription = "";
+
+          // Look for external links (CTA buttons, partner links)
+          const links = document.querySelectorAll('a[href^="http"]');
+          for (const link of links) {
+            const href = link.getAttribute("href") || "";
+            const text = link.textContent?.trim().toLowerCase() || "";
+            let hostname: string;
+            try {
+              hostname = new URL(href).hostname;
+            } catch {
+              continue;
+            }
+
+            // Skip internal domains
+            const isInternal = internalDomains.some(
+              (d) => hostname === d || hostname.endsWith(`.${d}`) || hostname === `www.${d}`
+            );
+            if (isInternal) continue;
+
+            // Skip social media, app stores, analytics
+            if (
+              hostname.includes("google.com") ||
+              hostname.includes("youtube.com") ||
+              hostname.includes("facebook.com") ||
+              hostname.includes("instagram.com") ||
+              hostname.includes("twitter.com") ||
+              hostname.includes("linkedin.com") ||
+              hostname.includes("apps.apple.com") ||
+              hostname.includes("play.google.com") ||
+              hostname.includes("clarity.microsoft.com") ||
+              hostname.includes("cloudinary.com") ||
+              hostname.includes("varify.io")
+            ) continue;
+
+            // Prefer CTA-like links
+            if (
+              text.includes("gå til") ||
+              text.includes("bestill") ||
+              text.includes("kjøp") ||
+              text.includes("handle") ||
+              text.includes("book") ||
+              text.includes("les mer") ||
+              text.includes("se tilbud") ||
+              text.includes("se betingelser") ||
+              link.classList.contains("btn") ||
+              link.classList.contains("button") ||
+              link.closest('[class*="cta"]') ||
+              link.closest('[class*="button"]') ||
+              link.closest('[class*="action"]')
+            ) {
+              storeUrl = href;
+              break;
+            }
+            // Fall back to first external link
+            if (!storeUrl) {
+              storeUrl = href;
+            }
+          }
+
+          // Get discount description from page content
+          const bodyText = document.body.innerText || "";
+          const discountPatterns = [
+            /(\d{1,3}(?:[,.]\d+)?\s*(?:%|prosent)\s*rabatt)/i,
+            /(\d+\s*(?:kr|kroner)\s*(?:i\s*)?rabatt)/i,
+          ];
+          for (const pattern of discountPatterns) {
+            const match = bodyText.match(pattern);
+            if (match) {
+              cashbackDescription = match[1].trim();
+              break;
+            }
+          }
+
+          return { storeUrl, cashbackDescription };
+        }, NAF_INTERNAL_DOMAINS);
+
+        merchants.push({
+          name: benefit.name,
+          slug: benefit.slug,
+          cashbackDescription: benefit.cashbackDescription || detailData.cashbackDescription,
+          ...(detailData.storeUrl && { storeUrl: detailData.storeUrl }),
+        });
+      } catch {
+        // If detail page fails, still include with data from list page
+        merchants.push({
+          name: benefit.name,
+          slug: benefit.slug,
+          cashbackDescription: benefit.cashbackDescription || "",
+        });
+      }
+    }
+
+    // Filter out merchants whose storeUrl points to internal domains
+    const finalMerchants = merchants.filter((m) => {
+      if (!m.storeUrl) return true;
+      try {
+        const hostname = new URL(m.storeUrl).hostname;
+        return !isNAFInternalDomain(hostname);
+      } catch {
+        return true;
+      }
+    });
+
+    console.log(`\n  Extracted ${finalMerchants.length} NAF merchants`);
+    return finalMerchants;
+  } catch (error) {
+    throw new Error(`NAF scrape failed: ${summarizeError(error)}`);
   }
 }
 
@@ -1130,8 +1830,7 @@ async function scrapeLOfavor(page: Page): Promise<ScrapedMerchant[]> {
     console.log(`\n  Extracted ${finalMerchants.length} LOfavør merchants`);
     return finalMerchants;
   } catch (error) {
-    console.error("  Error scraping LOfavør:", error);
-    return [];
+    throw new Error(`LOfavør scrape failed: ${summarizeError(error)}`);
   }
 }
 
@@ -1140,7 +1839,25 @@ async function scrapeLOfavor(page: Page): Promise<ScrapedMerchant[]> {
 // ===================
 
 async function main() {
-  console.log("Starting multi-service merchant scraper...\n");
+  // Parse --service <id> argument for single-service scraping
+  const serviceArg = process.argv.find((_, i) => process.argv[i - 1] === "--service");
+  const onlyService = serviceArg && MONITORED_SERVICE_IDS.includes(serviceArg as ServiceId)
+    ? (serviceArg as ServiceId)
+    : null;
+
+  if (serviceArg && !onlyService) {
+    console.error(`Unknown service: ${serviceArg}`);
+    console.error(`Available services: ${MONITORED_SERVICE_IDS.join(", ")}`);
+    process.exit(1);
+  }
+
+  if (onlyService) {
+    console.log(`Starting single-service scraper for: ${onlyService}\n`);
+  } else {
+    console.log("Starting multi-service merchant scraper...\n");
+  }
+
+  const shouldScrape = (id: ServiceId) => !onlyService || onlyService === id;
 
   // Read existing sitelist.json
   const sitelistPath = join(import.meta.dir, "..", "data", "sitelist.json");
@@ -1154,14 +1871,25 @@ async function main() {
     process.exit(1);
   }
 
-  // Check cache first
-  const cache = await loadCache();
+  const existingServiceOfferCounts = countOffersByService(existingSitelist);
+  const feedHealth = await loadFeedHealth(existingServiceOfferCounts);
+  const today = formatOsloDate(new Date());
+
+  // Check cache first (skip when running single-service mode)
+  const cache = onlyService ? null : await loadCache();
   let trumfMerchants: ScrapedMerchant[];
   let rememberMerchants: ScrapedMerchant[];
   let dnbMerchants: ScrapedMerchant[];
   let obosMerchants: ScrapedMerchant[];
+  let nafMerchants: ScrapedMerchant[];
   let lofavorMerchants: ScrapedMerchant[];
   let urlNameToHostname: Map<string, string>;
+  let trumfResult: ServiceRunResult;
+  let rememberResult: ServiceRunResult;
+  let dnbResult: ServiceRunResult;
+  let obosResult: ServiceRunResult;
+  let nafResult: ServiceRunResult;
+  let lofavorResult: ServiceRunResult;
 
   if (cache) {
     const ageHours = Math.round((Date.now() - cache.timestamp) / (60 * 60 * 1000));
@@ -1170,78 +1898,301 @@ async function main() {
     rememberMerchants = cache.rememberMerchants;
     dnbMerchants = cache.dnbMerchants;
     obosMerchants = cache.obosMerchants || [];
+    nafMerchants = cache.nafMerchants || [];
     lofavorMerchants = cache.lofavorMerchants || [];
     urlNameToHostname = new Map(Object.entries(cache.urlNameToHostname));
     console.log(`  Trumf: ${trumfMerchants.length} merchants`);
     console.log(`  re:member: ${rememberMerchants.length} merchants`);
     console.log(`  DNB: ${dnbMerchants.length} merchants`);
     console.log(`  OBOS: ${obosMerchants.length} merchants`);
+    console.log(`  NAF: ${nafMerchants.length} merchants`);
     console.log(`  LOfavør: ${lofavorMerchants.length} merchants`);
+
+    trumfResult = {
+      serviceId: "trumf",
+      serviceName: "Trumf",
+      merchants: trumfMerchants,
+      success: true,
+      failureReason: null,
+      baselineCount: feedHealth.services.trumf.lastSuccessfulCount,
+      currentCount: trumfMerchants.length,
+      consecutiveFailureDays: 0,
+    };
+    rememberResult = {
+      serviceId: "remember",
+      serviceName: "re:member",
+      merchants: rememberMerchants,
+      success: true,
+      failureReason: null,
+      baselineCount: feedHealth.services.remember.lastSuccessfulCount,
+      currentCount: rememberMerchants.length,
+      consecutiveFailureDays: 0,
+    };
+    dnbResult = {
+      serviceId: "dnb",
+      serviceName: "DNB",
+      merchants: dnbMerchants,
+      success: true,
+      failureReason: null,
+      baselineCount: feedHealth.services.dnb.lastSuccessfulCount,
+      currentCount: dnbMerchants.length,
+      consecutiveFailureDays: 0,
+    };
+    obosResult = {
+      serviceId: "obos",
+      serviceName: "OBOS",
+      merchants: obosMerchants,
+      success: true,
+      failureReason: null,
+      baselineCount: feedHealth.services.obos.lastSuccessfulCount,
+      currentCount: obosMerchants.length,
+      consecutiveFailureDays: 0,
+    };
+    nafResult = {
+      serviceId: "naf",
+      serviceName: "NAF",
+      merchants: nafMerchants,
+      success: true,
+      failureReason: null,
+      baselineCount: feedHealth.services.naf.lastSuccessfulCount,
+      currentCount: nafMerchants.length,
+      consecutiveFailureDays: 0,
+    };
+    lofavorResult = {
+      serviceId: "lofavor",
+      serviceName: "LOfavør",
+      merchants: lofavorMerchants,
+      success: true,
+      failureReason: null,
+      baselineCount: feedHealth.services.lofavor.lastSuccessfulCount,
+      currentCount: lofavorMerchants.length,
+      consecutiveFailureDays: 0,
+    };
+
+    // Don't update feed health from cache — only real scrapes should affect failure tracking
   } else {
-    // Launch browser for scraping
-    console.log("Launching browser...");
-    const browser = await chromium.launch({ headless: true });
-    const page = await browser.newPage();
+    // Launch browser for scraping (only if needed)
+    const needsBrowser = shouldScrape("trumf") || shouldScrape("dnb") || shouldScrape("obos") || shouldScrape("naf") || shouldScrape("lofavor");
+    let browser: Browser | null = null;
+    let page: Page | null = null;
+
+    if (needsBrowser) {
+      console.log("Launching browser...");
+      browser = await chromium.launch({ headless: true });
+      page = await browser.newPage();
+    }
+
+    // Helper to create a skip result that reuses existing data
+    function skipResult(serviceId: ServiceId, serviceName: string): ServiceRunResult {
+      return {
+        serviceId,
+        serviceName,
+        merchants: [],
+        success: true,
+        failureReason: null,
+        baselineCount: feedHealth.services[serviceId].lastSuccessfulCount,
+        currentCount: 0,
+        consecutiveFailureDays: 0,
+      };
+    }
 
     try {
       // ===================
       // Step 1: Fetch Trumf CDN feed for hostname mappings
       // ===================
-      console.log("Fetching Trumf CDN feed for hostname mappings...");
       urlNameToHostname = new Map<string, string>();
-
-      try {
-        const result = await fetchTrumfCDNFeed();
-        urlNameToHostname = result.urlNameToHostname;
-        console.log(
-          `  Found ${urlNameToHostname.size} hostname mappings in CDN feed\n`
-        );
-      } catch (error) {
-        console.error("  Failed to fetch CDN feed, continuing without it\n");
+      if (shouldScrape("trumf")) {
+        console.log("Fetching Trumf CDN feed for hostname mappings...");
+        try {
+          const result = await fetchTrumfCDNFeed();
+          urlNameToHostname = result.urlNameToHostname;
+          console.log(
+            `  Found ${urlNameToHostname.size} hostname mappings in CDN feed\n`
+          );
+        } catch (error) {
+          console.error("  Failed to fetch CDN feed, continuing without it\n");
+        }
       }
 
       // ===================
       // Step 2: Scrape Trumf merchants
       // ===================
-      trumfMerchants = await scrapeTrumf(page);
-      console.log(`Scraped ${trumfMerchants.length} Trumf merchants`);
+      if (shouldScrape("trumf")) {
+        trumfResult = await runServiceScrape({
+          serviceId: "trumf",
+          serviceName: "Trumf",
+          baselineCount: feedHealth.services.trumf.lastSuccessfulCount,
+          today,
+          feedHealth,
+          scrape: () => scrapeTrumf(page!),
+        });
+        trumfMerchants = trumfResult.merchants;
+      } else {
+        trumfResult = skipResult("trumf", "Trumf");
+        trumfMerchants = [];
+      }
 
       // ===================
       // Step 3: Scrape re:member merchants (no browser needed)
       // ===================
-      rememberMerchants = await scrapeRemember();
-      console.log(`Scraped ${rememberMerchants.length} re:member merchants`);
+      if (shouldScrape("remember")) {
+        rememberResult = await runServiceScrape({
+          serviceId: "remember",
+          serviceName: "re:member",
+          baselineCount: feedHealth.services.remember.lastSuccessfulCount,
+          today,
+          feedHealth,
+          scrape: () => scrapeRemember(),
+        });
+        rememberMerchants = rememberResult.merchants;
+      } else {
+        rememberResult = skipResult("remember", "re:member");
+        rememberMerchants = [];
+      }
 
       // ===================
       // Step 4: Scrape DNB merchants
       // ===================
-      dnbMerchants = await scrapeDNB(page);
-      console.log(`Scraped ${dnbMerchants.length} DNB merchants`);
+      if (shouldScrape("dnb")) {
+        dnbResult = await runServiceScrape({
+          serviceId: "dnb",
+          serviceName: "DNB",
+          baselineCount: feedHealth.services.dnb.lastSuccessfulCount,
+          today,
+          feedHealth,
+          scrape: () => scrapeDNB(page!),
+        });
+        dnbMerchants = dnbResult.merchants;
+      } else {
+        dnbResult = skipResult("dnb", "DNB");
+        dnbMerchants = [];
+      }
 
       // ===================
       // Step 5: Scrape OBOS merchants
       // ===================
-      obosMerchants = await scrapeOBOS(page);
-      console.log(`Scraped ${obosMerchants.length} OBOS merchants`);
+      if (shouldScrape("obos")) {
+        obosResult = await runServiceScrape({
+          serviceId: "obos",
+          serviceName: "OBOS",
+          baselineCount: feedHealth.services.obos.lastSuccessfulCount,
+          today,
+          feedHealth,
+          scrape: () => scrapeOBOS(page!),
+        });
+        obosMerchants = obosResult.merchants;
+      } else {
+        obosResult = skipResult("obos", "OBOS");
+        obosMerchants = [];
+      }
 
       // ===================
-      // Step 6: Scrape LOfavør merchants
+      // Step 6: Scrape NAF merchants
       // ===================
-      lofavorMerchants = await scrapeLOfavor(page);
-      console.log(`Scraped ${lofavorMerchants.length} LOfavør merchants`);
+      if (shouldScrape("naf")) {
+        nafResult = await runServiceScrape({
+          serviceId: "naf",
+          serviceName: "NAF",
+          baselineCount: feedHealth.services.naf.lastSuccessfulCount,
+          today,
+          feedHealth,
+          scrape: () => scrapeNAF(page!),
+        });
+        nafMerchants = nafResult.merchants;
+      } else {
+        nafResult = skipResult("naf", "NAF");
+        nafMerchants = [];
+      }
 
-      // Save to cache
-      await saveCache({
-        trumfMerchants,
-        rememberMerchants,
-        dnbMerchants,
-        obosMerchants,
-        lofavorMerchants,
-        urlNameToHostname: Object.fromEntries(urlNameToHostname),
-      });
+      // ===================
+      // Step 7: Scrape LOfavør merchants
+      // ===================
+      if (shouldScrape("lofavor")) {
+        lofavorResult = await runServiceScrape({
+          serviceId: "lofavor",
+          serviceName: "LOfavør",
+          baselineCount: feedHealth.services.lofavor.lastSuccessfulCount,
+          today,
+          feedHealth,
+          scrape: () => scrapeLOfavor(page!),
+        });
+        lofavorMerchants = lofavorResult.merchants;
+      } else {
+        lofavorResult = skipResult("lofavor", "LOfavør");
+        lofavorMerchants = [];
+      }
+
+      const scrapedResults = [
+        trumfResult,
+        rememberResult,
+        dnbResult,
+        obosResult,
+        nafResult,
+        lofavorResult,
+      ].filter((result) => shouldScrape(result.serviceId));
+
+      const hasServiceFailures = scrapedResults.some((result) => !result.success);
+
+      if (!onlyService && !hasServiceFailures) {
+        await saveCache({
+          trumfMerchants,
+          rememberMerchants,
+          dnbMerchants,
+          obosMerchants,
+          nafMerchants,
+          lofavorMerchants,
+          urlNameToHostname: Object.fromEntries(urlNameToHostname),
+        });
+      } else if (onlyService) {
+        console.log("\nSkipping cache update (single-service mode).");
+      } else {
+        console.log(
+          "\nSkipping scraper cache update because one or more services failed."
+        );
+      }
     } finally {
-      await browser.close();
+      await browser?.close();
     }
+  }
+
+  await saveFeedHealth(feedHealth);
+
+  const serviceRuns = [
+    trumfResult,
+    rememberResult,
+    dnbResult,
+    obosResult,
+    nafResult,
+    lofavorResult,
+  ];
+  const alertServices = serviceRuns.filter(
+    (result) =>
+      !result.success &&
+      result.consecutiveFailureDays >= ALERT_FAILURE_THRESHOLD
+  );
+
+  if (serviceRuns.some((result) => !result.success)) {
+    console.log("\n=== Scrape Health ===");
+    for (const result of serviceRuns) {
+      if (result.success) {
+        continue;
+      }
+
+      console.log(
+        `  - ${result.serviceName}: reusing previous data (${result.consecutiveFailureDays} day streak)`
+      );
+      if (result.failureReason) {
+        console.log(`    ${result.failureReason}`);
+      }
+    }
+  }
+
+  if (alertServices.length > 0) {
+    console.log(
+      `\nAlert threshold reached: ${alertServices
+        .map((result) => result.serviceName)
+        .join(", ")}`
+    );
   }
 
   // ===================
@@ -1252,6 +2203,15 @@ async function main() {
   const unmappedTrumf: string[] = [];
   const unmappedRemember: string[] = [];
   const unmappedDnb: string[] = [];
+
+  // In single-service mode, restore all skipped services from existing sitelist
+  if (onlyService) {
+    for (const serviceId of MONITORED_SERVICE_IDS) {
+      if (serviceId === onlyService) continue;
+      const restored = restoreServiceOffersFromExisting(merchants, existingSitelist, serviceId);
+      console.log(`  ${serviceId}: restored ${restored} existing offers (skipped)`);
+    }
+  }
 
   // Build name -> hostname map for matching re:member to existing merchants
   const nameToHostMap = new Map<string, string>();
@@ -1296,10 +2256,24 @@ async function main() {
       urlName: slug,
       cashbackDescription: merchant.cashbackDescription,
     });
+  }
 
-    // Build name -> host mapping for matching re:member
-    const normalizedName = normalizeStoreName(merchant.name);
-    nameToHostMap.set(normalizedName, hostname);
+  if (!trumfResult.success) {
+    const restoredOffers = restoreServiceOffersFromExisting(
+      merchants,
+      existingSitelist,
+      "trumf"
+    );
+    console.log(`  Trumf: restored ${restoredOffers} existing offers`);
+  }
+
+  // Build name -> hostname map for matching re:member after Trumf success/fallback
+  for (const [hostname, merchant] of Object.entries(merchants)) {
+    if (!merchant.offers.some((offer) => offer.serviceId === "trumf")) {
+      continue;
+    }
+
+    nameToHostMap.set(normalizeStoreName(merchant.name), hostname);
   }
 
   // Process re:member merchants
@@ -1356,6 +2330,15 @@ async function main() {
     } else {
       unmappedRemember.push(`${merchant.name} (slug: ${merchant.slug})`);
     }
+  }
+
+  if (!rememberResult.success) {
+    const restoredOffers = restoreServiceOffersFromExisting(
+      merchants,
+      existingSitelist,
+      "remember"
+    );
+    console.log(`  re:member: restored ${restoredOffers} existing offers`);
   }
 
   console.log(`  re:member: ${rememberMatched} matched, ${rememberMappedOnly} from manual mapping`);
@@ -1426,6 +2409,15 @@ async function main() {
     }
   }
 
+  if (!dnbResult.success) {
+    const restoredOffers = restoreServiceOffersFromExisting(
+      merchants,
+      existingSitelist,
+      "dnb"
+    );
+    console.log(`  DNB: restored ${restoredOffers} existing offers`);
+  }
+
   // Process OBOS merchants
   let obosDomainMappings: Record<string, string> = {};
   try {
@@ -1494,7 +2486,113 @@ async function main() {
     }
   }
 
+  if (!obosResult.success) {
+    const restoredOffers = restoreServiceOffersFromExisting(
+      merchants,
+      existingSitelist,
+      "obos"
+    );
+    console.log(`  OBOS: restored ${restoredOffers} existing offers`);
+  }
+
   console.log(`  OBOS: ${obosMapped} mapped`);
+
+  // Process NAF merchants
+  let nafDomainMappings: Record<string, string> = {};
+  try {
+    const mappingContent = await readFile(
+      join(import.meta.dir, "..", "data", "naf-domains.json"),
+      "utf-8"
+    );
+    nafDomainMappings = JSON.parse(mappingContent);
+  } catch {
+    console.log("  Note: Could not load data/naf-domains.json");
+  }
+
+  const unmappedNaf: string[] = [];
+  let nafMapped = 0;
+  let nafNameMatched = 0;
+
+  // Build comprehensive name -> hostname map from ALL accumulated merchants
+  // This allows matching NAF benefits like "Anton Sport", "Hurtigruten" etc.
+  // against merchants already known from Trumf, re:member, DNB, OBOS
+  const allNameToHostMap = new Map<string, string>();
+  for (const [hostname, merchant] of Object.entries(merchants)) {
+    allNameToHostMap.set(normalizeStoreName(merchant.name), hostname);
+  }
+
+  for (const merchant of nafMerchants) {
+    let hostname: string | null = null;
+
+    // 1. Check manual domain mapping
+    if (nafDomainMappings[merchant.slug]) {
+      hostname = nafDomainMappings[merchant.slug];
+    }
+    // 2. Try to extract hostname from store URL found on detail page
+    else if (merchant.storeUrl) {
+      try {
+        const url = new URL(merchant.storeUrl);
+        if (!isNAFInternalDomain(url.hostname)) {
+          hostname = url.hostname;
+        }
+      } catch {
+        // Invalid URL
+      }
+    }
+
+    // 3. Try name-based matching against all existing merchants
+    if (!hostname) {
+      const normalizedName = normalizeStoreName(merchant.name);
+      const matchedHost = allNameToHostMap.get(normalizedName);
+      if (matchedHost) {
+        hostname = matchedHost;
+        nafNameMatched++;
+      }
+    }
+
+    if (!hostname || hostname.length < 4) {
+      unmappedNaf.push(`${merchant.name} (slug: ${merchant.slug})`);
+      continue;
+    }
+
+    hostname = normalizeHostname(hostname);
+
+    // Find existing merchant (checking www variants) or create new
+    const existingKey = findMerchantKey(hostname);
+    const merchantKey = existingKey || hostname;
+
+    if (!merchants[merchantKey]) {
+      merchants[merchantKey] = {
+        hostName: merchantKey,
+        name: merchant.name,
+        offers: [],
+      };
+    }
+
+    // Add NAF offer (check for duplicates first)
+    const hasNafOffer = merchants[merchantKey].offers.some(
+      (o) => o.serviceId === "naf"
+    );
+    if (!hasNafOffer) {
+      merchants[merchantKey].offers.push({
+        serviceId: "naf",
+        urlName: merchant.slug,
+        cashbackDescription: merchant.cashbackDescription,
+      });
+      nafMapped++;
+    }
+  }
+
+  if (!nafResult.success) {
+    const restoredOffers = restoreServiceOffersFromExisting(
+      merchants,
+      existingSitelist,
+      "naf"
+    );
+    console.log(`  NAF: restored ${restoredOffers} existing offers`);
+  }
+
+  console.log(`  NAF: ${nafMapped} mapped, ${nafNameMatched} from name matching`);
 
   // Process LOfavør merchants
   let lofavorDomainMappings: Record<string, string> = {};
@@ -1563,6 +2661,15 @@ async function main() {
     }
   }
 
+  if (!lofavorResult.success) {
+    const restoredOffers = restoreServiceOffersFromExisting(
+      merchants,
+      existingSitelist,
+      "lofavor"
+    );
+    console.log(`  LOfavør: restored ${restoredOffers} existing offers`);
+  }
+
   console.log(`  LOfavør: ${lofavorMapped} mapped`);
 
   // ===================
@@ -1617,6 +2724,9 @@ async function main() {
   const obosCount = Object.values(merchants).filter((m) =>
     m.offers.some((o) => o.serviceId === "obos")
   ).length;
+  const nafCount = Object.values(merchants).filter((m) =>
+    m.offers.some((o) => o.serviceId === "naf")
+  ).length;
   const lofavorCount = Object.values(merchants).filter((m) =>
     m.offers.some((o) => o.serviceId === "lofavor")
   ).length;
@@ -1625,11 +2735,13 @@ async function main() {
   console.log(`  - With re:member offers: ${rememberCount}`);
   console.log(`  - With DNB offers: ${dnbCount}`);
   console.log(`  - With OBOS offers: ${obosCount}`);
+  console.log(`  - With NAF offers: ${nafCount}`);
   console.log(`  - With LOfavør offers: ${lofavorCount}`);
   console.log(`  - Unmapped Trumf: ${unmappedTrumf.length}`);
   console.log(`  - Unmapped re:member: ${unmappedRemember.length}`);
   console.log(`  - Unmapped DNB: ${unmappedDnb.length}`);
   console.log(`  - Unmapped OBOS: ${unmappedObos.length}`);
+  console.log(`  - Unmapped NAF: ${unmappedNaf.length}`);
   console.log(`  - Unmapped LOfavør: ${unmappedLofavor.length}`);
 
   if (unmappedTrumf.length > 0) {
@@ -1669,6 +2781,16 @@ async function main() {
     }
     if (unmappedObos.length > 10) {
       console.log(`  ... and ${unmappedObos.length - 10} more`);
+    }
+  }
+
+  if (unmappedNaf.length > 0) {
+    console.log("\nUnmapped NAF merchants (add to data/naf-domains.json):");
+    for (const m of unmappedNaf.slice(0, 10)) {
+      console.log(`  - ${m}`);
+    }
+    if (unmappedNaf.length > 10) {
+      console.log(`  ... and ${unmappedNaf.length - 10} more`);
     }
   }
 

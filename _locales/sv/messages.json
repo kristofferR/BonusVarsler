@@ -1,6 +1,6 @@
 {
   "extensionDescription": {
-    "message": "Glöm aldrig cashback. Varnar om bonus via Trumf, OBOS, LOfavør, re:member, DNB m.fl. vid näthandel. Lätt, snabb, ingen spårning."
+    "message": "Glöm aldrig cashback. Varnar om bonus via Trumf, OBOS, NAF, LOfavør, re:member, DNB m.fl. vid näthandel. Lätt, snabb, ingen spårning."
   },
 
   "language": {
@@ -200,6 +200,17 @@
   },
   "reminderTip": {
     "message": "Tips: Vänta tills sidan har laddats klart och klicka sedan på den stora knappen som tar dig till butiken."
+  },
+  "infoReminderTitle": {
+    "message": "Påminnelse"
+  },
+  "infoReminderMessage": {
+    "message": "Logga in på $SERVICE$ för att se din rabattkod.",
+    "placeholders": {
+      "service": {
+        "content": "$1"
+      }
+    }
   },
 
   "trumfBonusAt": {

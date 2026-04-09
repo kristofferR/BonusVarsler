@@ -1,6 +1,6 @@
 {
   "extensionDescription": {
-    "message": "Never forget cashback. Alerts you about Trumf, OBOS, LOfavør, re:member, DNB & more bonuses when shopping online. No tracking."
+    "message": "Never forget cashback. Alerts you about Trumf, OBOS, NAF, LOfavør, re:member, DNB & more bonuses when shopping online. No tracking."
   },
 
   "language": {
@@ -200,6 +200,17 @@
   },
   "reminderTip": {
     "message": "Tip: Wait for the page to finish loading, then click the large button that takes you to the store."
+  },
+  "infoReminderTitle": {
+    "message": "Reminder"
+  },
+  "infoReminderMessage": {
+    "message": "Log in to $SERVICE$ to see your rebate code.",
+    "placeholders": {
+      "service": {
+        "content": "$1"
+      }
+    }
   },
 
   "trumfBonusAt": {
