@@ -60,8 +60,11 @@ export const SERVICES_FALLBACK: ServiceRegistry = {
   naf: {
     id: "naf",
     name: "NAF",
+    clickthroughUrl: "https://www.naf.no/medlemskap/medlemsfordeler/{urlName}",
+    reminderDomain: "naf.no",
     color: "#ffd816",
-    comingSoon: true,
+    defaultEnabled: false,
+    type: "info",
   },
   lofavor: {
     id: "lofavor",
