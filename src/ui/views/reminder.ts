@@ -109,7 +109,9 @@ export function createReminderNotification(options: ReminderOptions): HTMLElemen
 
   const title = document.createElement("span");
   title.className = "title";
-  title.textContent = i18n.getMessage("importantReminder");
+  title.textContent = service.type === "info"
+    ? i18n.getMessage("infoReminderTitle")
+    : i18n.getMessage("importantReminder");
 
   body.appendChild(title);
 

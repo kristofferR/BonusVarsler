@@ -2715,7 +2715,7 @@
     body.className = "body";
     const title = document.createElement("span");
     title.className = "title";
-    title.textContent = i18n.getMessage("importantReminder");
+    title.textContent = service.type === "info" ? i18n.getMessage("infoReminderTitle") : i18n.getMessage("importantReminder");
     body.appendChild(title);
     if (service.type === "info") {
       const message = document.createElement("p");
