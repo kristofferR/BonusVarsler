@@ -1969,30 +1969,7 @@ async function main() {
       consecutiveFailureDays: 0,
     };
 
-    feedHealth.services.trumf = recordServiceSuccess(
-      feedHealth.services.trumf,
-      trumfMerchants.length
-    );
-    feedHealth.services.remember = recordServiceSuccess(
-      feedHealth.services.remember,
-      rememberMerchants.length
-    );
-    feedHealth.services.dnb = recordServiceSuccess(
-      feedHealth.services.dnb,
-      dnbMerchants.length
-    );
-    feedHealth.services.obos = recordServiceSuccess(
-      feedHealth.services.obos,
-      obosMerchants.length
-    );
-    feedHealth.services.naf = recordServiceSuccess(
-      feedHealth.services.naf,
-      nafMerchants.length
-    );
-    feedHealth.services.lofavor = recordServiceSuccess(
-      feedHealth.services.lofavor,
-      lofavorMerchants.length
-    );
+    // Don't update feed health from cache — only real scrapes should affect failure tracking
   } else {
     // Launch browser for scraping (only if needed)
     const needsBrowser = shouldScrape("trumf") || shouldScrape("dnb") || shouldScrape("obos") || shouldScrape("naf") || shouldScrape("lofavor");

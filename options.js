@@ -32,7 +32,7 @@ const SERVICES_FALLBACK = {
   naf: {
     id: "naf",
     name: "NAF",
-    color: "#ffd816",
+    color: "#c9a000",
     type: "info",
   },
   lofavor: {
