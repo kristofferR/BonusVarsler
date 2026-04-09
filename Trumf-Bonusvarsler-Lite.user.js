@@ -2716,19 +2716,26 @@
     const title = document.createElement("span");
     title.className = "title";
     title.textContent = i18n.getMessage("importantReminder");
-    const message = document.createElement("p");
-    message.className = "message";
-    message.textContent = i18n.getMessage("reminderMessage");
-    const adblockWarning = document.createElement("p");
-    adblockWarning.className = "message";
-    adblockWarning.textContent = i18n.getMessage("reminderAdblockWarning");
-    const tip = document.createElement("p");
-    tip.className = "tip";
-    tip.textContent = i18n.getMessage("reminderTip");
     body.appendChild(title);
-    body.appendChild(message);
-    body.appendChild(adblockWarning);
-    body.appendChild(tip);
+    if (service.type === "info") {
+      const message = document.createElement("p");
+      message.className = "message";
+      message.textContent = i18n.getMessage("infoReminderMessage", service.name);
+      body.appendChild(message);
+    } else {
+      const message = document.createElement("p");
+      message.className = "message";
+      message.textContent = i18n.getMessage("reminderMessage");
+      const adblockWarning = document.createElement("p");
+      adblockWarning.className = "message";
+      adblockWarning.textContent = i18n.getMessage("reminderAdblockWarning");
+      const tip = document.createElement("p");
+      tip.className = "tip";
+      tip.textContent = i18n.getMessage("reminderTip");
+      body.appendChild(message);
+      body.appendChild(adblockWarning);
+      body.appendChild(tip);
+    }
     container.appendChild(header);
     container.appendChild(body);
     shadowRoot.appendChild(container);
