@@ -503,6 +503,10 @@ function evaluateServiceFailure(
   currentCount: number,
   baselineCount: number
 ): string | null {
+  if (baselineCount === 0 && currentCount === 0) {
+    return "returned 0 merchants on initial scrape";
+  }
+
   if (baselineCount > 0 && currentCount === 0) {
     return `returned 0 merchants (last successful count ${baselineCount})`;
   }
@@ -1871,8 +1875,8 @@ async function main() {
   const feedHealth = await loadFeedHealth(existingServiceOfferCounts);
   const today = formatOsloDate(new Date());
 
-  // Check cache first
-  const cache = await loadCache();
+  // Check cache first (skip when running single-service mode)
+  const cache = onlyService ? null : await loadCache();
   let trumfMerchants: ScrapedMerchant[];
   let rememberMerchants: ScrapedMerchant[];
   let dnbMerchants: ScrapedMerchant[];

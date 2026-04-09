@@ -27,7 +27,15 @@ function setGithubOutput(name: string, value: string): void {
     return;
   }
 
-  appendFileSync(process.env.GITHUB_OUTPUT, `${name}=${value}\n`);
+  if (value.includes("\n")) {
+    const delimiter = `bonusvarsler_${name}_${Date.now()}`;
+    appendFileSync(
+      process.env.GITHUB_OUTPUT,
+      `${name}<<${delimiter}\n${value}\n${delimiter}\n`
+    );
+  } else {
+    appendFileSync(process.env.GITHUB_OUTPUT, `${name}=${value}\n`);
+  }
 }
 
 if (!existsSync(FEED_HEALTH_FILE)) {

@@ -62,6 +62,7 @@ export const SERVICES_FALLBACK: ServiceRegistry = {
     name: "NAF",
     clickthroughUrl: "https://www.naf.no/medlemskap/medlemsfordeler/{urlName}",
     reminderDomain: "naf.no",
+    cashbackPathPatterns: ["/medlemskap/medlemsfordeler"],
     color: "#ffd816",
     defaultEnabled: false,
     type: "info",
