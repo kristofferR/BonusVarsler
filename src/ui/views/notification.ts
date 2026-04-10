@@ -407,7 +407,6 @@ function createChecklist(service: Service, i18n: I18nAdapter): HTMLOListElement 
   let items: string[];
   if (service.type === "info") {
     items = [
-      i18n.getMessage("infoInstruction1"),
       i18n.getMessage("infoInstruction2"),
     ];
   } else if (service.id === "dnb") {

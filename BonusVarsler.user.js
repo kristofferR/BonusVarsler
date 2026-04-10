@@ -2384,7 +2384,6 @@
     let items;
     if (service.type === "info") {
       items = [
-        i18n.getMessage("infoInstruction1"),
         i18n.getMessage("infoInstruction2")
       ];
     } else if (service.id === "dnb") {
