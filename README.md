@@ -2,11 +2,11 @@
 
 # BonusVarsler
 
-**Trumf | re:member | DNB | OBOS | LOfavør *(kommer snart)***
+**Trumf | re:member | DNB | OBOS | NAF | LOfavør**
 
 <p align="center">
 
-![Versjon](https://img.shields.io/badge/Versjon-7.0-blue)
+![Versjon](https://img.shields.io/badge/Versjon-8.0-blue)
 ![Lisens](https://img.shields.io/badge/Lisens-GPL--3.0-green)
 ![Støttet i](https://img.shields.io/badge/Støttet_i-Chrome%20|%20Firefox%20|%20Edge%20|%20Safari-yellow)
 
@@ -36,7 +36,7 @@
 
 ## Hvorfor bruke dette?
 
-Bonusprogrammer som Trumf, re:member, OBOS og LOfavør gir deg cashback hos hundrevis av nettbutikker, men du må huske å gå via deres portal for at bonusen skal registreres. Det er lett å glemme.
+Bonusprogrammer som Trumf, re:member, OBOS, NAF og LOfavør gir deg cashback hos hundrevis av nettbutikker, men du må huske å gå via deres portal for at bonusen skal registreres. Det er lett å glemme.
 
 Denne utvidelsen løser problemet: Du handler som vanlig, og får et varsel når butikken gir bonus. Ett klikk, så er du i gang.
 
