@@ -92,14 +92,14 @@
           "cashbackDescription": ""
         },
         {
-          "serviceId": "naf",
-          "urlName": "strawberry",
-          "cashbackDescription": "15 prosent rabatt"
-        },
-        {
           "serviceId": "lofavor",
           "urlName": "ferie-og-fritid/strawberry",
           "cashbackDescription": "15 % rabatt"
+        },
+        {
+          "serviceId": "naf",
+          "urlName": "strawberry",
+          "cashbackDescription": "15 prosent rabatt"
         }
       ]
     },
@@ -5162,14 +5162,14 @@
           "cashbackDescription": ""
         },
         {
-          "serviceId": "naf",
-          "urlName": "bo-sommarland",
-          "cashbackDescription": "Opptil 20 %"
-        },
-        {
           "serviceId": "lofavor",
           "urlName": "ferie-og-opplevelser/bo-sommarland",
           "cashbackDescription": "50% rabatt"
+        },
+        {
+          "serviceId": "naf",
+          "urlName": "bo-sommarland",
+          "cashbackDescription": "Opptil 20 %"
         }
       ]
     },
@@ -5952,14 +5952,14 @@
           "cashbackDescription": "Opptil 30 %"
         },
         {
-          "serviceId": "naf",
-          "urlName": "tusenfryd",
-          "cashbackDescription": "Opptil 35 %"
-        },
-        {
           "serviceId": "lofavor",
           "urlName": "ferie-og-opplevelser/tusenfryd",
           "cashbackDescription": "Rabattkode april"
+        },
+        {
+          "serviceId": "naf",
+          "urlName": "tusenfryd",
+          "cashbackDescription": "Opptil 35 %"
         }
       ]
     },
@@ -6040,6 +6040,99 @@
         }
       ]
     },
+    "www.hurtigruten.no": {
+      "hostName": "www.hurtigruten.no",
+      "name": "Svalbardlinjen",
+      "offers": [
+        {
+          "serviceId": "lofavor",
+          "urlName": "ferie-og-opplevelser/hurtigruten",
+          "cashbackDescription": "10 % rabatt"
+        },
+        {
+          "serviceId": "naf",
+          "urlName": "svalbardlinjen",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "www.hertz.no": {
+      "hostName": "www.hertz.no",
+      "name": "Leiebil",
+      "offers": [
+        {
+          "serviceId": "lofavor",
+          "urlName": "ferie-og-opplevelser/leiebil",
+          "cashbackDescription": "15 % rabatt"
+        }
+      ]
+    },
+    "www.riksteatret.no": {
+      "hostName": "www.riksteatret.no",
+      "name": "Riksteatret",
+      "offers": [
+        {
+          "serviceId": "lofavor",
+          "urlName": "ferie-og-opplevelser/riksteatret",
+          "cashbackDescription": "20 % rabatt"
+        }
+      ]
+    },
+    "www.ticketmaster.no": {
+      "hostName": "www.ticketmaster.no",
+      "name": "Notodden Bluesfestival",
+      "offers": [
+        {
+          "serviceId": "lofavor",
+          "urlName": "ferie-og-opplevelser/notodden-bluesfestival",
+          "cashbackDescription": "20% rabatt"
+        }
+      ]
+    },
+    "www.tivoli.dk": {
+      "hostName": "www.tivoli.dk",
+      "name": "Tivoli i København",
+      "offers": [
+        {
+          "serviceId": "lofavor",
+          "urlName": "ferie-og-fritid/tivoli-i-k%C3%B8benhavn",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "www.sormarka.no": {
+      "hostName": "www.sormarka.no",
+      "name": "Sørmarka konferansehotell",
+      "offers": [
+        {
+          "serviceId": "lofavor",
+          "urlName": "ferie-og-opplevelser/s%C3%B8rmarka-konferansehotell",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "www.eiendomsmegler1.no": {
+      "hostName": "www.eiendomsmegler1.no",
+      "name": "Salg av bolig",
+      "offers": [
+        {
+          "serviceId": "lofavor",
+          "urlName": "hus-og-hjem/salg-av-bolig",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "www.fjordkraft.no": {
+      "hostName": "www.fjordkraft.no",
+      "name": "Strøm",
+      "offers": [
+        {
+          "serviceId": "lofavor",
+          "urlName": "hus-og-hjem/strom",
+          "cashbackDescription": ""
+        }
+      ]
+    },
     "www.zaptec.com": {
       "hostName": "www.zaptec.com",
       "name": "Zaptec Go 2 med medlemsrabatt",
@@ -6047,7 +6140,7 @@
         {
           "serviceId": "naf",
           "urlName": "zaptec-hjemmelader",
-          "cashbackDescription": "50 % rabatt"
+          "cashbackDescription": ""
         }
       ]
     },
@@ -6080,7 +6173,7 @@
         {
           "serviceId": "naf",
           "urlName": "drivstoff",
-          "cashbackDescription": "50 % rabatt"
+          "cashbackDescription": ""
         }
       ]
     },
@@ -6103,22 +6196,6 @@
           "serviceId": "naf",
           "urlName": "hurtigruten",
           "cashbackDescription": "10 %"
-        }
-      ]
-    },
-    "www.hurtigruten.no": {
-      "hostName": "www.hurtigruten.no",
-      "name": "Svalbardlinjen",
-      "offers": [
-        {
-          "serviceId": "naf",
-          "urlName": "svalbardlinjen",
-          "cashbackDescription": "10 %"
-        },
-        {
-          "serviceId": "lofavor",
-          "urlName": "ferie-og-opplevelser/hurtigruten",
-          "cashbackDescription": "10 % rabatt"
         }
       ]
     },
@@ -6284,83 +6361,6 @@
           "serviceId": "naf",
           "urlName": "kongeparken-og-brumlecamp",
           "cashbackDescription": "Opptil 35 %"
-        }
-      ]
-    },
-    "www.hertz.no": {
-      "hostName": "www.hertz.no",
-      "name": "Leiebil",
-      "offers": [
-        {
-          "serviceId": "lofavor",
-          "urlName": "ferie-og-opplevelser/leiebil",
-          "cashbackDescription": "15 % rabatt"
-        }
-      ]
-    },
-    "www.riksteatret.no": {
-      "hostName": "www.riksteatret.no",
-      "name": "Riksteatret",
-      "offers": [
-        {
-          "serviceId": "lofavor",
-          "urlName": "ferie-og-opplevelser/riksteatret",
-          "cashbackDescription": "20 % rabatt"
-        }
-      ]
-    },
-    "www.ticketmaster.no": {
-      "hostName": "www.ticketmaster.no",
-      "name": "Notodden Bluesfestival",
-      "offers": [
-        {
-          "serviceId": "lofavor",
-          "urlName": "ferie-og-opplevelser/notodden-bluesfestival",
-          "cashbackDescription": "20% rabatt"
-        }
-      ]
-    },
-    "www.tivoli.dk": {
-      "hostName": "www.tivoli.dk",
-      "name": "Tivoli i København",
-      "offers": [
-        {
-          "serviceId": "lofavor",
-          "urlName": "ferie-og-fritid/tivoli-i-k%C3%B8benhavn",
-          "cashbackDescription": ""
-        }
-      ]
-    },
-    "www.sormarka.no": {
-      "hostName": "www.sormarka.no",
-      "name": "Sørmarka konferansehotell",
-      "offers": [
-        {
-          "serviceId": "lofavor",
-          "urlName": "ferie-og-opplevelser/s%C3%B8rmarka-konferansehotell",
-          "cashbackDescription": ""
-        }
-      ]
-    },
-    "www.eiendomsmegler1.no": {
-      "hostName": "www.eiendomsmegler1.no",
-      "name": "Salg av bolig",
-      "offers": [
-        {
-          "serviceId": "lofavor",
-          "urlName": "hus-og-hjem/salg-av-bolig",
-          "cashbackDescription": ""
-        }
-      ]
-    },
-    "www.fjordkraft.no": {
-      "hostName": "www.fjordkraft.no",
-      "name": "Strøm",
-      "offers": [
-        {
-          "serviceId": "lofavor",
-          "urlName": "hus-og-hjem/strom",
-          "cashbackDescription": ""
         }
       ]
     }

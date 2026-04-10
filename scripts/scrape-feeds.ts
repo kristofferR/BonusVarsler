@@ -93,6 +93,12 @@ const NAF_INTERNAL_DOMAINS = [
   "support.garmin.com",
 ];
 
+// Override scraped cashback descriptions that are known to be wrong
+const NAF_DESCRIPTION_OVERRIDES: Record<string, string> = {
+  "zaptec-hjemmelader": "", // scraped "50 %" is promotional, not actual discount
+  "drivstoff": "", // "50 % rabatt" is misleading (conditional fuel discount)
+};
+
 // Names to exclude from NAF scraping (internal NAF products, not partner discounts)
 const NAF_EXCLUDED_NAMES = [
   "eu-kontroll",
@@ -2574,10 +2580,13 @@ async function main() {
       (o) => o.serviceId === "naf"
     );
     if (!hasNafOffer) {
+      const description = merchant.slug in NAF_DESCRIPTION_OVERRIDES
+        ? NAF_DESCRIPTION_OVERRIDES[merchant.slug]
+        : merchant.cashbackDescription;
       merchants[merchantKey].offers.push({
         serviceId: "naf",
         urlName: merchant.slug,
-        cashbackDescription: merchant.cashbackDescription,
+        cashbackDescription: description,
       });
       nafMapped++;
     }
