@@ -29,6 +29,14 @@ export const DOMAIN_ALIASES: Record<string, string> = {
   "no.trip.com": "www.trip.com",
   "comfort.no": "www.bademiljo.no",
   "www.comfort.no": "www.bademiljo.no",
+  "blivakker.no": "www.blivakker.no",
+  "addresshotels.com": "www.addresshotels.com",
+  "bravofly.com": "www.bravofly.com",
+  "computersalg.no": "csmegastore.no",
+  "www.computersalg.no": "csmegastore.no",
+  "www.csmegastore.no": "csmegastore.no",
+  "www.houdinisportswear.com": "houdinisportswear.com",
+  "ralphlauren.global": "www.ralphlauren.global",
 };
 
 /**

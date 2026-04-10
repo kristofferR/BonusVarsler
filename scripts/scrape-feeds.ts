@@ -228,6 +228,7 @@ const TRUMF_MANUAL_HOSTNAME_MAPPINGS: Record<string, string> = {
   "brilleland-trumf": "www.brilleland.no",
   "interoptik-trumf": "www.interoptik.no",
   // Health
+  "blivakker-trumf": "www.blivakker.no",
   "dentway-trumfs": "www.dentway.no",
 };
 
@@ -239,6 +240,14 @@ const HOSTNAME_ALIASES: Record<string, string> = {
   "expedia.no": "www.expedia.no",
   "vrbo.no": "www.vrbo.com",
   "apple.com": "www.apple.com",
+  "blivakker.no": "www.blivakker.no",
+  "addresshotels.com": "www.addresshotels.com",
+  "bravofly.com": "www.bravofly.com",
+  "computersalg.no": "csmegastore.no",
+  "www.computersalg.no": "csmegastore.no",
+  "www.csmegastore.no": "csmegastore.no",
+  "www.houdinisportswear.com": "houdinisportswear.com",
+  "ralphlauren.global": "www.ralphlauren.global",
 };
 
 // ===================
