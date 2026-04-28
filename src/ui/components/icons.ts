@@ -7,12 +7,14 @@ import { SERVICE_ORDER } from "../../config/services.js";
 // Logo icons (64px for 2x retina, displayed at 32px)
 import LOGO_ICON_URL from "../../../icons/icon-64.png";
 import LOGO_ICON_REMEMBER_URL from "../../../icons/icon-64-remember.png";
+import LOGO_ICON_SAS_URL from "../../../icons/icon-64-sas.png";
 import LOGO_ICON_DNB_URL from "../../../icons/icon-64-dnb.png";
 import LOGO_ICON_OBOS_URL from "../../../icons/icon-64-obos.png";
 import LOGO_ICON_NAF_URL from "../../../icons/icon-64-naf.png";
 import LOGO_ICON_LOFAVOR_URL from "../../../icons/icon-64-lofavor.png";
+import LOGO_ICON_LOGBUY_URL from "../../../icons/icon-64-logbuy.png";
 
-export { LOGO_ICON_URL, LOGO_ICON_REMEMBER_URL, LOGO_ICON_DNB_URL, LOGO_ICON_OBOS_URL, LOGO_ICON_NAF_URL, LOGO_ICON_LOFAVOR_URL };
+export { LOGO_ICON_URL, LOGO_ICON_REMEMBER_URL, LOGO_ICON_SAS_URL, LOGO_ICON_DNB_URL, LOGO_ICON_OBOS_URL, LOGO_ICON_NAF_URL, LOGO_ICON_LOFAVOR_URL, LOGO_ICON_LOGBUY_URL };
 
 // Service ID type derived from SERVICE_ORDER
 export type ServiceId = (typeof SERVICE_ORDER)[number];
@@ -20,11 +22,13 @@ export type ServiceId = (typeof SERVICE_ORDER)[number];
 // Typed mapping of service IDs to logo icons
 const SERVICE_LOGO_ICONS: Readonly<Partial<Record<ServiceId, string>>> = {
   trumf: LOGO_ICON_URL,
+  sas: LOGO_ICON_SAS_URL,
   remember: LOGO_ICON_REMEMBER_URL,
   dnb: LOGO_ICON_DNB_URL,
   obos: LOGO_ICON_OBOS_URL,
   naf: LOGO_ICON_NAF_URL,
   lofavor: LOGO_ICON_LOFAVOR_URL,
+  logbuy: LOGO_ICON_LOGBUY_URL,
 } as const;
 
 // Settings gear icon

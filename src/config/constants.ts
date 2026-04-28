@@ -51,6 +51,10 @@ export const CURRENT_VERSION = "8.0";
 export const MESSAGE_SHOWN_KEY_PREFIX = "BonusVarsler_MessageShown_";
 export const PAGE_VISIT_COUNT_PREFIX = "BonusVarsler_PageVisits_";
 
+export function getMessageShownKey(currentHost: string, currentPathname = "/"): string {
+  return `${MESSAGE_SHOWN_KEY_PREFIX}${currentHost}|${currentPathname || "/"}`;
+}
+
 // Position options
 export type Position = "bottom-right" | "bottom-left" | "top-right" | "top-left";
 export const DEFAULT_POSITION: Position = "bottom-right";

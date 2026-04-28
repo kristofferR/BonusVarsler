@@ -3,6 +3,7 @@
  *
  * Uses Playwright to scrape all merchants from:
  * - trumfnetthandel.no/kategori (Trumf - tracking-based cashback)
+ * - onlineshopping.loyaltykey.com (SAS EuroBonus - API-based points)
  * - dnb.no/kundeprogram/fordeler/faste-rabatter (DNB - code-based rebates)
  *
  * Strategy:
@@ -13,7 +14,9 @@
  */
 
 import { chromium, type Page, type Browser } from "playwright";
+import { lookup } from "dns/promises";
 import { readFile, writeFile } from "fs/promises";
+import { isIP } from "net";
 import { join } from "path";
 
 // ===================
@@ -26,6 +29,40 @@ const DNB_URL = "https://www.dnb.no/kundeprogram/fordeler/faste-rabatter";
 const OBOS_BENEFITS_URL = "https://www.obos.no/medlem/medlemsfordeler";
 const NAF_BENEFITS_URL = "https://www.naf.no/medlemskap/medlemsfordeler";
 const LOFAVOR_BASE_URL = "https://www.lofavor.no";
+const SAS_API_BASE_URL = "https://onlineshopping.loyaltykey.com";
+const SAS_CHANNEL = "sas/nb-NO";
+const SAS_LIST_TIMEOUT_MS = 15_000;
+const SAS_DETAIL_TIMEOUT_MS = 10_000;
+const LOGBUY_API_BASE_URL = "https://restapi.mylogbuy.com";
+
+const LOGBUY_SEARCH_PAGE_SIZE = 250;
+const LOGBUY_MAX_SEARCH_PAGES = 100;
+const LOGBUY_API_TIMEOUT_MS = 15000;
+const LOGBUY_REDIRECT_TIMEOUT_MS = 8000;
+const LOGBUY_MAX_REDIRECTS = 5;
+const LOGBUY_DEAL_CONCURRENCY = 8;
+const LOGBUY_FALLBACK_DESCRIPTION = "Rabatt";
+const LOGBUY_REDIRECT_USER_AGENT =
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36";
+const publicHostLookupCache = new Map<string, Promise<boolean>>();
+
+const LOGBUY_INTERNAL_DOMAINS = [
+  "mylogbuy.com",
+  "restapi.mylogbuy.com",
+  "files.mylogbuy.com",
+];
+
+const LOGBUY_TRACKING_DOMAINS = [
+  "awin1.com",
+  "go.adt242.com",
+  "go.adt267.com",
+  "tidd.ly",
+  "bit.ly",
+  "evyy.net",
+  "pxf.io",
+  "sjv.io",
+  "kqzyfj.com",
+];
 
 // LOfavør categories to scrape (skip forsikring, bank, juridisk, ungdom — all internal)
 const LOFAVOR_SCRAPE_CATEGORIES = [
@@ -151,11 +188,13 @@ const NAF_EXCLUDED_NAMES = [
 
 const MONITORED_SERVICE_IDS = [
   "trumf",
+  "sas",
   "remember",
   "dnb",
   "obos",
   "naf",
   "lofavor",
+  "logbuy",
 ] as const;
 
 type ServiceId = (typeof MONITORED_SERVICE_IDS)[number];
@@ -163,11 +202,13 @@ type ServiceId = (typeof MONITORED_SERVICE_IDS)[number];
 interface ScraperCache {
   timestamp: number;
   trumfMerchants: ScrapedMerchant[];
+  sasMerchants: ScrapedMerchant[];
   rememberMerchants: ScrapedMerchant[];
   dnbMerchants: ScrapedMerchant[];
   obosMerchants: ScrapedMerchant[];
   nafMerchants: ScrapedMerchant[];
   lofavorMerchants: ScrapedMerchant[];
+  logbuyMerchants: ScrapedMerchant[];
   urlNameToHostname: Record<string, string>;
 }
 
@@ -194,12 +235,47 @@ interface ServiceRunResult {
   consecutiveFailureDays: number;
 }
 
+/**
+ * Loads and validates the scraper cache file, returning it when current and well-formed.
+ *
+ * Validations performed: cache file exists and parses as JSON, contains array entries for all monitored services
+ * (`trumfMerchants`, `rememberMerchants`, `dnbMerchants`, `obosMerchants`, `nafMerchants`, `lofavorMerchants`, `logbuyMerchants`),
+ * has a well-formed `urlNameToHostname` map, every LogBuy merchant has a numeric `slug`, and the cache timestamp is newer than `CACHE_MAX_AGE`.
+ *
+ * @returns The parsed `ScraperCache` when present and valid; `null` otherwise.
+ */
 async function loadCache(): Promise<ScraperCache | null> {
   try {
     const content = await readFile(CACHE_FILE, "utf-8");
     const cache: ScraperCache = JSON.parse(content);
+    if (!Array.isArray(cache.sasMerchants)) {
+      return null;
+    }
     const age = Date.now() - cache.timestamp;
-    if (age < CACHE_MAX_AGE) {
+    const hasAllServiceData =
+      Array.isArray(cache.trumfMerchants) &&
+      Array.isArray(cache.rememberMerchants) &&
+      Array.isArray(cache.dnbMerchants) &&
+      Array.isArray(cache.obosMerchants) &&
+      Array.isArray(cache.nafMerchants) &&
+      Array.isArray(cache.lofavorMerchants) &&
+      Array.isArray(cache.logbuyMerchants);
+    const hasUrlNameToHostname =
+      typeof cache.urlNameToHostname === "object" &&
+      cache.urlNameToHostname !== null &&
+      !Array.isArray(cache.urlNameToHostname) &&
+      Object.values(cache.urlNameToHostname).every(
+        (hostname) => typeof hostname === "string" && hostname.length > 0
+      );
+    const hasCurrentLogbuyShape =
+      hasAllServiceData &&
+      cache.logbuyMerchants.every((merchant) => /^\d+$/.test(merchant.slug));
+    if (
+      age < CACHE_MAX_AGE &&
+      hasAllServiceData &&
+      hasUrlNameToHostname &&
+      hasCurrentLogbuyShape
+    ) {
       return cache;
     }
   } catch {
@@ -243,6 +319,16 @@ const HOSTNAME_ALIASES: Record<string, string> = {
   "blivakker.no": "www.blivakker.no",
   "addresshotels.com": "www.addresshotels.com",
   "bravofly.com": "www.bravofly.com",
+  "storytel.com": "www.storytel.no",
+  "www.storytel.com": "www.storytel.no",
+  "bookbeat.com": "www.bookbeat.no",
+  "www.bookbeat.com": "www.bookbeat.no",
+  "outnorth.com": "outnorth.no",
+  "www.outnorth.com": "outnorth.no",
+  "no-pin.loccitane.com": "no.loccitane.com",
+  "bilglass.no": "booking.bilglass.no",
+  "www.bilglass.no": "booking.bilglass.no",
+  "booking.fyriresort.com": "fyriresort.com",
   "computersalg.no": "csmegastore.no",
   "www.computersalg.no": "csmegastore.no",
   "www.csmegastore.no": "csmegastore.no",
@@ -258,6 +344,9 @@ interface ServiceOffer {
   serviceId: string;
   urlName: string;
   cashbackDescription: string;
+  clickthroughUrl?: string;
+  matchPathPrefix?: string;
+  matchPathCaseSensitive?: boolean;
   code?: string; // For code-based services like DNB
   cashbackDetails?: Array<{
     value: number;
@@ -276,6 +365,7 @@ interface ServiceDefinition {
   name: string;
   clickthroughUrl: string;
   reminderDomain?: string;
+  cashbackPathPatterns?: string[];
   color: string;
   defaultEnabled: boolean;
   type?: "code" | "info";
@@ -307,13 +397,55 @@ interface ScrapedMerchant {
   cashbackDescription: string;
   slug: string;
   code?: string; // For code-based services
-  storeUrl?: string; // For DNB merchants
+  storeUrl?: string;
+  clickthroughUrl?: string;
+  matchPathPrefix?: string;
+  matchPathCaseSensitive?: boolean;
 }
 
 // ===================
 // Utility Functions
-// ===================
+/**
+ * Maps an array of items through an asynchronous mapper with a limit on concurrent executions while preserving input order.
+ *
+ * @param items - The array of input items to map
+ * @param concurrency - Maximum number of mapper functions to run concurrently (clamped to at least 1 and at most `items.length`)
+ * @param mapper - Async function that transforms an item; receives the item and its index
+ * @returns An array of mapper results in the same order as the input `items`
+ */
 
+async function mapWithConcurrency<T, R>(
+  items: T[],
+  concurrency: number,
+  mapper: (item: T, index: number) => Promise<R>
+): Promise<R[]> {
+  const results = new Array<R>(items.length);
+  let nextIndex = 0;
+
+  /**
+   * Consumes remaining items by repeatedly taking the next available index and applying the mapper, writing each mapped value back into the corresponding position of the results array.
+   *
+   * Processes items until all have been handled; each iteration awaits the mapper for the current item and preserves original ordering by storing the result at the item's index.
+   */
+  async function worker(): Promise<void> {
+    while (nextIndex < items.length) {
+      const currentIndex = nextIndex++;
+      results[currentIndex] = await mapper(items[currentIndex], currentIndex);
+    }
+  }
+
+  const workerCount = Math.min(Math.max(concurrency, 1), items.length);
+  await Promise.all(Array.from({ length: workerCount }, worker));
+  return results;
+}
+
+/**
+ * Infers a canonical hostname from a merchant or store name.
+ *
+ * Attempts to produce a normalized `www.` hostname when the input contains a recognizable domain or matches a small set of known brand names.
+ *
+ * @returns The inferred hostname prefixed with `www.` (for example, `www.example.com`) if a mapping can be determined, `null` otherwise.
+ */
 function inferHostname(name: string): string | null {
   const cleanName = name.toLowerCase().trim();
 
@@ -344,6 +476,28 @@ function inferHostname(name: string): string | null {
 
 function normalizeHostname(hostname: string): string {
   return HOSTNAME_ALIASES[hostname] || hostname;
+}
+
+function parseShopKey(shopKey: string): { hostname: string; matchPathPrefix?: string } | null {
+  const trimmed = shopKey.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/\/+$/, "");
+  if (!trimmed) {
+    return null;
+  }
+
+  try {
+    const url = new URL(`https://${trimmed}`);
+    const pathPrefix = url.pathname === "/" ? undefined : url.pathname.replace(/\/+$/, "");
+    return {
+      hostname: normalizeHostname(url.hostname),
+      ...(pathPrefix && { matchPathPrefix: pathPrefix }),
+    };
+  } catch {
+    return null;
+  }
+}
+
+function formatSasPoints(points: number): string {
+  return String(points).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
 
 /**
@@ -473,6 +627,21 @@ function cloneOffer(offer: ServiceOffer): ServiceOffer {
   };
 }
 
+function isSameServiceOffer(
+  existingOffer: ServiceOffer,
+  restoredOffer: ServiceOffer,
+  serviceId: ServiceId
+): boolean {
+  return (
+    existingOffer.serviceId === serviceId &&
+    existingOffer.urlName === restoredOffer.urlName &&
+    (existingOffer.matchPathPrefix ?? null) ===
+      (restoredOffer.matchPathPrefix ?? null) &&
+    (existingOffer.matchPathCaseSensitive ?? false) ===
+      (restoredOffer.matchPathCaseSensitive ?? false)
+  );
+}
+
 function restoreServiceOffersFromExisting(
   merchants: Record<string, MerchantEntry>,
   existingSitelist: SiteList,
@@ -499,9 +668,7 @@ function restoreServiceOffersFromExisting(
 
     for (const offer of serviceOffers) {
       const hasOffer = merchants[existingMerchant.hostName].offers.some(
-        (existingOffer) =>
-          existingOffer.serviceId === serviceId &&
-          existingOffer.urlName === offer.urlName
+        (existingOffer) => isSameServiceOffer(existingOffer, offer, serviceId)
       );
 
       if (!hasOffer) {
@@ -761,6 +928,108 @@ async function scrapeTrumf(page: Page): Promise<ScrapedMerchant[]> {
     return results;
   });
 
+  return merchants;
+}
+
+// ===================
+// SAS EuroBonus Scraping
+// ===================
+
+interface SasShopDetail {
+  uuid: string;
+  name: string;
+  commission_type: "fixed" | "variable";
+  points: number;
+  currency: string;
+  url: string;
+}
+
+interface SasShopDetailResponse {
+  data?: SasShopDetail;
+}
+
+async function scrapeSAS(): Promise<ScrapedMerchant[]> {
+  console.log("\n=== Scraping SAS EuroBonus ===");
+
+  const listUrl = `${SAS_API_BASE_URL}/api/browser-extension/${SAS_CHANNEL}/shops`;
+  const response = await fetch(listUrl, {
+    signal: AbortSignal.timeout(SAS_LIST_TIMEOUT_MS),
+  });
+  if (!response.ok) {
+    throw new Error(`SAS shop list returned HTTP ${response.status}`);
+  }
+
+  const shopMap = (await response.json()) as Record<string, string>;
+  const shopEntries = Object.entries(shopMap);
+  console.log(`  Found ${shopEntries.length} SAS shop IDs`);
+
+  const merchants: ScrapedMerchant[] = [];
+  const batchSize = 20;
+  let failedDetails = 0;
+
+  for (let offset = 0; offset < shopEntries.length; offset += batchSize) {
+    const batch = shopEntries.slice(offset, offset + batchSize);
+    const batchMerchants = await Promise.all(
+      batch.map(async ([shopKey, shopId]) => {
+        const parsedShopKey = parseShopKey(shopKey);
+        if (!parsedShopKey) {
+          return null;
+        }
+
+        const detailUrl = `${SAS_API_BASE_URL}/api/browser-extension/${SAS_CHANNEL}/shops/${encodeURIComponent(shopId)}`;
+        try {
+          const detailResponse = await fetch(detailUrl, {
+            signal: AbortSignal.timeout(SAS_DETAIL_TIMEOUT_MS),
+          });
+          if (!detailResponse.ok) {
+            throw new Error(`HTTP ${detailResponse.status}`);
+          }
+
+          const detailJson = (await detailResponse.json()) as SasShopDetailResponse;
+          const detail = detailJson.data;
+          if (!detail?.name || !detail.url) {
+            return null;
+          }
+
+          const points = Number(detail.points) || 0;
+          const cashbackDescription =
+            detail.commission_type === "fixed"
+              ? `${formatSasPoints(points)} poeng som ny kunde`
+              : `${formatSasPoints(points)} poeng / 100 kr`;
+
+          return {
+            name: detail.name,
+            cashbackDescription,
+            slug: detail.uuid || shopId,
+            storeUrl: `https://${parsedShopKey.hostname}${parsedShopKey.matchPathPrefix || ""}`,
+            clickthroughUrl: detail.url,
+            ...(parsedShopKey.matchPathPrefix && {
+              matchPathPrefix: parsedShopKey.matchPathPrefix,
+            }),
+          } satisfies ScrapedMerchant;
+        } catch (error) {
+          failedDetails++;
+          console.warn(
+            `\n  Warning: SAS shop detail ${shopId} (${shopKey}) failed: ${summarizeError(error)}`
+          );
+          return null;
+        }
+      })
+    );
+
+    merchants.push(
+      ...batchMerchants.filter((merchant): merchant is ScrapedMerchant => merchant !== null)
+    );
+    process.stdout.write(
+      `\r  Loaded ${Math.min(offset + batchSize, shopEntries.length)} / ${shopEntries.length} SAS shop details`
+    );
+  }
+
+  if (failedDetails > 0) {
+    console.log(`\n  Warning: skipped ${failedDetails} failed SAS shop detail requests`);
+  }
+
+  console.log(`\n  Extracted ${merchants.length} SAS merchants`);
   return merchants;
 }
 
@@ -1564,6 +1833,15 @@ function isLOfavorInternalDomain(hostname: string): boolean {
   );
 }
 
+/**
+ * Scrapes LOfavør category and detail pages to collect partner merchants with optional store URLs and discounts.
+ *
+ * Visits configured LOfavør categories, extracts unique benefit slugs and names, visits detail pages to find external partner links
+ * and discount descriptions, and enriches missing store URLs using a fetched partner map.
+ *
+ * @returns An array of scraped merchants; each entry contains `name`, `slug`, `cashbackDescription`, and optionally `storeUrl`.
+ * @throws Error if the overall LOfavør scraping process fails
+ */
 async function scrapeLOfavor(page: Page): Promise<ScrapedMerchant[]> {
   console.log("\n=== Scraping LOfavør ===");
 
@@ -1850,8 +2128,896 @@ async function scrapeLOfavor(page: Page): Promise<ScrapedMerchant[]> {
 }
 
 // ===================
-// Main Logic
+// Visma LogBuy Scraping
 // ===================
+
+interface LogbuyTokenResponse {
+  access_token?: string;
+  error?: string;
+  error_description?: string;
+}
+
+interface LogbuyAuthConfig {
+  username: string;
+  password: string;
+  accesskey: string;
+}
+
+interface LogbuyApiResponse<T> {
+  statusCode: number;
+  result?: T;
+  error?: string | { message?: string; messageDetail?: string };
+  error_description?: string;
+}
+
+interface LogbuyDeal {
+  website: string;
+  detailurl: string;
+}
+
+interface LogbuyDiscountInfo {
+  info?: string | null;
+  minPercent?: number | null;
+  maxPercent?: number | null;
+  minAmount?: number | null;
+  maxAmount?: number | null;
+  text?: string | null;
+  currency?: {
+    currencySymbol?: string | null;
+    isPrefix?: boolean | null;
+  } | null;
+}
+
+interface LogbuySpecialOfferInfo {
+  info?: string | null;
+  discountInfo?: LogbuyDiscountInfo | null;
+  dealTitle?: string | null;
+}
+
+interface LogbuySearchItem {
+  supplierId: number;
+  name: string;
+  discountInfo?: LogbuyDiscountInfo | null;
+  specialOfferInfo?: LogbuySpecialOfferInfo | null;
+}
+
+interface LogbuySearchResult {
+  searchItems: LogbuySearchItem[];
+  totalResults: number;
+}
+
+/**
+ * Produce a concise, human-readable error message extracted from a LogBuy API response.
+ *
+ * @param response - The parsed LogBuy API response object
+ * @returns The first available error text from `error` (string), `error_description`, `error.messageDetail`, or `error.message`; if none are present, returns `statusCode <n>` using `response.statusCode`
+ */
+function getLogbuyErrorMessage(response: LogbuyApiResponse<unknown>): string {
+  if (typeof response.error === "string") {
+    return response.error;
+  }
+  return (
+    response.error_description ||
+    response.error?.messageDetail ||
+    response.error?.message ||
+    `statusCode ${response.statusCode}`
+  );
+}
+
+/**
+ * Retrieves and validates a required environment variable.
+ *
+ * @param name - The environment variable name to read
+ * @returns The trimmed value of the environment variable
+ * @throws Error if the variable is missing or empty; the thrown message will be `Missing ${name}; set LogBuy API credentials in environment`
+ */
+function getRequiredEnv(name: string): string {
+  const value = process.env[name]?.trim();
+  if (!value) {
+    throw new Error(`Missing ${name}; set LogBuy API credentials in environment`);
+  }
+  return value;
+}
+
+/**
+ * Constructs LogBuy API authentication configuration from required environment variables.
+ *
+ * @returns An object with `username`, `password`, and `accesskey` populated from `LOGBUY_USERNAME`, `LOGBUY_PASSWORD`, and `LOGBUY_ACCESSKEY` environment variables
+ */
+function getLogbuyAuthConfig(): LogbuyAuthConfig {
+  return {
+    username: getRequiredEnv("LOGBUY_USERNAME"),
+    password: getRequiredEnv("LOGBUY_PASSWORD"),
+    accesskey: getRequiredEnv("LOGBUY_ACCESSKEY"),
+  };
+}
+
+/**
+ * Determine whether a hostname belongs to LogBuy's internal or tracking domains.
+ *
+ * @param hostname - Hostname to check; may include a leading `www.`.
+ * @returns `true` if `hostname` exactly matches or is a subdomain of any configured LogBuy internal domain, `false` otherwise.
+ */
+function isLogbuyInternalDomain(hostname: string): boolean {
+  const normalized = hostname.replace(/^www\./, "");
+  return LOGBUY_INTERNAL_DOMAINS.some(
+    (domain) => normalized === domain || normalized.endsWith(`.${domain}`)
+  );
+}
+
+/**
+ * Determine whether a hostname belongs to LogBuy's tracking/redirect domains.
+ *
+ * @param hostname - Hostname to test; a leading `www.` is ignored
+ * @returns `true` if the hostname equals or is a subdomain of a known LogBuy tracking domain, `false` otherwise
+ */
+function isLogbuyTrackingDomain(hostname: string): boolean {
+  const normalized = hostname.replace(/^www\./, "");
+  return LOGBUY_TRACKING_DOMAINS.some(
+    (domain) => normalized === domain || normalized.endsWith(`.${domain}`)
+  );
+}
+
+/**
+ * Return the normalized hostname extracted from a URL string.
+ *
+ * @param url - The input string to parse as a URL.
+ * @returns The hostname normalized via `normalizeHostname`, or `null` if `url` is not a valid URL.
+ */
+function getLogbuyHostname(url: string): string | null {
+  try {
+    return normalizeHostname(new URL(url).hostname);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Determines whether a LogBuy-derived URL points to a usable external store domain.
+ *
+ * @param url - The URL to evaluate
+ * @returns `true` if the URL has a resolvable hostname that is not a LogBuy internal domain and not a known tracking domain, `false` otherwise.
+ */
+function isUsableLogbuyStoreUrl(url: string): boolean {
+  const hostname = getLogbuyHostname(url);
+  if (!hostname) {
+    return false;
+  }
+  return !isLogbuyInternalDomain(hostname) && !isLogbuyTrackingDomain(hostname);
+}
+
+function parseIpv4Octets(address: string): number[] | null {
+  const parts = address.split(".");
+  if (parts.length !== 4) {
+    return null;
+  }
+
+  const octets = parts.map((part) => Number.parseInt(part, 10));
+  if (
+    octets.some(
+      (octet, index) =>
+        !Number.isInteger(octet) ||
+        octet < 0 ||
+        octet > 255 ||
+        String(octet) !== parts[index]
+    )
+  ) {
+    return null;
+  }
+
+  return octets;
+}
+
+function isNonPublicIpv4Address(address: string): boolean {
+  const octets = parseIpv4Octets(address);
+  if (!octets) {
+    return true;
+  }
+
+  const [a, b, c] = octets;
+  if (a === undefined || b === undefined || c === undefined) {
+    return true;
+  }
+
+  return (
+    a === 0 ||
+    a === 10 ||
+    a === 127 ||
+    (a === 100 && b >= 64 && b <= 127) ||
+    (a === 169 && b === 254) ||
+    (a === 172 && b >= 16 && b <= 31) ||
+    (a === 192 && b === 0 && c === 0) ||
+    (a === 192 && b === 0 && c === 2) ||
+    (a === 192 && b === 168) ||
+    (a === 198 && (b === 18 || b === 19)) ||
+    (a === 198 && b === 51 && c === 100) ||
+    (a === 203 && b === 0 && c === 113) ||
+    a >= 224
+  );
+}
+
+function isNonPublicIpv6Address(address: string): boolean {
+  const normalized = address.toLowerCase();
+  const ipv4Mapped = normalized.match(/^::ffff:(\d+\.\d+\.\d+\.\d+)$/);
+  if (ipv4Mapped?.[1]) {
+    return isNonPublicIpv4Address(ipv4Mapped[1]);
+  }
+
+  const firstHextet = Number.parseInt(normalized.split(":")[0] || "0", 16);
+  return (
+    normalized === "::" ||
+    normalized === "::1" ||
+    normalized.startsWith("fc") ||
+    normalized.startsWith("fd") ||
+    (firstHextet >= 0xfe80 && firstHextet <= 0xfebf) ||
+    normalized.startsWith("ff") ||
+    normalized.startsWith("2001:db8:")
+  );
+}
+
+function isPublicIpAddress(address: string): boolean {
+  const family = isIP(address);
+  if (family === 4) {
+    return !isNonPublicIpv4Address(address);
+  }
+
+  if (family === 6) {
+    return !isNonPublicIpv6Address(address);
+  }
+
+  return false;
+}
+
+function isLocalHostname(hostname: string): boolean {
+  const normalized = hostname.replace(/^\[|\]$/g, "").toLowerCase();
+  return (
+    normalized === "localhost" ||
+    normalized.endsWith(".localhost") ||
+    normalized.endsWith(".local") ||
+    normalized.endsWith(".lan") ||
+    normalized.endsWith(".internal") ||
+    normalized.endsWith(".home.arpa")
+  );
+}
+
+async function isPublicFetchTarget(rawUrl: string): Promise<boolean> {
+  try {
+    const url = new URL(rawUrl);
+    if (url.protocol !== "http:" && url.protocol !== "https:") {
+      return false;
+    }
+
+    const hostname = url.hostname.replace(/^\[|\]$/g, "").toLowerCase();
+    if (isLocalHostname(hostname)) {
+      return false;
+    }
+
+    if (isIP(hostname)) {
+      return isPublicIpAddress(hostname);
+    }
+
+    let lookupResult = publicHostLookupCache.get(hostname);
+    if (!lookupResult) {
+      lookupResult = lookup(hostname, { all: true })
+        .then(
+          (addresses) =>
+            addresses.length > 0 &&
+            addresses.every((address) => isPublicIpAddress(address.address))
+        )
+        .catch(() => false);
+      publicHostLookupCache.set(hostname, lookupResult);
+    }
+
+    return lookupResult;
+  } catch {
+    return false;
+  }
+}
+
+async function isSafeLogbuyStoreUrl(url: string): Promise<boolean> {
+  return isUsableLogbuyStoreUrl(url) && (await isPublicFetchTarget(url));
+}
+
+/**
+ * Extracts all HTTP(S) URLs from the input string.
+ *
+ * @param value - The text to scan for URLs
+ * @returns An array of trimmed `http`/`https` URLs found in `value`, preserving commas inside URLs, or an empty array if none are present
+ */
+function extractLogbuyUrls(value: string): string[] {
+  return value
+    .split(/\s+|,(?=\s*https?:\/\/)/)
+    .map((url) => url.trim())
+    .filter((url) => /^https?:\/\//.test(url));
+}
+
+/**
+ * Extracts the LogBuy supplier ID from a detail URL's `SupplierInfoId` query parameter.
+ *
+ * @param detailUrl - A URL string expected to contain a `SupplierInfoId` query parameter
+ * @returns The parsed supplier ID as a number, or `null` if the parameter is missing, not an integer, or the URL is invalid
+ */
+function extractLogbuySupplierId(detailUrl: string): number | null {
+  try {
+    const rawId = new URL(detailUrl).searchParams.get("SupplierInfoId");
+    if (!rawId) {
+      return null;
+    }
+    const id = Number.parseInt(rawId, 10);
+    return Number.isNaN(id) ? null : id;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Produce a best-effort decoded URL by unescaping common HTML/JSON-escaped sequences and applying URI decoding.
+ *
+ * @param value - The input string containing an escaped or encoded URL fragment
+ * @returns The decoded URL string with common escape sequences (e.g., `\/`, `\u0026`, `&amp;`) replaced and percent-encoded parts decoded when possible
+ */
+function decodeLogbuyUrl(value: string): string {
+  let decoded = value
+    .replace(/\\\//g, "/")
+    .replace(/\\u0026/g, "&")
+    .replace(/&amp;/g, "&");
+
+  try {
+    decoded = decodeURIComponent(decoded);
+  } catch {
+    // Keep the best-effort decoded value.
+  }
+
+  return decoded;
+}
+
+/**
+ * Extracts a nested target HTTP(S) URL from query parameters commonly used in redirect links.
+ *
+ * Searches the provided URL's query string for known redirect parameter names (for example `ued`, `url`, `u`, `redirect`, `redirectUrl`, `returnUrl`) and returns the decoded target URL if one is found and begins with `http`. If the input is not a valid URL or no usable redirect parameter is present, returns `null`.
+ *
+ * @param rawUrl - The raw URL string that may contain a redirect/target URL as a query parameter.
+ * @returns The decoded nested target URL if found, `null` otherwise.
+ */
+function extractNestedTargetUrl(rawUrl: string): string | null {
+  try {
+    const url = new URL(rawUrl);
+    for (const key of ["ued", "url", "u", "redirect", "redirectUrl", "returnUrl"]) {
+      const value = url.searchParams.get(key);
+      if (value?.startsWith("http")) {
+        return decodeLogbuyUrl(value);
+      }
+    }
+  } catch {
+    // Invalid URL.
+  }
+
+  return null;
+}
+
+/**
+ * Extracts the first external redirect or CTA URL from a chunk of HTML.
+ *
+ * Scans for common redirect patterns (meta refresh, inline JS assignments/calls) and for CTA-like anchor elements, decodes any LogBuy-encoded targets, and returns the first absolute HTTP(S) URL found.
+ *
+ * @param html - The raw HTML to scan for redirect targets.
+ * @returns The decoded absolute redirect/CTA URL if found, `null` otherwise.
+ */
+function extractRedirectUrlFromHtml(html: string): string | null {
+  const patterns = [
+    /http-equiv=["']refresh["'][^>]*content=["'][^"']*url=([^"']+)/i,
+    /redirectUrl\s*=\s*["']([^"']+)["']/i,
+    /location\.replace\(["']([^"']+)["']\)/i,
+  ];
+
+  for (const pattern of patterns) {
+    const match = html.match(pattern);
+    if (match?.[1]) {
+      const decoded = decodeLogbuyUrl(match[1]);
+      if (decoded.startsWith("http")) {
+        return decoded;
+      }
+    }
+  }
+
+  const ctaAnchorPattern = /<a\b[^>]*href=["'](https?:\/\/[^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
+  const ctaTextPattern =
+    /\b(continue|go to store|visit store|shop now|fortsett|gå til|ga til|gå videre|ga videre|besøk|besok|til butikk)\b/i;
+  for (const match of html.matchAll(ctaAnchorPattern)) {
+    const anchorText = match[2].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+    if (!ctaTextPattern.test(anchorText)) {
+      continue;
+    }
+
+    const decoded = decodeLogbuyUrl(match[1]);
+    if (decoded.startsWith("http")) {
+      return decoded;
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Format a numeric amount with the LogBuy currency symbol and placement rules.
+ *
+ * @param value - The numeric amount to format (whole units).
+ * @param discount - LogBuy discount metadata; its `currency.currencySymbol` is used if present and `currency.isPrefix` controls whether the symbol appears before or after the value.
+ * @returns The formatted amount with a currency symbol (falls back to `kr` when no symbol is provided), e.g. `kr100` or `100 kr`.
+ */
+function formatLogbuyAmount(value: number, discount: LogbuyDiscountInfo): string {
+  const currency = discount.currency?.currencySymbol || "kr";
+  return discount.currency?.isPrefix ? `${currency}${value}` : `${value} ${currency}`;
+}
+
+/**
+ * Formats a LogBuy discount object into a human-readable cashback description.
+ *
+ * Prefers explicit `info` or `text` fields when present; otherwise formats
+ * percentage values as `10%` or ranges as `10 - 20%`, and monetary amounts
+ * using `formatLogbuyAmount` (single value or range). Returns an empty string
+ * when no usable discount data is available.
+ *
+ * @param discount - The LogBuy discount information object, or `null`/`undefined`
+ * @returns A formatted discount string (e.g., `10%`, `10 - 20%`, `kr 50`, `kr 50 - kr 100`), or an empty string if none
+ */
+function formatLogbuyDiscountInfo(discount: LogbuyDiscountInfo | null | undefined): string {
+  if (!discount) {
+    return "";
+  }
+
+  const info = discount.info?.trim() || discount.text?.trim();
+  if (info) {
+    return info;
+  }
+
+  if (typeof discount.minPercent === "number" && typeof discount.maxPercent === "number") {
+    if (discount.minPercent === discount.maxPercent) {
+      return `${discount.maxPercent}%`;
+    }
+    return `${discount.minPercent} - ${discount.maxPercent}%`;
+  }
+
+  if (typeof discount.maxPercent === "number") {
+    return `${discount.maxPercent}%`;
+  }
+
+  if (typeof discount.minAmount === "number" && typeof discount.maxAmount === "number") {
+    if (discount.minAmount === discount.maxAmount) {
+      return formatLogbuyAmount(discount.maxAmount, discount);
+    }
+    return `${formatLogbuyAmount(discount.minAmount, discount)} - ${formatLogbuyAmount(discount.maxAmount, discount)}`;
+  }
+
+  if (typeof discount.maxAmount === "number") {
+    return formatLogbuyAmount(discount.maxAmount, discount);
+  }
+
+  return "";
+}
+
+/**
+ * Selects a user-facing cashback description for a LogBuy supplier.
+ *
+ * @param supplier - LogBuy supplier record; fields read: `specialOfferInfo.discountInfo`, `specialOfferInfo.dealTitle`, `specialOfferInfo.info`, and `discountInfo`
+ * @returns The description string chosen in preference order: formatted `specialOfferInfo.discountInfo`, trimmed `specialOfferInfo.dealTitle`, trimmed `specialOfferInfo.info`, formatted `discountInfo`, or the configured fallback description
+ */
+function getLogbuyCashbackDescription(supplier: LogbuySearchItem): string {
+  return (
+    formatLogbuyDiscountInfo(supplier.specialOfferInfo?.discountInfo) ||
+    supplier.specialOfferInfo?.dealTitle?.trim() ||
+    supplier.specialOfferInfo?.info?.trim() ||
+    formatLogbuyDiscountInfo(supplier.discountInfo) ||
+    LOGBUY_FALLBACK_DESCRIPTION
+  );
+}
+
+/**
+ * Parse an HTTP Response as JSON after validating its status and provide a concise body preview on error.
+ *
+ * @param response - The fetch `Response` to validate and parse
+ * @returns The parsed JSON body as type `T`
+ * @throws Error - If `response.ok` is false or the body is not valid JSON; the error message includes the HTTP status and a truncated (up to 500 chars) preview of the response body
+ */
+async function readLogbuyJsonResponse<T>(response: Response): Promise<T> {
+  const body = await response.text();
+  const bodySummary = body.slice(0, 500) || response.statusText;
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}: ${bodySummary}`);
+  }
+
+  try {
+    return JSON.parse(body) as T;
+  } catch {
+    throw new Error(`HTTP ${response.status}: invalid JSON response: ${bodySummary}`);
+  }
+}
+
+/**
+ * Fetches a URL using the global fetch while aborting the request after the configured LogBuy API timeout.
+ *
+ * @param url - The request URL to fetch
+ * @param init - Optional fetch init options (headers, method, body, etc.)
+ * @returns The fetch `Response` object from the request
+ * @throws Error - If the request is aborted due to exceeding `LOGBUY_API_TIMEOUT_MS`, an `Error` is thrown with a message containing the timeout and URL; other errors from `fetch` are rethrown.
+ */
+async function fetchLogbuyWithTimeout(
+  url: string,
+  init: RequestInit = {}
+): Promise<Response> {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), LOGBUY_API_TIMEOUT_MS);
+
+  try {
+    return await fetch(url, {
+      ...init,
+      signal: controller.signal,
+    });
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") {
+      throw new Error(`LogBuy request timed out after ${LOGBUY_API_TIMEOUT_MS}ms: ${url}`);
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
+/**
+ * Obtain an OAuth access token from the LogBuy API using configured credentials.
+ *
+ * @returns The LogBuy API access token string.
+ * @throws `Error` if the response does not include an access token (the API error message or "Missing access token").
+ */
+async function fetchLogbuyAccessToken(): Promise<string> {
+  const auth = getLogbuyAuthConfig();
+  const body = new URLSearchParams();
+  body.append("username", auth.username);
+  body.append("password", auth.password);
+  body.append("accesskey", auth.accesskey);
+  body.append("grant_type", "userpassword");
+
+  const response = await fetchLogbuyWithTimeout(`${LOGBUY_API_BASE_URL}/token`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+    },
+    body,
+  });
+  const data = await readLogbuyJsonResponse<LogbuyTokenResponse>(response);
+
+  if (!data.access_token) {
+    throw new Error(data.error_description || data.error || "Missing access token");
+  }
+
+  return data.access_token;
+}
+
+/**
+ * Call a LogBuy REST API path and return the typed `result` payload from its JSON response.
+ *
+ * @param token - Bearer access token used for the Authorization header
+ * @param path - API path relative to the LogBuy base URL (appended to `LOGBUY_API_BASE_URL`)
+ * @param init - Optional fetch init overrides; if `body` is provided, `Content-Type: application/json` is set
+ * @returns The `result` field from the LogBuy API response, typed as `T`
+ * @throws Error if the API response has a non-200 status code or the `result` field is missing/null
+ */
+async function fetchLogbuyApi<T>(
+  token: string,
+  path: string,
+  init: RequestInit = {}
+): Promise<T> {
+  const response = await fetchLogbuyWithTimeout(`${LOGBUY_API_BASE_URL}/${path}`, {
+    ...init,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      ...(init.body ? { "Content-Type": "application/json" } : {}),
+      ...init.headers,
+    },
+  });
+  const data = await readLogbuyJsonResponse<LogbuyApiResponse<T>>(response);
+
+  if (data.statusCode !== 200 || data.result == null) {
+    throw new Error(getLogbuyErrorMessage(data));
+  }
+
+  return data.result;
+}
+
+/**
+ * Fetches active LogBuy deals using the provided API token.
+ *
+ * @param token - Access token used to authenticate requests to the LogBuy API
+ * @returns The array of active `LogbuyDeal` objects returned by the LogBuy API
+ */
+async function fetchLogbuyDeals(token: string): Promise<LogbuyDeal[]> {
+  const result = await fetchLogbuyApi<{ deals: LogbuyDeal[] }>(
+    token,
+    "api/browserExtension/activeDeals"
+  );
+  return result.deals;
+}
+
+/**
+ * Fetches all supplier search items from the LogBuy suppliers search API by requesting pages until the full result set is retrieved.
+ *
+ * @param token - Authentication token used for LogBuy API requests
+ * @returns An array of `LogbuySearchItem` objects representing the suppliers returned by the search API
+ * @throws Error if pagination exceeds `LOGBUY_MAX_SEARCH_PAGES` without reaching the API-reported total
+ */
+async function fetchLogbuySuppliers(token: string): Promise<LogbuySearchItem[]> {
+  const items: LogbuySearchItem[] = [];
+  let pageNumber = 0;
+
+  while (pageNumber < LOGBUY_MAX_SEARCH_PAGES) {
+    const result = await fetchLogbuyApi<LogbuySearchResult>(
+      token,
+      "api/suppliers/search",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          searchString: "",
+          pageNumber,
+          pageSize: LOGBUY_SEARCH_PAGE_SIZE,
+          sortDirection: 0,
+          calculateFacets: false,
+          facetsShouldOccur: false,
+          onContentSet: true,
+        }),
+      }
+    );
+
+    items.push(...result.searchItems);
+    if (result.searchItems.length === 0 || items.length >= result.totalResults) {
+      return items;
+    }
+    pageNumber++;
+  }
+
+  throw new Error(
+    `LogBuy supplier pagination exceeded ${LOGBUY_MAX_SEARCH_PAGES} pages without reaching totalResults`
+  );
+}
+
+/**
+ * Load optional LogBuy supplierId→domain mappings from data/logbuy-domains.json.
+ *
+ * If the file exists and contains valid JSON, returns the parsed mapping; otherwise logs a brief note and returns an empty object.
+ *
+ * @returns A record mapping supplierId strings to domain strings, or an empty object if the file is missing or invalid.
+ */
+async function loadLogbuyDomainMappings(): Promise<Record<string, string>> {
+  try {
+    const mappingContent = await readFile(
+      join(import.meta.dir, "..", "data", "logbuy-domains.json"),
+      "utf-8"
+    );
+    return JSON.parse(mappingContent);
+  } catch {
+    console.log("  Note: Could not load data/logbuy-domains.json");
+    return {};
+  }
+}
+
+/**
+ * Resolve a LogBuy deal or tracking URL to a final usable merchant storefront URL.
+ *
+ * Attempts to extract a nested target URL or validate the input as a direct usable store URL. If the URL appears to be a LogBuy tracking/redirect link, the function follows redirects manually and validates each hop before fetching it, then inspects returned HTML for embedded redirect targets.
+ *
+ * @param rawUrl - Candidate LogBuy URL which may be a direct store link, a tracking/redirect URL, or contain nested redirect parameters
+ * @returns The resolved merchant storefront URL if a usable target could be determined, `null` otherwise
+ */
+async function resolveLogbuyStoreUrl(rawUrl: string): Promise<string | null> {
+  const nestedTarget = extractNestedTargetUrl(rawUrl);
+  if (nestedTarget && (await isSafeLogbuyStoreUrl(nestedTarget))) {
+    return nestedTarget;
+  }
+
+  const hostname = getLogbuyHostname(rawUrl);
+  if (!hostname) {
+    return null;
+  }
+
+  if (!isLogbuyTrackingDomain(hostname)) {
+    return (await isSafeLogbuyStoreUrl(rawUrl)) ? rawUrl : null;
+  }
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), LOGBUY_REDIRECT_TIMEOUT_MS);
+
+  try {
+    let currentUrl = rawUrl;
+    for (let redirectCount = 0; redirectCount <= LOGBUY_MAX_REDIRECTS; redirectCount++) {
+      if (!(await isPublicFetchTarget(currentUrl))) {
+        return null;
+      }
+
+      const response = await fetch(currentUrl, {
+        redirect: "manual",
+        signal: controller.signal,
+        headers: {
+          "User-Agent": LOGBUY_REDIRECT_USER_AGENT,
+        },
+      });
+
+      if (response.status >= 300 && response.status < 400) {
+        const location = response.headers.get("location");
+        if (!location) {
+          return null;
+        }
+
+        const nextUrl = new URL(location, currentUrl).toString();
+        if (await isSafeLogbuyStoreUrl(nextUrl)) {
+          return nextUrl;
+        }
+
+        currentUrl = nextUrl;
+        continue;
+      }
+
+      const html = await response.text();
+      const htmlRedirectUrl = extractRedirectUrlFromHtml(html);
+      if (htmlRedirectUrl && (await isSafeLogbuyStoreUrl(htmlRedirectUrl))) {
+        return htmlRedirectUrl;
+      }
+
+      return null;
+    }
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timeout);
+  }
+
+  return null;
+}
+
+/**
+ * Produce a deduplicated list of resolved store URLs derived from a LogBuy website field.
+ *
+ * @param website - Raw `website` value from a LogBuy deal (may contain encoded or redirecting URLs)
+ * @returns An array of resolved, deduplicated store URLs (one per distinct hostname) in first-seen order; empty if none could be resolved
+ */
+async function collectLogbuyStoreUrls(website: string): Promise<string[]> {
+  const urls = extractLogbuyUrls(website);
+  const results: string[] = [];
+  const seenHosts = new Set<string>();
+  const resolvedUrls = await Promise.all(urls.map((url) => resolveLogbuyStoreUrl(url)));
+
+  for (const resolvedUrl of resolvedUrls) {
+    if (!resolvedUrl) {
+      continue;
+    }
+
+    const hostname = getLogbuyHostname(resolvedUrl);
+    if (!hostname || seenHosts.has(hostname)) {
+      continue;
+    }
+
+    seenHosts.add(hostname);
+    results.push(resolvedUrl);
+  }
+
+  return results;
+}
+
+/**
+ * Scrapes active Visma LogBuy deals, resolves supplier domains, and produces merchant entries.
+ *
+ * Deduplicates results so each combination of LogBuy supplier ID and resolved store hostname appears once.
+ *
+ * @returns An array of scraped merchant objects; each entry contains `name`, `slug` (LogBuy supplier ID as a string), `cashbackDescription`, and `storeUrl` for a resolved store.
+ * @throws An Error with a summarized failure reason if authentication, data fetching, or URL resolution fails.
+ */
+async function scrapeLogbuy(): Promise<ScrapedMerchant[]> {
+  console.log("\n=== Scraping Visma LogBuy ===");
+  console.log("Authenticating with browser-extension fallback account...");
+
+  try {
+    const token = await fetchLogbuyAccessToken();
+    const manualDomainMappings = await loadLogbuyDomainMappings();
+    const [deals, suppliers] = await Promise.all([
+      fetchLogbuyDeals(token),
+      fetchLogbuySuppliers(token),
+    ]);
+
+    const suppliersById = new Map<number, LogbuySearchItem>();
+    for (const supplier of suppliers) {
+      suppliersById.set(supplier.supplierId, supplier);
+    }
+
+    console.log(`  Found ${deals.length} active deal URLs`);
+    console.log(`  Found ${suppliers.length} searchable suppliers`);
+    console.log("Resolving store hostnames...");
+
+    let processed = 0;
+    const dealResults = await mapWithConcurrency(deals, LOGBUY_DEAL_CONCURRENCY, async (deal) => {
+      const supplierId = extractLogbuySupplierId(deal.detailurl);
+      const supplier = supplierId !== null ? suppliersById.get(supplierId) : undefined;
+      if (!supplier) {
+        processed++;
+        process.stdout.write(`\r  Processing ${processed}/${deals.length}...`);
+        return { merchants: [], skipped: 1 };
+      }
+
+      const manualDomain = supplierId !== null ? manualDomainMappings[String(supplierId)] : undefined;
+      const storeUrls = manualDomain
+        ? [`https://${manualDomain}`]
+        : await collectLogbuyStoreUrls(deal.website);
+      if (storeUrls.length === 0) {
+        processed++;
+        process.stdout.write(`\r  Processing ${processed}/${deals.length}...`);
+        return { merchants: [], skipped: 1 };
+      }
+
+      const dealMerchants: ScrapedMerchant[] = [];
+      const supplierName = supplier.name.trim() || `LogBuy supplier ${supplier.supplierId}`;
+      let skippedUrls = 0;
+      for (const storeUrl of storeUrls) {
+        const hostname = getLogbuyHostname(storeUrl);
+        if (!hostname) {
+          skippedUrls++;
+          continue;
+        }
+
+        dealMerchants.push({
+          name: supplierName,
+          slug: String(supplier.supplierId),
+          cashbackDescription: getLogbuyCashbackDescription(supplier),
+          storeUrl,
+        });
+      }
+
+      processed++;
+      process.stdout.write(`\r  Processing ${processed}/${deals.length}...`);
+      return { merchants: dealMerchants, skipped: skippedUrls };
+    });
+
+    const merchants: ScrapedMerchant[] = [];
+    const seenSupplierHosts = new Set<string>();
+    let skipped = 0;
+    for (const result of dealResults) {
+      skipped += result.skipped;
+      for (const merchant of result.merchants) {
+        const hostname = merchant.storeUrl ? getLogbuyHostname(merchant.storeUrl) : null;
+        if (!hostname) {
+          skipped++;
+          continue;
+        }
+
+        const key = `${merchant.slug}:${hostname}`;
+        if (seenSupplierHosts.has(key)) {
+          continue;
+        }
+        seenSupplierHosts.add(key);
+        merchants.push(merchant);
+      }
+    }
+
+    console.log(`\n  Extracted ${merchants.length} LogBuy merchant host mappings`);
+    if (skipped > 0) {
+      console.log(`  Skipped ${skipped} LogBuy deals without usable supplier/domain data`);
+    }
+    return merchants;
+  } catch (error) {
+    throw new Error(`LogBuy scrape failed: ${summarizeError(error)}`);
+  }
+}
+
+// ===================
+// Main Logic
+/**
+ * Orchestrates the full scraping pipeline to produce an updated data/sitelist.json.
+ *
+ * Runs configured service scrapers (optionally limited with `--service <id>`), aggregates and normalizes merchant offers by hostname, updates feed health and optional scraper cache, and writes the unified sitelist and summary to disk.
+ *
+ * Behavior notes:
+ * - Supports a single-service mode via `--service <id>` which skips cache updates and restores skipped services from the existing sitelist.
+ * - Reads existing data/services.json and data/sitelist.json, maintains per-service feed health, and may write `.scraper-cache.json`, `.feed-health.json`, and `data/sitelist.json`.
+ * - Launches a headless browser when required by browser-based scrapers and performs network/API scrapes for others.
+ * - Logs progress, unmapped merchants, and alerts for prolonged service failures; exits the process on fatal initialization errors (e.g., missing sitelist.json).
+ */
 
 async function main() {
   // Parse --service <id> argument for single-service scraping
@@ -1893,35 +3059,43 @@ async function main() {
   // Check cache first (skip when running single-service mode)
   const cache = onlyService ? null : await loadCache();
   let trumfMerchants: ScrapedMerchant[];
+  let sasMerchants: ScrapedMerchant[];
   let rememberMerchants: ScrapedMerchant[];
   let dnbMerchants: ScrapedMerchant[];
   let obosMerchants: ScrapedMerchant[];
   let nafMerchants: ScrapedMerchant[];
   let lofavorMerchants: ScrapedMerchant[];
+  let logbuyMerchants: ScrapedMerchant[];
   let urlNameToHostname: Map<string, string>;
   let trumfResult: ServiceRunResult;
+  let sasResult: ServiceRunResult;
   let rememberResult: ServiceRunResult;
   let dnbResult: ServiceRunResult;
   let obosResult: ServiceRunResult;
   let nafResult: ServiceRunResult;
   let lofavorResult: ServiceRunResult;
+  let logbuyResult: ServiceRunResult;
 
   if (cache) {
     const ageHours = Math.round((Date.now() - cache.timestamp) / (60 * 60 * 1000));
     console.log(`Using cached scraper data (${ageHours}h old)\n`);
     trumfMerchants = cache.trumfMerchants;
+    sasMerchants = cache.sasMerchants || [];
     rememberMerchants = cache.rememberMerchants;
     dnbMerchants = cache.dnbMerchants;
     obosMerchants = cache.obosMerchants || [];
     nafMerchants = cache.nafMerchants || [];
     lofavorMerchants = cache.lofavorMerchants || [];
+    logbuyMerchants = cache.logbuyMerchants || [];
     urlNameToHostname = new Map(Object.entries(cache.urlNameToHostname));
     console.log(`  Trumf: ${trumfMerchants.length} merchants`);
+    console.log(`  SAS EuroBonus: ${sasMerchants.length} merchants`);
     console.log(`  re:member: ${rememberMerchants.length} merchants`);
     console.log(`  DNB: ${dnbMerchants.length} merchants`);
     console.log(`  OBOS: ${obosMerchants.length} merchants`);
     console.log(`  NAF: ${nafMerchants.length} merchants`);
     console.log(`  LOfavør: ${lofavorMerchants.length} merchants`);
+    console.log(`  LogBuy: ${logbuyMerchants.length} merchants`);
 
     trumfResult = {
       serviceId: "trumf",
@@ -1931,6 +3105,16 @@ async function main() {
       failureReason: null,
       baselineCount: feedHealth.services.trumf.lastSuccessfulCount,
       currentCount: trumfMerchants.length,
+      consecutiveFailureDays: 0,
+    };
+    sasResult = {
+      serviceId: "sas",
+      serviceName: "SAS EuroBonus",
+      merchants: sasMerchants,
+      success: true,
+      failureReason: null,
+      baselineCount: feedHealth.services.sas.lastSuccessfulCount,
+      currentCount: sasMerchants.length,
       consecutiveFailureDays: 0,
     };
     rememberResult = {
@@ -1981,6 +3165,16 @@ async function main() {
       failureReason: null,
       baselineCount: feedHealth.services.lofavor.lastSuccessfulCount,
       currentCount: lofavorMerchants.length,
+      consecutiveFailureDays: 0,
+    };
+    logbuyResult = {
+      serviceId: "logbuy",
+      serviceName: "Visma LogBuy",
+      merchants: logbuyMerchants,
+      success: true,
+      failureReason: null,
+      baselineCount: feedHealth.services.logbuy.lastSuccessfulCount,
+      currentCount: logbuyMerchants.length,
       consecutiveFailureDays: 0,
     };
 
@@ -2048,7 +3242,25 @@ async function main() {
       }
 
       // ===================
-      // Step 3: Scrape re:member merchants (no browser needed)
+      // Step 3: Scrape SAS EuroBonus merchants (no browser needed)
+      // ===================
+      if (shouldScrape("sas")) {
+        sasResult = await runServiceScrape({
+          serviceId: "sas",
+          serviceName: "SAS EuroBonus",
+          baselineCount: feedHealth.services.sas.lastSuccessfulCount,
+          today,
+          feedHealth,
+          scrape: () => scrapeSAS(),
+        });
+        sasMerchants = sasResult.merchants;
+      } else {
+        sasResult = skipResult("sas", "SAS EuroBonus");
+        sasMerchants = [];
+      }
+
+      // ===================
+      // Step 4: Scrape re:member merchants (no browser needed)
       // ===================
       if (shouldScrape("remember")) {
         rememberResult = await runServiceScrape({
@@ -2066,7 +3278,7 @@ async function main() {
       }
 
       // ===================
-      // Step 4: Scrape DNB merchants
+      // Step 5: Scrape DNB merchants
       // ===================
       if (shouldScrape("dnb")) {
         dnbResult = await runServiceScrape({
@@ -2084,7 +3296,7 @@ async function main() {
       }
 
       // ===================
-      // Step 5: Scrape OBOS merchants
+      // Step 6: Scrape OBOS merchants
       // ===================
       if (shouldScrape("obos")) {
         obosResult = await runServiceScrape({
@@ -2102,7 +3314,7 @@ async function main() {
       }
 
       // ===================
-      // Step 6: Scrape NAF merchants
+      // Step 7: Scrape NAF merchants
       // ===================
       if (shouldScrape("naf")) {
         nafResult = await runServiceScrape({
@@ -2120,7 +3332,7 @@ async function main() {
       }
 
       // ===================
-      // Step 7: Scrape LOfavør merchants
+      // Step 8: Scrape LOfavør merchants
       // ===================
       if (shouldScrape("lofavor")) {
         lofavorResult = await runServiceScrape({
@@ -2137,13 +3349,33 @@ async function main() {
         lofavorMerchants = [];
       }
 
+      // ===================
+      // Step 8: Scrape Visma LogBuy merchants (no browser needed)
+      // ===================
+      if (shouldScrape("logbuy")) {
+        logbuyResult = await runServiceScrape({
+          serviceId: "logbuy",
+          serviceName: "Visma LogBuy",
+          baselineCount: feedHealth.services.logbuy.lastSuccessfulCount,
+          today,
+          feedHealth,
+          scrape: () => scrapeLogbuy(),
+        });
+        logbuyMerchants = logbuyResult.merchants;
+      } else {
+        logbuyResult = skipResult("logbuy", "Visma LogBuy");
+        logbuyMerchants = [];
+      }
+
       const scrapedResults = [
         trumfResult,
+        sasResult,
         rememberResult,
         dnbResult,
         obosResult,
         nafResult,
         lofavorResult,
+        logbuyResult,
       ].filter((result) => shouldScrape(result.serviceId));
 
       const hasServiceFailures = scrapedResults.some((result) => !result.success);
@@ -2151,11 +3383,13 @@ async function main() {
       if (!onlyService && !hasServiceFailures) {
         await saveCache({
           trumfMerchants,
+          sasMerchants,
           rememberMerchants,
           dnbMerchants,
           obosMerchants,
           nafMerchants,
           lofavorMerchants,
+          logbuyMerchants,
           urlNameToHostname: Object.fromEntries(urlNameToHostname),
         });
       } else if (onlyService) {
@@ -2174,11 +3408,13 @@ async function main() {
 
   const serviceRuns = [
     trumfResult,
+    sasResult,
     rememberResult,
     dnbResult,
     obosResult,
     nafResult,
     lofavorResult,
+    logbuyResult,
   ];
   const alertServices = serviceRuns.filter(
     (result) =>
@@ -2216,8 +3452,10 @@ async function main() {
   console.log("\n=== Building unified merchant list ===");
   const merchants: Record<string, MerchantEntry> = {};
   const unmappedTrumf: string[] = [];
+  const unmappedSas: string[] = [];
   const unmappedRemember: string[] = [];
   const unmappedDnb: string[] = [];
+  const unmappedLogbuy: string[] = [];
 
   // In single-service mode, restore all skipped services from existing sitelist
   if (onlyService) {
@@ -2371,6 +3609,76 @@ async function main() {
     }
     return null;
   }
+
+  // Process SAS EuroBonus merchants
+  let sasMapped = 0;
+  for (const merchant of sasMerchants) {
+    let hostname: string | null = null;
+
+    if (merchant.storeUrl) {
+      try {
+        const url = new URL(merchant.storeUrl);
+        hostname = url.hostname;
+      } catch {
+        // Invalid URL
+      }
+    }
+
+    if (!hostname) {
+      hostname = inferHostname(merchant.name);
+    }
+
+    if (!hostname || hostname.length < 4) {
+      unmappedSas.push(`${merchant.name} (slug: ${merchant.slug})`);
+      continue;
+    }
+
+    hostname = normalizeHostname(hostname);
+    const existingKey = findMerchantKey(hostname);
+    const merchantKey = existingKey || hostname;
+
+    if (!merchants[merchantKey]) {
+      merchants[merchantKey] = {
+        hostName: merchantKey,
+        name: merchant.name,
+        offers: [],
+      };
+    }
+
+    const sasPathPrefix = merchant.matchPathPrefix ?? null;
+    const sasPathCaseSensitive = merchant.matchPathCaseSensitive ?? false;
+    const hasSasOffer = merchants[merchantKey].offers.some(
+      (o) =>
+        o.serviceId === "sas" &&
+        o.urlName === merchant.slug &&
+        (o.matchPathPrefix ?? null) === sasPathPrefix &&
+        (o.matchPathCaseSensitive ?? false) === sasPathCaseSensitive
+    );
+    if (!hasSasOffer) {
+      merchants[merchantKey].offers.push({
+        serviceId: "sas",
+        urlName: merchant.slug,
+        cashbackDescription: merchant.cashbackDescription,
+        ...(merchant.clickthroughUrl && { clickthroughUrl: merchant.clickthroughUrl }),
+        ...(merchant.matchPathPrefix && { matchPathPrefix: merchant.matchPathPrefix }),
+        ...(merchant.matchPathCaseSensitive !== undefined && {
+          matchPathCaseSensitive: merchant.matchPathCaseSensitive,
+        }),
+      });
+      sasMapped++;
+    }
+  }
+
+  if (!sasResult.success) {
+    const restoredOffers = restoreServiceOffersFromExisting(
+      merchants,
+      existingSitelist,
+      "sas"
+    );
+    console.log(`  SAS EuroBonus: restored ${restoredOffers} existing offers`);
+  }
+
+  console.log(`  SAS EuroBonus: ${sasMapped} mapped`);
 
   // Process DNB merchants
   for (const merchant of dnbMerchants) {
@@ -2690,6 +3998,58 @@ async function main() {
 
   console.log(`  LOfavør: ${lofavorMapped} mapped`);
 
+  // Process Visma LogBuy merchants
+  let logbuyMapped = 0;
+
+  for (const merchant of logbuyMerchants) {
+    let hostname: string | null = null;
+
+    if (merchant.storeUrl && isUsableLogbuyStoreUrl(merchant.storeUrl)) {
+      hostname = getLogbuyHostname(merchant.storeUrl);
+    }
+
+    if (!hostname || hostname.length < 4) {
+      unmappedLogbuy.push(`${merchant.name} (supplierId: ${merchant.slug})`);
+      continue;
+    }
+
+    // Find existing merchant (checking www variants) or create new
+    const existingKey = findMerchantKey(hostname);
+    const merchantKey = existingKey || hostname;
+
+    if (!merchants[merchantKey]) {
+      merchants[merchantKey] = {
+        hostName: merchantKey,
+        name: merchant.name,
+        offers: [],
+      };
+    }
+
+    // Add LogBuy offer (check for duplicates first)
+    const hasLogbuyOffer = merchants[merchantKey].offers.some(
+      (o) => o.serviceId === "logbuy" && o.urlName === merchant.slug
+    );
+    if (!hasLogbuyOffer) {
+      merchants[merchantKey].offers.push({
+        serviceId: "logbuy",
+        urlName: merchant.slug,
+        cashbackDescription: merchant.cashbackDescription,
+      });
+      logbuyMapped++;
+    }
+  }
+
+  if (!logbuyResult.success) {
+    const restoredOffers = restoreServiceOffersFromExisting(
+      merchants,
+      existingSitelist,
+      "logbuy"
+    );
+    console.log(`  Visma LogBuy: restored ${restoredOffers} existing offers`);
+  }
+
+  console.log(`  Visma LogBuy: ${logbuyMapped} mapped`);
+
   // ===================
   // Step 7: Write updated sitelist.json
   // ===================
@@ -2709,7 +4069,8 @@ async function main() {
       color: svc.color,
       defaultEnabled: svc.defaultEnabled,
     };
-    if (svc.reminderDomain) (entry as any).reminderDomain = svc.reminderDomain;
+    if (svc.reminderDomain) entry.reminderDomain = svc.reminderDomain;
+    if (svc.cashbackPathPatterns) entry.cashbackPathPatterns = svc.cashbackPathPatterns;
     if (svc.type) entry.type = svc.type;
     services[id] = entry;
   }
@@ -2733,6 +4094,9 @@ async function main() {
   const trumfCount = Object.values(merchants).filter((m) =>
     m.offers.some((o) => o.serviceId === "trumf")
   ).length;
+  const sasCount = Object.values(merchants).filter((m) =>
+    m.offers.some((o) => o.serviceId === "sas")
+  ).length;
   const rememberCount = Object.values(merchants).filter((m) =>
     m.offers.some((o) => o.serviceId === "remember")
   ).length;
@@ -2748,19 +4112,26 @@ async function main() {
   const lofavorCount = Object.values(merchants).filter((m) =>
     m.offers.some((o) => o.serviceId === "lofavor")
   ).length;
+  const logbuyCount = Object.values(merchants).filter((m) =>
+    m.offers.some((o) => o.serviceId === "logbuy")
+  ).length;
 
   console.log(`  - With Trumf offers: ${trumfCount}`);
+  console.log(`  - With SAS EuroBonus offers: ${sasCount}`);
   console.log(`  - With re:member offers: ${rememberCount}`);
   console.log(`  - With DNB offers: ${dnbCount}`);
   console.log(`  - With OBOS offers: ${obosCount}`);
   console.log(`  - With NAF offers: ${nafCount}`);
   console.log(`  - With LOfavør offers: ${lofavorCount}`);
+  console.log(`  - With Visma LogBuy offers: ${logbuyCount}`);
   console.log(`  - Unmapped Trumf: ${unmappedTrumf.length}`);
+  console.log(`  - Unmapped SAS EuroBonus: ${unmappedSas.length}`);
   console.log(`  - Unmapped re:member: ${unmappedRemember.length}`);
   console.log(`  - Unmapped DNB: ${unmappedDnb.length}`);
   console.log(`  - Unmapped OBOS: ${unmappedObos.length}`);
   console.log(`  - Unmapped NAF: ${unmappedNaf.length}`);
   console.log(`  - Unmapped LOfavør: ${unmappedLofavor.length}`);
+  console.log(`  - Unmapped Visma LogBuy: ${unmappedLogbuy.length}`);
 
   if (unmappedTrumf.length > 0) {
     console.log("\nUnmapped Trumf merchants (need manual hostname mapping):");
@@ -2769,6 +4140,16 @@ async function main() {
     }
     if (unmappedTrumf.length > 10) {
       console.log(`  ... and ${unmappedTrumf.length - 10} more`);
+    }
+  }
+
+  if (unmappedSas.length > 0) {
+    console.log("\nUnmapped SAS EuroBonus merchants:");
+    for (const m of unmappedSas.slice(0, 10)) {
+      console.log(`  - ${m}`);
+    }
+    if (unmappedSas.length > 10) {
+      console.log(`  ... and ${unmappedSas.length - 10} more`);
     }
   }
 
@@ -2819,6 +4200,16 @@ async function main() {
     }
     if (unmappedLofavor.length > 10) {
       console.log(`  ... and ${unmappedLofavor.length - 10} more`);
+    }
+  }
+
+  if (unmappedLogbuy.length > 0) {
+    console.log("\nUnmapped Visma LogBuy merchants:");
+    for (const m of unmappedLogbuy.slice(0, 10)) {
+      console.log(`  - ${m}`);
+    }
+    if (unmappedLogbuy.length > 10) {
+      console.log(`  ... and ${unmappedLogbuy.length - 10} more`);
     }
   }
 
