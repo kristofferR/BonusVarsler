@@ -6,6 +6,7 @@ const ALERT_FAILURE_THRESHOLD = 2;
 
 const SERVICE_NAMES: Record<string, string> = {
   trumf: "Trumf",
+  sas: "SAS EuroBonus",
   remember: "re:member",
   dnb: "DNB",
   obos: "OBOS",

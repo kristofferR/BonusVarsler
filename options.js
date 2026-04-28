@@ -11,6 +11,12 @@ const SERVICES_FALLBACK = {
     color: "#4D4DFF",
     defaultEnabled: true,
   },
+  sas: {
+    id: "sas",
+    name: "SAS EuroBonus",
+    color: "#0F1E82",
+    defaultEnabled: false,
+  },
   remember: {
     id: "remember",
     name: "re:member",
@@ -451,8 +457,8 @@ async function initServices() {
     enabledServices = defaultEnabled;
   }
 
-  // Service order: active services first, then coming soon
-  const serviceOrder = ["trumf", "remember", "dnb", "obos", "naf", "lofavor"];
+  // Keep in sync with SERVICE_ORDER in src/config/services.ts.
+  const serviceOrder = ["trumf", "sas", "remember", "dnb", "obos", "naf", "lofavor"];
 
   // Create checkbox for each service
   serviceOrder.forEach((serviceId) => {

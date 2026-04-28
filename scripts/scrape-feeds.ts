@@ -3,6 +3,7 @@
  *
  * Uses Playwright to scrape all merchants from:
  * - trumfnetthandel.no/kategori (Trumf - tracking-based cashback)
+ * - onlineshopping.loyaltykey.com (SAS EuroBonus - API-based points)
  * - dnb.no/kundeprogram/fordeler/faste-rabatter (DNB - code-based rebates)
  *
  * Strategy:
@@ -26,6 +27,10 @@ const DNB_URL = "https://www.dnb.no/kundeprogram/fordeler/faste-rabatter";
 const OBOS_BENEFITS_URL = "https://www.obos.no/medlem/medlemsfordeler";
 const NAF_BENEFITS_URL = "https://www.naf.no/medlemskap/medlemsfordeler";
 const LOFAVOR_BASE_URL = "https://www.lofavor.no";
+const SAS_API_BASE_URL = "https://onlineshopping.loyaltykey.com";
+const SAS_CHANNEL = "sas/nb-NO";
+const SAS_LIST_TIMEOUT_MS = 15_000;
+const SAS_DETAIL_TIMEOUT_MS = 10_000;
 
 // LOfavør categories to scrape (skip forsikring, bank, juridisk, ungdom — all internal)
 const LOFAVOR_SCRAPE_CATEGORIES = [
@@ -151,6 +156,7 @@ const NAF_EXCLUDED_NAMES = [
 
 const MONITORED_SERVICE_IDS = [
   "trumf",
+  "sas",
   "remember",
   "dnb",
   "obos",
@@ -163,6 +169,7 @@ type ServiceId = (typeof MONITORED_SERVICE_IDS)[number];
 interface ScraperCache {
   timestamp: number;
   trumfMerchants: ScrapedMerchant[];
+  sasMerchants: ScrapedMerchant[];
   rememberMerchants: ScrapedMerchant[];
   dnbMerchants: ScrapedMerchant[];
   obosMerchants: ScrapedMerchant[];
@@ -198,6 +205,9 @@ async function loadCache(): Promise<ScraperCache | null> {
   try {
     const content = await readFile(CACHE_FILE, "utf-8");
     const cache: ScraperCache = JSON.parse(content);
+    if (!Array.isArray(cache.sasMerchants)) {
+      return null;
+    }
     const age = Date.now() - cache.timestamp;
     if (age < CACHE_MAX_AGE) {
       return cache;
@@ -258,6 +268,9 @@ interface ServiceOffer {
   serviceId: string;
   urlName: string;
   cashbackDescription: string;
+  clickthroughUrl?: string;
+  matchPathPrefix?: string;
+  matchPathCaseSensitive?: boolean;
   code?: string; // For code-based services like DNB
   cashbackDetails?: Array<{
     value: number;
@@ -276,6 +289,7 @@ interface ServiceDefinition {
   name: string;
   clickthroughUrl: string;
   reminderDomain?: string;
+  cashbackPathPatterns?: string[];
   color: string;
   defaultEnabled: boolean;
   type?: "code" | "info";
@@ -307,7 +321,10 @@ interface ScrapedMerchant {
   cashbackDescription: string;
   slug: string;
   code?: string; // For code-based services
-  storeUrl?: string; // For DNB merchants
+  storeUrl?: string;
+  clickthroughUrl?: string;
+  matchPathPrefix?: string;
+  matchPathCaseSensitive?: boolean;
 }
 
 // ===================
@@ -344,6 +361,28 @@ function inferHostname(name: string): string | null {
 
 function normalizeHostname(hostname: string): string {
   return HOSTNAME_ALIASES[hostname] || hostname;
+}
+
+function parseShopKey(shopKey: string): { hostname: string; matchPathPrefix?: string } | null {
+  const trimmed = shopKey.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/\/+$/, "");
+  if (!trimmed) {
+    return null;
+  }
+
+  try {
+    const url = new URL(`https://${trimmed}`);
+    const pathPrefix = url.pathname === "/" ? undefined : url.pathname.replace(/\/+$/, "");
+    return {
+      hostname: normalizeHostname(url.hostname),
+      ...(pathPrefix && { matchPathPrefix: pathPrefix }),
+    };
+  } catch {
+    return null;
+  }
+}
+
+function formatSasPoints(points: number): string {
+  return String(points).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
 
 /**
@@ -761,6 +800,108 @@ async function scrapeTrumf(page: Page): Promise<ScrapedMerchant[]> {
     return results;
   });
 
+  return merchants;
+}
+
+// ===================
+// SAS EuroBonus Scraping
+// ===================
+
+interface SasShopDetail {
+  uuid: string;
+  name: string;
+  commission_type: "fixed" | "variable";
+  points: number;
+  currency: string;
+  url: string;
+}
+
+interface SasShopDetailResponse {
+  data?: SasShopDetail;
+}
+
+async function scrapeSAS(): Promise<ScrapedMerchant[]> {
+  console.log("\n=== Scraping SAS EuroBonus ===");
+
+  const listUrl = `${SAS_API_BASE_URL}/api/browser-extension/${SAS_CHANNEL}/shops`;
+  const response = await fetch(listUrl, {
+    signal: AbortSignal.timeout(SAS_LIST_TIMEOUT_MS),
+  });
+  if (!response.ok) {
+    throw new Error(`SAS shop list returned HTTP ${response.status}`);
+  }
+
+  const shopMap = (await response.json()) as Record<string, string>;
+  const shopEntries = Object.entries(shopMap);
+  console.log(`  Found ${shopEntries.length} SAS shop IDs`);
+
+  const merchants: ScrapedMerchant[] = [];
+  const batchSize = 20;
+  let failedDetails = 0;
+
+  for (let offset = 0; offset < shopEntries.length; offset += batchSize) {
+    const batch = shopEntries.slice(offset, offset + batchSize);
+    const batchMerchants = await Promise.all(
+      batch.map(async ([shopKey, shopId]) => {
+        const parsedShopKey = parseShopKey(shopKey);
+        if (!parsedShopKey) {
+          return null;
+        }
+
+        const detailUrl = `${SAS_API_BASE_URL}/api/browser-extension/${SAS_CHANNEL}/shops/${encodeURIComponent(shopId)}`;
+        try {
+          const detailResponse = await fetch(detailUrl, {
+            signal: AbortSignal.timeout(SAS_DETAIL_TIMEOUT_MS),
+          });
+          if (!detailResponse.ok) {
+            throw new Error(`HTTP ${detailResponse.status}`);
+          }
+
+          const detailJson = (await detailResponse.json()) as SasShopDetailResponse;
+          const detail = detailJson.data;
+          if (!detail?.name || !detail.url) {
+            return null;
+          }
+
+          const points = Number(detail.points) || 0;
+          const cashbackDescription =
+            detail.commission_type === "fixed"
+              ? `${formatSasPoints(points)} poeng som ny kunde`
+              : `${formatSasPoints(points)} poeng / 100 kr`;
+
+          return {
+            name: detail.name,
+            cashbackDescription,
+            slug: detail.uuid || shopId,
+            storeUrl: `https://${parsedShopKey.hostname}${parsedShopKey.matchPathPrefix || ""}`,
+            clickthroughUrl: detail.url,
+            ...(parsedShopKey.matchPathPrefix && {
+              matchPathPrefix: parsedShopKey.matchPathPrefix,
+            }),
+          } satisfies ScrapedMerchant;
+        } catch (error) {
+          failedDetails++;
+          console.warn(
+            `\n  Warning: SAS shop detail ${shopId} (${shopKey}) failed: ${summarizeError(error)}`
+          );
+          return null;
+        }
+      })
+    );
+
+    merchants.push(
+      ...batchMerchants.filter((merchant): merchant is ScrapedMerchant => merchant !== null)
+    );
+    process.stdout.write(
+      `\r  Loaded ${Math.min(offset + batchSize, shopEntries.length)} / ${shopEntries.length} SAS shop details`
+    );
+  }
+
+  if (failedDetails > 0) {
+    console.log(`\n  Warning: skipped ${failedDetails} failed SAS shop detail requests`);
+  }
+
+  console.log(`\n  Extracted ${merchants.length} SAS merchants`);
   return merchants;
 }
 
@@ -1893,6 +2034,7 @@ async function main() {
   // Check cache first (skip when running single-service mode)
   const cache = onlyService ? null : await loadCache();
   let trumfMerchants: ScrapedMerchant[];
+  let sasMerchants: ScrapedMerchant[];
   let rememberMerchants: ScrapedMerchant[];
   let dnbMerchants: ScrapedMerchant[];
   let obosMerchants: ScrapedMerchant[];
@@ -1900,6 +2042,7 @@ async function main() {
   let lofavorMerchants: ScrapedMerchant[];
   let urlNameToHostname: Map<string, string>;
   let trumfResult: ServiceRunResult;
+  let sasResult: ServiceRunResult;
   let rememberResult: ServiceRunResult;
   let dnbResult: ServiceRunResult;
   let obosResult: ServiceRunResult;
@@ -1910,6 +2053,7 @@ async function main() {
     const ageHours = Math.round((Date.now() - cache.timestamp) / (60 * 60 * 1000));
     console.log(`Using cached scraper data (${ageHours}h old)\n`);
     trumfMerchants = cache.trumfMerchants;
+    sasMerchants = cache.sasMerchants || [];
     rememberMerchants = cache.rememberMerchants;
     dnbMerchants = cache.dnbMerchants;
     obosMerchants = cache.obosMerchants || [];
@@ -1917,6 +2061,7 @@ async function main() {
     lofavorMerchants = cache.lofavorMerchants || [];
     urlNameToHostname = new Map(Object.entries(cache.urlNameToHostname));
     console.log(`  Trumf: ${trumfMerchants.length} merchants`);
+    console.log(`  SAS EuroBonus: ${sasMerchants.length} merchants`);
     console.log(`  re:member: ${rememberMerchants.length} merchants`);
     console.log(`  DNB: ${dnbMerchants.length} merchants`);
     console.log(`  OBOS: ${obosMerchants.length} merchants`);
@@ -1931,6 +2076,16 @@ async function main() {
       failureReason: null,
       baselineCount: feedHealth.services.trumf.lastSuccessfulCount,
       currentCount: trumfMerchants.length,
+      consecutiveFailureDays: 0,
+    };
+    sasResult = {
+      serviceId: "sas",
+      serviceName: "SAS EuroBonus",
+      merchants: sasMerchants,
+      success: true,
+      failureReason: null,
+      baselineCount: feedHealth.services.sas.lastSuccessfulCount,
+      currentCount: sasMerchants.length,
       consecutiveFailureDays: 0,
     };
     rememberResult = {
@@ -2048,7 +2203,25 @@ async function main() {
       }
 
       // ===================
-      // Step 3: Scrape re:member merchants (no browser needed)
+      // Step 3: Scrape SAS EuroBonus merchants (no browser needed)
+      // ===================
+      if (shouldScrape("sas")) {
+        sasResult = await runServiceScrape({
+          serviceId: "sas",
+          serviceName: "SAS EuroBonus",
+          baselineCount: feedHealth.services.sas.lastSuccessfulCount,
+          today,
+          feedHealth,
+          scrape: () => scrapeSAS(),
+        });
+        sasMerchants = sasResult.merchants;
+      } else {
+        sasResult = skipResult("sas", "SAS EuroBonus");
+        sasMerchants = [];
+      }
+
+      // ===================
+      // Step 4: Scrape re:member merchants (no browser needed)
       // ===================
       if (shouldScrape("remember")) {
         rememberResult = await runServiceScrape({
@@ -2066,7 +2239,7 @@ async function main() {
       }
 
       // ===================
-      // Step 4: Scrape DNB merchants
+      // Step 5: Scrape DNB merchants
       // ===================
       if (shouldScrape("dnb")) {
         dnbResult = await runServiceScrape({
@@ -2084,7 +2257,7 @@ async function main() {
       }
 
       // ===================
-      // Step 5: Scrape OBOS merchants
+      // Step 6: Scrape OBOS merchants
       // ===================
       if (shouldScrape("obos")) {
         obosResult = await runServiceScrape({
@@ -2102,7 +2275,7 @@ async function main() {
       }
 
       // ===================
-      // Step 6: Scrape NAF merchants
+      // Step 7: Scrape NAF merchants
       // ===================
       if (shouldScrape("naf")) {
         nafResult = await runServiceScrape({
@@ -2120,7 +2293,7 @@ async function main() {
       }
 
       // ===================
-      // Step 7: Scrape LOfavør merchants
+      // Step 8: Scrape LOfavør merchants
       // ===================
       if (shouldScrape("lofavor")) {
         lofavorResult = await runServiceScrape({
@@ -2139,6 +2312,7 @@ async function main() {
 
       const scrapedResults = [
         trumfResult,
+        sasResult,
         rememberResult,
         dnbResult,
         obosResult,
@@ -2151,6 +2325,7 @@ async function main() {
       if (!onlyService && !hasServiceFailures) {
         await saveCache({
           trumfMerchants,
+          sasMerchants,
           rememberMerchants,
           dnbMerchants,
           obosMerchants,
@@ -2174,6 +2349,7 @@ async function main() {
 
   const serviceRuns = [
     trumfResult,
+    sasResult,
     rememberResult,
     dnbResult,
     obosResult,
@@ -2216,6 +2392,7 @@ async function main() {
   console.log("\n=== Building unified merchant list ===");
   const merchants: Record<string, MerchantEntry> = {};
   const unmappedTrumf: string[] = [];
+  const unmappedSas: string[] = [];
   const unmappedRemember: string[] = [];
   const unmappedDnb: string[] = [];
 
@@ -2371,6 +2548,76 @@ async function main() {
     }
     return null;
   }
+
+  // Process SAS EuroBonus merchants
+  let sasMapped = 0;
+  for (const merchant of sasMerchants) {
+    let hostname: string | null = null;
+
+    if (merchant.storeUrl) {
+      try {
+        const url = new URL(merchant.storeUrl);
+        hostname = url.hostname;
+      } catch {
+        // Invalid URL
+      }
+    }
+
+    if (!hostname) {
+      hostname = inferHostname(merchant.name);
+    }
+
+    if (!hostname || hostname.length < 4) {
+      unmappedSas.push(`${merchant.name} (slug: ${merchant.slug})`);
+      continue;
+    }
+
+    hostname = normalizeHostname(hostname);
+    const existingKey = findMerchantKey(hostname);
+    const merchantKey = existingKey || hostname;
+
+    if (!merchants[merchantKey]) {
+      merchants[merchantKey] = {
+        hostName: merchantKey,
+        name: merchant.name,
+        offers: [],
+      };
+    }
+
+    const sasPathPrefix = merchant.matchPathPrefix ?? null;
+    const sasPathCaseSensitive = merchant.matchPathCaseSensitive ?? false;
+    const hasSasOffer = merchants[merchantKey].offers.some(
+      (o) =>
+        o.serviceId === "sas" &&
+        o.urlName === merchant.slug &&
+        (o.matchPathPrefix ?? null) === sasPathPrefix &&
+        (o.matchPathCaseSensitive ?? false) === sasPathCaseSensitive
+    );
+    if (!hasSasOffer) {
+      merchants[merchantKey].offers.push({
+        serviceId: "sas",
+        urlName: merchant.slug,
+        cashbackDescription: merchant.cashbackDescription,
+        ...(merchant.clickthroughUrl && { clickthroughUrl: merchant.clickthroughUrl }),
+        ...(merchant.matchPathPrefix && { matchPathPrefix: merchant.matchPathPrefix }),
+        ...(merchant.matchPathCaseSensitive !== undefined && {
+          matchPathCaseSensitive: merchant.matchPathCaseSensitive,
+        }),
+      });
+      sasMapped++;
+    }
+  }
+
+  if (!sasResult.success) {
+    const restoredOffers = restoreServiceOffersFromExisting(
+      merchants,
+      existingSitelist,
+      "sas"
+    );
+    console.log(`  SAS EuroBonus: restored ${restoredOffers} existing offers`);
+  }
+
+  console.log(`  SAS EuroBonus: ${sasMapped} mapped`);
 
   // Process DNB merchants
   for (const merchant of dnbMerchants) {
@@ -2709,7 +2956,8 @@ async function main() {
       color: svc.color,
       defaultEnabled: svc.defaultEnabled,
     };
-    if (svc.reminderDomain) (entry as any).reminderDomain = svc.reminderDomain;
+    if (svc.reminderDomain) entry.reminderDomain = svc.reminderDomain;
+    if (svc.cashbackPathPatterns) entry.cashbackPathPatterns = svc.cashbackPathPatterns;
     if (svc.type) entry.type = svc.type;
     services[id] = entry;
   }
@@ -2733,6 +2981,9 @@ async function main() {
   const trumfCount = Object.values(merchants).filter((m) =>
     m.offers.some((o) => o.serviceId === "trumf")
   ).length;
+  const sasCount = Object.values(merchants).filter((m) =>
+    m.offers.some((o) => o.serviceId === "sas")
+  ).length;
   const rememberCount = Object.values(merchants).filter((m) =>
     m.offers.some((o) => o.serviceId === "remember")
   ).length;
@@ -2750,12 +3001,14 @@ async function main() {
   ).length;
 
   console.log(`  - With Trumf offers: ${trumfCount}`);
+  console.log(`  - With SAS EuroBonus offers: ${sasCount}`);
   console.log(`  - With re:member offers: ${rememberCount}`);
   console.log(`  - With DNB offers: ${dnbCount}`);
   console.log(`  - With OBOS offers: ${obosCount}`);
   console.log(`  - With NAF offers: ${nafCount}`);
   console.log(`  - With LOfavør offers: ${lofavorCount}`);
   console.log(`  - Unmapped Trumf: ${unmappedTrumf.length}`);
+  console.log(`  - Unmapped SAS EuroBonus: ${unmappedSas.length}`);
   console.log(`  - Unmapped re:member: ${unmappedRemember.length}`);
   console.log(`  - Unmapped DNB: ${unmappedDnb.length}`);
   console.log(`  - Unmapped OBOS: ${unmappedObos.length}`);
@@ -2769,6 +3022,16 @@ async function main() {
     }
     if (unmappedTrumf.length > 10) {
       console.log(`  ... and ${unmappedTrumf.length - 10} more`);
+    }
+  }
+
+  if (unmappedSas.length > 0) {
+    console.log("\nUnmapped SAS EuroBonus merchants:");
+    for (const m of unmappedSas.slice(0, 10)) {
+      console.log(`  - ${m}`);
+    }
+    if (unmappedSas.length > 10) {
+      console.log(`  ... and ${unmappedSas.length - 10} more`);
     }
   }
 
