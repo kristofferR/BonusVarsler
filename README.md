@@ -122,6 +122,20 @@ Utvidelsen henter kun offisielle butikklister fra bonusprogrammene. Ingen data o
 
 ---
 
+## Utvikling
+
+### LogBuy scraper credentials
+
+LogBuy-scraperen i `scripts/scrape-feeds.ts` bruker Visma LogBuy API-et og krever tre miljøvariabler når du kjører `bun scripts/scrape-feeds.ts` eller `bun run build`:
+
+- `LOGBUY_USERNAME` - brukernavn for LogBuy API-/extension-kontoen
+- `LOGBUY_PASSWORD` - passord for samme konto
+- `LOGBUY_ACCESSKEY` - access key fra LogBuy-konfigurasjonen
+
+Verdiene må hentes fra en LogBuy-konto/API-konfigurasjon du har tilgang til. Ikke commit dem i repoet. I GitHub Actions skal de legges inn som repository secrets med samme navn; `.github/workflows/update-feed.yml` validerer at de finnes og sender dem videre til scraper-steget.
+
+---
+
 ## Lisens
 
 [GPL-3.0](LICENSE) — fri programvare under GPL v3
