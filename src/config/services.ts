@@ -84,10 +84,21 @@ export const SERVICES_FALLBACK: ServiceRegistry = {
     defaultEnabled: false,
     type: "info",
   },
+  logbuy: {
+    id: "logbuy",
+    name: "Visma LogBuy",
+    // CustomerId=101274 is the public browser-extension LogBuy account identifier
+    // from the official extension, not a per-user secret.
+    clickthroughUrl: "https://www.mylogbuy.com/WebPages/ShowDeal/Default.aspx?SupplierInfoId={urlName}&ContentSet=B2C&CustomerId=101274",
+    reminderDomain: "mylogbuy.com",
+    cashbackPathPatterns: ["/WebPages/ShowDeal/"],
+    color: "#ee2e24",
+    defaultEnabled: false,
+  },
 };
 
 // Service display order (active services first, then coming soon)
-export const SERVICE_ORDER = ["trumf", "sas", "remember", "dnb", "obos", "naf", "lofavor"] as const;
+export const SERVICE_ORDER = ["trumf", "sas", "remember", "dnb", "obos", "naf", "lofavor", "logbuy"] as const;
 
 /**
  * Get default enabled services

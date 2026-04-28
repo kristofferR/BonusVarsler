@@ -47,9 +47,14 @@ const SERVICES_FALLBACK = {
     color: "#66083c",
     type: "info",
   },
+  logbuy: {
+    id: "logbuy",
+    name: "Visma LogBuy",
+    color: "#ee2e24",
+  },
 };
 
-// Will be populated from feed cache or fallback
+// Mutate this registry in place so Object.keys(SERVICES) keeps fallback order.
 let SERVICES = { ...SERVICES_FALLBACK };
 
 // Storage keys
@@ -187,7 +192,14 @@ function showStatus(message) {
   }, 2000);
 }
 
-// Initialize language buttons
+/**
+ * Wire up language selection buttons and apply the selected language to the UI.
+ *
+ * Attaches click handlers to buttons under `#language-buttons .theme-btn`. When a different
+ * language is chosen, the selection is persisted to storage, `currentLang` and `messages`
+ * are updated, the page is retranslated, the services UI is reinitialized, and a save status
+ * message is shown. Clicks that select the already-active language are ignored.
+ */
 async function initLanguage() {
   const buttons = document.querySelectorAll("#language-buttons .theme-btn");
 
@@ -207,6 +219,7 @@ async function initLanguage() {
       currentLang = newLang;
       messages = await loadMessages(newLang);
       translatePage();
+      await initServices();
       showStatus(i18n("languageSaved"));
     });
   });
@@ -441,10 +454,15 @@ async function initBlacklistedSites() {
   });
 }
 
-// Initialize services checkboxes
+/**
+ * Render and manage service enable checkboxes in the options UI.
+ *
+ * Renders services in the merged SERVICES insertion order, preferring a per-service i18n name with a fallback to the service's `name`. Persists the list of enabled services to storage when changed and prevents disabling all non-"coming soon" services by reverting the last uncheck and showing a status message.
+ */
 async function initServices() {
   const container = document.getElementById("services-list");
   if (!container) return;
+  container.textContent = "";
 
   // Get default enabled services
   const defaultEnabled = Object.values(SERVICES)
@@ -457,8 +475,8 @@ async function initServices() {
     enabledServices = defaultEnabled;
   }
 
-  // Keep in sync with SERVICE_ORDER in src/config/services.ts.
-  const serviceOrder = ["trumf", "sas", "remember", "dnb", "obos", "naf", "lofavor"];
+  // Service order follows the merged service registry insertion order.
+  const serviceOrder = Object.keys(SERVICES);
 
   // Create checkbox for each service
   serviceOrder.forEach((serviceId) => {
@@ -483,7 +501,11 @@ async function initServices() {
 
     const nameSpan = document.createElement("span");
     nameSpan.className = "service-name";
-    nameSpan.textContent = service.name;
+    const i18nKey = `${service.id}Name`;
+    const localizedServiceName = i18n(i18nKey);
+    nameSpan.textContent = localizedServiceName && localizedServiceName !== i18nKey
+      ? localizedServiceName
+      : service.name;
 
     label.appendChild(colorDot);
     label.appendChild(nameSpan);

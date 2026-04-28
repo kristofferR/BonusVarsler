@@ -131,6 +131,16 @@ Defined in `src/config/constants.ts`:
 
 ## Development Workflow
 
+### LogBuy API Credentials
+
+`scripts/scrape-feeds.ts` requires these environment variables for Visma LogBuy scraping:
+
+- `LOGBUY_USERNAME`
+- `LOGBUY_PASSWORD`
+- `LOGBUY_ACCESSKEY`
+
+Use values from an authorized LogBuy API/extension account. Do not commit them. In GitHub Actions, configure repository secrets with these exact names; `.github/workflows/update-feed.yml` validates them and passes them to the scraper step.
+
 ### Building
 
 ```bash
