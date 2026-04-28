@@ -33,6 +33,15 @@ export const SERVICES_FALLBACK: ServiceRegistry = {
     color: "#4D4DFF",
     defaultEnabled: true,
   },
+  sas: {
+    id: "sas",
+    name: "SAS EuroBonus",
+    clickthroughUrl: "https://onlineshopping.flysas.com/nb-NO/butikker/{urlName}",
+    reminderDomain: "onlineshopping.flysas.com",
+    cashbackPathPatterns: ["/nb-NO/butikker"],
+    color: "#0F1E82",
+    defaultEnabled: false,
+  },
   remember: {
     id: "remember",
     name: "re:member",
@@ -89,7 +98,7 @@ export const SERVICES_FALLBACK: ServiceRegistry = {
 };
 
 // Service display order (active services first, then coming soon)
-export const SERVICE_ORDER = ["trumf", "remember", "dnb", "obos", "naf", "lofavor", "logbuy"] as const;
+export const SERVICE_ORDER = ["trumf", "sas", "remember", "dnb", "obos", "naf", "lofavor", "logbuy"] as const;
 
 /**
  * Get default enabled services

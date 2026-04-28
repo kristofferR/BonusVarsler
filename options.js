@@ -11,6 +11,12 @@ const SERVICES_FALLBACK = {
     color: "#4D4DFF",
     defaultEnabled: true,
   },
+  sas: {
+    id: "sas",
+    name: "SAS EuroBonus",
+    color: "#0F1E82",
+    defaultEnabled: false,
+  },
   remember: {
     id: "remember",
     name: "re:member",

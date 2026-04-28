@@ -7,6 +7,15 @@
     "color": "#4D4DFF",
     "defaultEnabled": true
   },
+  "sas": {
+    "id": "sas",
+    "name": "SAS EuroBonus",
+    "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/{urlName}",
+    "reminderDomain": "onlineshopping.flysas.com",
+    "cashbackPathPatterns": ["/nb-NO/butikker"],
+    "color": "#0F1E82",
+    "defaultEnabled": false
+  },
   "remember": {
     "id": "remember",
     "name": "re:member",
