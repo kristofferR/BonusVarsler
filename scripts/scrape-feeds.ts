@@ -512,6 +512,21 @@ function cloneOffer(offer: ServiceOffer): ServiceOffer {
   };
 }
 
+function isSameServiceOffer(
+  existingOffer: ServiceOffer,
+  restoredOffer: ServiceOffer,
+  serviceId: ServiceId
+): boolean {
+  return (
+    existingOffer.serviceId === serviceId &&
+    existingOffer.urlName === restoredOffer.urlName &&
+    (existingOffer.matchPathPrefix ?? null) ===
+      (restoredOffer.matchPathPrefix ?? null) &&
+    (existingOffer.matchPathCaseSensitive ?? false) ===
+      (restoredOffer.matchPathCaseSensitive ?? false)
+  );
+}
+
 function restoreServiceOffersFromExisting(
   merchants: Record<string, MerchantEntry>,
   existingSitelist: SiteList,
@@ -538,9 +553,7 @@ function restoreServiceOffersFromExisting(
 
     for (const offer of serviceOffers) {
       const hasOffer = merchants[existingMerchant.hostName].offers.some(
-        (existingOffer) =>
-          existingOffer.serviceId === serviceId &&
-          existingOffer.urlName === offer.urlName
+        (existingOffer) => isSameServiceOffer(existingOffer, offer, serviceId)
       );
 
       if (!hasOffer) {
