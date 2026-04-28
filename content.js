@@ -765,7 +765,33 @@
     }
     return null;
   }
-  function findBestOffer(feed, currentHost, enabledServices, services = SERVICES_FALLBACK) {
+  function normalizePathPrefix(pathname, caseSensitive = false) {
+    const normalized = pathname.startsWith("/") ? pathname : `/${pathname}`;
+    const withoutTrailingSlash = normalized.replace(/\/+$/, "") || "/";
+    return caseSensitive ? withoutTrailingSlash : withoutTrailingSlash.toLowerCase();
+  }
+  function offerMatchesPath(offer, currentPathname) {
+    if (!offer.matchPathPrefix) {
+      return true;
+    }
+    const caseSensitive = Boolean(offer.matchPathCaseSensitive);
+    const currentPath = normalizePathPrefix(currentPathname, caseSensitive);
+    const offerPath = normalizePathPrefix(offer.matchPathPrefix, caseSensitive);
+    if (offerPath === "/") {
+      return currentPath === "/";
+    }
+    return currentPath === offerPath || currentPath.startsWith(`${offerPath}/`);
+  }
+  function getOfferPathSpecificity(offer) {
+    if (!offer.matchPathPrefix) {
+      return -1;
+    }
+    return normalizePathPrefix(
+      offer.matchPathPrefix,
+      Boolean(offer.matchPathCaseSensitive)
+    ).length;
+  }
+  function findBestOffer(feed, currentHost, enabledServices, services = SERVICES_FALLBACK, currentPathname = "/") {
     if (!feed?.merchants) {
       return null;
     }
@@ -790,12 +816,17 @@
     }
     if (isUnified && merchant.offers) {
       const availableOffers = merchant.offers.filter(
-        (offer) => enabledServices.includes(offer.serviceId)
+        (offer) => enabledServices.includes(offer.serviceId) && offerMatchesPath(offer, currentPathname)
       );
       if (availableOffers.length === 0) {
         return null;
       }
       availableOffers.sort((a, b) => {
+        const specificityA = getOfferPathSpecificity(a);
+        const specificityB = getOfferPathSpecificity(b);
+        if (specificityA !== specificityB) {
+          return specificityB - specificityA;
+        }
         const rateA = parseCashbackRate(a.cashbackDescription);
         const rateB = parseCashbackRate(b.cashbackDescription);
         return compareCashbackRates(rateA, rateB);
@@ -867,7 +898,7 @@
     const messageShownKey = `${MESSAGE_SHOWN_KEY_PREFIX}${currentHost}`;
     sessionStorage2.set(messageShownKey, Date.now().toString());
   }
-  async function initialize(adapters, currentHost) {
+  async function initialize(adapters, currentHost, currentPathname = "/") {
     const { storage, fetcher, i18n } = adapters;
     const settings = new Settings(storage, currentHost);
     await settings.load();
@@ -885,7 +916,7 @@
     }
     const enabledServices = settings.getEnabledServices();
     const services = feedManager.getServices();
-    const match = findBestOffer(feed, currentHost, enabledServices, services);
+    const match = findBestOffer(feed, currentHost, enabledServices, services, currentPathname);
     if (!match) {
       return { status: "no-match", settings };
     }
@@ -1301,6 +1332,16 @@
 
 .action-btn:hover {
     background: var(--accent-hover);
+}
+
+.action-btn[aria-disabled="true"] {
+    background: var(--text-muted);
+    cursor: not-allowed;
+    opacity: 0.72;
+}
+
+.action-btn[aria-disabled="true"]:hover {
+    background: var(--text-muted);
 }
 
 /* Adblock warning state */
@@ -1969,6 +2010,89 @@
     }
   }
 
+  // src/ui/utils/clickthrough.ts
+  function encodePathSegment(segment) {
+    let decodedSegment = segment;
+    try {
+      decodedSegment = decodeURIComponent(segment);
+    } catch {
+    }
+    if (decodedSegment === ".") {
+      return "%2E";
+    }
+    if (decodedSegment === "..") {
+      return "%2E%2E";
+    }
+    return encodeURIComponent(decodedSegment);
+  }
+  function getSafeUrlNameForTemplate(templateUrl, urlName) {
+    const placeholderIndex = templateUrl.indexOf("{urlName}");
+    const queryIndex = templateUrl.indexOf("?");
+    if (queryIndex !== -1 && placeholderIndex > queryIndex) {
+      return encodeURIComponent(urlName);
+    }
+    return urlName.split("/").map(encodePathSegment).join("/");
+  }
+  function buildClickthroughUrl(templateUrl, urlName) {
+    if (!templateUrl) {
+      return "";
+    }
+    return templateUrl.includes("{urlName}") ? templateUrl.replace("{urlName}", getSafeUrlNameForTemplate(templateUrl, urlName)) : templateUrl;
+  }
+  function addAllowedHost(allowedHosts, hostname) {
+    if (hostname) {
+      allowedHosts.add(hostname.toLowerCase());
+    }
+  }
+  function collectAllowedClickthroughHosts(service) {
+    const allowedHosts = /* @__PURE__ */ new Set();
+    addAllowedHost(allowedHosts, service.reminderDomain);
+    try {
+      addAllowedHost(allowedHosts, new URL(buildClickthroughUrl(service.clickthroughUrl || "", "")).hostname);
+    } catch {
+    }
+    return allowedHosts;
+  }
+  function isAllowedClickthroughHost(hostname, allowedHosts) {
+    if (allowedHosts.size === 0) {
+      return false;
+    }
+    return allowedHosts.has(hostname.toLowerCase());
+  }
+  function toSafeHttpsUrl(rawUrl, allowedHosts) {
+    const trimmedUrl = rawUrl.trim();
+    if (!trimmedUrl) {
+      return "";
+    }
+    try {
+      const parsedUrl = new URL(trimmedUrl);
+      if (parsedUrl.protocol !== "https:" || !parsedUrl.hostname || !isAllowedClickthroughHost(parsedUrl.hostname, allowedHosts)) {
+        return "";
+      }
+      return parsedUrl.toString();
+    } catch {
+      return "";
+    }
+  }
+  function resolveClickthroughUrl(offerClickthroughUrl, service, urlName) {
+    const allowedHosts = collectAllowedClickthroughHosts(service);
+    const fallbackUrl = buildClickthroughUrl(service.clickthroughUrl || "", urlName);
+    return toSafeHttpsUrl(offerClickthroughUrl || "", allowedHosts) || toSafeHttpsUrl(fallbackUrl, allowedHosts);
+  }
+  function restoreActionButtonHref(actionBtn, href) {
+    if (href) {
+      actionBtn.href = href;
+      actionBtn.target = "_blank";
+      actionBtn.rel = "noopener noreferrer";
+      actionBtn.removeAttribute("aria-disabled");
+    } else {
+      actionBtn.removeAttribute("href");
+      actionBtn.removeAttribute("target");
+      actionBtn.removeAttribute("rel");
+      actionBtn.setAttribute("aria-disabled", "true");
+    }
+  }
+
   // src/ui/views/notification.ts
   function createNotification(options) {
     const { match, settings, services, i18n, fetcher, sessionStorage: sessionStorage2, currentHost, onClose } = options;
@@ -2089,7 +2213,7 @@
         handleHideSite();
       }
     });
-    if (service.type !== "code" && service.type !== "info") {
+    if (service.type !== "code" && service.type !== "info" && actionBtn.getAttribute("aria-disabled") !== "true") {
       const originalHref = actionBtn.getAttribute("href") || "";
       const originalText = actionBtn.childNodes[0]?.textContent || "";
       const handleRecheck = async (e) => {
@@ -2106,16 +2230,14 @@
             if (actionBtn.childNodes[0]) {
               actionBtn.childNodes[0].textContent = i18n.getMessage("adblockerDetected");
             }
-            actionBtn.removeAttribute("href");
-            actionBtn.removeAttribute("target");
+            restoreActionButtonHref(actionBtn, "");
           } else {
             actionBtn.classList.remove("adblock");
             actionBtn.style.animation = "";
             if (actionBtn.childNodes[0]) {
               actionBtn.childNodes[0].textContent = originalText;
             }
-            actionBtn.setAttribute("href", originalHref);
-            actionBtn.setAttribute("target", "_blank");
+            restoreActionButtonHref(actionBtn, originalHref);
           }
         } catch {
           actionBtn.classList.remove("adblock");
@@ -2123,8 +2245,7 @@
           if (actionBtn.childNodes[0]) {
             actionBtn.childNodes[0].textContent = originalText;
           }
-          actionBtn.setAttribute("href", originalHref);
-          actionBtn.setAttribute("target", "_blank");
+          restoreActionButtonHref(actionBtn, originalHref);
         } finally {
           recheckIcon.classList.remove("spinning");
         }
@@ -2141,8 +2262,7 @@
           if (actionBtn.childNodes[0]) {
             actionBtn.childNodes[0].textContent = i18n.getMessage("adblockerDetected");
           }
-          actionBtn.removeAttribute("href");
-          actionBtn.removeAttribute("target");
+          restoreActionButtonHref(actionBtn, "");
         }
       }).catch(() => {
       });
@@ -2273,11 +2393,12 @@
   function createActionButton(match, service, i18n, sessionStorage2, currentHost, content) {
     const actionBtn = document.createElement("a");
     actionBtn.className = "action-btn";
-    const baseUrl = service.clickthroughUrl || "";
-    const clickthroughUrl = baseUrl.includes("{urlName}") ? baseUrl.replace("{urlName}", match.urlName || "") : baseUrl;
-    actionBtn.target = "_blank";
-    actionBtn.rel = "noopener noreferrer";
-    actionBtn.href = clickthroughUrl;
+    const clickthroughUrl = resolveClickthroughUrl(
+      match.offer.clickthroughUrl,
+      service,
+      match.urlName || ""
+    );
+    restoreActionButtonHref(actionBtn, clickthroughUrl);
     if (service.type === "code" && match.offer?.code) {
       actionBtn.classList.add("has-code");
       actionBtn.dataset.copied = "false";
@@ -2288,6 +2409,11 @@
       copyIcon.textContent = "\u{1F4CB}";
       copyIcon.title = i18n.getMessage("copyCode") || "Kopier kode";
       actionBtn.appendChild(copyIcon);
+    } else if (!clickthroughUrl) {
+      const trackingUnavailable = i18n.getMessage("trackingUnavailable");
+      actionBtn.textContent = trackingUnavailable;
+      actionBtn.title = trackingUnavailable;
+      actionBtn.setAttribute("aria-label", trackingUnavailable);
     } else if (service.type === "info") {
       actionBtn.textContent = i18n.getMessage("readMoreAboutDiscount");
     } else {
@@ -2304,14 +2430,25 @@
       recheckIcon.style.display = "none";
     }
     actionBtn.appendChild(recheckIcon);
+    const replayAdblockFeedback = () => {
+      actionBtn.style.animation = "shake 0.3s ease-in-out";
+      actionBtn.addEventListener("animationend", () => {
+        actionBtn.style.animation = "pulse 0.7s infinite alternate ease-in-out";
+      }, { once: true });
+    };
     actionBtn.addEventListener("click", (e) => {
       if (actionBtn.classList.contains("adblock")) {
         e.preventDefault();
-        actionBtn.style.animation = "shake 0.3s ease-in-out";
-        actionBtn.addEventListener("animationend", () => {
-          actionBtn.style.animation = "pulse 0.7s infinite alternate ease-in-out";
-        }, { once: true });
+        replayAdblockFeedback();
         return;
+      }
+      const isDisabled = actionBtn.getAttribute("aria-disabled") === "true";
+      if (isDisabled && service.type !== "code") {
+        e.preventDefault();
+        return;
+      }
+      if (isDisabled) {
+        e.preventDefault();
       }
       sessionStorage2.set(`${MESSAGE_SHOWN_KEY_PREFIX}${currentHost}`, Date.now().toString());
       if (service.type === "info") {
@@ -2830,7 +2967,7 @@
       fetcher: getExtensionFetch(),
       i18n: getExtensionI18n()
     };
-    const result = await initialize(adapters, currentHost);
+    const result = await initialize(adapters, currentHost, window.location.pathname);
     const { storage, fetcher, i18n } = adapters;
     if (result.status === "blocked") {
       return;

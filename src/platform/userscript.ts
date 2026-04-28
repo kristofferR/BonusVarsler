@@ -38,7 +38,7 @@ import { SERVICES_FALLBACK } from "../config/services.js";
   };
 
   // Initialize core
-  const result = await initialize(adapters, currentHost);
+  const result = await initialize(adapters, currentHost, window.location.pathname);
   const { storage, fetcher, i18n } = adapters;
 
   // Blocked sites get no UI at all

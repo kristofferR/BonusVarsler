@@ -22,6 +22,7 @@ import {
 import { getLogoIconForService, SETTINGS_ICON_URI } from "../components/icons.js";
 import { makeCornerDraggable, type CleanupFunction } from "../components/draggable.js";
 import { detectAdblock } from "../../core/adblock-detection.js";
+import { resolveClickthroughUrl, restoreActionButtonHref } from "../utils/clickthrough.js";
 
 export interface NotificationOptions {
   match: MatchResult;
@@ -204,8 +205,12 @@ export function createNotification(options: NotificationOptions): HTMLElement {
     }
   });
 
-  // Adblock detection (skip for code-based and info-type services)
-  if (service.type !== "code" && service.type !== "info") {
+  // Adblock detection (skip for code-based, info-type, and disabled tracking services)
+  if (
+    service.type !== "code" &&
+    service.type !== "info" &&
+    actionBtn.getAttribute("aria-disabled") !== "true"
+  ) {
     const originalHref = actionBtn.getAttribute("href") || "";
     const originalText = actionBtn.childNodes[0]?.textContent || "";
 
@@ -225,16 +230,14 @@ export function createNotification(options: NotificationOptions): HTMLElement {
           if (actionBtn.childNodes[0]) {
             actionBtn.childNodes[0].textContent = i18n.getMessage("adblockerDetected");
           }
-          actionBtn.removeAttribute("href");
-          actionBtn.removeAttribute("target");
+          restoreActionButtonHref(actionBtn, "");
         } else {
           actionBtn.classList.remove("adblock");
           actionBtn.style.animation = "";
           if (actionBtn.childNodes[0]) {
             actionBtn.childNodes[0].textContent = originalText;
           }
-          actionBtn.setAttribute("href", originalHref);
-          actionBtn.setAttribute("target", "_blank");
+          restoreActionButtonHref(actionBtn, originalHref);
         }
       } catch {
         // On error, restore original state
@@ -243,8 +246,7 @@ export function createNotification(options: NotificationOptions): HTMLElement {
         if (actionBtn.childNodes[0]) {
           actionBtn.childNodes[0].textContent = originalText;
         }
-        actionBtn.setAttribute("href", originalHref);
-        actionBtn.setAttribute("target", "_blank");
+        restoreActionButtonHref(actionBtn, originalHref);
       } finally {
         recheckIcon.classList.remove("spinning");
       }
@@ -264,8 +266,7 @@ export function createNotification(options: NotificationOptions): HTMLElement {
         if (actionBtn.childNodes[0]) {
           actionBtn.childNodes[0].textContent = i18n.getMessage("adblockerDetected");
         }
-        actionBtn.removeAttribute("href");
-        actionBtn.removeAttribute("target");
+        restoreActionButtonHref(actionBtn, "");
       }
     }).catch(() => {
       // Silently ignore detection failures
@@ -444,13 +445,12 @@ function createActionButton(
   actionBtn.className = "action-btn";
 
   // Build clickthrough URL
-  const baseUrl = service.clickthroughUrl || "";
-  const clickthroughUrl = baseUrl.includes("{urlName}")
-    ? baseUrl.replace("{urlName}", match.urlName || "")
-    : baseUrl;
-  actionBtn.target = "_blank";
-  actionBtn.rel = "noopener noreferrer";
-  actionBtn.href = clickthroughUrl;
+  const clickthroughUrl = resolveClickthroughUrl(
+    match.offer.clickthroughUrl,
+    service,
+    match.urlName || ""
+  );
+  restoreActionButtonHref(actionBtn, clickthroughUrl);
 
   // For code-based services, show the rebate code
   if (service.type === "code" && match.offer?.code) {
@@ -465,6 +465,11 @@ function createActionButton(
     copyIcon.textContent = "📋";
     copyIcon.title = i18n.getMessage("copyCode") || "Kopier kode";
     actionBtn.appendChild(copyIcon);
+  } else if (!clickthroughUrl) {
+    const trackingUnavailable = i18n.getMessage("trackingUnavailable");
+    actionBtn.textContent = trackingUnavailable;
+    actionBtn.title = trackingUnavailable;
+    actionBtn.setAttribute("aria-label", trackingUnavailable);
   } else if (service.type === "info") {
     actionBtn.textContent = i18n.getMessage("readMoreAboutDiscount");
   } else {
@@ -484,16 +489,29 @@ function createActionButton(
   }
   actionBtn.appendChild(recheckIcon);
 
+  const replayAdblockFeedback = () => {
+    actionBtn.style.animation = "shake 0.3s ease-in-out";
+    actionBtn.addEventListener("animationend", () => {
+      actionBtn.style.animation = "pulse 0.7s infinite alternate ease-in-out";
+    }, { once: true });
+  };
+
   // Click handler
   actionBtn.addEventListener("click", (e) => {
     // Don't proceed if adblock is detected - shake to indicate disabled
     if (actionBtn.classList.contains("adblock")) {
       e.preventDefault();
-      actionBtn.style.animation = "shake 0.3s ease-in-out";
-      actionBtn.addEventListener("animationend", () => {
-        actionBtn.style.animation = "pulse 0.7s infinite alternate ease-in-out";
-      }, { once: true });
+      replayAdblockFeedback();
       return;
+    }
+
+    const isDisabled = actionBtn.getAttribute("aria-disabled") === "true";
+    if (isDisabled && service.type !== "code") {
+      e.preventDefault();
+      return;
+    }
+    if (isDisabled) {
+      e.preventDefault();
     }
 
     sessionStorage.set(`${MESSAGE_SHOWN_KEY_PREFIX}${currentHost}`, Date.now().toString());

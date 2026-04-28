@@ -77,7 +77,8 @@ export type InitializeResult =
  */
 export async function initialize(
   adapters: PlatformAdapters,
-  currentHost: string
+  currentHost: string,
+  currentPathname = "/"
 ): Promise<InitializeResult> {
   const { storage, fetcher, i18n } = adapters;
 
@@ -108,7 +109,7 @@ export async function initialize(
   // Find best offer for this merchant
   const enabledServices = settings.getEnabledServices();
   const services = feedManager.getServices();
-  const match = findBestOffer(feed, currentHost, enabledServices, services);
+  const match = findBestOffer(feed, currentHost, enabledServices, services, currentPathname);
 
   if (!match) {
     return { status: "no-match", settings };
