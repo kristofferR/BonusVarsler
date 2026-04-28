@@ -4,7 +4,7 @@
  * Build script for BonusVarsler
  * - Downloads fresh sitelist from CDN
  * - Checks CSP on all sites to find those that block adblock detection URLs (cached for 24h)
- * - Updates CSP_RESTRICTED_SITES in content.js and userscript
+ * - Updates CSP_RESTRICTED_SITES in TypeScript source before bundling
  * - Creates Firefox XPI and Chrome ZIP packages with platform-specific manifests
  */
 
@@ -229,26 +229,21 @@ async function checkAllSitesCSP(sitelist) {
 function updateCSPRestrictedSites(restrictedSites) {
   console.log("\n📝 Updating CSP_RESTRICTED_SITES in source files...");
 
-  const siteListCode = restrictedSites.map((s) => `    "${s}",`).join("\n");
-  const newSetCode = `const CSP_RESTRICTED_SITES = new Set([\n${siteListCode}\n  ]);`;
+  const constantsPath = path.join("src", "config", "constants.ts");
+  const siteListCode = restrictedSites.map((s) => `  "${s}",`).join("\n");
+  const newSetCode = `export const CSP_RESTRICTED_SITES = new Set([\n${siteListCode}\n]);`;
 
-  // Update content.js
-  let contentJs = fs.readFileSync("content.js", "utf8");
-  contentJs = contentJs.replace(
-    /const CSP_RESTRICTED_SITES = new Set\(\[\n[\s\S]*?\]\);/,
-    newSetCode
-  );
-  fs.writeFileSync("content.js", contentJs);
-  console.log("   ✓ Updated content.js");
+  const constants = fs.readFileSync(constantsPath, "utf8");
+  const restrictedSitesPattern =
+    /export const CSP_RESTRICTED_SITES = new Set\(\[\n[\s\S]*?\]\);/;
 
-  // Update userscript
-  let userscript = fs.readFileSync("BonusVarsler.user.js", "utf8");
-  userscript = userscript.replace(
-    /const CSP_RESTRICTED_SITES = new Set\(\[\n[\s\S]*?\]\);/,
-    newSetCode
-  );
-  fs.writeFileSync("BonusVarsler.user.js", userscript);
-  console.log("   ✓ Updated BonusVarsler.user.js");
+  if (!restrictedSitesPattern.test(constants)) {
+    throw new Error(`Could not find CSP_RESTRICTED_SITES in ${constantsPath}`);
+  }
+
+  const updatedConstants = constants.replace(restrictedSitesPattern, newSetCode);
+  fs.writeFileSync(constantsPath, updatedConstants);
+  console.log(`   ✓ Updated ${constantsPath}`);
 }
 
 function createManifest(platform) {

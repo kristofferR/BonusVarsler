@@ -14,7 +14,9 @@
  */
 
 import { chromium, type Page, type Browser } from "playwright";
+import { execFileSync } from "child_process";
 import { lookup } from "dns/promises";
+import { existsSync } from "fs";
 import { readFile, writeFile } from "fs/promises";
 import { isIP } from "net";
 import { join } from "path";
@@ -33,6 +35,9 @@ const SAS_API_BASE_URL = "https://onlineshopping.loyaltykey.com";
 const SAS_CHANNEL = "sas/nb-NO";
 const SAS_LIST_TIMEOUT_MS = 15_000;
 const SAS_DETAIL_TIMEOUT_MS = 10_000;
+const SAS_LEVEL_POINTS_RATE = 0.2;
+const SAS_LEVEL_POINTS_CAMPAIGN_START = "2025-06-27";
+const SAS_LEVEL_POINTS_CAMPAIGN_END = "2026-05-31";
 const LOGBUY_API_BASE_URL = "https://restapi.mylogbuy.com";
 
 const LOGBUY_SEARCH_PAGE_SIZE = 250;
@@ -42,6 +47,13 @@ const LOGBUY_REDIRECT_TIMEOUT_MS = 8000;
 const LOGBUY_MAX_REDIRECTS = 5;
 const LOGBUY_DEAL_CONCURRENCY = 8;
 const LOGBUY_FALLBACK_DESCRIPTION = "Rabatt";
+const LOGBUY_EXTENSION_ZIP_ENV = "LOGBUY_EXTENSION_ZIP";
+const LOGBUY_EXTENSION_COUNTRY_ENV = "LOGBUY_EXTENSION_COUNTRY";
+const LOGBUY_DEFAULT_EXTENSION_ZIP = join(
+  import.meta.dir,
+  "..",
+  "fodkehlogjohjggkggflokciallanhmo.zip"
+);
 const LOGBUY_REDIRECT_USER_AGENT =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36";
 const publicHostLookupCache = new Map<string, Promise<boolean>>();
@@ -500,6 +512,29 @@ function formatSasPoints(points: number): string {
   return String(points).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
 
+function isSasLevelPointsCampaignActive(date = new Date()): boolean {
+  const today = formatOsloDate(date);
+  return today >= SAS_LEVEL_POINTS_CAMPAIGN_START && today <= SAS_LEVEL_POINTS_CAMPAIGN_END;
+}
+
+function formatSasBonusDescription(
+  points: number,
+  commissionType: SasShopDetail["commission_type"],
+  includeLevelPoints: boolean
+): string {
+  const levelPoints = points * SAS_LEVEL_POINTS_RATE;
+  const levelPointsText =
+    includeLevelPoints && levelPoints > 0
+      ? ` + ${formatSasPoints(levelPoints)} nivåpoeng`
+      : "";
+
+  if (commissionType === "fixed") {
+    return `${formatSasPoints(points)} poeng${levelPointsText} som ny kunde`;
+  }
+
+  return `${formatSasPoints(points)} poeng${levelPointsText} / 100 kr`;
+}
+
 /**
  * Normalize a store name for matching across services
  */
@@ -950,6 +985,10 @@ interface SasShopDetailResponse {
 
 async function scrapeSAS(): Promise<ScrapedMerchant[]> {
   console.log("\n=== Scraping SAS EuroBonus ===");
+  const includeLevelPoints = isSasLevelPointsCampaignActive();
+  if (includeLevelPoints) {
+    console.log("  Including SAS level points campaign (20% of regular bonus points)");
+  }
 
   const listUrl = `${SAS_API_BASE_URL}/api/browser-extension/${SAS_CHANNEL}/shops`;
   const response = await fetch(listUrl, {
@@ -992,10 +1031,11 @@ async function scrapeSAS(): Promise<ScrapedMerchant[]> {
           }
 
           const points = Number(detail.points) || 0;
-          const cashbackDescription =
-            detail.commission_type === "fixed"
-              ? `${formatSasPoints(points)} poeng som ny kunde`
-              : `${formatSasPoints(points)} poeng / 100 kr`;
+          const cashbackDescription = formatSasBonusDescription(
+            points,
+            detail.commission_type,
+            includeLevelPoints
+          );
 
           return {
             name: detail.name,
@@ -2141,6 +2181,17 @@ interface LogbuyAuthConfig {
   username: string;
   password: string;
   accesskey: string;
+  source: "environment" | "extension";
+}
+
+interface LogbuyExtensionAuthEntry {
+  b?: string;
+  B?: string;
+}
+
+interface LogbuyExtensionConfig {
+  m3?: Record<string, LogbuyExtensionAuthEntry | undefined>;
+  XF?: string;
 }
 
 interface LogbuyApiResponse<T> {
@@ -2204,32 +2255,129 @@ function getLogbuyErrorMessage(response: LogbuyApiResponse<unknown>): string {
   );
 }
 
-/**
- * Retrieves and validates a required environment variable.
- *
- * @param name - The environment variable name to read
- * @returns The trimmed value of the environment variable
- * @throws Error if the variable is missing or empty; the thrown message will be `Missing ${name}; set LogBuy API credentials in environment`
- */
-function getRequiredEnv(name: string): string {
+function getOptionalEnv(name: string): string | null {
   const value = process.env[name]?.trim();
-  if (!value) {
-    throw new Error(`Missing ${name}; set LogBuy API credentials in environment`);
+  return value || null;
+}
+
+function getLogbuyAuthConfigFromEnv(): LogbuyAuthConfig | null {
+  const username = getOptionalEnv("LOGBUY_USERNAME");
+  const password = getOptionalEnv("LOGBUY_PASSWORD");
+  const accesskey = getOptionalEnv("LOGBUY_ACCESSKEY");
+
+  if (!username && !password && !accesskey) {
+    return null;
   }
-  return value;
+
+  const missing = [
+    ["LOGBUY_USERNAME", username],
+    ["LOGBUY_PASSWORD", password],
+    ["LOGBUY_ACCESSKEY", accesskey],
+  ]
+    .filter(([, value]) => !value)
+    .map(([name]) => name);
+
+  if (missing.length > 0) {
+    throw new Error(`Missing ${missing.join(", ")}; set all LogBuy API credentials in environment`);
+  }
+
+  return {
+    username: username!,
+    password: password!,
+    accesskey: accesskey!,
+    source: "environment",
+  };
+}
+
+function getLogbuyExtensionZipPath(): string | null {
+  const configuredZipPath = getOptionalEnv(LOGBUY_EXTENSION_ZIP_ENV);
+  if (configuredZipPath) {
+    if (!existsSync(configuredZipPath)) {
+      throw new Error(`${LOGBUY_EXTENSION_ZIP_ENV} does not exist: ${configuredZipPath}`);
+    }
+    return configuredZipPath;
+  }
+
+  return existsSync(LOGBUY_DEFAULT_EXTENSION_ZIP) ? LOGBUY_DEFAULT_EXTENSION_ZIP : null;
+}
+
+function readLogbuyExtensionBackground(zipPath: string): string {
+  try {
+    return execFileSync("unzip", ["-p", zipPath, "background.js"], {
+      encoding: "utf8",
+      maxBuffer: 10 * 1024 * 1024,
+    });
+  } catch (error) {
+    throw new Error(`Could not read background.js from ${zipPath}: ${summarizeError(error)}`);
+  }
+}
+
+function parseLogbuyExtensionConfig(backgroundJs: string): LogbuyExtensionConfig {
+  const configMatches = backgroundJs.matchAll(/JSON\.parse\('([^']+)'\)/g);
+
+  for (const match of configMatches) {
+    const rawConfig = match[1];
+    if (!rawConfig?.includes('"m3"') || !rawConfig.includes('"XF"')) {
+      continue;
+    }
+
+    try {
+      const parsed = JSON.parse(rawConfig) as LogbuyExtensionConfig;
+      if (parsed.m3 && parsed.XF) {
+        return parsed;
+      }
+    } catch {
+      // Continue scanning: background.js can contain unrelated JSON.parse calls.
+    }
+  }
+
+  throw new Error("Could not find LogBuy fallback auth config in extension background.js");
+}
+
+function getLogbuyAuthConfigFromExtension(): LogbuyAuthConfig | null {
+  const zipPath = getLogbuyExtensionZipPath();
+  if (!zipPath) {
+    return null;
+  }
+
+  const country = (getOptionalEnv(LOGBUY_EXTENSION_COUNTRY_ENV) || "no").toLowerCase();
+  const config = parseLogbuyExtensionConfig(readLogbuyExtensionBackground(zipPath));
+  const account = config.m3?.[country];
+
+  if (!account?.b || !account.B || !config.XF) {
+    const availableCountries = Object.keys(config.m3 || {}).sort().join(", ") || "none";
+    throw new Error(
+      `LogBuy extension config has no fallback account for "${country}" (available: ${availableCountries})`
+    );
+  }
+
+  return {
+    username: account.b,
+    password: account.B,
+    accesskey: config.XF,
+    source: "extension",
+  };
 }
 
 /**
- * Constructs LogBuy API authentication configuration from required environment variables.
+ * Constructs LogBuy API authentication configuration from environment variables or a local extension ZIP fallback.
  *
- * @returns An object with `username`, `password`, and `accesskey` populated from `LOGBUY_USERNAME`, `LOGBUY_PASSWORD`, and `LOGBUY_ACCESSKEY` environment variables
+ * @returns An object with `username`, `password`, and `accesskey` populated from env vars or the browser extension config
  */
 function getLogbuyAuthConfig(): LogbuyAuthConfig {
-  return {
-    username: getRequiredEnv("LOGBUY_USERNAME"),
-    password: getRequiredEnv("LOGBUY_PASSWORD"),
-    accesskey: getRequiredEnv("LOGBUY_ACCESSKEY"),
-  };
+  const envAuth = getLogbuyAuthConfigFromEnv();
+  if (envAuth) {
+    return envAuth;
+  }
+
+  const extensionAuth = getLogbuyAuthConfigFromExtension();
+  if (extensionAuth) {
+    return extensionAuth;
+  }
+
+  throw new Error(
+    `Missing LogBuy credentials; set LOGBUY_USERNAME/LOGBUY_PASSWORD/LOGBUY_ACCESSKEY or provide ${LOGBUY_EXTENSION_ZIP_ENV}`
+  );
 }
 
 /**
@@ -2672,6 +2820,12 @@ async function fetchLogbuyWithTimeout(
  */
 async function fetchLogbuyAccessToken(): Promise<string> {
   const auth = getLogbuyAuthConfig();
+  console.log(
+    auth.source === "environment"
+      ? "  Authenticating with LogBuy credentials from environment..."
+      : "  Authenticating with LogBuy credentials from extension ZIP..."
+  );
+
   const body = new URLSearchParams();
   body.append("username", auth.username);
   body.append("password", auth.password);
@@ -2912,7 +3066,6 @@ async function collectLogbuyStoreUrls(website: string): Promise<string[]> {
  */
 async function scrapeLogbuy(): Promise<ScrapedMerchant[]> {
   console.log("\n=== Scraping Visma LogBuy ===");
-  console.log("Authenticating with browser-extension fallback account...");
 
   try {
     const token = await fetchLogbuyAccessToken();

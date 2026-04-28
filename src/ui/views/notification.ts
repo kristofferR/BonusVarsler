@@ -65,8 +65,9 @@ export function createNotification(options: NotificationOptions): HTMLElement {
 
   // Header
   const header = createHeader(service, i18n);
+  const cashbackText = formatCashbackDescription(match);
   const { settingsBtn, minimizeBtn, closeBtn, headerRight } = createHeaderControls(
-    match.cashbackDescription,
+    cashbackText,
     i18n
   );
   header.appendChild(headerRight);
@@ -80,7 +81,7 @@ export function createNotification(options: NotificationOptions): HTMLElement {
   content.className = "content";
 
   // Cashback display
-  const cashback = createCashbackDisplay(match, container);
+  const cashback = createCashbackDisplay(match, container, cashbackText);
 
   // Subtitle
   const subtitle = document.createElement("span");
@@ -344,10 +345,27 @@ function createHeaderControls(cashbackText: string, i18n: I18nAdapter) {
   return { cashbackMini, settingsBtn, minimizeBtn, closeBtn, headerRight };
 }
 
-function createCashbackDisplay(match: MatchResult, container: HTMLElement): HTMLSpanElement {
+function formatCashbackDescription(match: MatchResult): string {
+  const description = match.cashbackDescription || "";
+  if (match.offer.serviceId !== "sas") {
+    return description;
+  }
+
+  return description
+    .replace(/\s+nivåpoeng\s*\/\s*/gi, " nivåp/")
+    .replace(/\s+nivåpoeng\b/gi, " nivåp")
+    .replace(/\s+poeng\s*\/\s*/gi, " p/")
+    .replace(/\s+poeng\b/gi, " p");
+}
+
+function createCashbackDisplay(
+  match: MatchResult,
+  container: HTMLElement,
+  cashbackText: string
+): HTMLSpanElement {
   const cashback = document.createElement("span");
   cashback.className = "cashback";
-  cashback.textContent = match.cashbackDescription || "";
+  cashback.textContent = cashbackText;
 
   // Add tooltip for detailed cashback rates
   if (match.cashbackDetails && match.cashbackDetails.length > 1) {

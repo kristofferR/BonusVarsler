@@ -45,7 +45,7 @@ export const LEGACY_KEYS = {
 } as const;
 
 // Version tracking
-export const CURRENT_VERSION = "8.0";
+export const CURRENT_VERSION = "9.0";
 
 // Per-host session key prefixes (used with localStorage)
 export const MESSAGE_SHOWN_KEY_PREFIX = "BonusVarsler_MessageShown_";
@@ -82,20 +82,43 @@ export const AD_BANNER_IDS = [
 
 // Sites with strict CSP that blocks our test URLs (causes false positives)
 export const CSP_RESTRICTED_SITES = new Set([
+  "bikbok.com",
   "cdon.com",
+  "cdon.no",
+  "dressmann.com",
   "elite.se",
-  "elon.no",
   "extraoptical.no",
   "fabel.no",
+  "godtlevert.no",
   "hoie.no",
+  "hunkemoller.no",
+  "junkyard.com",
+  "loopia.no",
   "lux-case.no",
+  "no.match.com",
+  "nordvpn.com",
+  "sportsmagasinet.no",
+  "stockx.com",
+  "talkmore.no",
   "vetzoo.no",
+  "www.autodude.no",
+  "www.beautycos.no",
   "www.bookbeat.no",
+  "www.bravofly.com",
+  "www.circlek.no",
   "www.clickandboat.com",
+  "www.dbs.no",
+  "www.directferries.no",
   "www.ekstralys.no",
   "www.elite.se",
+  "www.elon.no",
+  "www.eurodel.no",
+  "www.extraoptical.se",
   "www.getyourguide.com",
-  "www.klokkegiganten.no",
+  "www.ginatricot.com",
+  "www.londonpass.com",
+  "www.lufthansa.com",
+  "www.lusini.com",
   "www.myprotein.no",
   "www.skyshowtime.com",
   "www.sportmann.no",
