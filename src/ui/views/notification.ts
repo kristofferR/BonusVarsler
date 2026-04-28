@@ -10,7 +10,7 @@ import type { FetchAdapter } from "../../network/types.js";
 import type { SessionStorageAdapter } from "../../storage/types.js";
 import type { Position } from "../../config/constants.js";
 import type { Service, ServiceRegistry } from "../../config/services.js";
-import { MESSAGE_SHOWN_KEY_PREFIX } from "../../config/constants.js";
+import { getMessageShownKey } from "../../config/constants.js";
 import { getNotificationStyles } from "../styles/index.js";
 import {
   createShadowHost,
@@ -22,6 +22,7 @@ import {
 import { getLogoIconForService, SETTINGS_ICON_URI } from "../components/icons.js";
 import { makeCornerDraggable, type CleanupFunction } from "../components/draggable.js";
 import { detectAdblock } from "../../core/adblock-detection.js";
+import { resolveClickthroughUrl, restoreActionButtonHref } from "../utils/clickthrough.js";
 
 export interface NotificationOptions {
   match: MatchResult;
@@ -31,6 +32,7 @@ export interface NotificationOptions {
   fetcher: FetchAdapter;
   sessionStorage: SessionStorageAdapter;
   currentHost: string;
+  currentPathname: string;
   onClose?: () => void;
 }
 
@@ -38,7 +40,7 @@ export interface NotificationOptions {
  * Create and show the main notification
  */
 export function createNotification(options: NotificationOptions): HTMLElement {
-  const { match, settings, services, i18n, fetcher, sessionStorage, currentHost, onClose } = options;
+  const { match, settings, services, i18n, fetcher, sessionStorage, currentHost, currentPathname, onClose } = options;
   const service = match.service;
 
   // Create shadow host
@@ -97,7 +99,15 @@ export function createNotification(options: NotificationOptions): HTMLElement {
   const checklist = createChecklist(service, i18n);
 
   // Action button
-  const { actionBtn, recheckIcon } = createActionButton(match, service, i18n, sessionStorage, currentHost, content);
+  const { actionBtn, recheckIcon } = createActionButton(
+    match,
+    service,
+    i18n,
+    sessionStorage,
+    currentHost,
+    currentPathname,
+    content
+  );
 
   // Hide site link
   const hideSiteLink = document.createElement("span");
@@ -204,8 +214,12 @@ export function createNotification(options: NotificationOptions): HTMLElement {
     }
   });
 
-  // Adblock detection (skip for code-based and info-type services)
-  if (service.type !== "code" && service.type !== "info") {
+  // Adblock detection (skip for code-based, info-type, and disabled tracking services)
+  if (
+    service.type !== "code" &&
+    service.type !== "info" &&
+    actionBtn.getAttribute("aria-disabled") !== "true"
+  ) {
     const originalHref = actionBtn.getAttribute("href") || "";
     const originalText = actionBtn.childNodes[0]?.textContent || "";
 
@@ -225,16 +239,14 @@ export function createNotification(options: NotificationOptions): HTMLElement {
           if (actionBtn.childNodes[0]) {
             actionBtn.childNodes[0].textContent = i18n.getMessage("adblockerDetected");
           }
-          actionBtn.removeAttribute("href");
-          actionBtn.removeAttribute("target");
+          restoreActionButtonHref(actionBtn, "");
         } else {
           actionBtn.classList.remove("adblock");
           actionBtn.style.animation = "";
           if (actionBtn.childNodes[0]) {
             actionBtn.childNodes[0].textContent = originalText;
           }
-          actionBtn.setAttribute("href", originalHref);
-          actionBtn.setAttribute("target", "_blank");
+          restoreActionButtonHref(actionBtn, originalHref);
         }
       } catch {
         // On error, restore original state
@@ -243,8 +255,7 @@ export function createNotification(options: NotificationOptions): HTMLElement {
         if (actionBtn.childNodes[0]) {
           actionBtn.childNodes[0].textContent = originalText;
         }
-        actionBtn.setAttribute("href", originalHref);
-        actionBtn.setAttribute("target", "_blank");
+        restoreActionButtonHref(actionBtn, originalHref);
       } finally {
         recheckIcon.classList.remove("spinning");
       }
@@ -264,8 +275,7 @@ export function createNotification(options: NotificationOptions): HTMLElement {
         if (actionBtn.childNodes[0]) {
           actionBtn.childNodes[0].textContent = i18n.getMessage("adblockerDetected");
         }
-        actionBtn.removeAttribute("href");
-        actionBtn.removeAttribute("target");
+        restoreActionButtonHref(actionBtn, "");
       }
     }).catch(() => {
       // Silently ignore detection failures
@@ -438,19 +448,19 @@ function createActionButton(
   i18n: I18nAdapter,
   sessionStorage: SessionStorageAdapter,
   currentHost: string,
+  currentPathname: string,
   content: HTMLDivElement
 ): { actionBtn: HTMLAnchorElement; recheckIcon: HTMLSpanElement } {
   const actionBtn = document.createElement("a");
   actionBtn.className = "action-btn";
 
   // Build clickthrough URL
-  const baseUrl = service.clickthroughUrl || "";
-  const clickthroughUrl = baseUrl.includes("{urlName}")
-    ? baseUrl.replace("{urlName}", match.urlName || "")
-    : baseUrl;
-  actionBtn.target = "_blank";
-  actionBtn.rel = "noopener noreferrer";
-  actionBtn.href = clickthroughUrl;
+  const clickthroughUrl = resolveClickthroughUrl(
+    match.offer.clickthroughUrl,
+    service,
+    match.urlName || ""
+  );
+  restoreActionButtonHref(actionBtn, clickthroughUrl);
 
   // For code-based services, show the rebate code
   if (service.type === "code" && match.offer?.code) {
@@ -465,6 +475,11 @@ function createActionButton(
     copyIcon.textContent = "📋";
     copyIcon.title = i18n.getMessage("copyCode") || "Kopier kode";
     actionBtn.appendChild(copyIcon);
+  } else if (!clickthroughUrl) {
+    const trackingUnavailable = i18n.getMessage("trackingUnavailable");
+    actionBtn.textContent = trackingUnavailable;
+    actionBtn.title = trackingUnavailable;
+    actionBtn.setAttribute("aria-label", trackingUnavailable);
   } else if (service.type === "info") {
     actionBtn.textContent = i18n.getMessage("readMoreAboutDiscount");
   } else {
@@ -484,19 +499,32 @@ function createActionButton(
   }
   actionBtn.appendChild(recheckIcon);
 
+  const replayAdblockFeedback = () => {
+    actionBtn.style.animation = "shake 0.3s ease-in-out";
+    actionBtn.addEventListener("animationend", () => {
+      actionBtn.style.animation = "pulse 0.7s infinite alternate ease-in-out";
+    }, { once: true });
+  };
+
   // Click handler
   actionBtn.addEventListener("click", (e) => {
     // Don't proceed if adblock is detected - shake to indicate disabled
     if (actionBtn.classList.contains("adblock")) {
       e.preventDefault();
-      actionBtn.style.animation = "shake 0.3s ease-in-out";
-      actionBtn.addEventListener("animationend", () => {
-        actionBtn.style.animation = "pulse 0.7s infinite alternate ease-in-out";
-      }, { once: true });
+      replayAdblockFeedback();
       return;
     }
 
-    sessionStorage.set(`${MESSAGE_SHOWN_KEY_PREFIX}${currentHost}`, Date.now().toString());
+    const isDisabled = actionBtn.getAttribute("aria-disabled") === "true";
+    if (isDisabled && service.type !== "code") {
+      e.preventDefault();
+      return;
+    }
+    if (isDisabled) {
+      e.preventDefault();
+    }
+
+    sessionStorage.set(getMessageShownKey(currentHost, currentPathname), Date.now().toString());
 
     // Info-type services: just let the link open naturally
     if (service.type === "info") {

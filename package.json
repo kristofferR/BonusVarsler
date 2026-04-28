@@ -6,6 +6,7 @@
   "scripts": {
     "build": "bun run build.js",
     "build:src": "bun run scripts/bundle.ts",
+    "test": "bun test",
     "typecheck": "tsgo --noEmit"
   },
   "devDependencies": {

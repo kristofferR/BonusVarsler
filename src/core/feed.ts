@@ -18,6 +18,9 @@ export interface MerchantOffer {
   cashbackDescription: string;
   cashbackDetails?: CashbackDetail[];
   code?: string; // For code-based services (e.g., DNB)
+  clickthroughUrl?: string;
+  matchPathPrefix?: string;
+  matchPathCaseSensitive?: boolean;
 }
 
 /**

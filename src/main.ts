@@ -6,7 +6,7 @@
 import type { StorageAdapter, SessionStorageAdapter } from "./storage/types.js";
 import type { FetchAdapter } from "./network/types.js";
 import type { I18nAdapter } from "./i18n/types.js";
-import { MESSAGE_SHOWN_KEY_PREFIX, PAGE_VISIT_COUNT_PREFIX, CONFIG, STORAGE_KEYS } from "./config/constants.js";
+import { PAGE_VISIT_COUNT_PREFIX, CONFIG, STORAGE_KEYS, getMessageShownKey } from "./config/constants.js";
 import { DOMAIN_ALIASES } from "./config/domain-aliases.js";
 import { Settings } from "./core/settings.js";
 import { FeedManager } from "./core/feed.js";
@@ -28,7 +28,8 @@ export interface PlatformAdapters {
  */
 export function shouldBailOutEarly(
   sessionStorage: SessionStorageAdapter,
-  currentHost: string
+  currentHost: string,
+  currentPathname = "/"
 ): boolean {
   // Skip iframes entirely
   if (window.top !== window.self) return true;
@@ -45,7 +46,7 @@ export function shouldBailOutEarly(
   }
 
   // Check cooldown after N visits
-  const messageShownKey = `${MESSAGE_SHOWN_KEY_PREFIX}${currentHost}`;
+  const messageShownKey = getMessageShownKey(currentHost, currentPathname);
   const messageShownTime = sessionStorage.get(messageShownKey);
   if (messageShownTime) {
     const elapsed = Date.now() - parseInt(messageShownTime, 10);
@@ -60,9 +61,10 @@ export function shouldBailOutEarly(
  */
 export function markMessageShown(
   sessionStorage: SessionStorageAdapter,
-  currentHost: string
+  currentHost: string,
+  currentPathname = "/"
 ): void {
-  const messageShownKey = `${MESSAGE_SHOWN_KEY_PREFIX}${currentHost}`;
+  const messageShownKey = getMessageShownKey(currentHost, currentPathname);
   sessionStorage.set(messageShownKey, Date.now().toString());
 }
 
@@ -77,7 +79,8 @@ export type InitializeResult =
  */
 export async function initialize(
   adapters: PlatformAdapters,
-  currentHost: string
+  currentHost: string,
+  currentPathname = "/"
 ): Promise<InitializeResult> {
   const { storage, fetcher, i18n } = adapters;
 
@@ -108,7 +111,7 @@ export async function initialize(
   // Find best offer for this merchant
   const enabledServices = settings.getEnabledServices();
   const services = feedManager.getServices();
-  const match = findBestOffer(feed, currentHost, enabledServices, services);
+  const match = findBestOffer(feed, currentHost, enabledServices, services, currentPathname);
 
   if (!match) {
     return { status: "no-match", settings };

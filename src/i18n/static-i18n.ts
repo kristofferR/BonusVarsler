@@ -33,6 +33,7 @@ const NORWEGIAN_MESSAGES: Messages = {
   adblockerDetected: { message: "Adblocker funnet!" },
   checkingAdblock: { message: "Sjekker..." },
   checkAdblockAgain: { message: "Sjekk på nytt" },
+  trackingUnavailable: { message: "Sporing utilgjengelig" },
   adblockWarning: { message: "Adblock oppdaget!" },
   adblockNote: { message: "Du må skru av adblock for at sporingen skal fungere." },
 

@@ -22,10 +22,11 @@ import { SERVICES_FALLBACK } from "../config/services.js";
 // Immediate IIFE for early bailout
 (async function () {
   const currentHost = window.location.hostname;
+  const currentPathname = window.location.pathname;
   const sessionStorage = getGMSessionStorage();
 
   // Early bailout checks
-  if (shouldBailOutEarly(sessionStorage, currentHost)) {
+  if (shouldBailOutEarly(sessionStorage, currentHost, currentPathname)) {
     return;
   }
 
@@ -38,7 +39,7 @@ import { SERVICES_FALLBACK } from "../config/services.js";
   };
 
   // Initialize core
-  const result = await initialize(adapters, currentHost);
+  const result = await initialize(adapters, currentHost, currentPathname);
   const { storage, fetcher, i18n } = adapters;
 
   // Blocked sites get no UI at all
@@ -117,7 +118,7 @@ import { SERVICES_FALLBACK } from "../config/services.js";
   const { settings, feedManager, match } = result;
 
   // Mark message as shown
-  markMessageShown(sessionStorage, currentHost);
+  markMessageShown(sessionStorage, currentHost, currentPathname);
 
   // Create and show notification
   createNotification({
@@ -128,5 +129,6 @@ import { SERVICES_FALLBACK } from "../config/services.js";
     fetcher,
     sessionStorage,
     currentHost,
+    currentPathname,
   });
 })();

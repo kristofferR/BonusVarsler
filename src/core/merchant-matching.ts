@@ -135,6 +135,39 @@ function tryHost(merchants: Record<string, Merchant>, host: string): Merchant | 
   return null;
 }
 
+function normalizePathPrefix(pathname: string, caseSensitive = false): string {
+  const normalized = pathname.startsWith("/") ? pathname : `/${pathname}`;
+  const withoutTrailingSlash = normalized.replace(/\/+$/, "") || "/";
+  return caseSensitive ? withoutTrailingSlash : withoutTrailingSlash.toLowerCase();
+}
+
+function offerMatchesPath(offer: MerchantOffer, currentPathname: string): boolean {
+  if (!offer.matchPathPrefix) {
+    return true;
+  }
+
+  const caseSensitive = Boolean(offer.matchPathCaseSensitive);
+  const currentPath = normalizePathPrefix(currentPathname, caseSensitive);
+  const offerPath = normalizePathPrefix(offer.matchPathPrefix, caseSensitive);
+
+  if (offerPath === "/") {
+    return currentPath === "/";
+  }
+
+  return currentPath === offerPath || currentPath.startsWith(`${offerPath}/`);
+}
+
+function getOfferPathSpecificity(offer: MerchantOffer): number {
+  if (!offer.matchPathPrefix) {
+    return -1;
+  }
+
+  return normalizePathPrefix(
+    offer.matchPathPrefix,
+    Boolean(offer.matchPathCaseSensitive)
+  ).length;
+}
+
 /**
  * Find merchant by host and return the best offer from enabled services
  */
@@ -142,7 +175,8 @@ export function findBestOffer(
   feed: FeedData,
   currentHost: string,
   enabledServices: string[],
-  services: ServiceRegistry = SERVICES_FALLBACK
+  services: ServiceRegistry = SERVICES_FALLBACK,
+  currentPathname = "/"
 ): MatchResult | null {
   if (!feed?.merchants) {
     return null;
@@ -178,8 +212,10 @@ export function findBestOffer(
   // Handle unified feed format (with offers array)
   if (isUnified && merchant.offers) {
     // Filter to enabled services only
-    const availableOffers = merchant.offers.filter((offer) =>
-      enabledServices.includes(offer.serviceId)
+    const availableOffers = merchant.offers.filter(
+      (offer) =>
+        enabledServices.includes(offer.serviceId) &&
+        offerMatchesPath(offer, currentPathname)
     );
 
     if (availableOffers.length === 0) {
@@ -188,6 +224,12 @@ export function findBestOffer(
 
     // Sort by rate (best first)
     availableOffers.sort((a, b) => {
+      const specificityA = getOfferPathSpecificity(a);
+      const specificityB = getOfferPathSpecificity(b);
+      if (specificityA !== specificityB) {
+        return specificityB - specificityA;
+      }
+
       const rateA = parseCashbackRate(a.cashbackDescription);
       const rateB = parseCashbackRate(b.cashbackDescription);
       return compareCashbackRates(rateA, rateB);
