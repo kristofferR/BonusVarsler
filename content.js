@@ -2572,9 +2572,6 @@
     panel.className = "settings";
     const servicesRow = document.createElement("div");
     servicesRow.className = "setting-row";
-    const servicesLabel = document.createElement("span");
-    servicesLabel.className = "setting-label";
-    servicesLabel.textContent = i18n.getMessage("services");
     const servicesContainer = document.createElement("div");
     for (const svc of Object.values(services)) {
       const row = document.createElement("div");
@@ -2606,7 +2603,6 @@
       row.appendChild(toggle);
       servicesContainer.appendChild(row);
     }
-    servicesRow.appendChild(servicesLabel);
     servicesRow.appendChild(servicesContainer);
     const settingsGrid = document.createElement("div");
     settingsGrid.className = "settings-grid";

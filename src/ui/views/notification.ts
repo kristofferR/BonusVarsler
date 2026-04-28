@@ -611,10 +611,6 @@ function createSettingsPanel(
   const servicesRow = document.createElement("div");
   servicesRow.className = "setting-row";
 
-  const servicesLabel = document.createElement("span");
-  servicesLabel.className = "setting-label";
-  servicesLabel.textContent = i18n.getMessage("services");
-
   const servicesContainer = document.createElement("div");
 
   for (const svc of Object.values(services)) {
@@ -656,7 +652,6 @@ function createSettingsPanel(
     servicesContainer.appendChild(row);
   }
 
-  servicesRow.appendChild(servicesLabel);
   servicesRow.appendChild(servicesContainer);
 
   // Settings grid
