@@ -16,6 +16,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Validate LogBuy secrets
+        env:
+          LOGBUY_USERNAME: ${{ secrets.LOGBUY_USERNAME }}
+          LOGBUY_PASSWORD: ${{ secrets.LOGBUY_PASSWORD }}
+          LOGBUY_ACCESSKEY: ${{ secrets.LOGBUY_ACCESSKEY }}
+        run: |
+          missing=0
+          for name in LOGBUY_USERNAME LOGBUY_PASSWORD LOGBUY_ACCESSKEY; do
+            if [ -z "${!name}" ]; then
+              echo "::error::$name repository secret is required for LogBuy scraping"
+              missing=1
+            fi
+          done
+          exit "$missing"
+
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
 
@@ -26,6 +41,10 @@ jobs:
         run: cd scripts && bunx playwright install chromium --with-deps
 
       - name: Run scraper
+        env:
+          LOGBUY_USERNAME: ${{ secrets.LOGBUY_USERNAME }}
+          LOGBUY_PASSWORD: ${{ secrets.LOGBUY_PASSWORD }}
+          LOGBUY_ACCESSKEY: ${{ secrets.LOGBUY_ACCESSKEY }}
         run: bun scripts/scrape-feeds.ts
 
       - name: Copy sitelist to root (minified, used by extension CDN)

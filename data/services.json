@@ -48,5 +48,14 @@
     "color": "#66083c",
     "defaultEnabled": false,
     "type": "info"
+  },
+  "logbuy": {
+    "id": "logbuy",
+    "name": "Visma LogBuy",
+    "clickthroughUrl": "https://www.mylogbuy.com/WebPages/ShowDeal/Default.aspx?SupplierInfoId={urlName}&ContentSet=B2C&CustomerId=101274",
+    "reminderDomain": "mylogbuy.com",
+    "cashbackPathPatterns": ["/WebPages/ShowDeal/"],
+    "color": "#ee2e24",
+    "defaultEnabled": false
   }
 }

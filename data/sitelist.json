@@ -42,6 +42,16 @@
       "color": "#66083c",
       "defaultEnabled": false,
       "type": "info"
+    },
+    "logbuy": {
+      "name": "Visma LogBuy",
+      "clickthroughUrl": "https://www.mylogbuy.com/WebPages/ShowDeal/Default.aspx?SupplierInfoId={urlName}&ContentSet=B2C&CustomerId=101274",
+      "color": "#ee2e24",
+      "defaultEnabled": false,
+      "reminderDomain": "mylogbuy.com",
+      "cashbackPathPatterns": [
+        "/WebPages/ShowDeal/"
+      ]
     }
   },
   "merchants": {
@@ -58,6 +68,11 @@
           "serviceId": "remember",
           "urlName": "hotels",
           "cashbackDescription": "7%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20481",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -80,6 +95,11 @@
           "serviceId": "trumf",
           "urlName": "h-and-m-trumf",
           "cashbackDescription": "2,3 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20503",
+          "cashbackDescription": "6 %"
         }
       ]
     },
@@ -111,6 +131,11 @@
           "serviceId": "lofavor",
           "urlName": "ferie-og-fritid/strawberry",
           "cashbackDescription": "15 % rabatt"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20483",
+          "cashbackDescription": "15 %"
         }
       ]
     },
@@ -122,6 +147,11 @@
           "serviceId": "trumf",
           "urlName": "blivakker-trumf",
           "cashbackDescription": "4,6 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20501",
+          "cashbackDescription": "5 - 25 %"
         }
       ]
     },
@@ -229,6 +259,11 @@
           "serviceId": "trumf",
           "urlName": "trumfradissonhotels",
           "cashbackDescription": "6,2 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20506",
+          "cashbackDescription": "25 %"
         }
       ]
     },
@@ -343,6 +378,11 @@
           "serviceId": "trumf",
           "urlName": "trumfapple-store",
           "cashbackDescription": "2,7 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20676",
+          "cashbackDescription": "2 - 10 %"
         }
       ]
     },
@@ -451,6 +491,11 @@
           "serviceId": "remember",
           "urlName": "gymgrossisten",
           "cashbackDescription": "4%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20488",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -478,6 +523,11 @@
           "serviceId": "remember",
           "urlName": "nelly.com",
           "cashbackDescription": "3%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20524",
+          "cashbackDescription": "5 - 10 %"
         }
       ]
     },
@@ -494,6 +544,11 @@
           "serviceId": "remember",
           "urlName": "adlibris",
           "cashbackDescription": "6%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20492",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -505,6 +560,11 @@
           "serviceId": "trumf",
           "urlName": "nordic-nest-trumf",
           "cashbackDescription": "2,3 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20946",
+          "cashbackDescription": "5 %"
         }
       ]
     },
@@ -630,6 +690,11 @@
           "serviceId": "remember",
           "urlName": "adidas",
           "cashbackDescription": "6%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "22345",
+          "cashbackDescription": "15 %"
         }
       ]
     },
@@ -679,6 +744,11 @@
           "serviceId": "trumf",
           "urlName": "mimmistrumf",
           "cashbackDescription": "3,1 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21383",
+          "cashbackDescription": "15 %"
         }
       ]
     },
@@ -728,6 +798,11 @@
           "urlName": "",
           "cashbackDescription": "10%",
           "code": "DNB8787"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "22235",
+          "cashbackDescription": "15 %"
         }
       ]
     },
@@ -794,6 +869,11 @@
           "urlName": "",
           "cashbackDescription": "10%",
           "code": "DNB8787"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "22068",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -810,6 +890,11 @@
           "serviceId": "remember",
           "urlName": "bodystore.no",
           "cashbackDescription": "4%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20461",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -854,6 +939,11 @@
           "serviceId": "remember",
           "urlName": "framsport",
           "cashbackDescription": "6%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21014",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -876,6 +966,11 @@
           "serviceId": "trumf",
           "urlName": "trumflampegiganten",
           "cashbackDescription": "7,8 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20469",
+          "cashbackDescription": "10 - 15 %"
         }
       ]
     },
@@ -903,6 +998,11 @@
           "serviceId": "trumf",
           "urlName": "new-balance-trumf",
           "cashbackDescription": "3,9 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "22234",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -1097,6 +1197,11 @@
           "serviceId": "remember",
           "urlName": "computersalg",
           "cashbackDescription": "4%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21781",
+          "cashbackDescription": "2 %"
         }
       ]
     },
@@ -1173,6 +1278,11 @@
           "serviceId": "remember",
           "urlName": "inkclub2.com",
           "cashbackDescription": "15%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20468",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -1184,6 +1294,11 @@
           "serviceId": "trumf",
           "urlName": "zoo-trumfs",
           "cashbackDescription": "Opptil            \n\t            6,2 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20878",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -1266,6 +1381,11 @@
           "serviceId": "trumf",
           "urlName": "sembo-trumf",
           "cashbackDescription": "Opptil            \n\t            5,4 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20484",
+          "cashbackDescription": "8 - 70 %"
         }
       ]
     },
@@ -1304,6 +1424,11 @@
           "serviceId": "remember",
           "urlName": "dyson",
           "cashbackDescription": "4%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21541",
+          "cashbackDescription": "Tilbud"
         }
       ]
     },
@@ -1331,6 +1456,11 @@
           "serviceId": "remember",
           "urlName": "proteinfabrikken",
           "cashbackDescription": "4%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20490",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -1440,6 +1570,11 @@
           "serviceId": "obos",
           "urlName": "samsung",
           "cashbackDescription": "30 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20664",
+          "cashbackDescription": "50 %"
         }
       ]
     },
@@ -1544,6 +1679,11 @@
           "serviceId": "naf",
           "urlName": "karcher",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21500",
+          "cashbackDescription": "25 %"
         }
       ]
     },
@@ -1561,6 +1701,11 @@
           "urlName": "",
           "cashbackDescription": "10%",
           "code": "DNB8787"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "22183",
+          "cashbackDescription": "15 %"
         }
       ]
     },
@@ -1572,6 +1717,11 @@
           "serviceId": "trumf",
           "urlName": "dyrekassen-trumf",
           "cashbackDescription": "Opptil            \n\t            6,2 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "22150",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -1604,6 +1754,11 @@
           "serviceId": "naf",
           "urlName": "brilleland",
           "cashbackDescription": "Opptil 50 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20502",
+          "cashbackDescription": "10 - 20 %"
         }
       ]
     },
@@ -1783,6 +1938,11 @@
           "urlName": "",
           "cashbackDescription": "10%",
           "code": "DNB8787"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21387",
+          "cashbackDescription": "10 - 40 %"
         }
       ]
     },
@@ -1860,6 +2020,11 @@
           "serviceId": "remember",
           "urlName": "nly-man",
           "cashbackDescription": "4%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20523",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -1936,6 +2101,11 @@
           "serviceId": "remember",
           "urlName": "husqvarna",
           "cashbackDescription": "4%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21207",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -1952,6 +2122,11 @@
           "serviceId": "remember",
           "urlName": "db-journey",
           "cashbackDescription": "5%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21700",
+          "cashbackDescription": "15 %"
         }
       ]
     },
@@ -1979,6 +2154,11 @@
           "serviceId": "remember",
           "urlName": "storytel",
           "cashbackDescription": "45 kr"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20495",
+          "cashbackDescription": "Tilbud"
         }
       ]
     },
@@ -1990,6 +2170,11 @@
           "serviceId": "trumf",
           "urlName": "electrolux-trumf",
           "cashbackDescription": "3,1 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20448",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -2039,6 +2224,11 @@
           "serviceId": "trumf",
           "urlName": "ideal-of-sweden-trumf",
           "cashbackDescription": "9,3 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20475",
+          "cashbackDescription": "16 %"
         }
       ]
     },
@@ -2082,6 +2272,11 @@
           "serviceId": "remember",
           "urlName": "jbl",
           "cashbackDescription": "4%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21212",
+          "cashbackDescription": "10 - 20 %"
         }
       ]
     },
@@ -2142,6 +2337,11 @@
           "serviceId": "remember",
           "urlName": "bjorn-borg",
           "cashbackDescription": "10%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21757",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -2153,6 +2353,11 @@
           "serviceId": "trumf",
           "urlName": "bosch-trumf1",
           "cashbackDescription": "3,9 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "22261",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -2175,6 +2380,11 @@
           "serviceId": "trumf",
           "urlName": "nextory-trumfs",
           "cashbackDescription": "35 kr"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20925",
+          "cashbackDescription": "Tilbud"
         }
       ]
     },
@@ -2191,6 +2401,11 @@
           "serviceId": "remember",
           "urlName": "homeroom",
           "cashbackDescription": "5%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21495",
+          "cashbackDescription": "5 - 15 %"
         }
       ]
     },
@@ -2245,6 +2460,11 @@
           "serviceId": "trumf",
           "urlName": "maanesten-trumf",
           "cashbackDescription": "8,9 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21461",
+          "cashbackDescription": "15 %"
         }
       ]
     },
@@ -2284,6 +2504,11 @@
           "serviceId": "trumf",
           "urlName": "petxl-trumf",
           "cashbackDescription": "Opptil            \n\t            6,2 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "22139",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -2306,6 +2531,11 @@
           "serviceId": "trumf",
           "urlName": "kinoklubben-trumf",
           "cashbackDescription": "35 kr"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21387",
+          "cashbackDescription": "10 - 40 %"
         }
       ]
     },
@@ -2443,6 +2673,11 @@
           "serviceId": "trumf",
           "urlName": "comforth-scandinavia-trumf",
           "cashbackDescription": "15,6 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21142",
+          "cashbackDescription": "15 %"
         }
       ]
     },
@@ -2487,6 +2722,11 @@
           "serviceId": "trumf",
           "urlName": "bookbeat-trumf",
           "cashbackDescription": "75 kr"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21735",
+          "cashbackDescription": "Tilbud"
         }
       ]
     },
@@ -2672,6 +2912,11 @@
           "serviceId": "remember",
           "urlName": "lexington",
           "cashbackDescription": "8%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "22265",
+          "cashbackDescription": "15 %"
         }
       ]
     },
@@ -2683,6 +2928,11 @@
           "serviceId": "trumf",
           "urlName": "jlindeberg-trumf",
           "cashbackDescription": "4,6 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21839",
+          "cashbackDescription": "15 %"
         }
       ]
     },
@@ -2738,6 +2988,11 @@
           "urlName": "",
           "cashbackDescription": "10%",
           "code": "DNB8787"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21332",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -2832,6 +3087,11 @@
           "urlName": "",
           "cashbackDescription": "10%",
           "code": "DNB8787"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21040",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -3023,6 +3283,11 @@
           "serviceId": "remember",
           "urlName": "stiga-sports",
           "cashbackDescription": "10%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21811",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -3160,6 +3425,11 @@
           "serviceId": "trumf",
           "urlName": "aeg-trumf",
           "cashbackDescription": "3,1 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20464",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -3242,6 +3512,11 @@
           "serviceId": "remember",
           "urlName": "interhome",
           "cashbackDescription": "10%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20482",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -3883,6 +4158,11 @@
           "serviceId": "remember",
           "urlName": "ellos",
           "cashbackDescription": "8%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21167",
+          "cashbackDescription": "5 - 15 %"
         }
       ]
     },
@@ -3894,6 +4174,11 @@
           "serviceId": "remember",
           "urlName": "euroflorist",
           "cashbackDescription": "10%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20442",
+          "cashbackDescription": "12 %"
         }
       ]
     },
@@ -3976,6 +4261,11 @@
           "serviceId": "remember",
           "urlName": "godt-levert",
           "cashbackDescription": "25%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20463",
+          "cashbackDescription": "35 %"
         }
       ]
     },
@@ -4009,6 +4299,11 @@
           "serviceId": "remember",
           "urlName": "hellofresh",
           "cashbackDescription": "200 kr"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20453",
+          "cashbackDescription": "Tilbud"
         }
       ]
     },
@@ -4236,6 +4531,11 @@
               "description": "i reward-rabatt på elektronikk, tilbehør transport og lagring"
             }
           ]
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21825",
+          "cashbackDescription": "15 %"
         }
       ]
     },
@@ -4258,6 +4558,11 @@
           "serviceId": "remember",
           "urlName": "royal-design",
           "cashbackDescription": "5%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "22121",
+          "cashbackDescription": "7 %"
         }
       ]
     },
@@ -4291,6 +4596,11 @@
           "serviceId": "remember",
           "urlName": "rum21",
           "cashbackDescription": "5%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "22120",
+          "cashbackDescription": "7 %"
         }
       ]
     },
@@ -4462,6 +4772,11 @@
           "urlName": "",
           "cashbackDescription": "10%",
           "code": "DNB8787"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20699",
+          "cashbackDescription": "12 %"
         }
       ]
     },
@@ -5112,6 +5427,11 @@
           "serviceId": "naf",
           "urlName": "anton-sport",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21165",
+          "cashbackDescription": "Tilbud"
         }
       ]
     },
@@ -5128,6 +5448,11 @@
           "serviceId": "lofavor",
           "urlName": "ferie-og-fritid/feriereiser",
           "cashbackDescription": "350 kroner i rabatt"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20707",
+          "cashbackDescription": "Tilbud"
         }
       ]
     },
@@ -5242,6 +5567,11 @@
           "serviceId": "naf",
           "urlName": "hurtiglading-circle-k",
           "cashbackDescription": "100 kroner i rabatt"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20455",
+          "cashbackDescription": "Tilbud"
         }
       ]
     },
@@ -5302,6 +5632,11 @@
           "serviceId": "obos",
           "urlName": "evo",
           "cashbackDescription": ""
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21185",
+          "cashbackDescription": "Tilbud"
         }
       ]
     },
@@ -5378,6 +5713,11 @@
         {
           "serviceId": "obos",
           "urlName": "hadeland-glassverk",
+          "cashbackDescription": "30 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21695",
           "cashbackDescription": "30 %"
         }
       ]
@@ -5554,6 +5894,11 @@
         {
           "serviceId": "obos",
           "urlName": "kongeparken-1",
+          "cashbackDescription": "25 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "22307",
           "cashbackDescription": "25 %"
         }
       ]
@@ -5846,6 +6191,11 @@
           "serviceId": "obos",
           "urlName": "sector-alarm",
           "cashbackDescription": ""
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20472",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -5956,6 +6306,11 @@
           "serviceId": "obos",
           "urlName": "talkmore",
           "cashbackDescription": ""
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20476",
+          "cashbackDescription": "10 - 20 %"
         }
       ]
     },
@@ -6142,6 +6497,11 @@
           "serviceId": "naf",
           "urlName": "dekk",
           "cashbackDescription": "5 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20456",
+          "cashbackDescription": "8 - 25 %"
         }
       ]
     },
@@ -6153,6 +6513,11 @@
           "serviceId": "naf",
           "urlName": "riis-bilglass",
           "cashbackDescription": "5 % rabatt"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20457",
+          "cashbackDescription": "20 - 30 %"
         }
       ]
     },
@@ -6323,6 +6688,11 @@
           "serviceId": "naf",
           "urlName": "flight-park",
           "cashbackDescription": "12 % rabatt"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20479",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -6356,6 +6726,11 @@
           "serviceId": "lofavor",
           "urlName": "ferie-og-opplevelser/leiebil",
           "cashbackDescription": "15 % rabatt"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20460",
+          "cashbackDescription": "10 - 25 %"
         }
       ]
     },
@@ -6422,6 +6797,484 @@
           "serviceId": "lofavor",
           "urlName": "hus-og-hjem/strom",
           "cashbackDescription": ""
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20467",
+          "cashbackDescription": "Tilbud"
+        }
+      ]
+    },
+    "fyriresort.com": {
+      "hostName": "fyriresort.com",
+      "name": "Fyri Resort",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "21830",
+          "cashbackDescription": "15 - 25 %"
+        }
+      ]
+    },
+    "www.oluf.no": {
+      "hostName": "www.oluf.no",
+      "name": "Oluf Lorentzen",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "20443",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "www.vegetarhuset.no": {
+      "hostName": "www.vegetarhuset.no",
+      "name": "Vegetarhuset",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "20449",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "www.cewe.no": {
+      "hostName": "www.cewe.no",
+      "name": "CEWE",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "20465",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "www.lirumlarumleg.no": {
+      "hostName": "www.lirumlarumleg.no",
+      "name": "Lirum Larum Leg",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "20471",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "thaugland.no": {
+      "hostName": "thaugland.no",
+      "name": "Thaugland",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "20473",
+          "cashbackDescription": "30 %"
+        }
+      ]
+    },
+    "www.firsthotels.com": {
+      "hostName": "www.firsthotels.com",
+      "name": "First Hotels",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "20478",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "www.fjellsport.no": {
+      "hostName": "www.fjellsport.no",
+      "name": "Fjellsport.no",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "20487",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "podimo.com": {
+      "hostName": "podimo.com",
+      "name": "Podimo",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "20494",
+          "cashbackDescription": "Tilbud"
+        }
+      ]
+    },
+    "sapatos.com": {
+      "hostName": "sapatos.com",
+      "name": "Sapatos",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "20505",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "www.sixt.no": {
+      "hostName": "www.sixt.no",
+      "name": "Sixt",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "20867",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "www.squeeze.no": {
+      "hostName": "www.squeeze.no",
+      "name": "Squeeze",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "21026",
+          "cashbackDescription": "Tilbud"
+        }
+      ]
+    },
+    "www.dominos.no": {
+      "hostName": "www.dominos.no",
+      "name": "Domino's Pizza",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "21101",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "dekkpartner.no": {
+      "hostName": "dekkpartner.no",
+      "name": "Dekkpartner",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "21110",
+          "cashbackDescription": "5 %"
+        }
+      ]
+    },
+    "braasport.no": {
+      "hostName": "braasport.no",
+      "name": "Braasport",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "21213",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "www.skittfiske.no": {
+      "hostName": "www.skittfiske.no",
+      "name": "Skitt Fiske",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "21367",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "cutters.no": {
+      "hostName": "cutters.no",
+      "name": "Cutters",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "21370",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "envelope1976.no": {
+      "hostName": "envelope1976.no",
+      "name": "Envelope1976",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "21407",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "www.philips.no": {
+      "hostName": "www.philips.no",
+      "name": "Philips",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "21552",
+          "cashbackDescription": "40 %"
+        }
+      ]
+    },
+    "knitteriet.no": {
+      "hostName": "knitteriet.no",
+      "name": "Knitteriet",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "21612",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "www.blid.no": {
+      "hostName": "www.blid.no",
+      "name": "Blid Tannlege",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "21662",
+          "cashbackDescription": "Tilbud"
+        }
+      ]
+    },
+    "www.porsgrund.com": {
+      "hostName": "www.porsgrund.com",
+      "name": "Porsgrunds Porselænsfabrik",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "21696",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "butikk.ragnsells.no": {
+      "hostName": "butikk.ragnsells.no",
+      "name": "Ragn-Sells: Containerutleie",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "21718",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "www.dbs.no": {
+      "hostName": "www.dbs.no",
+      "name": "DBS",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "21731",
+          "cashbackDescription": "15 - 25 %"
+        }
+      ]
+    },
+    "byvoks.com": {
+      "hostName": "byvoks.com",
+      "name": "Byvoks",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "21823",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "www.mycruise.no": {
+      "hostName": "www.mycruise.no",
+      "name": "MyCruise",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "21841",
+          "cashbackDescription": "5 %"
+        }
+      ]
+    },
+    "www.luftig.no": {
+      "hostName": "www.luftig.no",
+      "name": "Luftig",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "21842",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "wright.no": {
+      "hostName": "wright.no",
+      "name": "Wright Trafikkskole",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "21906",
+          "cashbackDescription": "5 - 10 %"
+        }
+      ]
+    },
+    "www.nespresso.com": {
+      "hostName": "www.nespresso.com",
+      "name": "Nespresso",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "22008",
+          "cashbackDescription": "25 - 30 %"
+        }
+      ]
+    },
+    "www.drdropin.no": {
+      "hostName": "www.drdropin.no",
+      "name": "Dr.Dropin",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "22010",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "naardic.no": {
+      "hostName": "naardic.no",
+      "name": "Naardic",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "22011",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "www.essgroup.se": {
+      "hostName": "www.essgroup.se",
+      "name": "ESS Group",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "22020",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "www.albatros.no": {
+      "hostName": "www.albatros.no",
+      "name": "Albatros Travel",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "22026",
+          "cashbackDescription": "4 %"
+        }
+      ]
+    },
+    "vindux.no": {
+      "hostName": "vindux.no",
+      "name": "Vindux",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "22070",
+          "cashbackDescription": "40 %"
+        }
+      ]
+    },
+    "sumorestaurant.no": {
+      "hostName": "sumorestaurant.no",
+      "name": "Sumo Restaurant",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "22201",
+          "cashbackDescription": "15 - 25 %"
+        }
+      ]
+    },
+    "incover.no": {
+      "hostName": "incover.no",
+      "name": "Incover",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "22221",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "www.sportsnett.no": {
+      "hostName": "www.sportsnett.no",
+      "name": "Sportsnett",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "22245",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "www.espegard.no": {
+      "hostName": "www.espegard.no",
+      "name": "Espegard",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "22254",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "www.canadian-outdoor.no": {
+      "hostName": "www.canadian-outdoor.no",
+      "name": "Canadian Outdoor",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "22255",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "heialbert.no": {
+      "hostName": "heialbert.no",
+      "name": "Albert",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "22267",
+          "cashbackDescription": "27 %"
+        }
+      ]
+    },
+    "ion.stille.no": {
+      "hostName": "ion.stille.no",
+      "name": "Stille",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "22284",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "sisicph.no": {
+      "hostName": "sisicph.no",
+      "name": "Sisi Copenhagen",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "22290",
+          "cashbackDescription": "10 - 15 %"
+        }
+      ]
+    },
+    "www.flowlife.com": {
+      "hostName": "www.flowlife.com",
+      "name": "Flowlife",
+      "offers": [
+        {
+          "serviceId": "logbuy",
+          "urlName": "22408",
+          "cashbackDescription": "20 %"
         }
       ]
     }
