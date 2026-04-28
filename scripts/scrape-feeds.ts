@@ -13,7 +13,9 @@
  */
 
 import { chromium, type Page, type Browser } from "playwright";
+import { lookup } from "dns/promises";
 import { readFile, writeFile } from "fs/promises";
+import { isIP } from "net";
 import { join } from "path";
 
 // ===================
@@ -32,8 +34,12 @@ const LOGBUY_SEARCH_PAGE_SIZE = 250;
 const LOGBUY_MAX_SEARCH_PAGES = 100;
 const LOGBUY_API_TIMEOUT_MS = 15000;
 const LOGBUY_REDIRECT_TIMEOUT_MS = 8000;
+const LOGBUY_MAX_REDIRECTS = 5;
 const LOGBUY_DEAL_CONCURRENCY = 8;
 const LOGBUY_FALLBACK_DESCRIPTION = "Rabatt";
+const LOGBUY_REDIRECT_USER_AGENT =
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36";
+const publicHostLookupCache = new Map<string, Promise<boolean>>();
 
 const LOGBUY_INTERNAL_DOMAINS = [
   "mylogbuy.com",
@@ -227,7 +233,7 @@ interface ServiceRunResult {
  *
  * Validations performed: cache file exists and parses as JSON, contains array entries for all monitored services
  * (`trumfMerchants`, `rememberMerchants`, `dnbMerchants`, `obosMerchants`, `nafMerchants`, `lofavorMerchants`, `logbuyMerchants`),
- * every LogBuy merchant has a numeric `slug`, and the cache timestamp is newer than `CACHE_MAX_AGE`.
+ * has a well-formed `urlNameToHostname` map, every LogBuy merchant has a numeric `slug`, and the cache timestamp is newer than `CACHE_MAX_AGE`.
  *
  * @returns The parsed `ScraperCache` when present and valid; `null` otherwise.
  */
@@ -244,10 +250,22 @@ async function loadCache(): Promise<ScraperCache | null> {
       Array.isArray(cache.nafMerchants) &&
       Array.isArray(cache.lofavorMerchants) &&
       Array.isArray(cache.logbuyMerchants);
+    const hasUrlNameToHostname =
+      typeof cache.urlNameToHostname === "object" &&
+      cache.urlNameToHostname !== null &&
+      !Array.isArray(cache.urlNameToHostname) &&
+      Object.values(cache.urlNameToHostname).every(
+        (hostname) => typeof hostname === "string" && hostname.length > 0
+      );
     const hasCurrentLogbuyShape =
       hasAllServiceData &&
       cache.logbuyMerchants.every((merchant) => /^\d+$/.test(merchant.slug));
-    if (age < CACHE_MAX_AGE && hasAllServiceData && hasCurrentLogbuyShape) {
+    if (
+      age < CACHE_MAX_AGE &&
+      hasAllServiceData &&
+      hasUrlNameToHostname &&
+      hasCurrentLogbuyShape
+    ) {
       return cache;
     }
   } catch {
@@ -2115,6 +2133,138 @@ function isUsableLogbuyStoreUrl(url: string): boolean {
   return !isLogbuyInternalDomain(hostname) && !isLogbuyTrackingDomain(hostname);
 }
 
+function parseIpv4Octets(address: string): number[] | null {
+  const parts = address.split(".");
+  if (parts.length !== 4) {
+    return null;
+  }
+
+  const octets = parts.map((part) => Number.parseInt(part, 10));
+  if (
+    octets.some(
+      (octet, index) =>
+        !Number.isInteger(octet) ||
+        octet < 0 ||
+        octet > 255 ||
+        String(octet) !== parts[index]
+    )
+  ) {
+    return null;
+  }
+
+  return octets;
+}
+
+function isNonPublicIpv4Address(address: string): boolean {
+  const octets = parseIpv4Octets(address);
+  if (!octets) {
+    return true;
+  }
+
+  const [a, b, c] = octets;
+  if (a === undefined || b === undefined || c === undefined) {
+    return true;
+  }
+
+  return (
+    a === 0 ||
+    a === 10 ||
+    a === 127 ||
+    (a === 100 && b >= 64 && b <= 127) ||
+    (a === 169 && b === 254) ||
+    (a === 172 && b >= 16 && b <= 31) ||
+    (a === 192 && b === 0 && c === 0) ||
+    (a === 192 && b === 0 && c === 2) ||
+    (a === 192 && b === 168) ||
+    (a === 198 && (b === 18 || b === 19)) ||
+    (a === 198 && b === 51 && c === 100) ||
+    (a === 203 && b === 0 && c === 113) ||
+    a >= 224
+  );
+}
+
+function isNonPublicIpv6Address(address: string): boolean {
+  const normalized = address.toLowerCase();
+  const ipv4Mapped = normalized.match(/^::ffff:(\d+\.\d+\.\d+\.\d+)$/);
+  if (ipv4Mapped?.[1]) {
+    return isNonPublicIpv4Address(ipv4Mapped[1]);
+  }
+
+  const firstHextet = Number.parseInt(normalized.split(":")[0] || "0", 16);
+  return (
+    normalized === "::" ||
+    normalized === "::1" ||
+    normalized.startsWith("fc") ||
+    normalized.startsWith("fd") ||
+    (firstHextet >= 0xfe80 && firstHextet <= 0xfebf) ||
+    normalized.startsWith("ff") ||
+    normalized.startsWith("2001:db8:")
+  );
+}
+
+function isPublicIpAddress(address: string): boolean {
+  const family = isIP(address);
+  if (family === 4) {
+    return !isNonPublicIpv4Address(address);
+  }
+
+  if (family === 6) {
+    return !isNonPublicIpv6Address(address);
+  }
+
+  return false;
+}
+
+function isLocalHostname(hostname: string): boolean {
+  const normalized = hostname.replace(/^\[|\]$/g, "").toLowerCase();
+  return (
+    normalized === "localhost" ||
+    normalized.endsWith(".localhost") ||
+    normalized.endsWith(".local") ||
+    normalized.endsWith(".lan") ||
+    normalized.endsWith(".internal") ||
+    normalized.endsWith(".home.arpa")
+  );
+}
+
+async function isPublicFetchTarget(rawUrl: string): Promise<boolean> {
+  try {
+    const url = new URL(rawUrl);
+    if (url.protocol !== "http:" && url.protocol !== "https:") {
+      return false;
+    }
+
+    const hostname = url.hostname.replace(/^\[|\]$/g, "").toLowerCase();
+    if (isLocalHostname(hostname)) {
+      return false;
+    }
+
+    if (isIP(hostname)) {
+      return isPublicIpAddress(hostname);
+    }
+
+    let lookupResult = publicHostLookupCache.get(hostname);
+    if (!lookupResult) {
+      lookupResult = lookup(hostname, { all: true })
+        .then(
+          (addresses) =>
+            addresses.length > 0 &&
+            addresses.every((address) => isPublicIpAddress(address.address))
+        )
+        .catch(() => false);
+      publicHostLookupCache.set(hostname, lookupResult);
+    }
+
+    return lookupResult;
+  } catch {
+    return false;
+  }
+}
+
+async function isSafeLogbuyStoreUrl(url: string): Promise<boolean> {
+  return isUsableLogbuyStoreUrl(url) && (await isPublicFetchTarget(url));
+}
+
 /**
  * Extracts all HTTP(S) URLs from the input string.
  *
@@ -2500,14 +2650,14 @@ async function loadLogbuyDomainMappings(): Promise<Record<string, string>> {
 /**
  * Resolve a LogBuy deal or tracking URL to a final usable merchant storefront URL.
  *
- * Attempts to extract a nested target URL or validate the input as a direct usable store URL. If the URL appears to be a LogBuy tracking/redirect link, the function will follow redirects and inspect returned HTML for embedded redirect targets to determine a resolvable store URL.
+ * Attempts to extract a nested target URL or validate the input as a direct usable store URL. If the URL appears to be a LogBuy tracking/redirect link, the function follows redirects manually and validates each hop before fetching it, then inspects returned HTML for embedded redirect targets.
  *
  * @param rawUrl - Candidate LogBuy URL which may be a direct store link, a tracking/redirect URL, or contain nested redirect parameters
  * @returns The resolved merchant storefront URL if a usable target could be determined, `null` otherwise
  */
 async function resolveLogbuyStoreUrl(rawUrl: string): Promise<string | null> {
   const nestedTarget = extractNestedTargetUrl(rawUrl);
-  if (nestedTarget && isUsableLogbuyStoreUrl(nestedTarget)) {
+  if (nestedTarget && (await isSafeLogbuyStoreUrl(nestedTarget))) {
     return nestedTarget;
   }
 
@@ -2517,30 +2667,49 @@ async function resolveLogbuyStoreUrl(rawUrl: string): Promise<string | null> {
   }
 
   if (!isLogbuyTrackingDomain(hostname)) {
-    return isUsableLogbuyStoreUrl(rawUrl) ? rawUrl : null;
+    return (await isSafeLogbuyStoreUrl(rawUrl)) ? rawUrl : null;
   }
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), LOGBUY_REDIRECT_TIMEOUT_MS);
 
   try {
-    const response = await fetch(rawUrl, {
-      redirect: "follow",
-      signal: controller.signal,
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36",
-      },
-    });
+    let currentUrl = rawUrl;
+    for (let redirectCount = 0; redirectCount <= LOGBUY_MAX_REDIRECTS; redirectCount++) {
+      if (!(await isPublicFetchTarget(currentUrl))) {
+        return null;
+      }
 
-    if (response.url && response.url !== rawUrl && isUsableLogbuyStoreUrl(response.url)) {
-      return response.url;
-    }
+      const response = await fetch(currentUrl, {
+        redirect: "manual",
+        signal: controller.signal,
+        headers: {
+          "User-Agent": LOGBUY_REDIRECT_USER_AGENT,
+        },
+      });
 
-    const html = await response.text();
-    const htmlRedirectUrl = extractRedirectUrlFromHtml(html);
-    if (htmlRedirectUrl && isUsableLogbuyStoreUrl(htmlRedirectUrl)) {
-      return htmlRedirectUrl;
+      if (response.status >= 300 && response.status < 400) {
+        const location = response.headers.get("location");
+        if (!location) {
+          return null;
+        }
+
+        const nextUrl = new URL(location, currentUrl).toString();
+        if (await isSafeLogbuyStoreUrl(nextUrl)) {
+          return nextUrl;
+        }
+
+        currentUrl = nextUrl;
+        continue;
+      }
+
+      const html = await response.text();
+      const htmlRedirectUrl = extractRedirectUrlFromHtml(html);
+      if (htmlRedirectUrl && (await isSafeLogbuyStoreUrl(htmlRedirectUrl))) {
+        return htmlRedirectUrl;
+      }
+
+      return null;
     }
   } catch {
     return null;
