@@ -10,7 +10,7 @@ import type { FetchAdapter } from "../../network/types.js";
 import type { SessionStorageAdapter } from "../../storage/types.js";
 import type { Position } from "../../config/constants.js";
 import type { Service, ServiceRegistry } from "../../config/services.js";
-import { MESSAGE_SHOWN_KEY_PREFIX } from "../../config/constants.js";
+import { getMessageShownKey } from "../../config/constants.js";
 import { getNotificationStyles } from "../styles/index.js";
 import {
   createShadowHost,
@@ -32,6 +32,7 @@ export interface NotificationOptions {
   fetcher: FetchAdapter;
   sessionStorage: SessionStorageAdapter;
   currentHost: string;
+  currentPathname: string;
   onClose?: () => void;
 }
 
@@ -39,7 +40,7 @@ export interface NotificationOptions {
  * Create and show the main notification
  */
 export function createNotification(options: NotificationOptions): HTMLElement {
-  const { match, settings, services, i18n, fetcher, sessionStorage, currentHost, onClose } = options;
+  const { match, settings, services, i18n, fetcher, sessionStorage, currentHost, currentPathname, onClose } = options;
   const service = match.service;
 
   // Create shadow host
@@ -98,7 +99,15 @@ export function createNotification(options: NotificationOptions): HTMLElement {
   const checklist = createChecklist(service, i18n);
 
   // Action button
-  const { actionBtn, recheckIcon } = createActionButton(match, service, i18n, sessionStorage, currentHost, content);
+  const { actionBtn, recheckIcon } = createActionButton(
+    match,
+    service,
+    i18n,
+    sessionStorage,
+    currentHost,
+    currentPathname,
+    content
+  );
 
   // Hide site link
   const hideSiteLink = document.createElement("span");
@@ -439,6 +448,7 @@ function createActionButton(
   i18n: I18nAdapter,
   sessionStorage: SessionStorageAdapter,
   currentHost: string,
+  currentPathname: string,
   content: HTMLDivElement
 ): { actionBtn: HTMLAnchorElement; recheckIcon: HTMLSpanElement } {
   const actionBtn = document.createElement("a");
@@ -514,7 +524,7 @@ function createActionButton(
       e.preventDefault();
     }
 
-    sessionStorage.set(`${MESSAGE_SHOWN_KEY_PREFIX}${currentHost}`, Date.now().toString());
+    sessionStorage.set(getMessageShownKey(currentHost, currentPathname), Date.now().toString());
 
     // Info-type services: just let the link open naturally
     if (service.type === "info") {

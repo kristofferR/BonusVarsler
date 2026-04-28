@@ -337,6 +337,9 @@
   var CURRENT_VERSION = "8.0";
   var MESSAGE_SHOWN_KEY_PREFIX = "BonusVarsler_MessageShown_";
   var PAGE_VISIT_COUNT_PREFIX = "BonusVarsler_PageVisits_";
+  function getMessageShownKey(currentHost, currentPathname = "/") {
+    return `${MESSAGE_SHOWN_KEY_PREFIX}${currentHost}|${currentPathname || "/"}`;
+  }
   var DEFAULT_POSITION = "bottom-right";
   var DEFAULT_THEME = "light";
   var AD_TEST_URLS = [
@@ -1022,7 +1025,7 @@
   }
 
   // src/main.ts
-  function shouldBailOutEarly(sessionStorage2, currentHost) {
+  function shouldBailOutEarly(sessionStorage2, currentHost, currentPathname = "/") {
     if (window.top !== window.self) return true;
     const pageVisitKey = `${PAGE_VISIT_COUNT_PREFIX}${currentHost}`;
     const currentVisits = parseInt(sessionStorage2.get(pageVisitKey) ?? "0", 10);
@@ -1031,7 +1034,7 @@
     if (newVisitCount <= CONFIG.pageVisitsBeforeCooldown) {
       return false;
     }
-    const messageShownKey = `${MESSAGE_SHOWN_KEY_PREFIX}${currentHost}`;
+    const messageShownKey = getMessageShownKey(currentHost, currentPathname);
     const messageShownTime = sessionStorage2.get(messageShownKey);
     if (messageShownTime) {
       const elapsed = Date.now() - parseInt(messageShownTime, 10);
@@ -1039,8 +1042,8 @@
     }
     return false;
   }
-  function markMessageShown(sessionStorage2, currentHost) {
-    const messageShownKey = `${MESSAGE_SHOWN_KEY_PREFIX}${currentHost}`;
+  function markMessageShown(sessionStorage2, currentHost, currentPathname = "/") {
+    const messageShownKey = getMessageShownKey(currentHost, currentPathname);
     sessionStorage2.set(messageShownKey, Date.now().toString());
   }
   async function initialize(adapters, currentHost, currentPathname = "/") {
@@ -2163,10 +2166,10 @@
     } catch {
     }
     if (decodedSegment === ".") {
-      return "%2E";
+      return "%252E";
     }
     if (decodedSegment === "..") {
-      return "%2E%2E";
+      return "%252E%252E";
     }
     return encodeURIComponent(decodedSegment);
   }
@@ -2240,7 +2243,7 @@
 
   // src/ui/views/notification.ts
   function createNotification(options) {
-    const { match, settings, services, i18n, fetcher, sessionStorage: sessionStorage2, currentHost, onClose } = options;
+    const { match, settings, services, i18n, fetcher, sessionStorage: sessionStorage2, currentHost, currentPathname, onClose } = options;
     const service = match.service;
     const shadowHost = createShadowHost();
     appendToBody(shadowHost);
@@ -2276,7 +2279,15 @@
     reminder.className = "reminder";
     reminder.textContent = i18n.getMessage("rememberTo");
     const checklist = createChecklist(service, i18n);
-    const { actionBtn, recheckIcon } = createActionButton(match, service, i18n, sessionStorage2, currentHost, content);
+    const { actionBtn, recheckIcon } = createActionButton(
+      match,
+      service,
+      i18n,
+      sessionStorage2,
+      currentHost,
+      currentPathname,
+      content
+    );
     const hideSiteLink = document.createElement("span");
     hideSiteLink.className = "hide-site";
     hideSiteLink.textContent = i18n.getMessage("dontShowOnThisSite");
@@ -2535,7 +2546,7 @@
     });
     return checklist;
   }
-  function createActionButton(match, service, i18n, sessionStorage2, currentHost, content) {
+  function createActionButton(match, service, i18n, sessionStorage2, currentHost, currentPathname, content) {
     const actionBtn = document.createElement("a");
     actionBtn.className = "action-btn";
     const clickthroughUrl = resolveClickthroughUrl(
@@ -2595,7 +2606,7 @@
       if (isDisabled) {
         e.preventDefault();
       }
-      sessionStorage2.set(`${MESSAGE_SHOWN_KEY_PREFIX}${currentHost}`, Date.now().toString());
+      sessionStorage2.set(getMessageShownKey(currentHost, currentPathname), Date.now().toString());
       if (service.type === "info") {
         return;
       }
@@ -3101,8 +3112,9 @@
   // src/platform/userscript.ts
   (async function() {
     const currentHost = window.location.hostname;
+    const currentPathname = window.location.pathname;
     const sessionStorage2 = getGMSessionStorage();
-    if (shouldBailOutEarly(sessionStorage2, currentHost)) {
+    if (shouldBailOutEarly(sessionStorage2, currentHost, currentPathname)) {
       return;
     }
     const adapters = {
@@ -3111,7 +3123,7 @@
       fetcher: getGMFetch(),
       i18n: getStaticI18n()
     };
-    const result = await initialize(adapters, currentHost, window.location.pathname);
+    const result = await initialize(adapters, currentHost, currentPathname);
     const { storage, fetcher, i18n } = adapters;
     if (result.status === "blocked") {
       return;
@@ -3164,7 +3176,7 @@
       return;
     }
     const { settings, feedManager, match } = result;
-    markMessageShown(sessionStorage2, currentHost);
+    markMessageShown(sessionStorage2, currentHost, currentPathname);
     createNotification({
       match,
       settings,
@@ -3172,7 +3184,8 @@
       i18n,
       fetcher,
       sessionStorage: sessionStorage2,
-      currentHost
+      currentHost,
+      currentPathname
     });
   })();
 })();

@@ -1,6 +1,6 @@
 import type { Service } from "../../config/services.js";
 
-function encodePathSegment(segment: string): string {
+export function encodePathSegment(segment: string): string {
   let decodedSegment = segment;
   try {
     decodedSegment = decodeURIComponent(segment);
@@ -8,12 +8,13 @@ function encodePathSegment(segment: string): string {
     // Keep malformed input and encode it below.
   }
 
+  // URL parsing treats %2E and %2E%2E as dot segments, so encode the percent signs too.
   if (decodedSegment === ".") {
-    return "%2E";
+    return "%252E";
   }
 
   if (decodedSegment === "..") {
-    return "%2E%2E";
+    return "%252E%252E";
   }
 
   return encodeURIComponent(decodedSegment);
