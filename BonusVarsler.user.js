@@ -1356,7 +1356,7 @@
 /* Body */
 .body {
     padding: 16px;
-    max-height: 500px;
+    max-height: 540px;
     opacity: 1;
     overflow-y: auto;
     transition: max-height 0.3s ease, opacity 0.2s ease, padding 0.3s ease;
