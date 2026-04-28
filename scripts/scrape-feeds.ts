@@ -3599,7 +3599,7 @@ async function main() {
 
     // Add LogBuy offer (check for duplicates first)
     const hasLogbuyOffer = merchants[merchantKey].offers.some(
-      (o) => o.serviceId === "logbuy"
+      (o) => o.serviceId === "logbuy" && o.urlName === merchant.slug
     );
     if (!hasLogbuyOffer) {
       merchants[merchantKey].offers.push({

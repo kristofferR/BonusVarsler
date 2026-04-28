@@ -480,8 +480,7 @@
       reminderDomain: "mylogbuy.com",
       cashbackPathPatterns: ["/WebPages/ShowDeal/"],
       color: "#ee2e24",
-      defaultEnabled: false,
-      type: "info"
+      defaultEnabled: false
     }
   };
   var SERVICE_ORDER = ["trumf", "remember", "dnb", "obos", "naf", "lofavor", "logbuy"];

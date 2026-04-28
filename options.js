@@ -45,7 +45,6 @@ const SERVICES_FALLBACK = {
     id: "logbuy",
     name: "Visma LogBuy",
     color: "#ee2e24",
-    type: "info",
   },
 };
 

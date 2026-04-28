@@ -85,7 +85,6 @@ export const SERVICES_FALLBACK: ServiceRegistry = {
     cashbackPathPatterns: ["/WebPages/ShowDeal/"],
     color: "#ee2e24",
     defaultEnabled: false,
-    type: "info",
   },
 };
 

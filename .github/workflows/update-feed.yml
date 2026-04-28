@@ -9,10 +9,6 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
-    env:
-      LOGBUY_USERNAME: ${{ secrets.LOGBUY_USERNAME }}
-      LOGBUY_PASSWORD: ${{ secrets.LOGBUY_PASSWORD }}
-      LOGBUY_ACCESSKEY: ${{ secrets.LOGBUY_ACCESSKEY }}
     permissions:
       contents: write
 
@@ -20,16 +16,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-
-      - name: Install dependencies
-        run: cd scripts && bun install
-
-      - name: Install Playwright browsers
-        run: cd scripts && bunx playwright install chromium --with-deps
-
       - name: Validate LogBuy secrets
+        env:
+          LOGBUY_USERNAME: ${{ secrets.LOGBUY_USERNAME }}
+          LOGBUY_PASSWORD: ${{ secrets.LOGBUY_PASSWORD }}
+          LOGBUY_ACCESSKEY: ${{ secrets.LOGBUY_ACCESSKEY }}
         run: |
           missing=0
           for name in LOGBUY_USERNAME LOGBUY_PASSWORD LOGBUY_ACCESSKEY; do
@@ -40,7 +31,20 @@ jobs:
           done
           exit "$missing"
 
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: cd scripts && bun install
+
+      - name: Install Playwright browsers
+        run: cd scripts && bunx playwright install chromium --with-deps
+
       - name: Run scraper
+        env:
+          LOGBUY_USERNAME: ${{ secrets.LOGBUY_USERNAME }}
+          LOGBUY_PASSWORD: ${{ secrets.LOGBUY_PASSWORD }}
+          LOGBUY_ACCESSKEY: ${{ secrets.LOGBUY_ACCESSKEY }}
         run: bun scripts/scrape-feeds.ts
 
       - name: Copy sitelist to root (minified, used by extension CDN)
