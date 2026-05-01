@@ -2,7 +2,7 @@
 
 # BonusVarsler
 
-**Trumf | SAS EuroBonus | re:member | DNB | OBOS | NAF | LOfavør**
+**Trumf | SAS EuroBonus | re:member | DNB | OBOS | NAF | LOfavør | Visma LogBuy**
 
 <p align="center">
 
@@ -16,7 +16,7 @@
 
 **Glem aldri cashback-bonus igjen!** En lett og stilren nettleserutvidelse som varsler deg når du besøker en nettbutikk som gir bonus.
 
-> 🛒 Dette er et uavhengig hobbyprosjekt og har ingen tilknytning til Trumf, SAS EuroBonus, re:member, DNB, OBOS, LO eller andre bonusprogrammer.
+> 🛒 Dette er et uavhengig hobbyprosjekt og har ingen tilknytning til Trumf, SAS EuroBonus, re:member, DNB, OBOS, LO, Visma LogBuy eller andre bonusprogrammer.
 
 - Lynrask og ressursvennlig — du merker ikke at den kjører
 - Stilrent design med lys/mørk modus
@@ -36,7 +36,7 @@
 
 ## Hvorfor bruke dette?
 
-Bonusprogrammer som Trumf, SAS EuroBonus, re:member, OBOS, NAF og LOfavør gir deg cashback eller poeng hos hundrevis av nettbutikker, men du må huske å gå via deres portal for at bonusen skal registreres. Det er lett å glemme.
+Bonusprogrammer som Trumf, SAS EuroBonus, re:member, OBOS, NAF, LOfavør og Visma LogBuy gir deg cashback, rabatter eller poeng hos hundrevis av nettbutikker, men du må huske å gå via deres portal for at bonusen skal registreres. Det er lett å glemme.
 
 Denne utvidelsen løser problemet: Du handler som vanlig, og får et varsel når butikken gir bonus. Ett klikk, så er du i gang.
 
@@ -119,20 +119,6 @@ Bare surf som vanlig. Når du besøker en nettbutikk som gir bonus, dukker varse
 ## Personvern
 
 Utvidelsen henter kun offisielle butikklister fra bonusprogrammene. Ingen data om deg eller din surfing sendes noe sted.
-
----
-
-## Utvikling
-
-### LogBuy scraper credentials
-
-LogBuy-scraperen i `scripts/scrape-feeds.ts` bruker Visma LogBuy API-et og krever tre miljøvariabler når du kjører `bun scripts/scrape-feeds.ts` eller `bun run build`:
-
-- `LOGBUY_USERNAME` - brukernavn for LogBuy API-/extension-kontoen
-- `LOGBUY_PASSWORD` - passord for samme konto
-- `LOGBUY_ACCESSKEY` - access key fra LogBuy-konfigurasjonen
-
-Verdiene må hentes fra en LogBuy-konto/API-konfigurasjon du har tilgang til. Ikke commit dem i repoet. I GitHub Actions skal de legges inn som repository secrets med samme navn; `.github/workflows/update-feed.yml` validerer at de finnes og sender dem videre til scraper-steget.
 
 ---
 
