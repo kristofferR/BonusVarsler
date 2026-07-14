@@ -34,7 +34,7 @@ export function createDefaultSettings(): SettingsCache {
     hiddenSites: new Set(),
     blacklistedSites: new Set(),
     theme: DEFAULT_THEME,
-    startMinimized: false,
+    startMinimized: true,
     position: DEFAULT_POSITION,
     sitePositions: {},
     enabledServices: null,
@@ -132,7 +132,7 @@ export class Settings {
     const blacklistedSitesArray = await this.storage.get<string[]>(STORAGE_KEYS.blacklistedSites, []);
     this.cache.blacklistedSites = new Set(blacklistedSitesArray);
     this.cache.theme = await this.storage.get<Theme>(STORAGE_KEYS.theme, DEFAULT_THEME);
-    this.cache.startMinimized = await this.storage.get<boolean>(STORAGE_KEYS.startMinimized, false);
+    this.cache.startMinimized = await this.storage.get<boolean>(STORAGE_KEYS.startMinimized, true);
     this.cache.position = await this.storage.get<Position>(STORAGE_KEYS.position, DEFAULT_POSITION);
     this.cache.sitePositions = await this.storage.get<Record<string, Position>>(
       STORAGE_KEYS.sitePositions,

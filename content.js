@@ -401,7 +401,7 @@
       hiddenSites: /* @__PURE__ */ new Set(),
       blacklistedSites: /* @__PURE__ */ new Set(),
       theme: DEFAULT_THEME,
-      startMinimized: false,
+      startMinimized: true,
       position: DEFAULT_POSITION,
       sitePositions: {},
       enabledServices: null,
@@ -471,7 +471,7 @@
       const blacklistedSitesArray = await this.storage.get(STORAGE_KEYS.blacklistedSites, []);
       this.cache.blacklistedSites = new Set(blacklistedSitesArray);
       this.cache.theme = await this.storage.get(STORAGE_KEYS.theme, DEFAULT_THEME);
-      this.cache.startMinimized = await this.storage.get(STORAGE_KEYS.startMinimized, false);
+      this.cache.startMinimized = await this.storage.get(STORAGE_KEYS.startMinimized, true);
       this.cache.position = await this.storage.get(STORAGE_KEYS.position, DEFAULT_POSITION);
       this.cache.sitePositions = await this.storage.get(
         STORAGE_KEYS.sitePositions,

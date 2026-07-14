@@ -246,7 +246,7 @@ async function initTheme() {
 
 // Initialize start minimized toggle
 async function initStartMinimized() {
-  const startMinimized = await getValue(KEYS.startMinimized, false);
+  const startMinimized = await getValue(KEYS.startMinimized, true);
   const toggle = document.getElementById("start-minimized");
 
   if (startMinimized) {
