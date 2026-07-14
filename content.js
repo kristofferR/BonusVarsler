@@ -189,7 +189,7 @@
     feedTime_v4: "BonusVarsler_FeedTime_v4",
     hostIndex_v4: "BonusVarsler_HostIndex_v4"
   };
-  var CURRENT_VERSION = "9.0";
+  var CURRENT_VERSION = "9.1";
   var MESSAGE_SHOWN_KEY_PREFIX = "BonusVarsler_MessageShown_";
   var PAGE_VISIT_COUNT_PREFIX = "BonusVarsler_PageVisits_";
   function getMessageShownKey(currentHost, currentPathname = "/") {

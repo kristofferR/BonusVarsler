@@ -45,7 +45,7 @@ export const LEGACY_KEYS = {
 } as const;
 
 // Version tracking
-export const CURRENT_VERSION = "9.0";
+export const CURRENT_VERSION = "9.1";
 
 // Per-host session key prefixes (used with localStorage)
 export const MESSAGE_SHOWN_KEY_PREFIX = "BonusVarsler_MessageShown_";
