@@ -318,6 +318,8 @@ const TRUMF_MANUAL_HOSTNAME_MAPPINGS: Record<string, string> = {
   // Health
   "blivakker-trumf": "www.blivakker.no",
   "dentway-trumfs": "www.dentway.no",
+  // Clothing
+  "pyret-and-snackan-trumf": "pyretosnackan.se",
 };
 
 // Hostname aliases (alternative domains that should map to same merchant)
