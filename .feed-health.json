@@ -5,13 +5,13 @@
       "consecutiveFailureDays": 0,
       "lastFailureDate": null,
       "lastFailureReason": null,
-      "lastSuccessfulCount": 261
+      "lastSuccessfulCount": 260
     },
     "sas": {
       "consecutiveFailureDays": 0,
       "lastFailureDate": null,
       "lastFailureReason": null,
-      "lastSuccessfulCount": 243
+      "lastSuccessfulCount": 241
     },
     "remember": {
       "consecutiveFailureDays": 0,
@@ -44,9 +44,9 @@
       "lastSuccessfulCount": 18
     },
     "logbuy": {
-      "consecutiveFailureDays": 0,
-      "lastFailureDate": null,
-      "lastFailureReason": null,
+      "consecutiveFailureDays": 1,
+      "lastFailureDate": "2026-09-01",
+      "lastFailureReason": "LogBuy scrape failed: LogBuy request timed out after 15000ms: https://restapi.mylogbuy.com/api/suppliers/search",
       "lastSuccessfulCount": 134
     }
   }
