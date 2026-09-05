@@ -158,6 +158,17 @@
         }
       ]
     },
+    "www.ellos.co.uk": {
+      "hostName": "www.ellos.co.uk",
+      "name": "Ellos NO",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "ellos",
+          "cashbackDescription": "6,2 %"
+        }
+      ]
+    },
     "www.scandichotels.no": {
       "hostName": "www.scandichotels.no",
       "name": "Scandic Hotels",
@@ -171,17 +182,6 @@
           "serviceId": "lofavor",
           "urlName": "ferie-og-opplevelser/scandic-hotels",
           "cashbackDescription": "14 % rabatt"
-        }
-      ]
-    },
-    "www.ellos.co.uk": {
-      "hostName": "www.ellos.co.uk",
-      "name": "Ellos NO",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "ellos",
-          "cashbackDescription": "6,2 %"
         }
       ]
     },
@@ -303,6 +303,22 @@
         }
       ]
     },
+    "www.nordicfeel.no": {
+      "hostName": "www.nordicfeel.no",
+      "name": "NordicFeel",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "trumfnordic-feel",
+          "cashbackDescription": "4,6 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "nordicfeel",
+          "cashbackDescription": "6%"
+        }
+      ]
+    },
     "www.lensway.no": {
       "hostName": "www.lensway.no",
       "name": "Lensway",
@@ -339,22 +355,6 @@
           "urlName": "01896307-db4b-7046-b660-cca58f3d53f2",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/lensway/01896307-db4b-7046-b660-cca58f3d53f2"
-        }
-      ]
-    },
-    "www.nordicfeel.no": {
-      "hostName": "www.nordicfeel.no",
-      "name": "NordicFeel",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "trumfnordic-feel",
-          "cashbackDescription": "4,6 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "nordicfeel",
-          "cashbackDescription": "6%"
         }
       ]
     },
@@ -450,6 +450,85 @@
         }
       ]
     },
+    "www.zooplus": {
+      "hostName": "www.zooplus",
+      "name": "Zooplus",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "zooplus",
+          "cashbackDescription": "Opptil            \n\t            6,2 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "zooplus",
+          "cashbackDescription": "1-3%*",
+          "cashbackDetails": [
+            {
+              "value": 3,
+              "type": "PERCENTAGE",
+              "description": "i reward-rabatt för nye kunder."
+            },
+            {
+              "value": 1,
+              "type": "PERCENTAGE",
+              "description": "i reward-rabatt."
+            }
+          ]
+        }
+      ]
+    },
+    "www.tilbords.no": {
+      "hostName": "www.tilbords.no",
+      "name": "Tilbords",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "tilbords-trumf",
+          "cashbackDescription": "3,1 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "tilbords",
+          "cashbackDescription": "4-5%*",
+          "cashbackDetails": [
+            {
+              "value": 5,
+              "type": "PERCENTAGE",
+              "description": "i reward-rabatt på andre varer"
+            },
+            {
+              "value": 4,
+              "type": "PERCENTAGE",
+              "description": "i reward-rabatt på elektronikk"
+            }
+          ]
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "01896312-cc64-7251-bf1c-7300f7d28b3d",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/tilbords-1/01896312-cc64-7251-bf1c-7300f7d28b3d"
+        }
+      ]
+    },
+    "fredrikoglouisa.no": {
+      "hostName": "fredrikoglouisa.no",
+      "name": "Fredrik & Louisa",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "fredrik-and-louisa-trumf",
+          "cashbackDescription": "2,3 %"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "0189630f-988a-7145-9c0d-dd28f5592414",
+          "cashbackDescription": "10 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/fredrik-louisa/0189630f-988a-7145-9c0d-dd28f5592414"
+        }
+      ]
+    },
     "www.outnorth.no": {
       "hostName": "www.outnorth.no",
       "name": "Outnorth",
@@ -489,102 +568,6 @@
         }
       ]
     },
-    "www.zooplus": {
-      "hostName": "www.zooplus",
-      "name": "Zooplus",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "zooplus",
-          "cashbackDescription": "Opptil            \n\t            6,2 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "zooplus",
-          "cashbackDescription": "1-3%*",
-          "cashbackDetails": [
-            {
-              "value": 3,
-              "type": "PERCENTAGE",
-              "description": "i reward-rabatt för nye kunder."
-            },
-            {
-              "value": 1,
-              "type": "PERCENTAGE",
-              "description": "i reward-rabatt."
-            }
-          ]
-        }
-      ]
-    },
-    "fredrikoglouisa.no": {
-      "hostName": "fredrikoglouisa.no",
-      "name": "Fredrik & Louisa",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "fredrik-and-louisa-trumf",
-          "cashbackDescription": "2,3 %"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "0189630f-988a-7145-9c0d-dd28f5592414",
-          "cashbackDescription": "10 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/fredrik-louisa/0189630f-988a-7145-9c0d-dd28f5592414"
-        }
-      ]
-    },
-    "www.tilbords.no": {
-      "hostName": "www.tilbords.no",
-      "name": "Tilbords",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "tilbords-trumf",
-          "cashbackDescription": "3,1 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "tilbords",
-          "cashbackDescription": "4-5%*",
-          "cashbackDetails": [
-            {
-              "value": 5,
-              "type": "PERCENTAGE",
-              "description": "i reward-rabatt på andre varer"
-            },
-            {
-              "value": 4,
-              "type": "PERCENTAGE",
-              "description": "i reward-rabatt på elektronikk"
-            }
-          ]
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "01896312-cc64-7251-bf1c-7300f7d28b3d",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/tilbords-1/01896312-cc64-7251-bf1c-7300f7d28b3d"
-        }
-      ]
-    },
-    "www.vybuss.no": {
-      "hostName": "www.vybuss.no",
-      "name": "VY Express",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "vy-trumf",
-          "cashbackDescription": "2,7 %"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "01896311-ed1e-72a2-b624-0b81184ec29e",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/vy-buss/01896311-ed1e-72a2-b624-0b81184ec29e"
-        }
-      ]
-    },
     "www.elektroimportoren.no": {
       "hostName": "www.elektroimportoren.no",
       "name": "Elektroimportøren",
@@ -615,6 +598,23 @@
           "serviceId": "trumf",
           "urlName": "sportsmagasinet-trumf",
           "cashbackDescription": "12,4 %"
+        }
+      ]
+    },
+    "www.vybuss.no": {
+      "hostName": "www.vybuss.no",
+      "name": "VY Express",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "vy-trumf",
+          "cashbackDescription": "2,7 %"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "01896311-ed1e-72a2-b624-0b81184ec29e",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/vy-buss/01896311-ed1e-72a2-b624-0b81184ec29e"
         }
       ]
     },
@@ -907,6 +907,17 @@
         }
       ]
     },
+    "www.loepeshop.no": {
+      "hostName": "www.loepeshop.no",
+      "name": "Løpeshop",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "lopeshop-trumf",
+          "cashbackDescription": "2,3 %"
+        }
+      ]
+    },
     "www.lampegiganten.no": {
       "hostName": "www.lampegiganten.no",
       "name": "Lampegiganten",
@@ -929,17 +940,6 @@
         }
       ]
     },
-    "www.loepeshop.no": {
-      "hostName": "www.loepeshop.no",
-      "name": "Løpeshop",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "lopeshop-trumf",
-          "cashbackDescription": "2,3 %"
-        }
-      ]
-    },
     "bikbok.com": {
       "hostName": "bikbok.com",
       "name": "Bik Bok",
@@ -948,23 +948,6 @@
           "serviceId": "trumf",
           "urlName": "bik-bok-trumf",
           "cashbackDescription": "4,6 %"
-        }
-      ]
-    },
-    "www.lappeliten.no": {
-      "hostName": "www.lappeliten.no",
-      "name": "Lappeliten",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "lappeliten-trumf",
-          "cashbackDescription": "12,4 %"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "01896312-2e1b-73b3-ac23-db4b5803a8ad",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/lappeliten/01896312-2e1b-73b3-ac23-db4b5803a8ad"
         }
       ]
     },
@@ -990,24 +973,24 @@
         {
           "serviceId": "logbuy",
           "urlName": "21289",
-          "cashbackDescription": "15 - 25 %"
+          "cashbackDescription": "25 %"
         }
       ]
     },
-    "www.polarnopyret.no": {
-      "hostName": "www.polarnopyret.no",
-      "name": "Polarn O. Pyret",
+    "www.lappeliten.no": {
+      "hostName": "www.lappeliten.no",
+      "name": "Lappeliten",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "trumfpolarn-o-pyretno",
-          "cashbackDescription": "6,2 %"
+          "urlName": "lappeliten-trumf",
+          "cashbackDescription": "12,4 %"
         },
         {
           "serviceId": "sas",
-          "urlName": "0189630a-4f00-71b4-b13a-6a93082439a9",
+          "urlName": "01896312-2e1b-73b3-ac23-db4b5803a8ad",
           "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/polarnopyret/0189630a-4f00-71b4-b13a-6a93082439a9"
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/lappeliten/01896312-2e1b-73b3-ac23-db4b5803a8ad"
         }
       ]
     },
@@ -1045,19 +1028,20 @@
         }
       ]
     },
-    "www.mimmis.no": {
-      "hostName": "www.mimmis.no",
-      "name": "mimmis",
+    "www.polarnopyret.no": {
+      "hostName": "www.polarnopyret.no",
+      "name": "Polarn O. Pyret",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "mimmistrumf",
-          "cashbackDescription": "3,1 %"
+          "urlName": "trumfpolarn-o-pyretno",
+          "cashbackDescription": "6,2 %"
         },
         {
-          "serviceId": "logbuy",
-          "urlName": "21383",
-          "cashbackDescription": "15 %"
+          "serviceId": "sas",
+          "urlName": "0189630a-4f00-71b4-b13a-6a93082439a9",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/polarnopyret/0189630a-4f00-71b4-b13a-6a93082439a9"
         }
       ]
     },
@@ -1081,6 +1065,22 @@
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/stormberg/01896308-9574-7200-98c1-2eb995cc8de0",
           "matchPathPrefix": "/no"
+        }
+      ]
+    },
+    "www.mimmis.no": {
+      "hostName": "www.mimmis.no",
+      "name": "mimmis",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "mimmistrumf",
+          "cashbackDescription": "3,1 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21383",
+          "cashbackDescription": "15 %"
         }
       ]
     },
@@ -1174,6 +1174,27 @@
         }
       ]
     },
+    "www.bodystore.no": {
+      "hostName": "www.bodystore.no",
+      "name": "Bodystore",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "bodystore-trumf",
+          "cashbackDescription": "Opptil            \n\t            4,6 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "bodystore.no",
+          "cashbackDescription": "4%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20461",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
     "www.floyd.no": {
       "hostName": "www.floyd.no",
       "name": "Floyd",
@@ -1199,27 +1220,6 @@
           "serviceId": "logbuy",
           "urlName": "22068",
           "cashbackDescription": "20 %"
-        }
-      ]
-    },
-    "www.bodystore.no": {
-      "hostName": "www.bodystore.no",
-      "name": "Bodystore",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "bodystore-trumf",
-          "cashbackDescription": "Opptil            \n\t            4,6 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "bodystore.no",
-          "cashbackDescription": "4%"
-        },
-        {
-          "serviceId": "logbuy",
-          "urlName": "20461",
-          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -1259,22 +1259,6 @@
           "urlName": "",
           "cashbackDescription": "10%",
           "code": "DNB2937"
-        }
-      ]
-    },
-    "www.sembo.no": {
-      "hostName": "www.sembo.no",
-      "name": "Sembo",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "sembo-trumf",
-          "cashbackDescription": "Opptil            \n\t            5,4 %"
-        },
-        {
-          "serviceId": "logbuy",
-          "urlName": "20484",
-          "cashbackDescription": "8 - 70 %"
         }
       ]
     },
@@ -1327,14 +1311,20 @@
         }
       ]
     },
-    "se.lastminute.com": {
-      "hostName": "se.lastminute.com",
-      "name": "lastminute.com",
+    "www.staypro.no": {
+      "hostName": "www.staypro.no",
+      "name": "Staypro",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "lastminute-trumf",
-          "cashbackDescription": "Opptil            \n\t            3,9 %"
+          "urlName": "staypro-trumf",
+          "cashbackDescription": "2,3 %"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "0189630c-f505-7383-a3ca-f070bfb00deb",
+          "cashbackDescription": "20 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/staypro/0189630c-f505-7383-a3ca-f070bfb00deb"
         }
       ]
     },
@@ -1355,20 +1345,19 @@
         }
       ]
     },
-    "www.staypro.no": {
-      "hostName": "www.staypro.no",
-      "name": "Staypro",
+    "www.sembo.no": {
+      "hostName": "www.sembo.no",
+      "name": "Sembo",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "staypro-trumf",
-          "cashbackDescription": "2,3 %"
+          "urlName": "sembo-trumf",
+          "cashbackDescription": "Opptil            \n\t            5,4 %"
         },
         {
-          "serviceId": "sas",
-          "urlName": "0189630c-f505-7383-a3ca-f070bfb00deb",
-          "cashbackDescription": "20 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/staypro/0189630c-f505-7383-a3ca-f070bfb00deb"
+          "serviceId": "logbuy",
+          "urlName": "20484",
+          "cashbackDescription": "8 - 70 %"
         }
       ]
     },
@@ -1417,17 +1406,6 @@
         }
       ]
     },
-    "www.disneyplus.com": {
-      "hostName": "www.disneyplus.com",
-      "name": "Disney+",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "disney-trumfa",
-          "cashbackDescription": "110 kr"
-        }
-      ]
-    },
     "www.gullfunn.no": {
       "hostName": "www.gullfunn.no",
       "name": "Gullfunn",
@@ -1453,6 +1431,17 @@
           "urlName": "",
           "cashbackDescription": "10%",
           "code": "DNB2937"
+        }
+      ]
+    },
+    "www.disneyplus.com": {
+      "hostName": "www.disneyplus.com",
+      "name": "Disney+",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "disney-trumfa",
+          "cashbackDescription": "110 kr"
         }
       ]
     },
@@ -1483,33 +1472,6 @@
         }
       ]
     },
-    "dbjourney.com": {
-      "hostName": "dbjourney.com",
-      "name": "Db",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "db-trumf1",
-          "cashbackDescription": "4,6 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "db-journey",
-          "cashbackDescription": "5%"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "01896310-78d4-7290-bebb-ae80a7cd6ef1",
-          "cashbackDescription": "50 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/db-journey/01896310-78d4-7290-bebb-ae80a7cd6ef1"
-        },
-        {
-          "serviceId": "logbuy",
-          "urlName": "21700",
-          "cashbackDescription": "15 %"
-        }
-      ]
-    },
     "www.siemens-home.bsh-group.com": {
       "hostName": "www.siemens-home.bsh-group.com",
       "name": "Siemens Home",
@@ -1535,6 +1497,33 @@
           "serviceId": "trumf",
           "urlName": "junkyard-trumf",
           "cashbackDescription": "Opptil            \n\t            6,2 %"
+        }
+      ]
+    },
+    "dbjourney.com": {
+      "hostName": "dbjourney.com",
+      "name": "Db",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "db-trumf1",
+          "cashbackDescription": "4,6 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "db-journey",
+          "cashbackDescription": "5%"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "01896310-78d4-7290-bebb-ae80a7cd6ef1",
+          "cashbackDescription": "50 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/db-journey/01896310-78d4-7290-bebb-ae80a7cd6ef1"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21700",
+          "cashbackDescription": "15 %"
         }
       ]
     },
@@ -1676,6 +1665,23 @@
         }
       ]
     },
+    "bokia.no": {
+      "hostName": "bokia.no",
+      "name": "Bokia",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "bokia-trumf",
+          "cashbackDescription": "11,7 %"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "019f4b4d-3fc9-7184-a233-bc63156570b5",
+          "cashbackDescription": "50 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/bokia/019f4b4d-3fc9-7184-a233-bc63156570b5"
+        }
+      ]
+    },
     "www.zoo.no": {
       "hostName": "www.zoo.no",
       "name": "ZOO",
@@ -1695,6 +1701,23 @@
           "serviceId": "logbuy",
           "urlName": "20878",
           "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "bad.no": {
+      "hostName": "bad.no",
+      "name": "Bad.no",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "bad-trumf",
+          "cashbackDescription": "3,5 %"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "019ea661-c4a1-73ab-b30f-241205d56b6e",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/badno/019ea661-c4a1-73ab-b30f-241205d56b6e"
         }
       ]
     },
@@ -1719,23 +1742,6 @@
         }
       ]
     },
-    "bad.no": {
-      "hostName": "bad.no",
-      "name": "Bad.no",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "bad-trumf",
-          "cashbackDescription": "3,5 %"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "019ea661-c4a1-73ab-b30f-241205d56b6e",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/badno/019ea661-c4a1-73ab-b30f-241205d56b6e"
-        }
-      ]
-    },
     "www.aimn.com": {
       "hostName": "www.aimn.com",
       "name": "AIM'N",
@@ -1744,23 +1750,6 @@
           "serviceId": "trumf",
           "urlName": "aimn-trumf",
           "cashbackDescription": "7,8 %"
-        }
-      ]
-    },
-    "bokia.no": {
-      "hostName": "bokia.no",
-      "name": "Bokia",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "bokia-trumf",
-          "cashbackDescription": "11,7 %"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "019f4b4d-3fc9-7184-a233-bc63156570b5",
-          "cashbackDescription": "50 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/bokia/019f4b4d-3fc9-7184-a233-bc63156570b5"
         }
       ]
     },
@@ -1857,6 +1846,17 @@
         }
       ]
     },
+    "www.bonprix.no": {
+      "hostName": "www.bonprix.no",
+      "name": "Bonprix",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "bonprix-trumf",
+          "cashbackDescription": "3,1 %"
+        }
+      ]
+    },
     "vikingfootwear.com": {
       "hostName": "vikingfootwear.com",
       "name": "Viking Footwear",
@@ -1870,17 +1870,6 @@
           "serviceId": "remember",
           "urlName": "viking-footwear",
           "cashbackDescription": "8%"
-        }
-      ]
-    },
-    "www.bonprix.no": {
-      "hostName": "www.bonprix.no",
-      "name": "Bonprix",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "bonprix-trumf",
-          "cashbackDescription": "3,1 %"
         }
       ]
     },
@@ -1903,6 +1892,17 @@
           "urlName": "0189630a-a9bd-73fa-b304-a9602d7d424d",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/lunehjem.no/0189630a-a9bd-73fa-b304-a9602d7d424d"
+        }
+      ]
+    },
+    "www.primevideo.com": {
+      "hostName": "www.primevideo.com",
+      "name": "Prime Video",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "prime-video-trumf",
+          "cashbackDescription": "25 kr"
         }
       ]
     },
@@ -1935,14 +1935,20 @@
         }
       ]
     },
-    "www.primevideo.com": {
-      "hostName": "www.primevideo.com",
-      "name": "Prime Video",
+    "www.kost1.no": {
+      "hostName": "www.kost1.no",
+      "name": "Kost1",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "prime-video-trumf",
-          "cashbackDescription": "25 kr"
+          "urlName": "kost1-trumf",
+          "cashbackDescription": "6,2 %"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "019f374b-74f0-73aa-82f5-e11c748d36c2",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/kost1/019f374b-74f0-73aa-82f5-e11c748d36c2"
         }
       ]
     },
@@ -1960,23 +1966,6 @@
           "urlName": "01896308-cd5b-7382-ab36-46aedea6f50d",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/myprotein/01896308-cd5b-7382-ab36-46aedea6f50d"
-        }
-      ]
-    },
-    "www.kost1.no": {
-      "hostName": "www.kost1.no",
-      "name": "Kost1",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "kost1-trumf",
-          "cashbackDescription": "6,2 %"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "019f374b-74f0-73aa-82f5-e11c748d36c2",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/kost1/019f374b-74f0-73aa-82f5-e11c748d36c2"
         }
       ]
     },
@@ -2002,17 +1991,6 @@
         }
       ]
     },
-    "tonnesen1937.no": {
-      "hostName": "tonnesen1937.no",
-      "name": "Tønnesen",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "tonnesen-trumf",
-          "cashbackDescription": "5,4 %"
-        }
-      ]
-    },
     "www.makeupmekka.com": {
       "hostName": "www.makeupmekka.com",
       "name": "Makeup Mekka",
@@ -2030,14 +2008,14 @@
         }
       ]
     },
-    "www.omio.no": {
-      "hostName": "www.omio.no",
-      "name": "Omio",
+    "tonnesen1937.no": {
+      "hostName": "tonnesen1937.no",
+      "name": "Tønnesen",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "omio-trumf",
-          "cashbackDescription": "Opptil            \n\t            4,6 %"
+          "urlName": "tonnesen-trumf",
+          "cashbackDescription": "5,4 %"
         }
       ]
     },
@@ -2077,6 +2055,17 @@
           "serviceId": "trumf",
           "urlName": "auto-europe-notrumf",
           "cashbackDescription": "4,6 %"
+        }
+      ]
+    },
+    "www.omio.no": {
+      "hostName": "www.omio.no",
+      "name": "Omio",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "omio-trumf",
+          "cashbackDescription": "Opptil            \n\t            4,6 %"
         }
       ]
     },
@@ -2144,6 +2133,34 @@
         }
       ]
     },
+    "www.foss-sport.no": {
+      "hostName": "www.foss-sport.no",
+      "name": "Foss Sport",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "foss-sport-trumf",
+          "cashbackDescription": "Opptil            \n\t            3,9 %"
+        }
+      ]
+    },
+    "www.skyshowtime.com": {
+      "hostName": "www.skyshowtime.com",
+      "name": "SkyShowtime",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "skyshowtime-trumf",
+          "cashbackDescription": "130 kr"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "01918df2-dab9-710b-8016-dbfec600d48f",
+          "cashbackDescription": "500 poeng som ny kunde",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/sky-showtime/01918df2-dab9-710b-8016-dbfec600d48f"
+        }
+      ]
+    },
     "kinogavekort.no": {
       "hostName": "kinogavekort.no",
       "name": "kinogavekort",
@@ -2177,42 +2194,20 @@
         }
       ]
     },
-    "www.foss-sport.no": {
-      "hostName": "www.foss-sport.no",
-      "name": "Foss Sport",
+    "www.jotex.no": {
+      "hostName": "www.jotex.no",
+      "name": "Jotex",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "foss-sport-trumf",
-          "cashbackDescription": "Opptil            \n\t            3,9 %"
-        }
-      ]
-    },
-    "no.oakley.com": {
-      "hostName": "no.oakley.com",
-      "name": "Oakley",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "oakley-trumf",
-          "cashbackDescription": "6,2 %"
-        }
-      ]
-    },
-    "www.skyshowtime.com": {
-      "hostName": "www.skyshowtime.com",
-      "name": "SkyShowtime",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "skyshowtime-trumf",
-          "cashbackDescription": "130 kr"
+          "urlName": "jotex-trumf",
+          "cashbackDescription": "3,9 %"
         },
         {
           "serviceId": "sas",
-          "urlName": "01918df2-dab9-710b-8016-dbfec600d48f",
-          "cashbackDescription": "500 poeng som ny kunde",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/sky-showtime/01918df2-dab9-710b-8016-dbfec600d48f"
+          "urlName": "0189630b-12c3-73e3-ac98-8b7400497796",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/jotex/0189630b-12c3-73e3-ac98-8b7400497796"
         }
       ]
     },
@@ -2230,6 +2225,17 @@
           "urlName": "019f1dc6-1a6f-712c-9f9d-8b832b053cc4",
           "cashbackDescription": "10 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/fotono/019f1dc6-1a6f-712c-9f9d-8b832b053cc4"
+        }
+      ]
+    },
+    "no.oakley.com": {
+      "hostName": "no.oakley.com",
+      "name": "Oakley",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "oakley-trumf",
+          "cashbackDescription": "6,2 %"
         }
       ]
     },
@@ -2266,50 +2272,6 @@
         }
       ]
     },
-    "www.jotex.no": {
-      "hostName": "www.jotex.no",
-      "name": "Jotex",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "jotex-trumf",
-          "cashbackDescription": "3,9 %"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "0189630b-12c3-73e3-ac98-8b7400497796",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/jotex/0189630b-12c3-73e3-ac98-8b7400497796"
-        }
-      ]
-    },
-    "www.storytel.no": {
-      "hostName": "www.storytel.no",
-      "name": "Storytel",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "storytel-trumf",
-          "cashbackDescription": "50 kr"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "storytel",
-          "cashbackDescription": "45 kr"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "0189630c-97b2-70fc-b190-002eaed90291",
-          "cashbackDescription": "250 poeng som ny kunde",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/storytel-no/0189630c-97b2-70fc-b190-002eaed90291"
-        },
-        {
-          "serviceId": "logbuy",
-          "urlName": "20495",
-          "cashbackDescription": "Tilbud"
-        }
-      ]
-    },
     "www.kitchentime.no": {
       "hostName": "www.kitchentime.no",
       "name": "KitchenTime",
@@ -2325,6 +2287,23 @@
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/kitchentime/01896309-8d97-726b-baed-35342a0d0149",
           "matchPathPrefix": "/no"
+        }
+      ]
+    },
+    "www.urverket.no": {
+      "hostName": "www.urverket.no",
+      "name": "Urverket",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "urverket-trumf",
+          "cashbackDescription": "3,1 %"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "0189630b-f7b0-73db-a7c0-55cf9e666fa5",
+          "cashbackDescription": "20 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/urverket.no/0189630b-f7b0-73db-a7c0-55cf9e666fa5"
         }
       ]
     },
@@ -2361,20 +2340,30 @@
         }
       ]
     },
-    "www.urverket.no": {
-      "hostName": "www.urverket.no",
-      "name": "Urverket",
+    "www.storytel.no": {
+      "hostName": "www.storytel.no",
+      "name": "Storytel",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "urverket-trumf",
-          "cashbackDescription": "3,1 %"
+          "urlName": "storytel-trumf",
+          "cashbackDescription": "50 kr"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "storytel",
+          "cashbackDescription": "45 kr"
         },
         {
           "serviceId": "sas",
-          "urlName": "0189630b-f7b0-73db-a7c0-55cf9e666fa5",
-          "cashbackDescription": "20 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/urverket.no/0189630b-f7b0-73db-a7c0-55cf9e666fa5"
+          "urlName": "0189630c-97b2-70fc-b190-002eaed90291",
+          "cashbackDescription": "250 poeng som ny kunde",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/storytel-no/0189630c-97b2-70fc-b190-002eaed90291"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20495",
+          "cashbackDescription": "Tilbud"
         }
       ]
     },
@@ -2401,23 +2390,6 @@
         }
       ]
     },
-    "www.nordicprint.no": {
-      "hostName": "www.nordicprint.no",
-      "name": "Nordic Print",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "nordic-print-trumf",
-          "cashbackDescription": "15,6 %"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "0189630f-e7ef-728b-81eb-be251fef4eb5",
-          "cashbackDescription": "50 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/nordic-print/0189630f-e7ef-728b-81eb-be251fef4eb5"
-        }
-      ]
-    },
     "bagbrokers.no": {
       "hostName": "bagbrokers.no",
       "name": "BagBrokers",
@@ -2440,35 +2412,14 @@
         }
       ]
     },
-    "www.brilleland.no": {
-      "hostName": "www.brilleland.no",
-      "name": "Brilleland",
+    "www.strikkia.no": {
+      "hostName": "www.strikkia.no",
+      "name": "Strikkia",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "brilleland-trumf",
-          "cashbackDescription": "4,6 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "brilleland",
-          "cashbackDescription": "8%"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "01896310-8ae4-734d-9de5-c494e2e99efc",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/brilleland/01896310-8ae4-734d-9de5-c494e2e99efc"
-        },
-        {
-          "serviceId": "naf",
-          "urlName": "brilleland",
-          "cashbackDescription": "Opptil 50 %"
-        },
-        {
-          "serviceId": "logbuy",
-          "urlName": "20502",
-          "cashbackDescription": "10 - 20 %"
+          "urlName": "strikkia-trumf",
+          "cashbackDescription": "7,8 %"
         }
       ]
     },
@@ -2517,7 +2468,56 @@
         {
           "serviceId": "logbuy",
           "urlName": "21289",
-          "cashbackDescription": "15 - 25 %"
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "www.brilleland.no": {
+      "hostName": "www.brilleland.no",
+      "name": "Brilleland",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "brilleland-trumf",
+          "cashbackDescription": "4,6 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "brilleland",
+          "cashbackDescription": "8%"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "01896310-8ae4-734d-9de5-c494e2e99efc",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/brilleland/01896310-8ae4-734d-9de5-c494e2e99efc"
+        },
+        {
+          "serviceId": "naf",
+          "urlName": "brilleland",
+          "cashbackDescription": "Opptil 50 %"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20502",
+          "cashbackDescription": "10 - 20 %"
+        }
+      ]
+    },
+    "www.nordicprint.no": {
+      "hostName": "www.nordicprint.no",
+      "name": "Nordic Print",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "nordic-print-trumf",
+          "cashbackDescription": "15,6 %"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "0189630f-e7ef-728b-81eb-be251fef4eb5",
+          "cashbackDescription": "50 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/nordic-print/0189630f-e7ef-728b-81eb-be251fef4eb5"
         }
       ]
     },
@@ -2538,14 +2538,20 @@
         }
       ]
     },
-    "www.strikkia.no": {
-      "hostName": "www.strikkia.no",
-      "name": "Strikkia",
+    "www.autodude.no": {
+      "hostName": "www.autodude.no",
+      "name": "Autodude",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "strikkia-trumf",
+          "urlName": "autodude-trumf",
           "cashbackDescription": "7,8 %"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "018f57d7-5ba2-735f-97f3-c511b00c38bb",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/autodude/018f57d7-5ba2-735f-97f3-c511b00c38bb"
         }
       ]
     },
@@ -2576,6 +2582,28 @@
         }
       ]
     },
+    "www.gonordiccruiseline.no": {
+      "hostName": "www.gonordiccruiseline.no",
+      "name": "Go Nordic Cruiseline",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "go-nordic-cruiseline-trumf",
+          "cashbackDescription": "3,7 %"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "019ea65a-1842-727b-9ed2-0e4088e7259b",
+          "cashbackDescription": "15 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/go-nordic-cruiseline/019ea65a-1842-727b-9ed2-0e4088e7259b"
+        },
+        {
+          "serviceId": "naf",
+          "urlName": "go-nordic-cruiseline",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
     "beckmann.no": {
       "hostName": "beckmann.no",
       "name": "Beckmann",
@@ -2590,28 +2618,6 @@
           "urlName": "",
           "cashbackDescription": "10%",
           "code": "DNB2937"
-        }
-      ]
-    },
-    "www.idealofsweden.no": {
-      "hostName": "www.idealofsweden.no",
-      "name": "Ideal of Sweden",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "ideal-of-sweden-trumf",
-          "cashbackDescription": "Opptil            \n\t            6,2 %"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "0189630f-4b89-721d-88e7-5b4e2b299f5f",
-          "cashbackDescription": "100 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/ideal-of-sweden/0189630f-4b89-721d-88e7-5b4e2b299f5f"
-        },
-        {
-          "serviceId": "logbuy",
-          "urlName": "20475",
-          "cashbackDescription": "16 %"
         }
       ]
     },
@@ -2638,42 +2644,25 @@
         }
       ]
     },
-    "www.gonordiccruiseline.no": {
-      "hostName": "www.gonordiccruiseline.no",
-      "name": "Go Nordic Cruiseline",
+    "www.idealofsweden.no": {
+      "hostName": "www.idealofsweden.no",
+      "name": "Ideal of Sweden",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "go-nordic-cruiseline-trumf",
-          "cashbackDescription": "3,7 %"
+          "urlName": "ideal-of-sweden-trumf",
+          "cashbackDescription": "Opptil            \n\t            6,2 %"
         },
         {
           "serviceId": "sas",
-          "urlName": "019ea65a-1842-727b-9ed2-0e4088e7259b",
-          "cashbackDescription": "15 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/go-nordic-cruiseline/019ea65a-1842-727b-9ed2-0e4088e7259b"
+          "urlName": "0189630f-4b89-721d-88e7-5b4e2b299f5f",
+          "cashbackDescription": "100 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/ideal-of-sweden/0189630f-4b89-721d-88e7-5b4e2b299f5f"
         },
         {
-          "serviceId": "naf",
-          "urlName": "go-nordic-cruiseline",
-          "cashbackDescription": "15 %"
-        }
-      ]
-    },
-    "www.autodude.no": {
-      "hostName": "www.autodude.no",
-      "name": "Autodude",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "autodude-trumf",
-          "cashbackDescription": "7,8 %"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "018f57d7-5ba2-735f-97f3-c511b00c38bb",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/autodude/018f57d7-5ba2-735f-97f3-c511b00c38bb"
+          "serviceId": "logbuy",
+          "urlName": "20475",
+          "cashbackDescription": "16 %"
         }
       ]
     },
@@ -2743,44 +2732,6 @@
         }
       ]
     },
-    "www.kinoklubb.no": {
-      "hostName": "www.kinoklubb.no",
-      "name": "Kinoklubben",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "kinoklubben-trumf",
-          "cashbackDescription": "35 kr"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "0189630f-6485-7344-8ba0-244ec2bc7db7",
-          "cashbackDescription": "250 poeng som ny kunde",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/kinoklubb/0189630f-6485-7344-8ba0-244ec2bc7db7"
-        },
-        {
-          "serviceId": "logbuy",
-          "urlName": "21387",
-          "cashbackDescription": "10 - 40 %"
-        }
-      ]
-    },
-    "shop.libresse.no": {
-      "hostName": "shop.libresse.no",
-      "name": "Libresse",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "libresse-trumf",
-          "cashbackDescription": "7,8 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "libresse",
-          "cashbackDescription": "10%"
-        }
-      ]
-    },
     "www.bosch-home.no": {
       "hostName": "www.bosch-home.no",
       "name": "Bosch",
@@ -2801,6 +2752,28 @@
           "serviceId": "logbuy",
           "urlName": "22261",
           "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "www.kinoklubb.no": {
+      "hostName": "www.kinoklubb.no",
+      "name": "Kinoklubben",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "kinoklubben-trumf",
+          "cashbackDescription": "35 kr"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "0189630f-6485-7344-8ba0-244ec2bc7db7",
+          "cashbackDescription": "250 poeng som ny kunde",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/kinoklubb/0189630f-6485-7344-8ba0-244ec2bc7db7"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21387",
+          "cashbackDescription": "10 - 40 %"
         }
       ]
     },
@@ -2840,6 +2813,22 @@
           "urlName": "0189630a-a54c-7011-8f33-054a1e130bfe",
           "cashbackDescription": "50 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/ilovedogs/0189630a-a54c-7011-8f33-054a1e130bfe"
+        }
+      ]
+    },
+    "shop.libresse.no": {
+      "hostName": "shop.libresse.no",
+      "name": "Libresse",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "libresse-trumf",
+          "cashbackDescription": "7,8 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "libresse",
+          "cashbackDescription": "10%"
         }
       ]
     },
@@ -2886,44 +2875,6 @@
         }
       ]
     },
-    "kokkeglede.no": {
-      "hostName": "kokkeglede.no",
-      "name": "Kokkeglede",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "kokkeglede-trumf",
-          "cashbackDescription": "7,8 %"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "019c9e5b-4248-7122-8cf8-20e9b93bff42",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/kokkeglede/019c9e5b-4248-7122-8cf8-20e9b93bff42"
-        }
-      ]
-    },
-    "www.lexingtoncompany.com": {
-      "hostName": "www.lexingtoncompany.com",
-      "name": "Lexington",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "lexington",
-          "cashbackDescription": "3,9 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "lexington",
-          "cashbackDescription": "8%"
-        },
-        {
-          "serviceId": "logbuy",
-          "urlName": "22265",
-          "cashbackDescription": "15 %"
-        }
-      ]
-    },
     "www.husqvarna.com": {
       "hostName": "www.husqvarna.com",
       "name": "Husqvarna",
@@ -2951,6 +2902,23 @@
         }
       ]
     },
+    "kokkeglede.no": {
+      "hostName": "kokkeglede.no",
+      "name": "Kokkeglede",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "kokkeglede-trumf",
+          "cashbackDescription": "7,8 %"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "019c9e5b-4248-7122-8cf8-20e9b93bff42",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/kokkeglede/019c9e5b-4248-7122-8cf8-20e9b93bff42"
+        }
+      ]
+    },
     "www.aeg.no": {
       "hostName": "www.aeg.no",
       "name": "AEG",
@@ -2974,7 +2942,7 @@
         {
           "serviceId": "logbuy",
           "urlName": "21289",
-          "cashbackDescription": "15 - 25 %"
+          "cashbackDescription": "25 %"
         }
       ]
     },
@@ -2997,17 +2965,6 @@
           "urlName": "0189630a-e49b-73fa-b65e-eb736c28f11b",
           "cashbackDescription": "10 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/dekkonline.no/0189630a-e49b-73fa-b65e-eb736c28f11b"
-        }
-      ]
-    },
-    "outlet.asics.com": {
-      "hostName": "outlet.asics.com",
-      "name": "ASICS Outlet",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "asics-outlet-trumf",
-          "cashbackDescription": "2,3 %"
         }
       ]
     },
@@ -3038,22 +2995,6 @@
         }
       ]
     },
-    "comforth.no": {
-      "hostName": "comforth.no",
-      "name": "Comforth Scandinavia",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "comforth-scandinavia-trumf",
-          "cashbackDescription": "15,6 %"
-        },
-        {
-          "serviceId": "logbuy",
-          "urlName": "21142",
-          "cashbackDescription": "15 %"
-        }
-      ]
-    },
     "www.bladkongen.no": {
       "hostName": "www.bladkongen.no",
       "name": "Bladkongen",
@@ -3068,6 +3009,38 @@
           "urlName": "01896307-d495-71ba-b745-e065da1ab693",
           "cashbackDescription": "50 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/bladkongen.no/01896307-d495-71ba-b745-e065da1ab693"
+        }
+      ]
+    },
+    "www.lexingtoncompany.com": {
+      "hostName": "www.lexingtoncompany.com",
+      "name": "Lexington",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "lexington",
+          "cashbackDescription": "3,9 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "lexington",
+          "cashbackDescription": "8%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "22265",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "ledlyskilder.no": {
+      "hostName": "ledlyskilder.no",
+      "name": "Ledlyskilder",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "ledlyskilder-trumf",
+          "cashbackDescription": "9,3 %"
         }
       ]
     },
@@ -3088,26 +3061,19 @@
         }
       ]
     },
-    "www.bookbeat.no": {
-      "hostName": "www.bookbeat.no",
-      "name": "BookBeat",
+    "comforth.no": {
+      "hostName": "comforth.no",
+      "name": "Comforth Scandinavia",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "bookbeat-trumf",
-          "cashbackDescription": "75 kr"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "0189630d-af8b-717b-b0cb-1f385bd015f5",
-          "cashbackDescription": "250 poeng som ny kunde",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/bookbeat/0189630d-af8b-717b-b0cb-1f385bd015f5",
-          "matchPathPrefix": "/no"
+          "urlName": "comforth-scandinavia-trumf",
+          "cashbackDescription": "15,6 %"
         },
         {
           "serviceId": "logbuy",
-          "urlName": "21735",
-          "cashbackDescription": "Tilbud"
+          "urlName": "21142",
+          "cashbackDescription": "15 %"
         }
       ]
     },
@@ -3149,6 +3115,40 @@
         }
       ]
     },
+    "outlet.asics.com": {
+      "hostName": "outlet.asics.com",
+      "name": "ASICS Outlet",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "asics-outlet-trumf",
+          "cashbackDescription": "2,3 %"
+        }
+      ]
+    },
+    "www.bookbeat.no": {
+      "hostName": "www.bookbeat.no",
+      "name": "BookBeat",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "bookbeat-trumf",
+          "cashbackDescription": "75 kr"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "0189630d-af8b-717b-b0cb-1f385bd015f5",
+          "cashbackDescription": "250 poeng som ny kunde",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/bookbeat/0189630d-af8b-717b-b0cb-1f385bd015f5",
+          "matchPathPrefix": "/no"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "21735",
+          "cashbackDescription": "Tilbud"
+        }
+      ]
+    },
     "sackit.no": {
       "hostName": "sackit.no",
       "name": "SACKit",
@@ -3156,17 +3156,6 @@
         {
           "serviceId": "trumf",
           "urlName": "sackit-trumf",
-          "cashbackDescription": "9,3 %"
-        }
-      ]
-    },
-    "ledlyskilder.no": {
-      "hostName": "ledlyskilder.no",
-      "name": "Ledlyskilder",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "ledlyskilder-trumf",
           "cashbackDescription": "9,3 %"
         }
       ]
@@ -3184,6 +3173,23 @@
           "serviceId": "logbuy",
           "urlName": "21839",
           "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "www.e-wheels.no": {
+      "hostName": "www.e-wheels.no",
+      "name": "E-Wheels",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "e-wheels-trumf",
+          "cashbackDescription": "2,3 %"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "01896310-1e04-7083-b83b-6a19deed1cf1",
+          "cashbackDescription": "15 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/e-wheels-2/01896310-1e04-7083-b83b-6a19deed1cf1"
         }
       ]
     },
@@ -3221,28 +3227,6 @@
         }
       ]
     },
-    "www.petxl.no": {
-      "hostName": "www.petxl.no",
-      "name": "PetXL",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "petxl-trumf",
-          "cashbackDescription": "Opptil            \n\t            6,2 %"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "019c7b24-6555-7109-9f9b-b6675d9f3abb",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/petxl/019c7b24-6555-7109-9f9b-b6675d9f3abb"
-        },
-        {
-          "serviceId": "logbuy",
-          "urlName": "22139",
-          "cashbackDescription": "10 %"
-        }
-      ]
-    },
     "www.barbershop.no": {
       "hostName": "www.barbershop.no",
       "name": "Barbershop",
@@ -3266,43 +3250,25 @@
         }
       ]
     },
-    "www.lenovo.com": {
-      "hostName": "www.lenovo.com",
-      "name": "Lenovo",
+    "www.petxl.no": {
+      "hostName": "www.petxl.no",
+      "name": "PetXL",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "lenovo-trumf",
-          "cashbackDescription": "2,3 %"
+          "urlName": "petxl-trumf",
+          "cashbackDescription": "Opptil            \n\t            6,2 %"
         },
         {
           "serviceId": "sas",
-          "urlName": "01896311-859b-70f9-876a-a52c61ec5e5a",
-          "cashbackDescription": "10 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/lenovo-2/01896311-859b-70f9-876a-a52c61ec5e5a",
-          "matchPathPrefix": "/no/no"
+          "urlName": "019c7b24-6555-7109-9f9b-b6675d9f3abb",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/petxl/019c7b24-6555-7109-9f9b-b6675d9f3abb"
         },
         {
           "serviceId": "logbuy",
-          "urlName": "20470",
-          "cashbackDescription": "9 %"
-        }
-      ]
-    },
-    "www.e-wheels.no": {
-      "hostName": "www.e-wheels.no",
-      "name": "E-Wheels",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "e-wheels-trumf",
-          "cashbackDescription": "2,3 %"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "01896310-1e04-7083-b83b-6a19deed1cf1",
-          "cashbackDescription": "15 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/e-wheels-2/01896310-1e04-7083-b83b-6a19deed1cf1"
+          "urlName": "22139",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -3314,68 +3280,6 @@
           "serviceId": "trumf",
           "urlName": "hudprodukter",
           "cashbackDescription": "6,2 %"
-        }
-      ]
-    },
-    "lampemesteren.no": {
-      "hostName": "lampemesteren.no",
-      "name": "Lampemesteren",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "lampemesteren-trumf",
-          "cashbackDescription": "Opptil            \n\t            6,2 %"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "01896308-b758-703a-8f2a-7d8ab49b690e",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/lampemesteren/01896308-b758-703a-8f2a-7d8ab49b690e"
-        }
-      ]
-    },
-    "www.slikkepott.no": {
-      "hostName": "www.slikkepott.no",
-      "name": "Slikkepott",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "slikkepott-trumf",
-          "cashbackDescription": "Opptil            \n\t            6,2 %"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "01896308-cbba-717c-b38b-bcf4e27a3d91",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/slikkepott/01896308-cbba-717c-b38b-bcf4e27a3d91"
-        }
-      ]
-    },
-    "youwish.no": {
-      "hostName": "youwish.no",
-      "name": "YouWish",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "youwish",
-          "cashbackDescription": "6,2 %"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "0189630d-090d-71ba-a708-cc740649c2f0",
-          "cashbackDescription": "50 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/youwish/0189630d-090d-71ba-a708-cc740649c2f0"
-        }
-      ]
-    },
-    "uppababy.no": {
-      "hostName": "uppababy.no",
-      "name": "Uppababy",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "uppababy-trumf",
-          "cashbackDescription": "14 %"
         }
       ]
     },
@@ -3402,6 +3306,23 @@
         }
       ]
     },
+    "www.slikkepott.no": {
+      "hostName": "www.slikkepott.no",
+      "name": "Slikkepott",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "slikkepott-trumf",
+          "cashbackDescription": "Opptil            \n\t            6,2 %"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "01896308-cbba-717c-b38b-bcf4e27a3d91",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/slikkepott/01896308-cbba-717c-b38b-bcf4e27a3d91"
+        }
+      ]
+    },
     "www.interoptik.no": {
       "hostName": "www.interoptik.no",
       "name": "Interoptik",
@@ -3419,6 +3340,23 @@
         }
       ]
     },
+    "lampemesteren.no": {
+      "hostName": "lampemesteren.no",
+      "name": "Lampemesteren",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "lampemesteren-trumf",
+          "cashbackDescription": "Opptil            \n\t            6,2 %"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "01896308-b758-703a-8f2a-7d8ab49b690e",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/lampemesteren/01896308-b758-703a-8f2a-7d8ab49b690e"
+        }
+      ]
+    },
     "www.evoride.no": {
       "hostName": "www.evoride.no",
       "name": "Evoride",
@@ -3430,20 +3368,65 @@
         }
       ]
     },
-    "www.trendcarpet.no": {
-      "hostName": "www.trendcarpet.no",
-      "name": "Trendcarpet",
+    "uppababy.no": {
+      "hostName": "uppababy.no",
+      "name": "Uppababy",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "trendcarpet-trumf",
+          "urlName": "uppababy-trumf",
+          "cashbackDescription": "14 %"
+        }
+      ]
+    },
+    "www.lenovo.com": {
+      "hostName": "www.lenovo.com",
+      "name": "Lenovo",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "lenovo-trumf",
+          "cashbackDescription": "2,3 %"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "01896311-859b-70f9-876a-a52c61ec5e5a",
+          "cashbackDescription": "10 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/lenovo-2/01896311-859b-70f9-876a-a52c61ec5e5a",
+          "matchPathPrefix": "/no/no"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20470",
+          "cashbackDescription": "9 %"
+        }
+      ]
+    },
+    "youwish.no": {
+      "hostName": "youwish.no",
+      "name": "YouWish",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "youwish",
           "cashbackDescription": "6,2 %"
         },
         {
           "serviceId": "sas",
-          "urlName": "0197c10c-695d-734a-80cb-afa6b257734f",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/trendcarpet/0197c10c-695d-734a-80cb-afa6b257734f"
+          "urlName": "0189630d-090d-71ba-a708-cc740649c2f0",
+          "cashbackDescription": "50 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/youwish/0189630d-090d-71ba-a708-cc740649c2f0"
+        }
+      ]
+    },
+    "www.hunkemoller": {
+      "hostName": "www.hunkemoller",
+      "name": "Hunkemoller",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "hunkemoller-trumf",
+          "cashbackDescription": "5,4 %"
         }
       ]
     },
@@ -3464,14 +3447,64 @@
         }
       ]
     },
-    "www.hunkemoller": {
-      "hostName": "www.hunkemoller",
-      "name": "Hunkemoller",
+    "www.babybanden.no": {
+      "hostName": "www.babybanden.no",
+      "name": "Babybanden",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "hunkemoller-trumf",
-          "cashbackDescription": "5,4 %"
+          "urlName": "babybanden-trumf",
+          "cashbackDescription": "6,2 %"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "019fb246-096a-73ea-826f-90c50a2c9402",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/babybanden/019fb246-096a-73ea-826f-90c50a2c9402"
+        }
+      ]
+    },
+    "www.trendcarpet.no": {
+      "hostName": "www.trendcarpet.no",
+      "name": "Trendcarpet",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "trendcarpet-trumf",
+          "cashbackDescription": "6,2 %"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "0197c10c-695d-734a-80cb-afa6b257734f",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/trendcarpet/0197c10c-695d-734a-80cb-afa6b257734f"
+        }
+      ]
+    },
+    "www.ebay.com": {
+      "hostName": "www.ebay.com",
+      "name": "eBay",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "ebay-trumfno",
+          "cashbackDescription": "1 %"
+        }
+      ]
+    },
+    "viaplay.no": {
+      "hostName": "viaplay.no",
+      "name": "Viaplay",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "viaplay-trumf",
+          "cashbackDescription": "295 kr"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20663",
+          "cashbackDescription": "30 %"
         }
       ]
     },
@@ -3494,17 +3527,6 @@
           "serviceId": "logbuy",
           "urlName": "22414",
           "cashbackDescription": "20 %"
-        }
-      ]
-    },
-    "www.ebay.com": {
-      "hostName": "www.ebay.com",
-      "name": "eBay",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "ebay-trumfno",
-          "cashbackDescription": "1 %"
         }
       ]
     },
@@ -3538,6 +3560,34 @@
           "urlName": "01896308-a32a-7301-8110-e1b4a6023301",
           "cashbackDescription": "50 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/daniel-wellington/01896308-a32a-7301-8110-e1b4a6023301"
+        }
+      ]
+    },
+    "www.pilgrim.net": {
+      "hostName": "www.pilgrim.net",
+      "name": "Pilgrim",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "pilgrim-trumf",
+          "cashbackDescription": "7,8 %"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "0196b513-2638-7036-83ce-676479acc9ff",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/pilgrim/0196b513-2638-7036-83ce-676479acc9ff"
+        }
+      ]
+    },
+    "www.superkul.no": {
+      "hostName": "www.superkul.no",
+      "name": "Superkul",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "trumfsuperkul",
+          "cashbackDescription": "5,4 %"
         }
       ]
     },
@@ -3585,105 +3635,6 @@
         }
       ]
     },
-    "www.stille.no": {
-      "hostName": "www.stille.no",
-      "name": "Stille",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "stille-trumf",
-          "cashbackDescription": "7,8 %"
-        }
-      ]
-    },
-    "www.pilgrim.net": {
-      "hostName": "www.pilgrim.net",
-      "name": "Pilgrim",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "pilgrim-trumf",
-          "cashbackDescription": "7,8 %"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "0196b513-2638-7036-83ce-676479acc9ff",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/pilgrim/0196b513-2638-7036-83ce-676479acc9ff"
-        }
-      ]
-    },
-    "www.babybanden.no": {
-      "hostName": "www.babybanden.no",
-      "name": "Babybanden",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "babybanden-trumf",
-          "cashbackDescription": "6,2 %"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "019fb246-096a-73ea-826f-90c50a2c9402",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/babybanden/019fb246-096a-73ea-826f-90c50a2c9402"
-        }
-      ]
-    },
-    "nextory.com": {
-      "hostName": "nextory.com",
-      "name": "Nextory",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "nextory-trumfs",
-          "cashbackDescription": "35 kr"
-        },
-        {
-          "serviceId": "logbuy",
-          "urlName": "20925",
-          "cashbackDescription": "Tilbud"
-        }
-      ]
-    },
-    "www.superkul.no": {
-      "hostName": "www.superkul.no",
-      "name": "Superkul",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "trumfsuperkul",
-          "cashbackDescription": "5,4 %"
-        }
-      ]
-    },
-    "www.tripx.no": {
-      "hostName": "www.tripx.no",
-      "name": "TripX",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "tripx-trumf",
-          "cashbackDescription": "3,9 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "tripx",
-          "cashbackDescription": "5%"
-        }
-      ]
-    },
-    "kayani.no": {
-      "hostName": "kayani.no",
-      "name": "Kayani",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "kayani-trumf",
-          "cashbackDescription": "10,1 %"
-        }
-      ]
-    },
     "www.bergwatches.no": {
       "hostName": "www.bergwatches.no",
       "name": "Berg Watches",
@@ -3701,17 +3652,6 @@
         }
       ]
     },
-    "www.avast.com": {
-      "hostName": "www.avast.com",
-      "name": "AVAST Software",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "avast-software-trumf",
-          "cashbackDescription": "23,4 %"
-        }
-      ]
-    },
     "www.edblad.com": {
       "hostName": "www.edblad.com",
       "name": "Edblad",
@@ -3723,14 +3663,14 @@
         }
       ]
     },
-    "www.smartasaker.no": {
-      "hostName": "www.smartasaker.no",
-      "name": "SmartaSaker",
+    "kayani.no": {
+      "hostName": "kayani.no",
+      "name": "Kayani",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "smartasaker-trumf",
-          "cashbackDescription": "7,8 %"
+          "urlName": "kayani-trumf",
+          "cashbackDescription": "10,1 %"
         }
       ]
     },
@@ -3745,14 +3685,14 @@
         }
       ]
     },
-    "xn--smungene-b0a.no": {
-      "hostName": "xn--smungene-b0a.no",
-      "name": "Småungene",
+    "www.stille.no": {
+      "hostName": "www.stille.no",
+      "name": "Stille",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "smaungene-trumf",
-          "cashbackDescription": "6,2 %"
+          "urlName": "stille-trumf",
+          "cashbackDescription": "7,8 %"
         }
       ]
     },
@@ -3772,14 +3712,57 @@
         }
       ]
     },
-    "www.urbanpioneers.no": {
-      "hostName": "www.urbanpioneers.no",
-      "name": "Urban Pioneers",
+    "www.tripx.no": {
+      "hostName": "www.tripx.no",
+      "name": "TripX",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "urban-pioneers-trumf",
-          "cashbackDescription": "6,2 %"
+          "urlName": "tripx-trumf",
+          "cashbackDescription": "3,9 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "tripx",
+          "cashbackDescription": "5%"
+        }
+      ]
+    },
+    "nextory.com": {
+      "hostName": "nextory.com",
+      "name": "Nextory",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "nextory-trumfs",
+          "cashbackDescription": "35 kr"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "20925",
+          "cashbackDescription": "Tilbud"
+        }
+      ]
+    },
+    "www.smartasaker.no": {
+      "hostName": "www.smartasaker.no",
+      "name": "SmartaSaker",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "smartasaker-trumf",
+          "cashbackDescription": "7,8 %"
+        }
+      ]
+    },
+    "www.avast.com": {
+      "hostName": "www.avast.com",
+      "name": "AVAST Software",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "avast-software-trumf",
+          "cashbackDescription": "23,4 %"
         }
       ]
     },
@@ -3797,6 +3780,28 @@
           "urlName": "019c7b32-49d5-70b2-b1c1-a7ba8153a087",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/bad-stil/019c7b32-49d5-70b2-b1c1-a7ba8153a087"
+        }
+      ]
+    },
+    "www.urbanpioneers.no": {
+      "hostName": "www.urbanpioneers.no",
+      "name": "Urban Pioneers",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "urban-pioneers-trumf",
+          "cashbackDescription": "6,2 %"
+        }
+      ]
+    },
+    "xn--smungene-b0a.no": {
+      "hostName": "xn--smungene-b0a.no",
+      "name": "Småungene",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "smaungene-trumf",
+          "cashbackDescription": "6,2 %"
         }
       ]
     },
@@ -3862,17 +3867,6 @@
         }
       ]
     },
-    "www.karma.no": {
-      "hostName": "www.karma.no",
-      "name": "Karma",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "karma-trumf",
-          "cashbackDescription": "7,8 %"
-        }
-      ]
-    },
     "www.haglofs.com": {
       "hostName": "www.haglofs.com",
       "name": "Haglöfs",
@@ -3895,6 +3889,17 @@
         }
       ]
     },
+    "www.karma.no": {
+      "hostName": "www.karma.no",
+      "name": "Karma",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "karma-trumf",
+          "cashbackDescription": "7,8 %"
+        }
+      ]
+    },
     "www.dekk.eu": {
       "hostName": "www.dekk.eu",
       "name": "Dekk.eu",
@@ -3914,44 +3919,6 @@
           "serviceId": "trumf",
           "urlName": "weloveholidays-trumf",
           "cashbackDescription": "3,1 %"
-        }
-      ]
-    },
-    "store.acer.com": {
-      "hostName": "store.acer.com",
-      "name": "Acer",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "acer-trumf",
-          "cashbackDescription": "3,9 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "acer",
-          "cashbackDescription": "5%"
-        },
-        {
-          "serviceId": "logbuy",
-          "urlName": "22158",
-          "cashbackDescription": "5 - 15 %"
-        }
-      ]
-    },
-    "www.newporthome.no": {
-      "hostName": "www.newporthome.no",
-      "name": "Newport",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "newport-home-trumf",
-          "cashbackDescription": "7 %"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "0189630d-4e7a-7014-9943-41d6625a52b9",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/newport/0189630d-4e7a-7014-9943-41d6625a52b9"
         }
       ]
     },
@@ -4005,6 +3972,44 @@
         }
       ]
     },
+    "store.acer.com": {
+      "hostName": "store.acer.com",
+      "name": "Acer",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "acer-trumf",
+          "cashbackDescription": "3,9 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "acer",
+          "cashbackDescription": "5%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "22158",
+          "cashbackDescription": "5 - 15 %"
+        }
+      ]
+    },
+    "www.newporthome.no": {
+      "hostName": "www.newporthome.no",
+      "name": "Newport",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "newport-home-trumf",
+          "cashbackDescription": "7 %"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "0189630d-4e7a-7014-9943-41d6625a52b9",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/newport/0189630d-4e7a-7014-9943-41d6625a52b9"
+        }
+      ]
+    },
     "kouture.no": {
       "hostName": "kouture.no",
       "name": "Kouture",
@@ -4016,6 +4021,17 @@
         }
       ]
     },
+    "www.follestad.no": {
+      "hostName": "www.follestad.no",
+      "name": "Follestad",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "follestad-trumf",
+          "cashbackDescription": "6,2 %"
+        }
+      ]
+    },
     "www.foodstuff.no": {
       "hostName": "www.foodstuff.no",
       "name": "Foodstuff",
@@ -4024,67 +4040,6 @@
           "serviceId": "trumf",
           "urlName": "foodstuff-trumf",
           "cashbackDescription": "7,8 %"
-        }
-      ]
-    },
-    "drommerom.no": {
-      "hostName": "drommerom.no",
-      "name": "Drømmerom",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "drommerom-trumf",
-          "cashbackDescription": "5,4 %"
-        }
-      ]
-    },
-    "www.g-star.com": {
-      "hostName": "www.g-star.com",
-      "name": "G-Star",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "g-star-raw-trumf",
-          "cashbackDescription": "Opptil            \n\t            9,3 %"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "018ce8ef-9005-73b2-9eab-aa62d65c537a",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/g-star/018ce8ef-9005-73b2-9eab-aa62d65c537a"
-        }
-      ]
-    },
-    "www.goboken.no": {
-      "hostName": "www.goboken.no",
-      "name": "Goboken",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "goboken-trumf",
-          "cashbackDescription": "90 kr"
-        }
-      ]
-    },
-    "www.nazar.no": {
-      "hostName": "www.nazar.no",
-      "name": "Nazar",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "nazar-trumf",
-          "cashbackDescription": "1,5 %"
-        }
-      ]
-    },
-    "www.ekstralys.no": {
-      "hostName": "www.ekstralys.no",
-      "name": "Ekstralys",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "trumfekstralys",
-          "cashbackDescription": "7 %"
         }
       ]
     },
@@ -4110,6 +4065,67 @@
         }
       ]
     },
+    "www.goboken.no": {
+      "hostName": "www.goboken.no",
+      "name": "Goboken",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "goboken-trumf",
+          "cashbackDescription": "90 kr"
+        }
+      ]
+    },
+    "www.g-star.com": {
+      "hostName": "www.g-star.com",
+      "name": "G-Star",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "g-star-raw-trumf",
+          "cashbackDescription": "Opptil            \n\t            9,3 %"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "018ce8ef-9005-73b2-9eab-aa62d65c537a",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/g-star/018ce8ef-9005-73b2-9eab-aa62d65c537a"
+        }
+      ]
+    },
+    "www.ekstralys.no": {
+      "hostName": "www.ekstralys.no",
+      "name": "Ekstralys",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "trumfekstralys",
+          "cashbackDescription": "7 %"
+        }
+      ]
+    },
+    "www.nazar.no": {
+      "hostName": "www.nazar.no",
+      "name": "Nazar",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "nazar-trumf",
+          "cashbackDescription": "1,5 %"
+        }
+      ]
+    },
+    "drommerom.no": {
+      "hostName": "drommerom.no",
+      "name": "Drømmerom",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "drommerom-trumf",
+          "cashbackDescription": "5,4 %"
+        }
+      ]
+    },
     "www.stigasports.com": {
       "hostName": "www.stigasports.com",
       "name": "STIGA Sports",
@@ -4131,17 +4147,6 @@
         }
       ]
     },
-    "www.beautymall.no": {
-      "hostName": "www.beautymall.no",
-      "name": "Beauty Mall",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "beauty-mall",
-          "cashbackDescription": "5,4 %"
-        }
-      ]
-    },
     "www.fyrklovern.com": {
       "hostName": "www.fyrklovern.com",
       "name": "Fyrklövern",
@@ -4150,6 +4155,17 @@
           "serviceId": "trumf",
           "urlName": "fyrklovern-trumf",
           "cashbackDescription": "6,2 %"
+        }
+      ]
+    },
+    "www.beautymall.no": {
+      "hostName": "www.beautymall.no",
+      "name": "Beauty Mall",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "beauty-mall",
+          "cashbackDescription": "5,4 %"
         }
       ]
     },
@@ -4175,41 +4191,14 @@
         }
       ]
     },
-    "viaplay.no": {
-      "hostName": "viaplay.no",
-      "name": "Viaplay",
+    "www.autodeler.co.no": {
+      "hostName": "www.autodeler.co.no",
+      "name": "Autodeler",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "viaplay-trumf",
-          "cashbackDescription": "295 kr"
-        },
-        {
-          "serviceId": "logbuy",
-          "urlName": "20663",
-          "cashbackDescription": "30 %"
-        }
-      ]
-    },
-    "www.": {
-      "hostName": "www.",
-      "name": "MAXA",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "maxa-trumf",
-          "cashbackDescription": "3,1 %"
-        }
-      ]
-    },
-    "www.backeigrensen.no": {
-      "hostName": "www.backeigrensen.no",
-      "name": "Backe i Grensen",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "backe-i-grensen-trumf",
-          "cashbackDescription": "4,6 %"
+          "urlName": "autodeler-trumf",
+          "cashbackDescription": "Opptil            \n\t            6,2 %"
         }
       ]
     },
@@ -4221,17 +4210,6 @@
           "serviceId": "trumf",
           "urlName": "elite-hotels-of-sweden-trumf",
           "cashbackDescription": "3,9 %"
-        }
-      ]
-    },
-    "www.viatorcom.no": {
-      "hostName": "www.viatorcom.no",
-      "name": "Viator",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "viator-trumf",
-          "cashbackDescription": "3,1 %"
         }
       ]
     },
@@ -4257,14 +4235,14 @@
         }
       ]
     },
-    "www.autodeler.co.no": {
-      "hostName": "www.autodeler.co.no",
-      "name": "Autodeler",
+    "www.p-lindberg.no": {
+      "hostName": "www.p-lindberg.no",
+      "name": "P.Lindberg",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "autodeler-trumf",
-          "cashbackDescription": "Opptil            \n\t            6,2 %"
+          "urlName": "p-lindberg-trumf",
+          "cashbackDescription": "6,2 %"
         }
       ]
     },
@@ -4285,6 +4263,17 @@
         }
       ]
     },
+    "www.viatorcom.no": {
+      "hostName": "www.viatorcom.no",
+      "name": "Viator",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "viator-trumf",
+          "cashbackDescription": "3,1 %"
+        }
+      ]
+    },
     "www.superdrystore.no": {
       "hostName": "www.superdrystore.no",
       "name": "Superdry",
@@ -4296,14 +4285,25 @@
         }
       ]
     },
-    "inzpero.no": {
-      "hostName": "inzpero.no",
-      "name": "Inzpero",
+    "www.": {
+      "hostName": "www.",
+      "name": "MAXA",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "inzpero-trumf",
-          "cashbackDescription": "9,3 %"
+          "urlName": "maxa-trumf",
+          "cashbackDescription": "3,1 %"
+        }
+      ]
+    },
+    "www.backeigrensen.no": {
+      "hostName": "www.backeigrensen.no",
+      "name": "Backe i Grensen",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "backe-i-grensen-trumf",
+          "cashbackDescription": "4,6 %"
         }
       ]
     },
@@ -4329,25 +4329,31 @@
         }
       ]
     },
-    "www.p-lindberg.no": {
-      "hostName": "www.p-lindberg.no",
-      "name": "P.Lindberg",
+    "inzpero.no": {
+      "hostName": "inzpero.no",
+      "name": "Inzpero",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "p-lindberg-trumf",
-          "cashbackDescription": "6,2 %"
+          "urlName": "inzpero-trumf",
+          "cashbackDescription": "9,3 %"
         }
       ]
     },
-    "www.follestad.no": {
-      "hostName": "www.follestad.no",
-      "name": "Follestad",
+    "onyxcookware.no": {
+      "hostName": "onyxcookware.no",
+      "name": "ONYX Cookware",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "follestad-trumf",
-          "cashbackDescription": "6,2 %"
+          "urlName": "onyx-cookware-trumf",
+          "cashbackDescription": "4,6 %"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "01a04319-8c3e-70f1-80fb-7c2cdc036ea8",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/onyx-cookware/01a04319-8c3e-70f1-80fb-7c2cdc036ea8"
         }
       ]
     },
@@ -4384,20 +4390,30 @@
         }
       ]
     },
-    "onyxcookware.no": {
-      "hostName": "onyxcookware.no",
-      "name": "ONYX Cookware",
+    "www.risskov.no": {
+      "hostName": "www.risskov.no",
+      "name": "Risskov Bilferie",
       "offers": [
         {
           "serviceId": "trumf",
-          "urlName": "onyx-cookware-trumf",
-          "cashbackDescription": "4,6 %"
+          "urlName": "risskov-bilferietrumf",
+          "cashbackDescription": "3,9 %"
         },
         {
-          "serviceId": "sas",
-          "urlName": "01a04319-8c3e-70f1-80fb-7c2cdc036ea8",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/onyx-cookware/01a04319-8c3e-70f1-80fb-7c2cdc036ea8"
+          "serviceId": "remember",
+          "urlName": "risskov-bilferie",
+          "cashbackDescription": "5%"
+        }
+      ]
+    },
+    "www.clickandboat.com": {
+      "hostName": "www.clickandboat.com",
+      "name": "Click&Boat",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "click-and-boat-trumf",
+          "cashbackDescription": "Opptil            \n\t            4,6 %"
         }
       ]
     },
@@ -4416,33 +4432,6 @@
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/nicebeauty/01896311-cd52-7367-8aae-0c4b46a3188e",
           "matchPathPrefix": "/no"
-        }
-      ]
-    },
-    "www.clickandboat.com": {
-      "hostName": "www.clickandboat.com",
-      "name": "Click&Boat",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "click-and-boat-trumf",
-          "cashbackDescription": "Opptil            \n\t            4,6 %"
-        }
-      ]
-    },
-    "www.risskov.no": {
-      "hostName": "www.risskov.no",
-      "name": "Risskov Bilferie",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "risskov-bilferietrumf",
-          "cashbackDescription": "3,9 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "risskov-bilferie",
-          "cashbackDescription": "5%"
         }
       ]
     },
@@ -4517,17 +4506,6 @@
         }
       ]
     },
-    "www.havilavoyages.com": {
-      "hostName": "www.havilavoyages.com",
-      "name": "Havila Kystruten",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "havila-voyages-trumf",
-          "cashbackDescription": "4,9 %"
-        }
-      ]
-    },
     "pyretosnackan.se": {
       "hostName": "pyretosnackan.se",
       "name": "Pyret og Snäckan",
@@ -4544,6 +4522,28 @@
         }
       ]
     },
+    "www.havilavoyages.com": {
+      "hostName": "www.havilavoyages.com",
+      "name": "Havila Kystruten",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "havila-voyages-trumf",
+          "cashbackDescription": "4,9 %"
+        }
+      ]
+    },
+    "www.holzweiler.no": {
+      "hostName": "www.holzweiler.no",
+      "name": "Holzweiler",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "holzweiler-trumf",
+          "cashbackDescription": "6,2 %"
+        }
+      ]
+    },
     "heialbert.no": {
       "hostName": "heialbert.no",
       "name": "Albert",
@@ -4552,6 +4552,17 @@
           "serviceId": "trumf",
           "urlName": "albert-trumf",
           "cashbackDescription": "75 kr"
+        }
+      ]
+    },
+    "www.hultens.no": {
+      "hostName": "www.hultens.no",
+      "name": "Hulténs",
+      "offers": [
+        {
+          "serviceId": "trumf",
+          "urlName": "hultens-trumf",
+          "cashbackDescription": "3,9 %"
         }
       ]
     },
@@ -4577,17 +4588,6 @@
         }
       ]
     },
-    "www.hultens.no": {
-      "hostName": "www.hultens.no",
-      "name": "Hulténs",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "hultens-trumf",
-          "cashbackDescription": "3,9 %"
-        }
-      ]
-    },
     "hamphi.com": {
       "hostName": "hamphi.com",
       "name": "Hamphi",
@@ -4603,17 +4603,6 @@
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/hamphi/0199c410-ed9b-72f0-ae61-3e87d9179fc8",
           "matchPathPrefix": "/no-no"
-        }
-      ]
-    },
-    "www.holzweiler.no": {
-      "hostName": "www.holzweiler.no",
-      "name": "Holzweiler",
-      "offers": [
-        {
-          "serviceId": "trumf",
-          "urlName": "holzweiler-trumf",
-          "cashbackDescription": "6,2 %"
         }
       ]
     },
@@ -4672,6 +4661,28 @@
         }
       ]
     },
+    "www.addresshotels.com": {
+      "hostName": "www.addresshotels.com",
+      "name": "Address Hotels",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "address-hotels",
+          "cashbackDescription": "2%"
+        }
+      ]
+    },
+    "alliesofskin.com": {
+      "hostName": "alliesofskin.com",
+      "name": "Allies of skin",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "allies-of-skin",
+          "cashbackDescription": "15%"
+        }
+      ]
+    },
     "amisol.no": {
       "hostName": "amisol.no",
       "name": "Amisol Travel",
@@ -4683,14 +4694,14 @@
         }
       ]
     },
-    "www.addresshotels.com": {
-      "hostName": "www.addresshotels.com",
-      "name": "Address Hotels",
+    "autoeurope.no": {
+      "hostName": "autoeurope.no",
+      "name": "Auto Europe",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "address-hotels",
-          "cashbackDescription": "2%"
+          "urlName": "auto-europe",
+          "cashbackDescription": "9%"
         }
       ]
     },
@@ -4711,25 +4722,14 @@
         }
       ]
     },
-    "alliesofskin.com": {
-      "hostName": "alliesofskin.com",
-      "name": "Allies of skin",
+    "bose.no": {
+      "hostName": "bose.no",
+      "name": "BOSE",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "allies-of-skin",
-          "cashbackDescription": "15%"
-        }
-      ]
-    },
-    "autoeurope.no": {
-      "hostName": "autoeurope.no",
-      "name": "Auto Europe",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "auto-europe",
-          "cashbackDescription": "9%"
+          "urlName": "bose",
+          "cashbackDescription": "3%"
         }
       ]
     },
@@ -4753,46 +4753,6 @@
               "description": "i reward rabatt ved videre kjøp"
             }
           ]
-        }
-      ]
-    },
-    "boohoo.com": {
-      "hostName": "boohoo.com",
-      "name": "Boohoo",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "boohoo",
-          "cashbackDescription": "1%"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "01896308-b044-72fb-9ef9-273035e78cad",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/boohoo/01896308-b044-72fb-9ef9-273035e78cad",
-          "matchPathPrefix": "/norway/page/home"
-        }
-      ]
-    },
-    "budget.no": {
-      "hostName": "budget.no",
-      "name": "Budget leiebiler",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "budget-leiebiler",
-          "cashbackDescription": "8%"
-        }
-      ]
-    },
-    "bose.no": {
-      "hostName": "bose.no",
-      "name": "BOSE",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "bose",
-          "cashbackDescription": "3%"
         }
       ]
     },
@@ -4824,25 +4784,32 @@
         }
       ]
     },
-    "clarins.no": {
-      "hostName": "clarins.no",
-      "name": "Clarins",
+    "boohoo.com": {
+      "hostName": "boohoo.com",
+      "name": "Boohoo",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "clarins",
-          "cashbackDescription": "8%"
+          "urlName": "boohoo",
+          "cashbackDescription": "1%"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "01896308-b044-72fb-9ef9-273035e78cad",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/boohoo/01896308-b044-72fb-9ef9-273035e78cad",
+          "matchPathPrefix": "/norway/page/home"
         }
       ]
     },
-    "climbing247.no": {
-      "hostName": "climbing247.no",
-      "name": "Climbing247.no",
+    "budget.no": {
+      "hostName": "budget.no",
+      "name": "Budget leiebiler",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "climbing247.no",
-          "cashbackDescription": "3.5%"
+          "urlName": "budget-leiebiler",
+          "cashbackDescription": "8%"
         }
       ]
     },
@@ -4889,23 +4856,6 @@
         }
       ]
     },
-    "detailshop.no": {
-      "hostName": "detailshop.no",
-      "name": "Detailshop",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "detailshop",
-          "cashbackDescription": "10%"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "0189630f-c446-7254-951e-207449a52f43",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/detailshop/0189630f-c446-7254-951e-207449a52f43"
-        }
-      ]
-    },
     "cruisedirect.com": {
       "hostName": "cruisedirect.com",
       "name": "CruiseDirect",
@@ -4923,25 +4873,42 @@
         }
       ]
     },
-    "elite.se": {
-      "hostName": "elite.se",
-      "name": "Elite Hotels",
+    "clarins.no": {
+      "hostName": "clarins.no",
+      "name": "Clarins",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "elite-hotels",
-          "cashbackDescription": "5%"
+          "urlName": "clarins",
+          "cashbackDescription": "8%"
         }
       ]
     },
-    "www.devold.com": {
-      "hostName": "www.devold.com",
-      "name": "Devold",
+    "climbing247.no": {
+      "hostName": "climbing247.no",
+      "name": "Climbing247.no",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "devold",
-          "cashbackDescription": "8%"
+          "urlName": "climbing247.no",
+          "cashbackDescription": "3.5%"
+        }
+      ]
+    },
+    "detailshop.no": {
+      "hostName": "detailshop.no",
+      "name": "Detailshop",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "detailshop",
+          "cashbackDescription": "10%"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "0189630f-c446-7254-951e-207449a52f43",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/detailshop/0189630f-c446-7254-951e-207449a52f43"
         }
       ]
     },
@@ -4956,25 +4923,25 @@
         }
       ]
     },
-    "farmasiet.no": {
-      "hostName": "farmasiet.no",
-      "name": "Farmasiet",
+    "www.devold.com": {
+      "hostName": "www.devold.com",
+      "name": "Devold",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "farmasiet",
+          "urlName": "devold",
+          "cashbackDescription": "8%"
+        }
+      ]
+    },
+    "elite.se": {
+      "hostName": "elite.se",
+      "name": "Elite Hotels",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "elite-hotels",
           "cashbackDescription": "5%"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "0189630e-f90a-731d-84b2-1094d26349be",
-          "cashbackDescription": "50 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/farmasiet/0189630e-f90a-731d-84b2-1094d26349be"
-        },
-        {
-          "serviceId": "obos",
-          "urlName": "farmasiet-apotek-pa-nett",
-          "cashbackDescription": ""
         }
       ]
     },
@@ -5033,30 +5000,25 @@
         }
       ]
     },
-    "gadventures.com": {
-      "hostName": "gadventures.com",
-      "name": "G Adventures",
+    "farmasiet.no": {
+      "hostName": "farmasiet.no",
+      "name": "Farmasiet",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "g-adventures",
-          "cashbackDescription": "3%"
-        }
-      ]
-    },
-    "fyriresort.com": {
-      "hostName": "fyriresort.com",
-      "name": "Fyri Resort",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "fyri-resort",
-          "cashbackDescription": "7%"
+          "urlName": "farmasiet",
+          "cashbackDescription": "5%"
         },
         {
-          "serviceId": "logbuy",
-          "urlName": "21830",
-          "cashbackDescription": "15 - 25 %"
+          "serviceId": "sas",
+          "urlName": "0189630e-f90a-731d-84b2-1094d26349be",
+          "cashbackDescription": "50 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/farmasiet/0189630e-f90a-731d-84b2-1094d26349be"
+        },
+        {
+          "serviceId": "obos",
+          "urlName": "farmasiet-apotek-pa-nett",
+          "cashbackDescription": ""
         }
       ]
     },
@@ -5076,20 +5038,30 @@
         }
       ]
     },
-    "gents.no": {
-      "hostName": "gents.no",
-      "name": "Gents",
+    "fyriresort.com": {
+      "hostName": "fyriresort.com",
+      "name": "Fyri Resort",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "gents",
-          "cashbackDescription": "4%"
+          "urlName": "fyri-resort",
+          "cashbackDescription": "7%"
         },
         {
-          "serviceId": "sas",
-          "urlName": "0189630d-2220-726e-b99d-9a1e16f855da",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/gents/0189630d-2220-726e-b99d-9a1e16f855da"
+          "serviceId": "logbuy",
+          "urlName": "21830",
+          "cashbackDescription": "15 - 25 %"
+        }
+      ]
+    },
+    "gadventures.com": {
+      "hostName": "gadventures.com",
+      "name": "G Adventures",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "g-adventures",
+          "cashbackDescription": "3%"
         }
       ]
     },
@@ -5104,31 +5076,20 @@
         }
       ]
     },
-    "holidayautos.com": {
-      "hostName": "holidayautos.com",
-      "name": "Holiday Autos",
+    "gents.no": {
+      "hostName": "gents.no",
+      "name": "Gents",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "holiday-autos",
-          "cashbackDescription": "5%"
-        }
-      ]
-    },
-    "holdit.com": {
-      "hostName": "holdit.com",
-      "name": "Holdit",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "holdit",
-          "cashbackDescription": "5%"
+          "urlName": "gents",
+          "cashbackDescription": "4%"
         },
         {
           "serviceId": "sas",
-          "urlName": "01896310-de2d-7039-a4f2-7938c62656a5",
+          "urlName": "0189630d-2220-726e-b99d-9a1e16f855da",
           "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/holdit/01896310-de2d-7039-a4f2-7938c62656a5"
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/gents/0189630d-2220-726e-b99d-9a1e16f855da"
         }
       ]
     },
@@ -5154,23 +5115,6 @@
         }
       ]
     },
-    "hunkemoller.no": {
-      "hostName": "hunkemoller.no",
-      "name": "Hunkemöller",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "hunkemoller",
-          "cashbackDescription": "15%"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "0189630a-b3f1-7132-b07f-16beb096de9f",
-          "cashbackDescription": "50 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/hunkemoller/0189630a-b3f1-7132-b07f-16beb096de9f"
-        }
-      ]
-    },
     "horizn-studios.com": {
       "hostName": "horizn-studios.com",
       "name": "Horizn Studios",
@@ -5193,6 +5137,34 @@
         }
       ]
     },
+    "holdit.com": {
+      "hostName": "holdit.com",
+      "name": "Holdit",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "holdit",
+          "cashbackDescription": "5%"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "01896310-de2d-7039-a4f2-7938c62656a5",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/holdit/01896310-de2d-7039-a4f2-7938c62656a5"
+        }
+      ]
+    },
+    "holidayautos.com": {
+      "hostName": "holidayautos.com",
+      "name": "Holiday Autos",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "holiday-autos",
+          "cashbackDescription": "5%"
+        }
+      ]
+    },
     "jaktogfriluft.no": {
       "hostName": "jaktogfriluft.no",
       "name": "Jakt & Friluft",
@@ -5204,14 +5176,20 @@
         }
       ]
     },
-    "kinoklubb.no": {
-      "hostName": "kinoklubb.no",
-      "name": "Kinoklubb.no",
+    "hunkemoller.no": {
+      "hostName": "hunkemoller.no",
+      "name": "Hunkemöller",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "kinoklubb.no",
-          "cashbackDescription": "50 kr"
+          "urlName": "hunkemoller",
+          "cashbackDescription": "15%"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "0189630a-b3f1-7132-b07f-16beb096de9f",
+          "cashbackDescription": "50 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/hunkemoller/0189630a-b3f1-7132-b07f-16beb096de9f"
         }
       ]
     },
@@ -5226,14 +5204,14 @@
         }
       ]
     },
-    "www.life.no": {
-      "hostName": "www.life.no",
-      "name": "Life",
+    "kinoklubb.no": {
+      "hostName": "kinoklubb.no",
+      "name": "Kinoklubb.no",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "life",
-          "cashbackDescription": "8%"
+          "urlName": "kinoklubb.no",
+          "cashbackDescription": "50 kr"
         }
       ]
     },
@@ -5296,31 +5274,25 @@
         }
       ]
     },
-    "marshallheadphones.com": {
-      "hostName": "marshallheadphones.com",
-      "name": "Marshall-hodetelefoner",
+    "www.life.no": {
+      "hostName": "www.life.no",
+      "name": "Life",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "marshall-hodetelefoner",
-          "cashbackDescription": "10%"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "0189630a-f1ba-7387-8740-900309744638",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/marshall/0189630a-f1ba-7387-8740-900309744638"
+          "urlName": "life",
+          "cashbackDescription": "8%"
         }
       ]
     },
-    "munkstore.no": {
-      "hostName": "munkstore.no",
-      "name": "Munk store",
+    "loopia.no": {
+      "hostName": "loopia.no",
+      "name": "Loopia",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "munk-store",
-          "cashbackDescription": "10%"
+          "urlName": "loopia",
+          "cashbackDescription": "50%"
         }
       ]
     },
@@ -5341,25 +5313,20 @@
         }
       ]
     },
-    "loopia.no": {
-      "hostName": "loopia.no",
-      "name": "Loopia",
+    "marshallheadphones.com": {
+      "hostName": "marshallheadphones.com",
+      "name": "Marshall-hodetelefoner",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "loopia",
-          "cashbackDescription": "50%"
-        }
-      ]
-    },
-    "nordicprint.no": {
-      "hostName": "nordicprint.no",
-      "name": "Nordicprint",
-      "offers": [
+          "urlName": "marshall-hodetelefoner",
+          "cashbackDescription": "10%"
+        },
         {
-          "serviceId": "remember",
-          "urlName": "nordicprint",
-          "cashbackDescription": "20%"
+          "serviceId": "sas",
+          "urlName": "0189630a-f1ba-7387-8740-900309744638",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/marshall/0189630a-f1ba-7387-8740-900309744638"
         }
       ]
     },
@@ -5371,17 +5338,6 @@
           "serviceId": "remember",
           "urlName": "mister-spex",
           "cashbackDescription": "10%"
-        }
-      ]
-    },
-    "no.norton.com": {
-      "hostName": "no.norton.com",
-      "name": "Norton",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "norton",
-          "cashbackDescription": "20%"
         }
       ]
     },
@@ -5413,6 +5369,28 @@
         }
       ]
     },
+    "munkstore.no": {
+      "hostName": "munkstore.no",
+      "name": "Munk store",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "munk-store",
+          "cashbackDescription": "10%"
+        }
+      ]
+    },
+    "no.norton.com": {
+      "hostName": "no.norton.com",
+      "name": "Norton",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "norton",
+          "cashbackDescription": "20%"
+        }
+      ]
+    },
     "nlyman.com": {
       "hostName": "nlyman.com",
       "name": "NLY MAN",
@@ -5426,6 +5404,17 @@
           "serviceId": "logbuy",
           "urlName": "20523",
           "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "nordicprint.no": {
+      "hostName": "nordicprint.no",
+      "name": "Nordicprint",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "nordicprint",
+          "cashbackDescription": "20%"
         }
       ]
     },
@@ -5451,19 +5440,14 @@
         }
       ]
     },
-    "rum21.no": {
-      "hostName": "rum21.no",
-      "name": "RUM21",
+    "radissonhotels.com": {
+      "hostName": "radissonhotels.com",
+      "name": "Radisson Hotel Group",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "rum21",
-          "cashbackDescription": "5%"
-        },
-        {
-          "serviceId": "logbuy",
-          "urlName": "22120",
-          "cashbackDescription": "7 %"
+          "urlName": "radisson-hotel-group",
+          "cashbackDescription": "4%"
         }
       ]
     },
@@ -5478,14 +5462,25 @@
         }
       ]
     },
-    "radissonhotels.com": {
-      "hostName": "radissonhotels.com",
-      "name": "Radisson Hotel Group",
+    "royaldesign.no": {
+      "hostName": "royaldesign.no",
+      "name": "Royal Design",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "radisson-hotel-group",
-          "cashbackDescription": "4%"
+          "urlName": "royal-design",
+          "cashbackDescription": "5%"
+        },
+        {
+          "serviceId": "sas",
+          "urlName": "01896307-a666-701a-8245-ad7183712454",
+          "cashbackDescription": "25 poeng / 100 kr",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/royal-design/01896307-a666-701a-8245-ad7183712454"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "22121",
+          "cashbackDescription": "7 %"
         }
       ]
     },
@@ -5517,39 +5512,6 @@
         }
       ]
     },
-    "shopping4net.com": {
-      "hostName": "shopping4net.com",
-      "name": "Shopping4net",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "shopping4net",
-          "cashbackDescription": "10%"
-        }
-      ]
-    },
-    "royaldesign.no": {
-      "hostName": "royaldesign.no",
-      "name": "Royal Design",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "royal-design",
-          "cashbackDescription": "5%"
-        },
-        {
-          "serviceId": "sas",
-          "urlName": "01896307-a666-701a-8245-ad7183712454",
-          "cashbackDescription": "25 poeng / 100 kr",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/royal-design/01896307-a666-701a-8245-ad7183712454"
-        },
-        {
-          "serviceId": "logbuy",
-          "urlName": "22121",
-          "cashbackDescription": "7 %"
-        }
-      ]
-    },
     "scandic.no": {
       "hostName": "scandic.no",
       "name": "Scandic",
@@ -5561,13 +5523,40 @@
         }
       ]
     },
-    "sobling.com": {
-      "hostName": "sobling.com",
-      "name": "Sobling",
+    "rum21.no": {
+      "hostName": "rum21.no",
+      "name": "RUM21",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "sobling",
+          "urlName": "rum21",
+          "cashbackDescription": "5%"
+        },
+        {
+          "serviceId": "logbuy",
+          "urlName": "22120",
+          "cashbackDescription": "7 %"
+        }
+      ]
+    },
+    "shopping4net.com": {
+      "hostName": "shopping4net.com",
+      "name": "Shopping4net",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "shopping4net",
+          "cashbackDescription": "10%"
+        }
+      ]
+    },
+    "skogstad.no": {
+      "hostName": "skogstad.no",
+      "name": "Skogstad",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "skogstad",
           "cashbackDescription": "7%"
         }
       ]
@@ -5589,14 +5578,14 @@
         }
       ]
     },
-    "topman.com": {
-      "hostName": "topman.com",
-      "name": "TOPMAN",
+    "sobling.com": {
+      "hostName": "sobling.com",
+      "name": "Sobling",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "topman",
-          "cashbackDescription": "5%"
+          "urlName": "sobling",
+          "cashbackDescription": "7%"
         }
       ]
     },
@@ -5607,6 +5596,17 @@
         {
           "serviceId": "remember",
           "urlName": "ulla-popken",
+          "cashbackDescription": "5%"
+        }
+      ]
+    },
+    "topman.com": {
+      "hostName": "topman.com",
+      "name": "TOPMAN",
+      "offers": [
+        {
+          "serviceId": "remember",
+          "urlName": "topman",
           "cashbackDescription": "5%"
         }
       ]
@@ -5622,25 +5622,14 @@
         }
       ]
     },
-    "zchocolate.com": {
-      "hostName": "zchocolate.com",
-      "name": "zChocolate.com",
+    "vybuss.com": {
+      "hostName": "vybuss.com",
+      "name": "Vy buss",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "zchocolate.com",
-          "cashbackDescription": "20%"
-        }
-      ]
-    },
-    "skogstad.no": {
-      "hostName": "skogstad.no",
-      "name": "Skogstad",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "skogstad",
-          "cashbackDescription": "7%"
+          "urlName": "vy-buss",
+          "cashbackDescription": "3.5%"
         }
       ]
     },
@@ -5655,14 +5644,14 @@
         }
       ]
     },
-    "vybuss.com": {
-      "hostName": "vybuss.com",
-      "name": "Vy buss",
+    "zchocolate.com": {
+      "hostName": "zchocolate.com",
+      "name": "zChocolate.com",
       "offers": [
         {
           "serviceId": "remember",
-          "urlName": "vy-buss",
-          "cashbackDescription": "3.5%"
+          "urlName": "zchocolate.com",
+          "cashbackDescription": "20%"
         }
       ]
     },
@@ -6334,19 +6323,6 @@
         }
       ]
     },
-    "preview.disneyplus.com": {
-      "hostName": "preview.disneyplus.com",
-      "name": "Disney+",
-      "offers": [
-        {
-          "serviceId": "sas",
-          "urlName": "0189630f-3511-7083-a0a4-a815ddbbba38",
-          "cashbackDescription": "300 poeng som ny kunde",
-          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/disney+-1/0189630f-3511-7083-a0a4-a815ddbbba38",
-          "matchPathPrefix": "/no"
-        }
-      ]
-    },
     "hejalbert.no": {
       "hostName": "hejalbert.no",
       "name": "Albert",
@@ -6960,6 +6936,19 @@
           "urlName": "01a0626b-0766-7033-9d44-671023ec93f5",
           "cashbackDescription": "50 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/stille/01a0626b-0766-7033-9d44-671023ec93f5"
+        }
+      ]
+    },
+    "preview.disneyplus.com": {
+      "hostName": "preview.disneyplus.com",
+      "name": "Disney+",
+      "offers": [
+        {
+          "serviceId": "sas",
+          "urlName": "0189630f-3511-7083-a0a4-a815ddbbba38",
+          "cashbackDescription": "300 poeng som ny kunde",
+          "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/disney+-1/0189630f-3511-7083-a0a4-a815ddbbba38",
+          "matchPathPrefix": "/no"
         }
       ]
     },
@@ -7706,7 +7695,7 @@
         {
           "serviceId": "logbuy",
           "urlName": "21289",
-          "cashbackDescription": "15 - 25 %"
+          "cashbackDescription": "25 %"
         }
       ]
     },
@@ -8710,7 +8699,7 @@
         {
           "serviceId": "naf",
           "urlName": "homely",
-          "cashbackDescription": "10 % rabatt"
+          "cashbackDescription": ""
         }
       ]
     },
@@ -8765,7 +8754,7 @@
         {
           "serviceId": "naf",
           "urlName": "tui",
-          "cashbackDescription": "20 % rabatt"
+          "cashbackDescription": ""
         }
       ]
     },
@@ -8776,7 +8765,7 @@
         {
           "serviceId": "naf",
           "urlName": "riis-bilglass",
-          "cashbackDescription": "25 % rabatt"
+          "cashbackDescription": ""
         },
         {
           "serviceId": "logbuy",
@@ -8863,7 +8852,7 @@
         {
           "serviceId": "naf",
           "urlName": "flight-park",
-          "cashbackDescription": "12 % rabatt"
+          "cashbackDescription": ""
         },
         {
           "serviceId": "logbuy",
@@ -8879,7 +8868,7 @@
         {
           "serviceId": "naf",
           "urlName": "camping-norge",
-          "cashbackDescription": "10 % rabatt"
+          "cashbackDescription": ""
         }
       ]
     },
@@ -9015,7 +9004,7 @@
         {
           "serviceId": "logbuy",
           "urlName": "21289",
-          "cashbackDescription": "15 - 25 %"
+          "cashbackDescription": "25 %"
         }
       ]
     },
