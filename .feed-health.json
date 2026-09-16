@@ -2,16 +2,16 @@
   "schemaVersion": 1,
   "services": {
     "trumf": {
-      "consecutiveFailureDays": 1,
-      "lastFailureDate": "2026-09-15",
-      "lastFailureReason": "returned only 60 merchants (last successful count 262)",
-      "lastSuccessfulCount": 262
+      "consecutiveFailureDays": 0,
+      "lastFailureDate": null,
+      "lastFailureReason": null,
+      "lastSuccessfulCount": 263
     },
     "sas": {
       "consecutiveFailureDays": 0,
       "lastFailureDate": null,
       "lastFailureReason": null,
-      "lastSuccessfulCount": 252
+      "lastSuccessfulCount": 253
     },
     "remember": {
       "consecutiveFailureDays": 0,
@@ -47,7 +47,7 @@
       "consecutiveFailureDays": 0,
       "lastFailureDate": null,
       "lastFailureReason": null,
-      "lastSuccessfulCount": 129
+      "lastSuccessfulCount": 131
     }
   }
 }
