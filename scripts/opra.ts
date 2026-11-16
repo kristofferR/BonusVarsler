@@ -77,7 +77,7 @@ export function extractJsonAfterKey<T>(payload: string, key: string): T | null {
 }
 
 /**
- * Formats a partner's percentages as "20 %", "5 - 15 %" or "Opptil 25 %".
+ * Formats a partner's percentages as "20 %", "5 - 15 %", "Opptil 25 %" or "2,5 %".
  * Titles win over `discountPercentage`, which holds only the top of a range
  * ("5-50 % rabatt" has 50) and drops "Opptil".
  */
@@ -86,8 +86,11 @@ export function formatOpraDiscounts(discounts: OpraDiscount[]): string {
   const percentages = discounts.flatMap((discount) => {
     const title = discount.title ?? "";
     const fromTitle = Array.from(
-      title.matchAll(/(\d+)(?:\s*[-–]\s*(\d+))?\s*%/g),
-      (match) => [match[1], match[2]].filter(Boolean).map(Number)
+      title.matchAll(/(\d+(?:[.,]\d+)?)(?:\s*[-–]\s*(\d+(?:[.,]\d+)?))?\s*%/g),
+      (match) =>
+        [match[1], match[2]]
+          .filter((value): value is string => Boolean(value))
+          .map((value) => Number(value.replace(",", ".")))
     ).flat();
     if (fromTitle.length > 0) {
       upTo ||= /\bopp\s*til\b/i.test(title);
@@ -104,8 +107,9 @@ export function formatOpraDiscounts(discounts: OpraDiscount[]): string {
 
   const min = Math.min(...percentages);
   const max = Math.max(...percentages);
-  if (min !== max) return `${min} - ${max} %`;
-  return upTo ? `Opptil ${max} %` : `${max} %`;
+  const text = min !== max ? `${min} - ${max} %` : upTo ? `Opptil ${max} %` : `${max} %`;
+  // Norwegian decimal comma, as in the other services' descriptions
+  return text.replaceAll(".", ",");
 }
 
 /**

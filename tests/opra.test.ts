@@ -55,6 +55,11 @@ describe("formatOpraDiscounts", () => {
     ).toBe("Opptil 25 %");
   });
 
+  test("keeps decimal percentages from titles", () => {
+    expect(formatOpraDiscounts([{ title: "2,5 % rabatt", discountPercentage: 2.5 }])).toBe("2,5 %");
+    expect(formatOpraDiscounts([{ title: "2.5 - 10 % rabatt" }])).toBe("2,5 - 10 %");
+  });
+
   test("uses discountPercentage when the title has no percentage", () => {
     expect(formatOpraDiscounts([{ title: "Kampanje: Outnorth", discountPercentage: 25 }])).toBe("25 %");
   });
