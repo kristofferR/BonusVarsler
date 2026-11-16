@@ -52,6 +52,12 @@ const SERVICES_FALLBACK = {
     name: "Visma LogBuy",
     color: "#ee2e24",
   },
+  opra: {
+    id: "opra",
+    name: "OPRA",
+    color: "#a07a00",
+    type: "info",
+  },
 };
 
 // Mutate this registry in place so Object.keys(SERVICES) keeps fallback order.

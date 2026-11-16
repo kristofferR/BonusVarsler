@@ -65,6 +65,13 @@
       "cashbackPathPatterns": [
         "/WebPages/ShowDeal/"
       ]
+    },
+    "opra": {
+      "name": "OPRA",
+      "clickthroughUrl": "https://opra.no/stottespillere/{urlName}",
+      "color": "#a07a00",
+      "defaultEnabled": false,
+      "type": "info"
     }
   },
   "merchants": {
@@ -97,6 +104,11 @@
           "serviceId": "trumf",
           "urlName": "lyko-trumf",
           "cashbackDescription": "3,9 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "lyko",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -361,6 +373,11 @@
           "serviceId": "logbuy",
           "urlName": "20506",
           "cashbackDescription": "25 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "radisson-hotels",
+          "cashbackDescription": "Opptil 25 %"
         }
       ]
     },
@@ -433,6 +450,11 @@
           "serviceId": "logbuy",
           "urlName": "21825",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "outnorth",
+          "cashbackDescription": "15 - 25 %"
         }
       ]
     },
@@ -721,6 +743,11 @@
           "urlName": "0189630d-f2db-71f5-ba8d-da548207ca78",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/elektroimportøren.no/0189630d-f2db-71f5-ba8d-da548207ca78"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "elektroimportoren",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -744,6 +771,11 @@
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/stormberg/01896308-9574-7200-98c1-2eb995cc8de0",
           "matchPathPrefix": "/no"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "stormberg",
+          "cashbackDescription": "15 %"
         }
       ]
     },
@@ -778,6 +810,11 @@
           "urlName": "",
           "cashbackDescription": "10%",
           "code": "DNB4456"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "hoie-of-scandinavia",
+          "cashbackDescription": "25 %"
         }
       ]
     },
@@ -833,6 +870,11 @@
           "serviceId": "logbuy",
           "urlName": "22461",
           "cashbackDescription": "15 - 25 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "nytelse",
+          "cashbackDescription": "30 %"
         }
       ]
     },
@@ -854,6 +896,11 @@
           "serviceId": "obos",
           "urlName": "avis",
           "cashbackDescription": "30 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "avis",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -892,6 +939,11 @@
         {
           "serviceId": "logbuy",
           "urlName": "20488",
+          "cashbackDescription": "10 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "gymgrossisten",
           "cashbackDescription": "10 %"
         }
       ]
@@ -953,6 +1005,11 @@
           "serviceId": "logbuy",
           "urlName": "20469",
           "cashbackDescription": "10 - 15 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "lampegiganten",
+          "cashbackDescription": "15 %"
         }
       ]
     },
@@ -968,6 +1025,11 @@
         {
           "serviceId": "logbuy",
           "urlName": "21383",
+          "cashbackDescription": "15 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "mimmis",
           "cashbackDescription": "15 %"
         }
       ]
@@ -1181,6 +1243,11 @@
           "serviceId": "logbuy",
           "urlName": "21014",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "framsport",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -1287,6 +1354,11 @@
           "urlName": "0189630c-6bb7-737c-91fe-b7788089ab87",
           "cashbackDescription": "50 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/navnelapper/0189630c-6bb7-737c-91fe-b7788089ab87"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "askeladden-navnelapper",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -1432,6 +1504,11 @@
           "urlName": "01896309-2e3d-72a3-9b8b-b02451a20216",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/vpg.no/01896309-2e3d-72a3-9b8b-b02451a20216"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "vertical-playground",
+          "cashbackDescription": "Opptil 30 %"
         }
       ]
     },
@@ -1478,6 +1555,11 @@
           "serviceId": "logbuy",
           "urlName": "22183",
           "cashbackDescription": "15 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "helly-hansen",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -1555,6 +1637,11 @@
           "serviceId": "logbuy",
           "urlName": "20461",
           "cashbackDescription": "10 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "bodystore",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -1628,6 +1715,11 @@
           "serviceId": "logbuy",
           "urlName": "21700",
           "cashbackDescription": "Tilbud"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "db",
+          "cashbackDescription": "15 %"
         }
       ]
     },
@@ -1821,6 +1913,11 @@
           "serviceId": "logbuy",
           "urlName": "21541",
           "cashbackDescription": "Tilbud"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "dyson",
+          "cashbackDescription": "Opptil 15 %"
         }
       ]
     },
@@ -1883,6 +1980,11 @@
           "serviceId": "logbuy",
           "urlName": "20878",
           "cashbackDescription": "10 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "zoo",
+          "cashbackDescription": "10 - 12 %"
         }
       ]
     },
@@ -1904,6 +2006,11 @@
         {
           "serviceId": "logbuy",
           "urlName": "22624",
+          "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "sharkninja",
           "cashbackDescription": "20 %"
         }
       ]
@@ -2013,6 +2120,11 @@
           "serviceId": "logbuy",
           "urlName": "22460",
           "cashbackDescription": "15 - 25 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "kondomeriet",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -2068,6 +2180,11 @@
           "serviceId": "logbuy",
           "urlName": "20475",
           "cashbackDescription": "Tilbud"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "ideal-of-sweden",
+          "cashbackDescription": ""
         }
       ]
     },
@@ -2224,6 +2341,11 @@
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/philips-hue/018ee1d2-896a-729f-932c-e9664dc0c907",
           "matchPathPrefix": "/no-no"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "philips-hue",
+          "cashbackDescription": "15 %"
         }
       ]
     },
@@ -2413,6 +2535,11 @@
           "serviceId": "logbuy",
           "urlName": "20490",
           "cashbackDescription": "10 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "proteinfabrikken",
+          "cashbackDescription": "10 - 25 %"
         }
       ]
     },
@@ -2542,6 +2669,11 @@
           "serviceId": "trumf",
           "urlName": "strikkia-trumf",
           "cashbackDescription": "7,8 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "strikkia",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -2804,6 +2936,11 @@
           "serviceId": "logbuy",
           "urlName": "20523",
           "cashbackDescription": "10 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "nly-man",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -3057,6 +3194,11 @@
           "serviceId": "logbuy",
           "urlName": "20495",
           "cashbackDescription": "Tilbud"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "storytel",
+          "cashbackDescription": "15 %"
         }
       ]
     },
@@ -3235,6 +3377,11 @@
           "serviceId": "logbuy",
           "urlName": "20502",
           "cashbackDescription": "10 - 20 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "brilleland",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -3327,6 +3474,11 @@
           "serviceId": "logbuy",
           "urlName": "20448",
           "cashbackDescription": "Tilbud"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "electrolux",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -3438,6 +3590,11 @@
           "urlName": "018f57d7-5ba2-735f-97f3-c511b00c38bb",
           "cashbackDescription": "50 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/autodude/018f57d7-5ba2-735f-97f3-c511b00c38bb"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "autodude",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -3671,6 +3828,11 @@
           "serviceId": "trumf",
           "urlName": "trumfekstralys",
           "cashbackDescription": "7 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "ekstralys",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -3705,6 +3867,11 @@
           "serviceId": "logbuy",
           "urlName": "20470",
           "cashbackDescription": "9 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "lenovo",
+          "cashbackDescription": "10 - 20 %"
         }
       ]
     },
@@ -3906,6 +4073,11 @@
           "urlName": "0189630a-48b2-739f-8a99-02b1c54808a4",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/tempur/0189630a-48b2-739f-8a99-02b1c54808a4"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "tempur",
+          "cashbackDescription": "22 %"
         }
       ]
     },
@@ -3998,6 +4170,11 @@
           "serviceId": "logbuy",
           "urlName": "20464",
           "cashbackDescription": "Tilbud"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "aeg",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -5106,6 +5283,11 @@
           "serviceId": "logbuy",
           "urlName": "21167",
           "cashbackDescription": "5 - 15 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "ellos",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -5612,6 +5794,11 @@
           "serviceId": "logbuy",
           "urlName": "20664",
           "cashbackDescription": "44 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "samsung",
+          "cashbackDescription": ""
         }
       ]
     },
@@ -5798,6 +5985,11 @@
           "urlName": "01896307-a48e-7282-a8f3-2508750f0b14",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/bodystore.com/01896307-a48e-7282-a8f3-2508750f0b14"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "bodystore",
+          "cashbackDescription": "10 %"
         }
       ]
     },
@@ -6185,6 +6377,11 @@
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/lyko-dk/0189630f-41cb-714c-8b2f-cb2c7a900d0b",
           "matchPathPrefix": "/no"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "lyko",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -6233,6 +6430,11 @@
           "urlName": "01896310-f77f-72c9-9b07-830ad79ad27f",
           "cashbackDescription": "10 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/acer/01896310-f77f-72c9-9b07-830ad79ad27f"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "acer",
+          "cashbackDescription": "5 - 15 %"
         }
       ]
     },
@@ -6425,6 +6627,11 @@
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/under-amour/0189630a-c0fe-73f3-8174-eaf25c05c750",
           "matchPathPrefix": "/en-no"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "under-armour",
+          "cashbackDescription": "15 %"
         }
       ]
     },
@@ -7332,6 +7539,11 @@
           "serviceId": "naf",
           "urlName": "vianor",
           "cashbackDescription": "15 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "vianor",
+          "cashbackDescription": "5 - 20 %"
         }
       ]
     },
@@ -7416,6 +7628,11 @@
           "urlName": "",
           "cashbackDescription": "10%",
           "code": "DNB4456"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "travelstuff",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -7481,6 +7698,11 @@
           "serviceId": "naf",
           "urlName": "stanley",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "stanley",
+          "cashbackDescription": "25 %"
         }
       ]
     },
@@ -7606,6 +7828,11 @@
           "serviceId": "naf",
           "urlName": "alpina",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "alpina",
+          "cashbackDescription": "30 %"
         }
       ]
     },
@@ -7618,6 +7845,11 @@
           "urlName": "",
           "cashbackDescription": "10%",
           "code": "DNB4456"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "janus-wool",
+          "cashbackDescription": "30 %"
         }
       ]
     },
@@ -7635,6 +7867,11 @@
           "serviceId": "naf",
           "urlName": "ledlenser",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "ledlenser",
+          "cashbackDescription": "25 %"
         }
       ]
     },
@@ -7664,6 +7901,11 @@
           "serviceId": "naf",
           "urlName": "leatherman",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "leatherman",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -7681,6 +7923,11 @@
           "serviceId": "naf",
           "urlName": "camelbak",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "camelbak",
+          "cashbackDescription": "25 %"
         }
       ]
     },
@@ -7710,6 +7957,11 @@
           "serviceId": "naf",
           "urlName": "crispi",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "crispi",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -7725,6 +7977,11 @@
         },
         {
           "serviceId": "naf",
+          "urlName": "brusletto",
+          "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "opra",
           "urlName": "brusletto",
           "cashbackDescription": "20 %"
         }
@@ -8206,6 +8463,11 @@
           "serviceId": "logbuy",
           "urlName": "22751",
           "cashbackDescription": "25 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "fluegger",
+          "cashbackDescription": "20 %"
         }
       ]
     },
@@ -8403,6 +8665,11 @@
           "serviceId": "obos",
           "urlName": "kongeparken-1",
           "cashbackDescription": ""
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "kongeparken",
+          "cashbackDescription": "25 %"
         }
       ]
     },
@@ -8518,6 +8785,11 @@
           "serviceId": "obos",
           "urlName": "monter-stor-bergen",
           "cashbackDescription": "40 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "monter-optimera",
+          "cashbackDescription": "Opptil 40 %"
         }
       ]
     },
@@ -8650,6 +8922,11 @@
           "serviceId": "obos",
           "urlName": "rogaland-teater",
           "cashbackDescription": "25 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "rogaland-teater",
+          "cashbackDescription": ""
         }
       ]
     },
@@ -8956,6 +9233,11 @@
           "serviceId": "naf",
           "urlName": "nordicgrip",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "nordic-grip",
+          "cashbackDescription": "25 %"
         }
       ]
     },
@@ -9016,6 +9298,11 @@
           "serviceId": "naf",
           "urlName": "markabutikken",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "markabutikken",
+          "cashbackDescription": "25 %"
         }
       ]
     },
@@ -9060,6 +9347,11 @@
           "serviceId": "naf",
           "urlName": "bilpleiekongen",
           "cashbackDescription": "8 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "bilpleiekongen",
+          "cashbackDescription": "15 %"
         }
       ]
     },
@@ -9152,6 +9444,11 @@
           "serviceId": "logbuy",
           "urlName": "20460",
           "cashbackDescription": "10 - 25 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "hertz",
+          "cashbackDescription": ""
         }
       ]
     },
@@ -9322,6 +9619,11 @@
           "serviceId": "logbuy",
           "urlName": "20487",
           "cashbackDescription": "25 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "fjellsport",
+          "cashbackDescription": "25 %"
         }
       ]
     },
@@ -9398,6 +9700,11 @@
         {
           "serviceId": "logbuy",
           "urlName": "21367",
+          "cashbackDescription": "25 %"
+        },
+        {
+          "serviceId": "opra",
+          "urlName": "skitt-fiske",
           "cashbackDescription": "25 %"
         }
       ]
@@ -9826,6 +10133,809 @@
         {
           "serviceId": "logbuy",
           "urlName": "22817",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "acer.no": {
+      "hostName": "acer.no",
+      "name": "Acer",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "acer",
+          "cashbackDescription": "5 - 15 %"
+        }
+      ]
+    },
+    "alfa.no": {
+      "hostName": "alfa.no",
+      "name": "ALFA",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "alfa",
+          "cashbackDescription": "35 %"
+        }
+      ]
+    },
+    "amokequipment.com": {
+      "hostName": "amokequipment.com",
+      "name": "Amok Equipment",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "amok-equipment",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "www.bestwestern.no": {
+      "hostName": "www.bestwestern.no",
+      "name": "Best Western Hotels & Resorts",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "bwh-best-western",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "blackdiamondequipment.com": {
+      "hostName": "blackdiamondequipment.com",
+      "name": "Black Diamond",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "black-diamond",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "brownells.no": {
+      "hostName": "brownells.no",
+      "name": "Brownells",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "brownells",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "www.craftsportswear.com": {
+      "hostName": "www.craftsportswear.com",
+      "name": "Craft",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "craft",
+          "cashbackDescription": "30 %"
+        }
+      ]
+    },
+    "www.getinspired.no": {
+      "hostName": "www.getinspired.no",
+      "name": "Get Inspired",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "get-inspired",
+          "cashbackDescription": "30 %"
+        }
+      ]
+    },
+    "hellyhansen.no": {
+      "hostName": "hellyhansen.no",
+      "name": "Helly Hansen",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "helly-hansen",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "nonstopdogwear.com": {
+      "hostName": "nonstopdogwear.com",
+      "name": "Non-stop Dogwear",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "non-stop-dogwear",
+          "cashbackDescription": "30 %"
+        }
+      ]
+    },
+    "polar.com": {
+      "hostName": "polar.com",
+      "name": "POLAR",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "polar",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "polestar.com": {
+      "hostName": "polestar.com",
+      "name": "Polestar",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "polestar",
+          "cashbackDescription": "4 %"
+        }
+      ]
+    },
+    "www.rituals.com": {
+      "hostName": "www.rituals.com",
+      "name": "RITUALS",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "rituals",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "samsung.no": {
+      "hostName": "samsung.no",
+      "name": "Samsung",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "samsung",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "tempur.no": {
+      "hostName": "tempur.no",
+      "name": "Tempur",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "tempur",
+          "cashbackDescription": "22 %"
+        }
+      ]
+    },
+    "wileyx.eu": {
+      "hostName": "wileyx.eu",
+      "name": "Wiley X",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "wiley-x",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "www.brucestudios.com": {
+      "hostName": "www.brucestudios.com",
+      "name": "Bruce",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "bruce",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "japanphoto.no": {
+      "hostName": "japanphoto.no",
+      "name": "CEWE Japan Photo",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "cewe-japan-photo",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "chilimobil.no": {
+      "hostName": "chilimobil.no",
+      "name": "Chilimobil",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "chilimobil",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "dekkstra.no": {
+      "hostName": "dekkstra.no",
+      "name": "Dekkstra",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "dekkstra",
+          "cashbackDescription": "5 - 50 %"
+        }
+      ]
+    },
+    "dundasfootwear.com": {
+      "hostName": "dundasfootwear.com",
+      "name": "Dundas Footwear",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "dundas-footwear",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "frivannsliv.no": {
+      "hostName": "frivannsliv.no",
+      "name": "Frivannsliv",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "frivannsliv",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "www.hallmarkofsweden.se": {
+      "hostName": "www.hallmarkofsweden.se",
+      "name": "Hällmark of Sweden",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "haellmark-of-sweden",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "www.jbf.no": {
+      "hostName": "www.jbf.no",
+      "name": "JBF Forsikring",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "jbf",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "jerven.no": {
+      "hostName": "jerven.no",
+      "name": "Jerven",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "jerven",
+          "cashbackDescription": "30 %"
+        }
+      ]
+    },
+    "optimera.no": {
+      "hostName": "optimera.no",
+      "name": "Montér / Optimera",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "monter-optimera",
+          "cashbackDescription": "Opptil 40 %"
+        }
+      ]
+    },
+    "myrevolution.no": {
+      "hostName": "myrevolution.no",
+      "name": "MyRevolution",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "myrevolution",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "www.norgestaxi.no": {
+      "hostName": "www.norgestaxi.no",
+      "name": "NorgesTaxi",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "norgestaxi",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "olympiasport.no": {
+      "hostName": "olympiasport.no",
+      "name": "Olympia Sport",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "olympia-sport",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "piteraq.no": {
+      "hostName": "piteraq.no",
+      "name": "Piteraq",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "piteraq",
+          "cashbackDescription": "20 - 30 %"
+        }
+      ]
+    },
+    "rs.no": {
+      "hostName": "rs.no",
+      "name": "Redningsselskapet",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "redningsselskapet",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "smarthotel.no": {
+      "hostName": "smarthotel.no",
+      "name": "Smarthotel",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "smarthotel",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "stormberg.no": {
+      "hostName": "stormberg.no",
+      "name": "Stormberg",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "stormberg",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "verisure.no": {
+      "hostName": "verisure.no",
+      "name": "Verisure",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "verisure",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "xcsports.com": {
+      "hostName": "xcsports.com",
+      "name": "XC Sports",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "xcsports",
+          "cashbackDescription": "30 %"
+        }
+      ]
+    },
+    "3charlie.no": {
+      "hostName": "3charlie.no",
+      "name": "3charlie",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "3charlie",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "akuttundervisning.no": {
+      "hostName": "akuttundervisning.no",
+      "name": "Akuttundervisning",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "akuttundervisning",
+          "cashbackDescription": "30 %"
+        }
+      ]
+    },
+    "arbeidsfolk.no": {
+      "hostName": "arbeidsfolk.no",
+      "name": "Arbeidsfolk",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "arbeidsfolk",
+          "cashbackDescription": "10 - 20 %"
+        }
+      ]
+    },
+    "www.arcticbliss.no": {
+      "hostName": "www.arcticbliss.no",
+      "name": "Arctic Bliss",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "arctic-bliss",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "bergenharbourhotel.no": {
+      "hostName": "bergenharbourhotel.no",
+      "name": "Bergen Harbour Hotel",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "bergen-harbour-hotel",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "bilnerden.no": {
+      "hostName": "bilnerden.no",
+      "name": "Bilnerden",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "bilnerden",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "brustadbagn.no": {
+      "hostName": "brustadbagn.no",
+      "name": "Brustad Bagn",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "brustad-bagn",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "crag.no": {
+      "hostName": "crag.no",
+      "name": "Crag",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "crag",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "crossbutikken.no": {
+      "hostName": "crossbutikken.no",
+      "name": "Crossbutikken",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "crossbutikken",
+          "cashbackDescription": "Opptil 21 %"
+        }
+      ]
+    },
+    "elman.no": {
+      "hostName": "elman.no",
+      "name": "Elman elektriker - Trøndelag",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "elman-elektriker-trondelag",
+          "cashbackDescription": "Opptil 20 %"
+        }
+      ]
+    },
+    "fluid.no": {
+      "hostName": "fluid.no",
+      "name": "Fluid",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "fluid",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "graabein-skjegg.no": {
+      "hostName": "graabein-skjegg.no",
+      "name": "Graabein",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "graabein",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "hantek.no": {
+      "hostName": "hantek.no",
+      "name": "Hantek",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "hantek",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "hufs.no": {
+      "hostName": "hufs.no",
+      "name": "HUFS",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "hufs",
+          "cashbackDescription": "30 %"
+        }
+      ]
+    },
+    "interpadel.no": {
+      "hostName": "interpadel.no",
+      "name": "InterPadel",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "interpadel",
+          "cashbackDescription": "30 %"
+        }
+      ]
+    },
+    "jaktfall.no": {
+      "hostName": "jaktfall.no",
+      "name": "Jaktfall",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "jaktfall",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "jobbogfritid.no": {
+      "hostName": "jobbogfritid.no",
+      "name": "Jobb og Fritid",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "jobbogfritid",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "lanullva.no": {
+      "hostName": "lanullva.no",
+      "name": "Lanullva",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "lanullva",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "liapark.no": {
+      "hostName": "liapark.no",
+      "name": "Liapark Resort",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "liapark-resort",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "mittgarn.no": {
+      "hostName": "mittgarn.no",
+      "name": "MittGarn",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "mittgarn",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "mobech.no": {
+      "hostName": "mobech.no",
+      "name": "Mobech",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "mobech",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "nandicoffee.no": {
+      "hostName": "nandicoffee.no",
+      "name": "Nandi Coffee",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "nandi-coffee",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "presisuroggull.no": {
+      "hostName": "presisuroggull.no",
+      "name": "Presis Ur & Gull",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "presis-ur-gull",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "sandefjordpaintball.no": {
+      "hostName": "sandefjordpaintball.no",
+      "name": "Sandefjord Paintball",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "sandefjord-paintball",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "scandicshine.no": {
+      "hostName": "scandicshine.no",
+      "name": "Scandic Shine",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "scandic-shine",
+          "cashbackDescription": "30 %"
+        }
+      ]
+    },
+    "shoppen.no": {
+      "hostName": "shoppen.no",
+      "name": "Shoppen - For oss med hund",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "shoppen-for-oss-med-hund",
+          "cashbackDescription": "15 %"
+        }
+      ]
+    },
+    "www.sikkerheten-selv.no": {
+      "hostName": "www.sikkerheten-selv.no",
+      "name": "Sikkerheten Selv",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "sikkerheten-selv",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "skarpequips.com": {
+      "hostName": "skarpequips.com",
+      "name": "Skarp Equips",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "skarp-equips",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "skjoldstore.no": {
+      "hostName": "skjoldstore.no",
+      "name": "Skjoldstore",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "skjoldstore",
+          "cashbackDescription": "25 %"
+        }
+      ]
+    },
+    "tacmednorge.no": {
+      "hostName": "tacmednorge.no",
+      "name": "TacMed Norge",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "tacmed-norge",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "tactx.no": {
+      "hostName": "tactx.no",
+      "name": "TactX",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "tactx",
+          "cashbackDescription": "10 - 20 %"
+        }
+      ]
+    },
+    "tresloyd.no": {
+      "hostName": "tresloyd.no",
+      "name": "Tresløyd",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "tresloyd",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "troll-hundefor.no": {
+      "hostName": "troll-hundefor.no",
+      "name": "Troll Hundefôr",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "troll-hundefor",
+          "cashbackDescription": ""
+        }
+      ]
+    },
+    "utstyrskontroll.no": {
+      "hostName": "utstyrskontroll.no",
+      "name": "Utstyrskontroll",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "utstyrskontroll",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "veggbilder.no": {
+      "hostName": "veggbilder.no",
+      "name": "Veggbilder",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "veggbilder-no",
+          "cashbackDescription": "22 %"
+        }
+      ]
+    },
+    "verkter.no": {
+      "hostName": "verkter.no",
+      "name": "Verkter",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "verkter",
+          "cashbackDescription": "5 %"
+        }
+      ]
+    },
+    "zu4r.no": {
+      "hostName": "zu4r.no",
+      "name": "ZU4R Sportswear",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "zu4r-sportswear",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "www.oh3kriger.no": {
+      "hostName": "www.oh3kriger.no",
+      "name": "Øh3 Kriger",
+      "offers": [
+        {
+          "serviceId": "opra",
+          "urlName": "oh3kriger",
           "cashbackDescription": "10 %"
         }
       ]

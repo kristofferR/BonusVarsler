@@ -2,7 +2,7 @@
 
 # BonusVarsler
 
-**Trumf | SAS EuroBonus | re:member | DNB | OBOS | NAF | LOfavør | Visma LogBuy**
+**Trumf | SAS EuroBonus | re:member | DNB | OBOS | NAF | LOfavør | Visma LogBuy | OPRA**
 
 <p align="center">
 
@@ -16,7 +16,7 @@
 
 **Glem aldri cashback-bonus igjen!** En lett og stilren nettleserutvidelse som varsler deg når du besøker en nettbutikk som gir bonus.
 
-> 🛒 Dette er et uavhengig hobbyprosjekt og har ingen tilknytning til Trumf, SAS EuroBonus, re:member, DNB, OBOS, LO, Visma LogBuy eller andre bonusprogrammer.
+> 🛒 Dette er et uavhengig hobbyprosjekt og har ingen tilknytning til Trumf, SAS EuroBonus, re:member, DNB, OBOS, LO, Visma LogBuy, OPRA eller andre bonusprogrammer.
 
 - Lynrask og ressursvennlig — du merker ikke at den kjører
 - Stilrent design med lys/mørk modus
@@ -36,7 +36,7 @@
 
 ## Hvorfor bruke dette?
 
-Bonusprogrammer som Trumf, SAS EuroBonus, re:member, OBOS, NAF, LOfavør og Visma LogBuy gir deg cashback, rabatter eller poeng hos hundrevis av nettbutikker, men du må huske å gå via deres portal for at bonusen skal registreres. Det er lett å glemme.
+Bonusprogrammer som Trumf, SAS EuroBonus, re:member, OBOS, NAF, LOfavør, Visma LogBuy og OPRA gir deg cashback, rabatter eller poeng hos hundrevis av nettbutikker, men du må huske å gå via deres portal for at bonusen skal registreres. Det er lett å glemme.
 
 Denne utvidelsen løser problemet: Du handler som vanlig, og får et varsel når butikken gir bonus. Ett klikk, så er du i gang.
 
