@@ -25,6 +25,7 @@ import {
   extractNextFlightPayload,
   formatOpraDiscounts,
   getOpraDomains,
+  previousOpraEntries,
   type OpraBusiness,
 } from "./opra.ts";
 
@@ -3195,35 +3196,46 @@ async function fetchOpraPayload(path: string): Promise<string> {
  *
  * Returns one entry per detected domain, or a single entry without `storeUrl`
  * when no domain is found so manual mappings and name matching can resolve it.
+ * Partners whose page fails keep their offers from `previousFeed`.
  */
-async function scrapeOpra(): Promise<ScrapedMerchant[]> {
+async function scrapeOpra(previousFeed: SiteList): Promise<ScrapedMerchant[]> {
   console.log("\n=== Scraping OPRA ===");
 
   const listPayload = await fetchOpraPayload("/stottespillere");
-  const partners = extractJsonAfterKey<OpraBusiness[]>(listPayload, "businesses") ?? [];
-  const slugs = partners
-    .map((partner) => partner.slug?.current)
-    .filter((slug): slug is string => Boolean(slug));
-  if (slugs.length === 0) {
+  const partners = (extractJsonAfterKey<OpraBusiness[]>(listPayload, "businesses") ?? []).flatMap(
+    (partner) => {
+      const slug = partner.slug?.current;
+      return slug ? [{ slug, name: (partner.name || slug).trim() }] : [];
+    }
+  );
+  if (partners.length === 0) {
     throw new Error("OPRA supporter list contained no partners");
   }
-  console.log(`  Found ${slugs.length} partners`);
+  console.log(`  Found ${partners.length} partners`);
 
-  let failedPages = 0;
-  const details = await mapWithConcurrency(slugs, OPRA_DETAIL_CONCURRENCY, async (slug) => {
+  const details = await mapWithConcurrency(partners, OPRA_DETAIL_CONCURRENCY, async (partner) => {
     try {
-      const payload = await fetchOpraPayload(`/stottespillere/${encodeURIComponent(slug)}`);
+      const payload = await fetchOpraPayload(`/stottespillere/${encodeURIComponent(partner.slug)}`);
       const business = extractJsonAfterKey<OpraBusiness>(payload, "business");
       if (!business) throw new Error("no business data in page");
-      return { slug, business };
+      return { ...partner, business };
     } catch (error) {
-      failedPages++;
-      console.log(`  Failed to load ${slug}: ${summarizeError(error)}`);
-      return { slug, business: null };
+      console.log(`  Failed to load ${partner.slug}: ${summarizeError(error)}`);
+      return { ...partner, business: null };
     }
   });
 
-  const merchants: ScrapedMerchant[] = [];
+  const failed = details.filter((detail) => !detail.business);
+  // Carrying everything over would hide a broken scraper behind a healthy count
+  if (failed.length > partners.length * FAILURE_RATIO_THRESHOLD) {
+    throw new Error(`${failed.length} of ${partners.length} OPRA partner pages failed`);
+  }
+  const merchants: ScrapedMerchant[] = previousOpraEntries(
+    previousFeed,
+    new Map(failed.map(({ slug, name }) => [slug, name]))
+  );
+  const carriedOver = merchants.length;
+
   let withoutDiscounts = 0;
   for (const { slug, business } of details) {
     if (!business) continue;
@@ -3249,7 +3261,7 @@ async function scrapeOpra(): Promise<ScrapedMerchant[]> {
   }
 
   console.log(
-    `  Extracted ${merchants.length} OPRA entries (${withoutDiscounts} partners without public discounts, ${failedPages} failed pages)`
+    `  Extracted ${merchants.length} OPRA entries (${withoutDiscounts} partners without public discounts, ${failed.length} failed pages, ${carriedOver} entries kept from the previous feed)`
   );
   return merchants;
 }
@@ -3640,7 +3652,7 @@ async function main() {
           baselineCount: feedHealth.services.opra.lastSuccessfulCount,
           today,
           feedHealth,
-          scrape: () => scrapeOpra(),
+          scrape: () => scrapeOpra(existingSitelist),
         });
         opraMerchants = opraResult.merchants;
       } else {

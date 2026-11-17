@@ -4,6 +4,7 @@ import {
   extractNextFlightPayload,
   formatOpraDiscounts,
   getOpraDomains,
+  previousOpraEntries,
   type OpraBusiness,
 } from "../scripts/opra.ts";
 
@@ -87,6 +88,12 @@ describe("getOpraDomains", () => {
     ]);
   });
 
+  test("does not match the start of a longer domain", () => {
+    expect(
+      getOpraDomains(business({ keywords: ["example.com.au", "Les mer på hellyhansen.no."] }))
+    ).toEqual(["hellyhansen.no"]);
+  });
+
   test("uses description links only when they agree on one host", () => {
     const linked = (...hrefs: string[]) =>
       business({
@@ -106,5 +113,34 @@ describe("getOpraDomains", () => {
     expect(
       getOpraDomains(linked("https://www.sykehusapotekene.no/", "https://dinkroppdinhelse.com/"))
     ).toEqual([]);
+  });
+});
+
+describe("previousOpraEntries", () => {
+  test("rebuilds only the failed partners' OPRA offers", () => {
+    const feed = {
+      merchants: {
+        "www.stormberg.com": {
+          hostName: "www.stormberg.com",
+          offers: [
+            { serviceId: "trumf", urlName: "stormberg", cashbackDescription: "3 %" },
+            { serviceId: "opra", urlName: "stormberg", cashbackDescription: "20 %" },
+          ],
+        },
+        "jerven.no": {
+          hostName: "jerven.no",
+          offers: [{ serviceId: "opra", urlName: "jerven", cashbackDescription: "30 %" }],
+        },
+      },
+    };
+
+    expect(previousOpraEntries(feed, new Map([["stormberg", "Stormberg"]]))).toEqual([
+      {
+        name: "Stormberg",
+        slug: "stormberg",
+        cashbackDescription: "20 %",
+        storeUrl: "https://www.stormberg.com",
+      },
+    ]);
   });
 });

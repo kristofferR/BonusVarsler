@@ -19,10 +19,19 @@ export interface OpraBusiness {
   discounts?: OpraDiscount[] | null;
 }
 
+/** The previous feed's offers, as far as carrying OPRA offers over needs them. */
+interface PreviousFeed {
+  merchants: Record<
+    string,
+    { hostName: string; offers: Array<{ serviceId: string; urlName: string; cashbackDescription: string }> }
+  >;
+}
+
 // Bare domains as OPRA writes them in partner keywords and discount titles ("HellyHansen.no").
-// Unicode-aware boundaries keep "montér.no" from matching as "r.no".
+// Unicode-aware boundaries keep "montér.no" from matching as "r.no", and "example.com.au"
+// from matching as "example.com", while a sentence-ending period still ends the domain.
 const DOMAIN_PATTERN =
-  /(?<![\p{L}\p{N}.-])(?:[a-z0-9-]+\.)+(?:no|com|se|dk|fi|eu|net|org|io|shop|store)(?![\p{L}\p{N}-])/giu;
+  /(?<![\p{L}\p{N}.-])(?:[a-z0-9-]+\.)+(?:no|com|se|dk|fi|eu|net|org|io|shop|store)(?![\p{L}\p{N}-]|\.[\p{L}\p{N}])/giu;
 
 // Description links to these hosts never identify the partner's own store
 const IGNORED_LINK_HOSTS = [
@@ -145,4 +154,20 @@ export function getOpraDomains(business: OpraBusiness): string[] {
   }
 
   return linkHosts.size === 1 ? [...linkHosts] : [];
+}
+
+/**
+ * Rebuilds entries for partners whose pages failed to load from their offers in
+ * the previous feed, so one failed page keeps a partner's offers instead of
+ * dropping them. `failedPartners` maps slug to partner name.
+ */
+export function previousOpraEntries(feed: PreviousFeed, failedPartners: Map<string, string>) {
+  return Object.values(feed.merchants).flatMap(({ hostName, offers }) =>
+    offers.flatMap(({ serviceId, urlName, cashbackDescription }) => {
+      const name = serviceId === "opra" ? failedPartners.get(urlName) : undefined;
+      return name === undefined
+        ? []
+        : [{ name, slug: urlName, cashbackDescription, storeUrl: `https://${hostName}` }];
+    })
+  );
 }
