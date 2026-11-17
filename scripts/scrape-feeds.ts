@@ -5,6 +5,7 @@
  * - trumfnetthandel.no/kategori (Trumf - tracking-based cashback)
  * - onlineshopping.loyaltykey.com (SAS EuroBonus - API-based points)
  * - dnb.no/kundeprogram/fordeler/faste-rabatter (DNB - code-based rebates)
+ * - spareborsen.no/partnere (Sparebørsen - tracking-based cashback, sitemap + store pages)
  *
  * Strategy:
  * 1. Fetch the official CDN feed to get hostname -> urlName mappings for Trumf
@@ -20,6 +21,11 @@ import { existsSync } from "fs";
 import { readFile, writeFile } from "fs/promises";
 import { isIP } from "net";
 import { join } from "path";
+import {
+  formatSpareborsenCashback,
+  parseSpareborsenPartner,
+  parseSpareborsenSitemap,
+} from "./spareborsen-parser.ts";
 
 // ===================
 // Configuration
@@ -123,6 +129,14 @@ const LOFAVOR_EXCLUDED_NAMES = [
   "mastercard",
 ];
 
+// Sparebørsen: robots.txt allows /partnere/ but disallows /api/, /go/ and /out/
+const SPAREBORSEN_BASE_URL = "https://spareborsen.no";
+const SPAREBORSEN_SITEMAP_TIMEOUT_MS = 15_000;
+const SPAREBORSEN_PAGE_TIMEOUT_MS = 15_000;
+const SPAREBORSEN_PAGE_CONCURRENCY = 4;
+const SPAREBORSEN_USER_AGENT =
+  "Mozilla/5.0 (compatible; BonusVarsler/1.0; +https://github.com/kristofferR/BonusVarsler)";
+
 // Cache configuration
 const CACHE_FILE = join(import.meta.dir, "..", ".scraper-cache.json");
 const CACHE_MAX_AGE = 5 * 60 * 60 * 1000; // 5 hours in ms
@@ -207,6 +221,7 @@ const MONITORED_SERVICE_IDS = [
   "naf",
   "lofavor",
   "logbuy",
+  "spareborsen",
 ] as const;
 
 type ServiceId = (typeof MONITORED_SERVICE_IDS)[number];
@@ -221,6 +236,7 @@ interface ScraperCache {
   nafMerchants: ScrapedMerchant[];
   lofavorMerchants: ScrapedMerchant[];
   logbuyMerchants: ScrapedMerchant[];
+  spareborsenMerchants: ScrapedMerchant[];
   urlNameToHostname: Record<string, string>;
 }
 
@@ -251,7 +267,7 @@ interface ServiceRunResult {
  * Loads and validates the scraper cache file, returning it when current and well-formed.
  *
  * Validations performed: cache file exists and parses as JSON, contains array entries for all monitored services
- * (`trumfMerchants`, `rememberMerchants`, `dnbMerchants`, `obosMerchants`, `nafMerchants`, `lofavorMerchants`, `logbuyMerchants`),
+ * (`trumfMerchants`, `rememberMerchants`, `dnbMerchants`, `obosMerchants`, `nafMerchants`, `lofavorMerchants`, `logbuyMerchants`, `spareborsenMerchants`),
  * has a well-formed `urlNameToHostname` map, every LogBuy merchant has a numeric `slug`, and the cache timestamp is newer than `CACHE_MAX_AGE`.
  *
  * @returns The parsed `ScraperCache` when present and valid; `null` otherwise.
@@ -271,7 +287,8 @@ async function loadCache(): Promise<ScraperCache | null> {
       Array.isArray(cache.obosMerchants) &&
       Array.isArray(cache.nafMerchants) &&
       Array.isArray(cache.lofavorMerchants) &&
-      Array.isArray(cache.logbuyMerchants);
+      Array.isArray(cache.logbuyMerchants) &&
+      Array.isArray(cache.spareborsenMerchants);
     const hasUrlNameToHostname =
       typeof cache.urlNameToHostname === "object" &&
       cache.urlNameToHostname !== null &&
@@ -348,6 +365,13 @@ const HOSTNAME_ALIASES: Record<string, string> = {
   "www.csmegastore.no": "csmegastore.no",
   "www.houdinisportswear.com": "houdinisportswear.com",
   "ralphlauren.global": "www.ralphlauren.global",
+  "www.scandichotels.com": "www.scandichotels.no",
+  // Affiliate redirect hosts that Sparebørsen lists as store websites
+  "go.nordvpn.net": "nordvpn.com",
+  "go.nordpass.io": "nordpass.com",
+  "go.saily.site": "saily.com",
+  "nespresso.prf.hn": "www.nespresso.com",
+  "iherb.prf.hn": "no.iherb.com",
 };
 
 // ===================
@@ -3164,6 +3188,118 @@ async function scrapeLogbuy(): Promise<ScrapedMerchant[]> {
 }
 
 // ===================
+// Sparebørsen Scraping
+// ===================
+
+async function fetchSpareborsenText(url: string, timeoutMs: number): Promise<string> {
+  const response = await fetch(url, {
+    headers: { "User-Agent": SPAREBORSEN_USER_AGENT },
+    signal: AbortSignal.timeout(timeoutMs),
+  });
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`);
+  }
+  return response.text();
+}
+
+/**
+ * Scrapes Sparebørsen by reading store slugs from the sitemap and parsing each
+ * /partnere/{slug} page. The marketplace page does not embed the store list.
+ */
+async function scrapeSpareborsen(): Promise<ScrapedMerchant[]> {
+  console.log("\n=== Scraping Sparebørsen ===");
+
+  let sitemapXml: string;
+  try {
+    sitemapXml = await fetchSpareborsenText(
+      `${SPAREBORSEN_BASE_URL}/sitemap.xml`,
+      SPAREBORSEN_SITEMAP_TIMEOUT_MS
+    );
+  } catch (error) {
+    throw new Error(`Sparebørsen sitemap fetch failed: ${summarizeError(error)}`);
+  }
+
+  const slugs = parseSpareborsenSitemap(sitemapXml);
+  console.log(`  Found ${slugs.length} store pages in sitemap`);
+
+  let loadedPages = 0;
+  let failedPages = 0;
+  let missingPartner = 0;
+  let inactive = 0;
+  let withoutWebsite = 0;
+  const unusableRates: string[] = [];
+
+  const results = await mapWithConcurrency(
+    slugs,
+    SPAREBORSEN_PAGE_CONCURRENCY,
+    async (slug): Promise<ScrapedMerchant | null> => {
+      try {
+        const html = await fetchSpareborsenText(
+          `${SPAREBORSEN_BASE_URL}/partnere/${encodeURIComponent(slug)}`,
+          SPAREBORSEN_PAGE_TIMEOUT_MS
+        );
+        const partner = parseSpareborsenPartner(html, slug);
+        if (!partner) {
+          missingPartner++;
+          return null;
+        }
+        if (partner.active === false) {
+          inactive++;
+          return null;
+        }
+        if (!partner.websiteUrl) {
+          withoutWebsite++;
+          return null;
+        }
+
+        const cashbackDescription = formatSpareborsenCashback(partner);
+        if (!cashbackDescription) {
+          unusableRates.push(
+            `${slug} (${partner.cashbackType} ${partner.cashbackPercent} ${partner.cashbackCurrency ?? ""})`.trim()
+          );
+          return null;
+        }
+
+        return {
+          name: partner.name,
+          cashbackDescription,
+          slug: partner.slug,
+          storeUrl: partner.websiteUrl,
+        };
+      } catch (error) {
+        failedPages++;
+        console.warn(`\n  Warning: Sparebørsen page ${slug} failed: ${summarizeError(error)}`);
+        return null;
+      } finally {
+        loadedPages++;
+        process.stdout.write(`\r  Loaded ${loadedPages} / ${slugs.length} Sparebørsen store pages`);
+      }
+    }
+  );
+
+  const fetchedPages = slugs.length - failedPages;
+  if (fetchedPages > 0 && missingPartner === fetchedPages) {
+    throw new Error(
+      "Sparebørsen store pages no longer embed partner data (page format may have changed)"
+    );
+  }
+
+  const merchants = results.filter((merchant): merchant is ScrapedMerchant => merchant !== null);
+  console.log(`\n  Extracted ${merchants.length} Sparebørsen merchants`);
+  if (failedPages > 0) console.log(`  Skipped ${failedPages} pages that failed to load`);
+  if (missingPartner > 0) console.log(`  Skipped ${missingPartner} pages without partner data`);
+  if (inactive > 0) console.log(`  Skipped ${inactive} inactive partners`);
+  if (withoutWebsite > 0) console.log(`  Skipped ${withoutWebsite} partners without websiteUrl`);
+  if (unusableRates.length > 0) {
+    console.log(
+      `  Skipped ${unusableRates.length} partners without a usable rate: ${unusableRates.slice(0, 5).join(", ")}${unusableRates.length > 5 ? ", ..." : ""}`
+    );
+  }
+
+  return merchants;
+}
+
+// ===================
 // Main Logic
 /**
  * Orchestrates the full scraping pipeline to produce an updated data/sitelist.json.
@@ -3224,6 +3360,7 @@ async function main() {
   let nafMerchants: ScrapedMerchant[];
   let lofavorMerchants: ScrapedMerchant[];
   let logbuyMerchants: ScrapedMerchant[];
+  let spareborsenMerchants: ScrapedMerchant[];
   let urlNameToHostname: Map<string, string>;
   let trumfResult: ServiceRunResult;
   let sasResult: ServiceRunResult;
@@ -3233,6 +3370,7 @@ async function main() {
   let nafResult: ServiceRunResult;
   let lofavorResult: ServiceRunResult;
   let logbuyResult: ServiceRunResult;
+  let spareborsenResult: ServiceRunResult;
 
   if (cache) {
     const ageHours = Math.round((Date.now() - cache.timestamp) / (60 * 60 * 1000));
@@ -3245,6 +3383,7 @@ async function main() {
     nafMerchants = cache.nafMerchants || [];
     lofavorMerchants = cache.lofavorMerchants || [];
     logbuyMerchants = cache.logbuyMerchants || [];
+    spareborsenMerchants = cache.spareborsenMerchants || [];
     urlNameToHostname = new Map(Object.entries(cache.urlNameToHostname));
     console.log(`  Trumf: ${trumfMerchants.length} merchants`);
     console.log(`  SAS EuroBonus: ${sasMerchants.length} merchants`);
@@ -3254,6 +3393,7 @@ async function main() {
     console.log(`  NAF: ${nafMerchants.length} merchants`);
     console.log(`  LOfavør: ${lofavorMerchants.length} merchants`);
     console.log(`  LogBuy: ${logbuyMerchants.length} merchants`);
+    console.log(`  Sparebørsen: ${spareborsenMerchants.length} merchants`);
 
     trumfResult = {
       serviceId: "trumf",
@@ -3333,6 +3473,16 @@ async function main() {
       failureReason: null,
       baselineCount: feedHealth.services.logbuy.lastSuccessfulCount,
       currentCount: logbuyMerchants.length,
+      consecutiveFailureDays: 0,
+    };
+    spareborsenResult = {
+      serviceId: "spareborsen",
+      serviceName: "Sparebørsen",
+      merchants: spareborsenMerchants,
+      success: true,
+      failureReason: null,
+      baselineCount: feedHealth.services.spareborsen.lastSuccessfulCount,
+      currentCount: spareborsenMerchants.length,
       consecutiveFailureDays: 0,
     };
 
@@ -3525,6 +3675,24 @@ async function main() {
         logbuyMerchants = [];
       }
 
+      // ===================
+      // Step 9: Scrape Sparebørsen merchants (no browser needed)
+      // ===================
+      if (shouldScrape("spareborsen")) {
+        spareborsenResult = await runServiceScrape({
+          serviceId: "spareborsen",
+          serviceName: "Sparebørsen",
+          baselineCount: feedHealth.services.spareborsen.lastSuccessfulCount,
+          today,
+          feedHealth,
+          scrape: () => scrapeSpareborsen(),
+        });
+        spareborsenMerchants = spareborsenResult.merchants;
+      } else {
+        spareborsenResult = skipResult("spareborsen", "Sparebørsen");
+        spareborsenMerchants = [];
+      }
+
       const scrapedResults = [
         trumfResult,
         sasResult,
@@ -3534,6 +3702,7 @@ async function main() {
         nafResult,
         lofavorResult,
         logbuyResult,
+        spareborsenResult,
       ].filter((result) => shouldScrape(result.serviceId));
 
       const hasServiceFailures = scrapedResults.some((result) => !result.success);
@@ -3548,6 +3717,7 @@ async function main() {
           nafMerchants,
           lofavorMerchants,
           logbuyMerchants,
+          spareborsenMerchants,
           urlNameToHostname: Object.fromEntries(urlNameToHostname),
         });
       } else if (onlyService) {
@@ -3573,6 +3743,7 @@ async function main() {
     nafResult,
     lofavorResult,
     logbuyResult,
+    spareborsenResult,
   ];
   const alertServices = serviceRuns.filter(
     (result) =>
@@ -3614,6 +3785,7 @@ async function main() {
   const unmappedRemember: string[] = [];
   const unmappedDnb: string[] = [];
   const unmappedLogbuy: string[] = [];
+  const unmappedSpareborsen: string[] = [];
 
   // In single-service mode, restore all skipped services from existing sitelist
   if (onlyService) {
@@ -4208,6 +4380,62 @@ async function main() {
 
   console.log(`  Visma LogBuy: ${logbuyMapped} mapped`);
 
+  // Process Sparebørsen merchants
+  let spareborsenMapped = 0;
+
+  for (const merchant of spareborsenMerchants) {
+    let hostname: string | null = null;
+
+    if (merchant.storeUrl) {
+      try {
+        hostname = normalizeHostname(new URL(merchant.storeUrl).hostname);
+      } catch {
+        // Invalid URL
+      }
+    }
+
+    if (!hostname || hostname.length < 4) {
+      unmappedSpareborsen.push(`${merchant.name} (slug: ${merchant.slug})`);
+      continue;
+    }
+
+    // Find existing merchant (checking www variants) or create new
+    const existingKey = findMerchantKey(hostname);
+    const merchantKey = existingKey || hostname;
+
+    if (!merchants[merchantKey]) {
+      merchants[merchantKey] = {
+        hostName: merchantKey,
+        name: merchant.name,
+        offers: [],
+      };
+    }
+
+    // Add Sparebørsen offer (check for duplicates first)
+    const hasSpareborsenOffer = merchants[merchantKey].offers.some(
+      (o) => o.serviceId === "spareborsen"
+    );
+    if (!hasSpareborsenOffer) {
+      merchants[merchantKey].offers.push({
+        serviceId: "spareborsen",
+        urlName: merchant.slug,
+        cashbackDescription: merchant.cashbackDescription,
+      });
+      spareborsenMapped++;
+    }
+  }
+
+  if (!spareborsenResult.success) {
+    const restoredOffers = restoreServiceOffersFromExisting(
+      merchants,
+      existingSitelist,
+      "spareborsen"
+    );
+    console.log(`  Sparebørsen: restored ${restoredOffers} existing offers`);
+  }
+
+  console.log(`  Sparebørsen: ${spareborsenMapped} mapped`);
+
   // ===================
   // Step 7: Write updated sitelist.json
   // ===================
@@ -4273,6 +4501,9 @@ async function main() {
   const logbuyCount = Object.values(merchants).filter((m) =>
     m.offers.some((o) => o.serviceId === "logbuy")
   ).length;
+  const spareborsenCount = Object.values(merchants).filter((m) =>
+    m.offers.some((o) => o.serviceId === "spareborsen")
+  ).length;
 
   console.log(`  - With Trumf offers: ${trumfCount}`);
   console.log(`  - With SAS EuroBonus offers: ${sasCount}`);
@@ -4282,6 +4513,7 @@ async function main() {
   console.log(`  - With NAF offers: ${nafCount}`);
   console.log(`  - With LOfavør offers: ${lofavorCount}`);
   console.log(`  - With Visma LogBuy offers: ${logbuyCount}`);
+  console.log(`  - With Sparebørsen offers: ${spareborsenCount}`);
   console.log(`  - Unmapped Trumf: ${unmappedTrumf.length}`);
   console.log(`  - Unmapped SAS EuroBonus: ${unmappedSas.length}`);
   console.log(`  - Unmapped re:member: ${unmappedRemember.length}`);
@@ -4290,6 +4522,7 @@ async function main() {
   console.log(`  - Unmapped NAF: ${unmappedNaf.length}`);
   console.log(`  - Unmapped LOfavør: ${unmappedLofavor.length}`);
   console.log(`  - Unmapped Visma LogBuy: ${unmappedLogbuy.length}`);
+  console.log(`  - Unmapped Sparebørsen: ${unmappedSpareborsen.length}`);
 
   if (unmappedTrumf.length > 0) {
     console.log("\nUnmapped Trumf merchants (need manual hostname mapping):");
@@ -4368,6 +4601,16 @@ async function main() {
     }
     if (unmappedLogbuy.length > 10) {
       console.log(`  ... and ${unmappedLogbuy.length - 10} more`);
+    }
+  }
+
+  if (unmappedSpareborsen.length > 0) {
+    console.log("\nUnmapped Sparebørsen merchants:");
+    for (const m of unmappedSpareborsen.slice(0, 10)) {
+      console.log(`  - ${m}`);
+    }
+    if (unmappedSpareborsen.length > 10) {
+      console.log(`  ... and ${unmappedSpareborsen.length - 10} more`);
     }
   }
 
