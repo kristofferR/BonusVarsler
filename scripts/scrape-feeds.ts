@@ -74,10 +74,10 @@ const LOGBUY_INTERNAL_DOMAINS = [
   "files.mylogbuy.com",
 ];
 
+// Adtraction redirects through numbered hosts (go.adt242.com, go.adt291.com, ...)
+const ADTRACTION_TRACKING_HOST = /(?:^|\.)adt\d+\.(?:com|net)$/;
 const LOGBUY_TRACKING_DOMAINS = [
   "awin1.com",
-  "go.adt242.com",
-  "go.adt267.com",
   "tidd.ly",
   "bit.ly",
   "evyy.net",
@@ -2416,8 +2416,11 @@ function isLogbuyInternalDomain(hostname: string): boolean {
  */
 function isLogbuyTrackingDomain(hostname: string): boolean {
   const normalized = hostname.replace(/^www\./, "");
-  return LOGBUY_TRACKING_DOMAINS.some(
-    (domain) => normalized === domain || normalized.endsWith(`.${domain}`)
+  return (
+    ADTRACTION_TRACKING_HOST.test(normalized) ||
+    LOGBUY_TRACKING_DOMAINS.some(
+      (domain) => normalized === domain || normalized.endsWith(`.${domain}`)
+    )
   );
 }
 
