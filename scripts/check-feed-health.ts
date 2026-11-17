@@ -12,6 +12,7 @@ const SERVICE_NAMES: Record<string, string> = {
   obos: "OBOS",
   naf: "NAF",
   lofavor: "LOfavør",
+  logbuy: "Visma LogBuy",
   spareborsen: "Sparebørsen",
 };
 
