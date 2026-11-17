@@ -3191,11 +3191,15 @@ async function scrapeLogbuy(): Promise<ScrapedMerchant[]> {
 // Sparebørsen Scraping
 // ===================
 
-async function fetchSpareborsenText(url: string, timeoutMs: number): Promise<string> {
+/** Returns null when the page is gone (404/410); throws on other failures. */
+async function fetchSpareborsenText(url: string, timeoutMs: number): Promise<string | null> {
   const response = await fetch(url, {
     headers: { "User-Agent": SPAREBORSEN_USER_AGENT },
     signal: AbortSignal.timeout(timeoutMs),
   });
+  if (response.status === 404 || response.status === 410) {
+    return null;
+  }
   if (!response.ok) {
     throw new Error(`HTTP ${response.status}`);
   }
@@ -3209,7 +3213,7 @@ async function fetchSpareborsenText(url: string, timeoutMs: number): Promise<str
 async function scrapeSpareborsen(): Promise<ScrapedMerchant[]> {
   console.log("\n=== Scraping Sparebørsen ===");
 
-  let sitemapXml: string;
+  let sitemapXml: string | null;
   try {
     sitemapXml = await fetchSpareborsenText(
       `${SPAREBORSEN_BASE_URL}/sitemap.xml`,
@@ -3218,12 +3222,16 @@ async function scrapeSpareborsen(): Promise<ScrapedMerchant[]> {
   } catch (error) {
     throw new Error(`Sparebørsen sitemap fetch failed: ${summarizeError(error)}`);
   }
+  if (sitemapXml === null) {
+    throw new Error("Sparebørsen sitemap not found");
+  }
 
   const slugs = parseSpareborsenSitemap(sitemapXml);
   console.log(`  Found ${slugs.length} store pages in sitemap`);
 
   let loadedPages = 0;
   let failedPages = 0;
+  let gonePages = 0;
   let missingPartner = 0;
   let inactive = 0;
   let withoutWebsite = 0;
@@ -3234,10 +3242,18 @@ async function scrapeSpareborsen(): Promise<ScrapedMerchant[]> {
     SPAREBORSEN_PAGE_CONCURRENCY,
     async (slug): Promise<ScrapedMerchant | null> => {
       try {
-        const html = await fetchSpareborsenText(
-          `${SPAREBORSEN_BASE_URL}/partnere/${encodeURIComponent(slug)}`,
-          SPAREBORSEN_PAGE_TIMEOUT_MS
-        );
+        const pageUrl = `${SPAREBORSEN_BASE_URL}/partnere/${encodeURIComponent(slug)}`;
+        let html: string | null;
+        try {
+          html = await fetchSpareborsenText(pageUrl, SPAREBORSEN_PAGE_TIMEOUT_MS);
+        } catch {
+          // One retry for transient timeouts and server errors
+          html = await fetchSpareborsenText(pageUrl, SPAREBORSEN_PAGE_TIMEOUT_MS);
+        }
+        if (html === null) {
+          gonePages++;
+          return null;
+        }
         const partner = parseSpareborsenPartner(html, slug);
         if (!partner) {
           missingPartner++;
@@ -3277,16 +3293,20 @@ async function scrapeSpareborsen(): Promise<ScrapedMerchant[]> {
     }
   );
 
-  const fetchedPages = slugs.length - failedPages;
+  const fetchedPages = slugs.length - failedPages - gonePages;
   if (fetchedPages > 0 && missingPartner === fetchedPages) {
     throw new Error(
       "Sparebørsen store pages no longer embed partner data (page format may have changed)"
     );
   }
+  // A partial result would drop the failed stores' offers, so fail the run and keep the previous offers
+  if (failedPages > 0) {
+    throw new Error(`${failedPages} of ${slugs.length} Sparebørsen store pages failed to load`);
+  }
 
   const merchants = results.filter((merchant): merchant is ScrapedMerchant => merchant !== null);
   console.log(`\n  Extracted ${merchants.length} Sparebørsen merchants`);
-  if (failedPages > 0) console.log(`  Skipped ${failedPages} pages that failed to load`);
+  if (gonePages > 0) console.log(`  Skipped ${gonePages} pages that no longer exist`);
   if (missingPartner > 0) console.log(`  Skipped ${missingPartner} pages without partner data`);
   if (inactive > 0) console.log(`  Skipped ${inactive} inactive partners`);
   if (withoutWebsite > 0) console.log(`  Skipped ${withoutWebsite} partners without websiteUrl`);
@@ -4435,6 +4455,25 @@ async function main() {
   }
 
   console.log(`  Sparebørsen: ${spareborsenMapped} mapped`);
+
+  // The matcher uses the first host variant it finds, so fold bare-host records
+  // into their www. twin to keep every offer reachable from either variant.
+  for (const wwwKey of Object.keys(merchants)) {
+    const bareKey = wwwKey.startsWith("www.") ? wwwKey.slice(4) : null;
+    const bareMerchant = bareKey ? merchants[bareKey] : undefined;
+    if (!bareKey || !bareMerchant) continue;
+    const target = merchants[wwwKey];
+    for (const offer of bareMerchant.offers) {
+      const isDuplicate = target.offers.some(
+        (o) =>
+          o.serviceId === offer.serviceId &&
+          o.urlName === offer.urlName &&
+          (o.matchPathPrefix ?? null) === (offer.matchPathPrefix ?? null)
+      );
+      if (!isDuplicate) target.offers.push(offer);
+    }
+    delete merchants[bareKey];
+  }
 
   // ===================
   // Step 7: Write updated sitelist.json
