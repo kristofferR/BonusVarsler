@@ -556,16 +556,41 @@ function createActionButton(
   restoreActionButtonHref(actionBtn, clickthroughUrl);
   let spennIdField =
     spennTemplate && !savedSpennId ? createSpennIdField(i18n, "", () => actionBtn.click()) : null;
+
+  // Fill the current SpennID into the link before any navigation, saving a valid
+  // inline entry. Without a valid ID, block the navigation and ask for one.
+  const prepareSpennLink = (e: Event): boolean => {
+    if (!spennTemplate) return true;
+    const spennId = settings.getSpennId() ?? normalizeSpennId(spennIdField?.input.value ?? "");
+    if (!spennId) {
+      e.preventDefault();
+      if (spennIdField) {
+        spennIdField.showInvalid();
+      } else {
+        // The saved ID was cleared in the settings panel after this notification rendered
+        spennIdField = createSpennIdField(i18n, "", () => actionBtn.click());
+        actionBtn.before(spennIdField.element);
+        spennIdField.input.focus();
+      }
+      return false;
+    }
+    actionBtn.href = fillSpennId(spennTemplate, spennId);
+    if (spennIdField) {
+      void settings.setSpennId(spennId);
+      spennIdField.element.remove();
+      spennIdField = null;
+    }
+    return true;
+  };
   if (spennTemplate) {
-    // Middle-click and the context menu skip the click handler, so refresh the
-    // href from the current SpennID (it may have changed in settings) first.
-    const syncSpennHref = () => {
+    // Middle-click and the context menu skip the click handler
+    const onOtherNavigation = (e: MouseEvent) => {
+      if (e.type === "auxclick" && e.button !== 1) return;
       if (!actionBtn.hasAttribute("href")) return; // disabled, e.g. adblock detected
-      const spennId = settings.getSpennId();
-      actionBtn.href = spennId ? fillSpennId(spennTemplate, spennId) : spennTemplate;
+      prepareSpennLink(e);
     };
-    actionBtn.addEventListener("pointerdown", syncSpennHref);
-    actionBtn.addEventListener("contextmenu", syncSpennHref);
+    actionBtn.addEventListener("auxclick", onOtherNavigation);
+    actionBtn.addEventListener("contextmenu", onOtherNavigation);
   }
 
   // For code-based services, show the rebate code
@@ -630,28 +655,8 @@ function createActionButton(
       e.preventDefault();
     }
 
-    if (spennTemplate) {
-      const spennId =
-        settings.getSpennId() ?? normalizeSpennId(spennIdField?.input.value ?? "");
-      if (!spennId) {
-        e.preventDefault();
-        if (spennIdField) {
-          spennIdField.showInvalid();
-        } else {
-          // The saved ID was cleared in the settings panel after this notification rendered
-          spennIdField = createSpennIdField(i18n, "", () => actionBtn.click());
-          actionBtn.before(spennIdField.element);
-          spennIdField.input.focus();
-        }
-        return;
-      }
-      // Set before the browser follows the link, so the new tab gets the filled-in URL.
-      actionBtn.href = fillSpennId(spennTemplate, spennId);
-      if (spennIdField) {
-        void settings.setSpennId(spennId);
-        spennIdField.element.remove();
-        spennIdField = null;
-      }
+    if (!prepareSpennLink(e)) {
+      return;
     }
 
     sessionStorage.set(getMessageShownKey(currentHost, currentPathname), Date.now().toString());
