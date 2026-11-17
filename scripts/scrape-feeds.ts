@@ -691,7 +691,7 @@ function cloneOffer(offer: ServiceOffer): ServiceOffer {
 function isSameServiceOffer(
   existingOffer: ServiceOffer,
   restoredOffer: ServiceOffer,
-  serviceId: ServiceId
+  serviceId: string
 ): boolean {
   return (
     existingOffer.serviceId === serviceId &&
@@ -4464,11 +4464,8 @@ async function main() {
     if (!bareKey || !bareMerchant) continue;
     const target = merchants[wwwKey];
     for (const offer of bareMerchant.offers) {
-      const isDuplicate = target.offers.some(
-        (o) =>
-          o.serviceId === offer.serviceId &&
-          o.urlName === offer.urlName &&
-          (o.matchPathPrefix ?? null) === (offer.matchPathPrefix ?? null)
+      const isDuplicate = target.offers.some((o) =>
+        isSameServiceOffer(o, offer, offer.serviceId)
       );
       if (!isDuplicate) target.offers.push(offer);
     }
