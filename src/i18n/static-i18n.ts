@@ -34,6 +34,10 @@ const NORWEGIAN_MESSAGES: Messages = {
   checkingAdblock: { message: "Sjekker..." },
   checkAdblockAgain: { message: "Sjekk på nytt" },
   trackingUnavailable: { message: "Sporing utilgjengelig" },
+  spennIdLabel: { message: "SpennID" },
+  spennIdPlaceholder: { message: "9 siffer" },
+  spennIdHint: { message: "Står øverst på profilen din i Spenn-appen." },
+  spennIdInvalid: { message: "SpennID må være 9 siffer." },
   adblockWarning: { message: "Adblock oppdaget!" },
   adblockNote: { message: "Du må skru av adblock for at sporingen skal fungere." },
 

@@ -52,6 +52,11 @@ const SERVICES_FALLBACK = {
     name: "Visma LogBuy",
     color: "#ee2e24",
   },
+  spenn: {
+    id: "spenn",
+    name: "Spenn",
+    color: "#E51E4F",
+  },
 };
 
 // Mutate this registry in place so Object.keys(SERVICES) keeps fallback order.
@@ -70,6 +75,7 @@ const KEYS = {
   hostIndex: "BonusVarsler_HostIndex_v1",
   language: "BonusVarsler_Language",
   enabledServices: "BonusVarsler_EnabledServices",
+  spennId: "BonusVarsler_SpennId",
 };
 
 // Messages cache
@@ -550,6 +556,35 @@ async function initServices() {
   });
 }
 
+// Initialize SpennID (fills Spenn click links so purchases are credited to the user)
+async function initSpennId() {
+  const input = document.getElementById("spenn-id-input");
+  const saveBtn = document.getElementById("spenn-id-save-btn");
+  input.value = (await getValue(KEYS.spennId, null)) || "";
+
+  async function save() {
+    const spennId = input.value.replace(/\s/g, "");
+    if (!spennId) {
+      await browser.storage.local.remove(KEYS.spennId);
+      showStatus(i18n("spennIdRemoved"));
+      return;
+    }
+    // Same rule as normalizeSpennId in src/core/spenn-id.ts
+    if (!/^\d{9}$/.test(spennId) || /^0+$/.test(spennId)) {
+      showStatus(i18n("spennIdInvalid"));
+      return;
+    }
+    input.value = spennId;
+    await setValue(KEYS.spennId, spennId);
+    showStatus(i18n("spennIdSaved"));
+  }
+
+  saveBtn.addEventListener("click", save);
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") save();
+  });
+}
+
 // Initialize clear cache
 function initClearCache() {
   document.getElementById("clear-cache").addEventListener("click", async () => {
@@ -598,6 +633,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   initStartMinimized();
   initPosition();
   initServices();
+  initSpennId();
   initHiddenSites();
   initBlacklistedSites();
   initClearCache();

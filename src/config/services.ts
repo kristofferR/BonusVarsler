@@ -95,10 +95,19 @@ export const SERVICES_FALLBACK: ServiceRegistry = {
     color: "#ee2e24",
     defaultEnabled: false,
   },
+  spenn: {
+    id: "spenn",
+    name: "Spenn",
+    // Spenn's public Refunder click endpoint (site= is Spenn's Norwegian Refunder site,
+    // shared by every store). {spennId} is filled with the user's own SpennID on click.
+    clickthroughUrl: "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store={urlName}&source=browser-extension&spennId={spennId}",
+    color: "#E51E4F",
+    defaultEnabled: false,
+  },
 };
 
 // Service display order (active services first, then coming soon)
-export const SERVICE_ORDER = ["trumf", "sas", "remember", "dnb", "obos", "naf", "lofavor", "logbuy"] as const;
+export const SERVICE_ORDER = ["trumf", "sas", "remember", "dnb", "obos", "naf", "lofavor", "logbuy", "spenn"] as const;
 
 /**
  * Get default enabled services

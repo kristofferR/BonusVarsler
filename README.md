@@ -2,7 +2,7 @@
 
 # BonusVarsler
 
-**Trumf | SAS EuroBonus | re:member | DNB | OBOS | NAF | LOfavør | Visma LogBuy**
+**Trumf | SAS EuroBonus | re:member | DNB | OBOS | NAF | LOfavør | Visma LogBuy | Spenn**
 
 <p align="center">
 
@@ -16,7 +16,7 @@
 
 **Glem aldri cashback-bonus igjen!** En lett og stilren nettleserutvidelse som varsler deg når du besøker en nettbutikk som gir bonus.
 
-> 🛒 Dette er et uavhengig hobbyprosjekt og har ingen tilknytning til Trumf, SAS EuroBonus, re:member, DNB, OBOS, LO, Visma LogBuy eller andre bonusprogrammer.
+> 🛒 Dette er et uavhengig hobbyprosjekt og har ingen tilknytning til Trumf, SAS EuroBonus, re:member, DNB, OBOS, LO, Visma LogBuy, Spenn eller andre bonusprogrammer.
 
 - Lynrask og ressursvennlig — du merker ikke at den kjører
 - Stilrent design med lys/mørk modus
@@ -36,7 +36,7 @@
 
 ## Hvorfor bruke dette?
 
-Bonusprogrammer som Trumf, SAS EuroBonus, re:member, OBOS, NAF, LOfavør og Visma LogBuy gir deg cashback, rabatter eller poeng hos hundrevis av nettbutikker, men du må huske å gå via deres portal for at bonusen skal registreres. Det er lett å glemme.
+Bonusprogrammer som Trumf, SAS EuroBonus, re:member, OBOS, NAF, LOfavør, Visma LogBuy og Spenn gir deg cashback, rabatter eller poeng hos hundrevis av nettbutikker, men du må huske å gå via deres portal for at bonusen skal registreres. Det er lett å glemme.
 
 Denne utvidelsen løser problemet: Du handler som vanlig, og får et varsel når butikken gir bonus. Ett klikk, så er du i gang.
 
@@ -107,6 +107,7 @@ Bare surf som vanlig. Når du besøker en nettbutikk som gir bonus, dukker varse
 - **Klikk headeren** for å minimere/utvide
 - **Tannhjulet** åpner innstillinger (tema, start minimert, skjulte sider)
 - **"Ikke vis på denne siden"** skjuler varselet permanent for det nettstedet
+- **Spenn** krediterer kjøp til SpennID-en din (9 siffer, øverst på profilen i Spenn-appen). Første gang ber varselet om den, og den lagres bare lokalt. Du kan endre den under tannhjulet eller på innstillingssiden.
 
 ### Innstillinger
 
@@ -118,7 +119,7 @@ Bare surf som vanlig. Når du besøker en nettbutikk som gir bonus, dukker varse
 
 ## Personvern
 
-Utvidelsen henter kun offisielle butikklister fra bonusprogrammene. Ingen data om deg eller din surfing sendes noe sted.
+Utvidelsen henter kun offisielle butikklister fra bonusprogrammene. Ingen data om deg eller din surfing sendes noe sted. Unntaket er SpennID-en din, som bare sendes til Spenn når du selv klikker på Spenn-knappen, slik at kjøpet blir registrert på deg. Feltet i varselet ligger på nettsiden du besøker, så det du skriver der kan nettsiden se. Vil du unngå det, kan du legge inn SpennID-en på innstillingssiden til utvidelsen.
 
 ---
 

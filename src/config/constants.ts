@@ -31,6 +31,7 @@ export const STORAGE_KEYS = {
   enabledServices: "BonusVarsler_EnabledServices",
   setupComplete: "BonusVarsler_SetupComplete",
   setupShowCount: "BonusVarsler_SetupShowCount",
+  spennId: "BonusVarsler_SpennId",
   version: "BonusVarsler_Version",
 } as const;
 
