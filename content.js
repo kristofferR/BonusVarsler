@@ -2618,14 +2618,36 @@
     const clickthroughUrl = spennTemplate && savedSpennId ? fillSpennId(spennTemplate, savedSpennId) : resolvedUrl;
     restoreActionButtonHref(actionBtn, clickthroughUrl);
     let spennIdField = spennTemplate && !savedSpennId ? createSpennIdField(i18n, "", () => actionBtn.click()) : null;
+    const prepareSpennLink = (e) => {
+      if (!spennTemplate) return true;
+      const spennId = settings.getSpennId() ?? normalizeSpennId(spennIdField?.input.value ?? "");
+      if (!spennId) {
+        e.preventDefault();
+        if (spennIdField) {
+          spennIdField.showInvalid();
+        } else {
+          spennIdField = createSpennIdField(i18n, "", () => actionBtn.click());
+          actionBtn.before(spennIdField.element);
+          spennIdField.input.focus();
+        }
+        return false;
+      }
+      actionBtn.href = fillSpennId(spennTemplate, spennId);
+      if (spennIdField) {
+        void settings.setSpennId(spennId);
+        spennIdField.element.remove();
+        spennIdField = null;
+      }
+      return true;
+    };
     if (spennTemplate) {
-      const syncSpennHref = () => {
+      const onOtherNavigation = (e) => {
+        if (e.type === "auxclick" && e.button !== 1) return;
         if (!actionBtn.hasAttribute("href")) return;
-        const spennId = settings.getSpennId();
-        actionBtn.href = spennId ? fillSpennId(spennTemplate, spennId) : spennTemplate;
+        prepareSpennLink(e);
       };
-      actionBtn.addEventListener("pointerdown", syncSpennHref);
-      actionBtn.addEventListener("contextmenu", syncSpennHref);
+      actionBtn.addEventListener("auxclick", onOtherNavigation);
+      actionBtn.addEventListener("contextmenu", onOtherNavigation);
     }
     if (service.type === "code" && match.offer?.code) {
       actionBtn.classList.add("has-code");
@@ -2678,25 +2700,8 @@
       if (isDisabled) {
         e.preventDefault();
       }
-      if (spennTemplate) {
-        const spennId = settings.getSpennId() ?? normalizeSpennId(spennIdField?.input.value ?? "");
-        if (!spennId) {
-          e.preventDefault();
-          if (spennIdField) {
-            spennIdField.showInvalid();
-          } else {
-            spennIdField = createSpennIdField(i18n, "", () => actionBtn.click());
-            actionBtn.before(spennIdField.element);
-            spennIdField.input.focus();
-          }
-          return;
-        }
-        actionBtn.href = fillSpennId(spennTemplate, spennId);
-        if (spennIdField) {
-          void settings.setSpennId(spennId);
-          spennIdField.element.remove();
-          spennIdField = null;
-        }
+      if (!prepareSpennLink(e)) {
+        return;
       }
       sessionStorage2.set(getMessageShownKey(currentHost, currentPathname), Date.now().toString());
       if (service.type === "info") {
