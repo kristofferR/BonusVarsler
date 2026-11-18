@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "services": {
     "trumf": {
-      "consecutiveFailureDays": 1,
-      "lastFailureDate": "2026-11-16",
-      "lastFailureReason": "returned only 89 merchants (last successful count 271)",
-      "lastSuccessfulCount": 271
+      "consecutiveFailureDays": 0,
+      "lastFailureDate": null,
+      "lastFailureReason": null,
+      "lastSuccessfulCount": 270
     },
     "sas": {
       "consecutiveFailureDays": 0,
@@ -49,11 +49,17 @@
       "lastFailureReason": null,
       "lastSuccessfulCount": 135
     },
+    "spareborsen": {
+      "consecutiveFailureDays": 0,
+      "lastFailureDate": null,
+      "lastFailureReason": null,
+      "lastSuccessfulCount": 422
+    },
     "opra": {
       "consecutiveFailureDays": 0,
       "lastFailureDate": null,
       "lastFailureReason": null,
-      "lastSuccessfulCount": 166
+      "lastSuccessfulCount": 165
     }
   }
 }

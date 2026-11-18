@@ -96,7 +96,7 @@ function getUserscriptHeader(): string {
 // @name         BonusVarsler (for Trumf, SAS, OBOS, NAF, LOfavør, DNB, re:member++)
 // @namespace    http://tampermonkey.net/
 // @version      ${version}
-// @description  Varsler om bonuser, EuroBonus-poeng og cashback fra Trumf, SAS, OBOS, NAF, LOfavør, re:member, DNB og andre når du besøker nettsider som tilbyr dette. Norsk utvidelse.
+// @description  Varsler om bonuser, EuroBonus-poeng og cashback fra Trumf, SAS, OBOS, NAF, LOfavør, re:member, DNB, Sparebørsen og andre når du besøker nettsider som tilbyr dette. Norsk utvidelse.
 // @author       kristofferR
 // @match        *://*/*
 // @grant        GM_getValue
