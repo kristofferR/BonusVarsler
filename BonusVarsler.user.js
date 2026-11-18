@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BonusVarsler (for Trumf, SAS, OBOS, NAF, LOfavør, DNB, re:member++)
 // @namespace    http://tampermonkey.net/
-// @version      9.1
+// @version      10.0
 // @description  Varsler om bonuser, EuroBonus-poeng og cashback fra Trumf, SAS, OBOS, NAF, LOfavør, re:member, DNB, Sparebørsen og andre når du besøker nettsider som tilbyr dette. Norsk utvidelse.
 // @author       kristofferR
 // @match        *://*/*
@@ -245,7 +245,7 @@
     feedTime_v4: "BonusVarsler_FeedTime_v4",
     hostIndex_v4: "BonusVarsler_HostIndex_v4"
   };
-  var CURRENT_VERSION = "9.1";
+  var CURRENT_VERSION = "10.0";
   var MESSAGE_SHOWN_KEY_PREFIX = "BonusVarsler_MessageShown_";
   var PAGE_VISIT_COUNT_PREFIX = "BonusVarsler_PageVisits_";
   function getMessageShownKey(currentHost, currentPathname = "/") {
@@ -271,43 +271,54 @@
     "cdon.com",
     "cdon.no",
     "dressmann.com",
-    "elite.se",
-    "extraoptical.no",
     "fabel.no",
+    "fyndiq.no",
     "godtlevert.no",
     "hoie.no",
     "hunkemoller.no",
     "junkyard.com",
+    "just-pleasure.com",
     "loopia.no",
-    "lux-case.no",
-    "no.match.com",
+    "nordpass.com",
     "nordvpn.com",
+    "paperla.com",
+    "saily.com",
     "sportsmagasinet.no",
     "stockx.com",
     "talkmore.no",
     "vetzoo.no",
+    "www.authentic-europe.com",
+    "www.autodeler.co.no",
+    "www.autodoc.co.no",
     "www.autodude.no",
-    "www.beautycos.no",
     "www.bookbeat.no",
-    "www.bravofly.com",
-    "www.circlek.no",
     "www.clickandboat.com",
     "www.dbs.no",
     "www.directferries.no",
     "www.ekstralys.no",
     "www.elite.se",
-    "www.elon.no",
+    "www.elskling.no",
     "www.eurodel.no",
-    "www.extraoptical.se",
+    "www.fortum.com",
     "www.getyourguide.com",
-    "www.ginatricot.com",
+    "www.greatlife.no",
+    "www.holidu.no",
+    "www.joyland.no",
     "www.londonpass.com",
+    "www.lovetoys.no",
     "www.lufthansa.com",
     "www.lusini.com",
     "www.myprotein.no",
+    "www.omio.no",
+    "www.outdoorexperten.no",
+    "www.partyking.no",
+    "www.selected.com",
+    "www.shacks.co.uk",
     "www.skyshowtime.com",
     "www.sportmann.no",
     "www.strikkia.no",
+    "www.superkul.no",
+    "www.valostore.no",
     "www.vivara.no"
   ]);
 
