@@ -7,7 +7,8 @@ import { getGMStorage, getGMSessionStorage } from "../storage/gm-storage.js";
 import { getGMFetch } from "../network/gm-fetch.js";
 import { getStaticI18n } from "../i18n/static-i18n.js";
 import {
-  shouldBailOutEarly,
+  canSkipPage,
+  countVisitAndCheckCooldown,
   markMessageShown,
   initialize,
   isOnCashbackPage,
@@ -21,26 +22,34 @@ import { SERVICES_FALLBACK } from "../config/services.js";
 
 // Immediate IIFE for early bailout
 (async function () {
-  const currentHost = window.location.hostname;
-  const currentPathname = window.location.pathname;
-  const sessionStorage = getGMSessionStorage();
-
-  // Early bailout checks
-  if (shouldBailOutEarly(sessionStorage, currentHost, currentPathname)) {
+  // Skip iframes entirely
+  if (window.top !== window.self) {
     return;
   }
+
+  const currentHost = window.location.hostname;
+  const currentPathname = window.location.pathname;
 
   // Create platform adapters
   const adapters: PlatformAdapters = {
     storage: getGMStorage(),
-    sessionStorage,
+    sessionStorage: getGMSessionStorage(),
     fetcher: getGMFetch(),
     i18n: getStaticI18n(),
   };
+  const { storage, sessionStorage, fetcher, i18n } = adapters;
+
+  // Most pages need nothing from us; decide that before touching the page's storage
+  if (await canSkipPage(storage, currentHost, currentPathname)) {
+    return;
+  }
+
+  if (countVisitAndCheckCooldown(sessionStorage, currentHost, currentPathname)) {
+    return;
+  }
 
   // Initialize core
   const result = await initialize(adapters, currentHost, currentPathname);
-  const { storage, fetcher, i18n } = adapters;
 
   // Blocked sites get no UI at all
   if (result.status === "blocked") {

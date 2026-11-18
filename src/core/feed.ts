@@ -167,39 +167,44 @@ export class FeedManager {
 
     return null;
   }
+}
 
-  /**
-   * Check if a host is in the cached host index (fast lookup)
-   */
-  async isKnownMerchantHost(currentHost: string, domainAliases: Record<string, string>): Promise<boolean | null> {
-    const hostIndex = await this.storage.get<string[] | null>(STORAGE_KEYS.hostIndex, null);
-    if (!hostIndex) {
-      return null; // No index yet, need full check
-    }
-
-    const hostSet = new Set(hostIndex);
-    const noWww = currentHost.replace(/^www\./, "");
-
-    // Check direct matches
-    if (
-      hostSet.has(currentHost) ||
-      hostSet.has(noWww) ||
-      hostSet.has("www." + noWww)
-    ) {
-      return true;
-    }
-
-    // Check domain aliases
-    const aliasedHost = domainAliases[currentHost];
-    if (aliasedHost && hostSet.has(aliasedHost)) {
-      return true;
-    }
-
-    const aliasedNoWww = domainAliases[noWww];
-    if (aliasedNoWww && hostSet.has(aliasedNoWww)) {
-      return true;
-    }
-
-    return false;
+/**
+ * Check if a host is in the cached host index (fast lookup).
+ * Returns null when there is no usable index.
+ */
+export async function isKnownMerchantHost(
+  storage: StorageAdapter,
+  currentHost: string,
+  domainAliases: Record<string, string>
+): Promise<boolean | null> {
+  const hostIndex = await storage.get<unknown>(STORAGE_KEYS.hostIndex, null);
+  if (!Array.isArray(hostIndex)) {
+    return null; // No usable index, need full check
   }
+
+  const hostSet = new Set(hostIndex);
+  const noWww = currentHost.replace(/^www\./, "");
+
+  // Check direct matches
+  if (
+    hostSet.has(currentHost) ||
+    hostSet.has(noWww) ||
+    hostSet.has("www." + noWww)
+  ) {
+    return true;
+  }
+
+  // Check domain aliases
+  const aliasedHost = domainAliases[currentHost];
+  if (aliasedHost && hostSet.has(aliasedHost)) {
+    return true;
+  }
+
+  const aliasedNoWww = domainAliases[noWww];
+  if (aliasedNoWww && hostSet.has(aliasedNoWww)) {
+    return true;
+  }
+
+  return false;
 }
