@@ -92,7 +92,8 @@ export class GMFetch implements FetchAdapter {
   async checkUrlBlocked(url: string): Promise<boolean> {
     try {
       // For userscript, use regular fetch with no-cors mode
-      await fetch(url, { mode: "no-cors" });
+      // no-referrer: the ad network must not learn which shop the user is on
+      await fetch(url, { mode: "no-cors", referrerPolicy: "no-referrer" });
       return false;
     } catch {
       return true;

@@ -150,7 +150,7 @@
     }
     async checkUrlBlocked(url) {
       try {
-        await fetch(url, { mode: "no-cors" });
+        await fetch(url, { mode: "no-cors", referrerPolicy: "no-referrer" });
         return false;
       } catch {
         return true;
@@ -165,106 +165,12 @@
     return instance;
   }
 
+  // _locales/no/messages.json
+  var messages_default = { "extensionDescription": { "message": "Varsler om cashback og bonus fra Trumf, SAS EuroBonus, OBOS, NAF, LOfav\xF8r, re:member, DNB, LogBuy, Spareb\xF8rsen m.fl. Ingen sporing." }, "language": { "message": "Spr\xE5k" }, "languageSaved": { "message": "Spr\xE5k lagret" }, "optionsTitle": { "message": "BonusVarsler - Innstillinger" }, "appearance": { "message": "Utseende" }, "theme": { "message": "Tema" }, "themeLight": { "message": "Lys" }, "themeDark": { "message": "M\xF8rk" }, "themeSystem": { "message": "System" }, "behavior": { "message": "Oppf\xF8rsel" }, "startMinimized": { "message": "Start minimert" }, "startMinimizedDescription": { "message": "N\xE5r aktivert, vises varselet i minimert tilstand." }, "defaultPosition": { "message": "Posisjon" }, "positionTopLeft": { "message": "\xD8verst til venstre" }, "positionTopRight": { "message": "\xD8verst til h\xF8yre" }, "positionBottomLeft": { "message": "Nederst til venstre" }, "positionBottomRight": { "message": "Nederst til h\xF8yre" }, "dragPositionHint": { "message": "Du kan dra varselet til en annen posisjon p\xE5 spesifikke sider." }, "hiddenSites": { "message": "Skjulte sider" }, "noHiddenSites": { "message": "Ingen sider er skjult." }, "blacklistedSites": { "message": "Blokkerte sider" }, "blacklistDescription": { "message": "Sider hvor utvidelsen aldri skal kj\xF8re." }, "addSite": { "message": "Legg til" }, "blacklistPlaceholder": { "message": "eksempel.no" }, "noBlacklistedSites": { "message": "Ingen sider er blokkert." }, "siteBlacklisted": { "message": "$SITE$ blokkert", "placeholders": { "site": { "content": "$1" } } }, "siteUnblacklisted": { "message": "$SITE$ fjernet fra blokkeringslisten", "placeholders": { "site": { "content": "$1" } } }, "siteAlreadyBlacklisted": { "message": "Siden er allerede blokkert" }, "invalidDomain": { "message": "Ugyldig domene" }, "confirmResetBlacklist": { "message": "Er du sikker p\xE5 at du vil nullstille alle blokkerte sider?" }, "allBlacklistedSitesRemoved": { "message": "Alle blokkerte sider fjernet" }, "resetAll": { "message": "Nullstill alle" }, "reset": { "message": "Nullstill" }, "cache": { "message": "Cache" }, "cacheDescription": { "message": "Butikklisten caches i 48 timer for raskere lasting." }, "clearCache": { "message": "T\xF8m cache" }, "cashbackServices": { "message": "Cashback-tjenester" }, "servicesDescription": { "message": "Velg hvilke cashback-tjenester du vil bruke." }, "servicesSaved": { "message": "Innstillinger lagret" }, "cannotDisableAllServices": { "message": "Du m\xE5 ha minst \xE9n tjeneste aktivert" }, "comingSoon": { "message": "(kommer snart)" }, "reportIssue": { "message": "Rapporter problem" }, "themeSaved": { "message": "Tema lagret" }, "startMinimizedEnabled": { "message": "Start minimert aktivert" }, "startMinimizedDisabled": { "message": "Start minimert deaktivert" }, "positionSaved": { "message": "Posisjon lagret" }, "remove": { "message": "Fjern" }, "confirmResetHiddenSites": { "message": "Er du sikker p\xE5 at du vil nullstille alle skjulte sider?" }, "siteRemoved": { "message": "$SITE$ fjernet", "placeholders": { "site": { "content": "$1" } } }, "allHiddenSitesRemoved": { "message": "Alle skjulte sider fjernet" }, "cacheCleared": { "message": "Cache t\xF8mt" }, "ariaReminderLabel": { "message": "Cashback-bonus p\xE5minnelse" }, "ariaNotificationLabel": { "message": "Cashback-bonus varsling" }, "ariaMinimize": { "message": "Minimer" }, "ariaClose": { "message": "Lukk" }, "settings": { "message": "Innstillinger" }, "services": { "message": "Tjenester" }, "importantReminder": { "message": "Viktig p\xE5minnelse!" }, "reminderMessage": { "message": "For \xE5 v\xE6re sikker p\xE5 at bonusen registreres, m\xE5 du logge inn og klikke p\xE5 knappen som tar deg til butikken." }, "reminderAdblockWarning": { "message": "Det er viktig at adblocker-utvidelser er helt deaktivert, ikke bare hvitelistet." }, "reminderTip": { "message": "Tips: Vent til siden laster ferdig, og trykk deretter p\xE5 den store knappen som tar deg til butikken." }, "infoReminderTitle": { "message": "P\xE5minnelse" }, "infoReminderMessage": { "message": "Logg inn p\xE5 $SERVICE$ for \xE5 se rabattkoden din.", "placeholders": { "service": { "content": "$1" } } }, "trumfBonusAt": { "message": "Trumf-bonus hos $STORE$", "placeholders": { "store": { "content": "$1" } } }, "serviceBonusAt": { "message": "$SERVICE$-bonus hos $STORE$", "placeholders": { "service": { "content": "$1" }, "store": { "content": "$2" } } }, "rememberTo": { "message": "Husk \xE5:" }, "disableAdblockers": { "message": "Deaktivere uBlock/AdGuard Home/Pi-Hole" }, "acceptAllCookies": { "message": "Akseptere alle cookies" }, "emptyCart": { "message": "T\xF8mme handlevognen" }, "getTrumfBonus": { "message": "F\xE5 Trumf-bonus" }, "getServiceBonus": { "message": "F\xE5 $SERVICE$-bonus", "placeholders": { "service": { "content": "$1" } } }, "dontShowOnThisSite": { "message": "Ikke vis p\xE5 denne siden" }, "aboutExtension": { "message": "Om denne utvidelsen" }, "purchaseRegistered": { "message": "Hvis alt ble gjort riktig, skal kj\xF8pet ha blitt registrert." }, "adblockerDetected": { "message": "Adblocker funnet!" }, "checkingAdblock": { "message": "Sjekker..." }, "checkAdblockAgain": { "message": "Sjekk p\xE5 nytt" }, "trackingUnavailable": { "message": "Sporing utilgjengelig" }, "spennIdLabel": { "message": "SpennID" }, "spennIdPlaceholder": { "message": "9 siffer" }, "spennIdHint": { "message": "St\xE5r \xF8verst p\xE5 profilen din i Spenn-appen." }, "spennIdInvalid": { "message": "SpennID m\xE5 v\xE6re 9 siffer." }, "spennIdDescription": { "message": "Spenn registrerer kj\xF8p p\xE5 SpennID-en din. Den st\xE5r \xF8verst p\xE5 profilen din i Spenn-appen." }, "spennIdSave": { "message": "Lagre" }, "spennIdSaved": { "message": "SpennID lagret" }, "spennIdRemoved": { "message": "SpennID fjernet" }, "back": { "message": "\u2190 Tilbake" }, "hiddenSitesCount": { "message": "$COUNT$ side skjult", "placeholders": { "count": { "content": "$1" } } }, "hiddenSitesCountPlural": { "message": "$COUNT$ sider skjult", "placeholders": { "count": { "content": "$1" } } }, "dragToOverridePosition": { "message": "Dra varselet for \xE5 overstyre posisjonen p\xE5 denne siden." }, "thisStore": { "message": "denne butikken" }, "dnbInstruction1": { "message": "Registrer rabattkoden i handlekurven" }, "dnbInstruction2": { "message": "Sjekk at rabatten trekkes fra f\xF8r du betaler" }, "dnbInstruction3": { "message": "Betal med ditt DNB-kort (Visa eller Mastercard)" }, "copyCode": { "message": "Kopier kode" }, "copyFailed": { "message": "Kopiering feilet" }, "selectServices": { "message": "Velg bonusprogrammer" }, "saveServices": { "message": "Lagre tjenester" }, "serviceDiscountAt": { "message": "$SERVICE$-rabatt hos $STORE$", "placeholders": { "service": { "content": "$1" }, "store": { "content": "$2" } } }, "readMoreAboutDiscount": { "message": "Les mer om rabatten" }, "infoInstruction1": { "message": "Vis at du er medlem" }, "infoInstruction2": { "message": "Sjekk vilk\xE5rene for rabatten" } };
+
   // src/i18n/static-i18n.ts
-  var NORWEGIAN_MESSAGES = {
-    // Notification
-    cashbackAt: { message: "bonus hos $STORE$", placeholders: { store: { content: "$1" } } },
-    serviceBonusAt: {
-      message: "$SERVICE$-bonus hos $STORE$",
-      placeholders: {
-        service: { content: "$1" },
-        store: { content: "$2" }
-      }
-    },
-    clickToGetBonus: { message: "F\xE5 $SERVICE$ bonus", placeholders: { service: { content: "$1" } } },
-    getServiceBonus: { message: "F\xE5 $SERVICE$-bonus", placeholders: { service: { content: "$1" } } },
-    thisStore: { message: "denne butikken" },
-    rememberTo: { message: "Husk \xE5:" },
-    disableAdblockers: { message: "Deaktivere uBlock/AdGuard Home/Pi-Hole" },
-    acceptAllCookies: { message: "Akseptere alle cookies" },
-    emptyCart: { message: "T\xF8mme handlevognen" },
-    rememberToUse: { message: "Husk \xE5 bruke lenken under f\xF8r du handler!" },
-    dontShowOnThisSite: { message: "Ikke vis p\xE5 denne siden" },
-    hideOnThisSite: { message: "Skjul p\xE5 denne siden" },
-    aboutExtension: { message: "Om denne utvidelsen" },
-    purchaseRegistered: { message: "Hvis alt ble gjort riktig, skal kj\xF8pet ha blitt registrert." },
-    adblockerDetected: { message: "Adblocker funnet!" },
-    checkingAdblock: { message: "Sjekker..." },
-    checkAdblockAgain: { message: "Sjekk p\xE5 nytt" },
-    trackingUnavailable: { message: "Sporing utilgjengelig" },
-    spennIdLabel: { message: "SpennID" },
-    spennIdPlaceholder: { message: "9 siffer" },
-    spennIdHint: { message: "St\xE5r \xF8verst p\xE5 profilen din i Spenn-appen." },
-    spennIdInvalid: { message: "SpennID m\xE5 v\xE6re 9 siffer." },
-    adblockWarning: { message: "Adblock oppdaget!" },
-    adblockNote: { message: "Du m\xE5 skru av adblock for at sporingen skal fungere." },
-    // DNB code-based
-    dnbCodeLabel: { message: "Rabattkode:" },
-    dnbInstruction1: { message: "Kopier rabattkoden over" },
-    dnbInstruction2: { message: "G\xE5 til handlekurven og skriv inn koden" },
-    dnbInstruction3: { message: "Handelen registreres automatisk" },
-    codeCopied: { message: "Kopiert!" },
-    copyCode: { message: "Kopier kode" },
-    copyFailed: { message: "Kopiering feilet" },
-    openLink: { message: "\xC5pne lenke" },
-    // Reminder
-    importantReminder: { message: "Viktig p\xE5minnelse!" },
-    reminderMessage: { message: "Husk \xE5 deaktivere adblock f\xF8r du handler. Sporingen kan blokkeres hvis adblock er aktivert." },
-    reminderAdblockWarning: { message: "Hvis handelen ikke registreres kan det skyldes adblock." },
-    reminderTip: { message: "Tips: Test at lenken fungerer ved \xE5 klikke og se at du blir sendt videre." },
-    // Settings
-    settings: { message: "Innstillinger" },
-    appearance: { message: "Utseende" },
-    theme: { message: "Tema" },
-    themeLight: { message: "Lys" },
-    themeDark: { message: "M\xF8rk" },
-    themeSystem: { message: "Auto" },
-    position: { message: "Posisjon" },
-    defaultPosition: { message: "Posisjon" },
-    startMinimized: { message: "Start minimert" },
-    hiddenSites: { message: "Skjulte sider" },
-    noHiddenSites: { message: "Ingen skjulte sider" },
-    hiddenSitesCount: { message: "$COUNT$ skjulte sider", placeholders: { count: { content: "$1" } } },
-    hiddenSitesCountPlural: {
-      message: "$COUNT$ sider skjult",
-      placeholders: { count: { content: "$1" } }
-    },
-    reset: { message: "Nullstill" },
-    resetHiddenSites: { message: "Tilbakestill" },
-    back: { message: "\u2190 Tilbake" },
-    services: { message: "Tjenester" },
-    selectServices: { message: "Velg bonustjenester" },
-    saveServices: { message: "Lagre" },
-    comingSoon: { message: "(kommer snart)" },
-    // Aria labels
-    ariaNotificationLabel: { message: "Bonusvarsel" },
-    ariaReminderLabel: { message: "P\xE5minnelse" },
-    ariaClose: { message: "Lukk" },
-    ariaMinimize: { message: "Minimer" },
-    // Info-type reminder
-    infoReminderTitle: { message: "P\xE5minnelse" },
-    infoReminderMessage: {
-      message: "Logg inn p\xE5 $SERVICE$ for \xE5 se rabattkoden din.",
-      placeholders: {
-        service: { content: "$1" }
-      }
-    },
-    // Info-type (OBOS etc.)
-    serviceDiscountAt: {
-      message: "$SERVICE$-rabatt hos $STORE$",
-      placeholders: {
-        service: { content: "$1" },
-        store: { content: "$2" }
-      }
-    },
-    readMoreAboutDiscount: { message: "Les mer om rabatten" },
-    infoInstruction1: { message: "Vis at du er medlem" },
-    infoInstruction2: { message: "Sjekk vilk\xE5rene for rabatten" },
-    // Confirmation
-    siteHidden: { message: "Varsler skjult for $SITE$", placeholders: { site: { content: "$1" } } }
-  };
   var StaticI18n = class {
-    messages = NORWEGIAN_MESSAGES;
+    messages = messages_default;
     async loadMessages(_lang) {
     }
     getMessage(key, substitutions) {
@@ -936,30 +842,27 @@
       }
       return null;
     }
-    /**
-     * Check if a host is in the cached host index (fast lookup)
-     */
-    async isKnownMerchantHost(currentHost, domainAliases) {
-      const hostIndex = await this.storage.get(STORAGE_KEYS.hostIndex, null);
-      if (!hostIndex) {
-        return null;
-      }
-      const hostSet = new Set(hostIndex);
-      const noWww = currentHost.replace(/^www\./, "");
-      if (hostSet.has(currentHost) || hostSet.has(noWww) || hostSet.has("www." + noWww)) {
-        return true;
-      }
-      const aliasedHost = domainAliases[currentHost];
-      if (aliasedHost && hostSet.has(aliasedHost)) {
-        return true;
-      }
-      const aliasedNoWww = domainAliases[noWww];
-      if (aliasedNoWww && hostSet.has(aliasedNoWww)) {
-        return true;
-      }
-      return false;
-    }
   };
+  async function isKnownMerchantHost(storage, currentHost, domainAliases) {
+    const hostIndex = await storage.get(STORAGE_KEYS.hostIndex, null);
+    if (!Array.isArray(hostIndex)) {
+      return null;
+    }
+    const hostSet = new Set(hostIndex);
+    const noWww = currentHost.replace(/^www\./, "");
+    if (hostSet.has(currentHost) || hostSet.has(noWww) || hostSet.has("www." + noWww)) {
+      return true;
+    }
+    const aliasedHost = domainAliases[currentHost];
+    if (aliasedHost && hostSet.has(aliasedHost)) {
+      return true;
+    }
+    const aliasedNoWww = domainAliases[noWww];
+    if (aliasedNoWww && hostSet.has(aliasedNoWww)) {
+      return true;
+    }
+    return false;
+  }
 
   // src/core/merchant-matching.ts
   function parseNorwegianNumber(text) {
@@ -1142,8 +1045,19 @@
   }
 
   // src/main.ts
-  function shouldBailOutEarly(sessionStorage2, currentHost, currentPathname = "/") {
-    if (window.top !== window.self) return true;
+  async function canSkipPage(storage, currentHost, currentPathname) {
+    const allServiceIds = Object.keys(SERVICES_FALLBACK);
+    if (isOnCashbackPage(currentHost, currentPathname, allServiceIds, SERVICES_FALLBACK).isOnPage) {
+      return false;
+    }
+    const [version, setupComplete, isKnownHost] = await Promise.all([
+      storage.get(STORAGE_KEYS.version, null),
+      storage.get(STORAGE_KEYS.setupComplete, false),
+      isKnownMerchantHost(storage, currentHost, DOMAIN_ALIASES)
+    ]);
+    return version === CURRENT_VERSION && setupComplete && isKnownHost === false;
+  }
+  function countVisitAndCheckCooldown(sessionStorage2, currentHost, currentPathname = "/") {
     const pageVisitKey = `${PAGE_VISIT_COUNT_PREFIX}${currentHost}`;
     const currentVisits = parseInt(sessionStorage2.get(pageVisitKey) ?? "0", 10);
     const newVisitCount = currentVisits + 1;
@@ -1171,7 +1085,7 @@
       return { status: "blocked" };
     }
     const feedManager = new FeedManager(storage, fetcher);
-    const isKnown = await feedManager.isKnownMerchantHost(currentHost, DOMAIN_ALIASES);
+    const isKnown = await isKnownMerchantHost(storage, currentHost, DOMAIN_ALIASES);
     if (isKnown === false) {
       return { status: "no-match", settings };
     }
@@ -3437,20 +3351,25 @@
 
   // src/platform/userscript.ts
   (async function() {
-    const currentHost = window.location.hostname;
-    const currentPathname = window.location.pathname;
-    const sessionStorage2 = getGMSessionStorage();
-    if (shouldBailOutEarly(sessionStorage2, currentHost, currentPathname)) {
+    if (window.top !== window.self) {
       return;
     }
+    const currentHost = window.location.hostname;
+    const currentPathname = window.location.pathname;
     const adapters = {
       storage: getGMStorage(),
-      sessionStorage: sessionStorage2,
+      sessionStorage: getGMSessionStorage(),
       fetcher: getGMFetch(),
       i18n: getStaticI18n()
     };
+    const { storage, sessionStorage: sessionStorage2, fetcher, i18n } = adapters;
+    if (await canSkipPage(storage, currentHost, currentPathname)) {
+      return;
+    }
+    if (countVisitAndCheckCooldown(sessionStorage2, currentHost, currentPathname)) {
+      return;
+    }
     const result = await initialize(adapters, currentHost, currentPathname);
-    const { storage, fetcher, i18n } = adapters;
     if (result.status === "blocked") {
       return;
     }

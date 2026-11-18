@@ -86,7 +86,7 @@
     }
     async checkUrlBlocked(url) {
       try {
-        await fetch(url, { mode: "no-cors" });
+        await fetch(url, { mode: "no-cors", referrerPolicy: "no-referrer" });
         return false;
       } catch {
         return true;
@@ -787,30 +787,27 @@
       }
       return null;
     }
-    /**
-     * Check if a host is in the cached host index (fast lookup)
-     */
-    async isKnownMerchantHost(currentHost, domainAliases) {
-      const hostIndex = await this.storage.get(STORAGE_KEYS.hostIndex, null);
-      if (!hostIndex) {
-        return null;
-      }
-      const hostSet = new Set(hostIndex);
-      const noWww = currentHost.replace(/^www\./, "");
-      if (hostSet.has(currentHost) || hostSet.has(noWww) || hostSet.has("www." + noWww)) {
-        return true;
-      }
-      const aliasedHost = domainAliases[currentHost];
-      if (aliasedHost && hostSet.has(aliasedHost)) {
-        return true;
-      }
-      const aliasedNoWww = domainAliases[noWww];
-      if (aliasedNoWww && hostSet.has(aliasedNoWww)) {
-        return true;
-      }
-      return false;
-    }
   };
+  async function isKnownMerchantHost(storage, currentHost, domainAliases) {
+    const hostIndex = await storage.get(STORAGE_KEYS.hostIndex, null);
+    if (!Array.isArray(hostIndex)) {
+      return null;
+    }
+    const hostSet = new Set(hostIndex);
+    const noWww = currentHost.replace(/^www\./, "");
+    if (hostSet.has(currentHost) || hostSet.has(noWww) || hostSet.has("www." + noWww)) {
+      return true;
+    }
+    const aliasedHost = domainAliases[currentHost];
+    if (aliasedHost && hostSet.has(aliasedHost)) {
+      return true;
+    }
+    const aliasedNoWww = domainAliases[noWww];
+    if (aliasedNoWww && hostSet.has(aliasedNoWww)) {
+      return true;
+    }
+    return false;
+  }
 
   // src/core/merchant-matching.ts
   function parseNorwegianNumber(text) {
@@ -993,8 +990,19 @@
   }
 
   // src/main.ts
-  function shouldBailOutEarly(sessionStorage2, currentHost, currentPathname = "/") {
-    if (window.top !== window.self) return true;
+  async function canSkipPage(storage, currentHost, currentPathname) {
+    const allServiceIds = Object.keys(SERVICES_FALLBACK);
+    if (isOnCashbackPage(currentHost, currentPathname, allServiceIds, SERVICES_FALLBACK).isOnPage) {
+      return false;
+    }
+    const [version, setupComplete, isKnownHost] = await Promise.all([
+      storage.get(STORAGE_KEYS.version, null),
+      storage.get(STORAGE_KEYS.setupComplete, false),
+      isKnownMerchantHost(storage, currentHost, DOMAIN_ALIASES)
+    ]);
+    return version === CURRENT_VERSION && setupComplete && isKnownHost === false;
+  }
+  function countVisitAndCheckCooldown(sessionStorage2, currentHost, currentPathname = "/") {
     const pageVisitKey = `${PAGE_VISIT_COUNT_PREFIX}${currentHost}`;
     const currentVisits = parseInt(sessionStorage2.get(pageVisitKey) ?? "0", 10);
     const newVisitCount = currentVisits + 1;
@@ -1022,7 +1030,7 @@
       return { status: "blocked" };
     }
     const feedManager = new FeedManager(storage, fetcher);
-    const isKnown = await feedManager.isKnownMerchantHost(currentHost, DOMAIN_ALIASES);
+    const isKnown = await isKnownMerchantHost(storage, currentHost, DOMAIN_ALIASES);
     if (isKnown === false) {
       return { status: "no-match", settings };
     }
@@ -3289,20 +3297,25 @@
   // src/platform/extension.ts
   (async function() {
     "use strict";
-    const currentHost = window.location.hostname;
-    const currentPathname = window.location.pathname;
-    const sessionStorage2 = getExtensionSessionStorage();
-    if (shouldBailOutEarly(sessionStorage2, currentHost, currentPathname)) {
+    if (window.top !== window.self) {
       return;
     }
+    const currentHost = window.location.hostname;
+    const currentPathname = window.location.pathname;
     const adapters = {
       storage: getExtensionStorage(),
-      sessionStorage: sessionStorage2,
+      sessionStorage: getExtensionSessionStorage(),
       fetcher: getExtensionFetch(),
       i18n: getExtensionI18n()
     };
+    const { storage, sessionStorage: sessionStorage2, fetcher, i18n } = adapters;
+    if (await canSkipPage(storage, currentHost, currentPathname)) {
+      return;
+    }
+    if (countVisitAndCheckCooldown(sessionStorage2, currentHost, currentPathname)) {
+      return;
+    }
     const result = await initialize(adapters, currentHost, currentPathname);
-    const { storage, fetcher, i18n } = adapters;
     if (result.status === "blocked") {
       return;
     }
