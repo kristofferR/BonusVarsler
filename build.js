@@ -2,35 +2,19 @@
 
 /**
  * Build script for BonusVarsler
- * - Downloads fresh sitelist from CDN
- * - Checks CSP on all sites to find those that block adblock detection URLs (cached for 24h)
- * - Updates CSP_RESTRICTED_SITES in TypeScript source before bundling
+ * - Runs the merchant scraper (skip with --skip-scrape) and copies the sitelist to the root
  * - Creates Firefox XPI and Chrome ZIP packages with platform-specific manifests
  */
 
 import fs from "fs";
 import path from "path";
-import https from "https";
-import http from "http";
 import { execSync } from "child_process";
 
 // ===================
 // Configuration
 // ===================
 
-// Load service definitions from canonical source (data/services.json)
-// Build-specific properties (feedUrl, scrapeUrl) are added here
-const SERVICES_BASE = JSON.parse(fs.readFileSync("data/services.json", "utf8"));
-const AD_TEST_URLS = [
-  "https://widgets.outbrain.com/outbrain.js",
-  "https://adligature.com/",
-  "https://secure.quantserve.com/quant.js",
-  "https://srvtrck.com/assets/css/LineIcons.css",
-];
-
 const BUILD_DIR = "dist";
-const CSP_CACHE_FILE = ".csp-cache.json";
-const CSP_CACHE_MAX_AGE = 24 * 60 * 60 * 1000; // 24 hours in ms
 
 const EXTENSION_FILES = [
   "content.js",
@@ -61,88 +45,6 @@ const EXTENSION_CONFIG = {
 // Utility Functions
 // ===================
 
-function fetchHeaders(url, timeout = 5000) {
-  return new Promise((resolve) => {
-    const protocol = url.startsWith("https") ? https : http;
-    const req = protocol.get(
-      url,
-      { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" } },
-      (res) => {
-        clearTimeout(deadline);
-        resolve({ statusCode: res.statusCode, headers: res.headers, location: res.headers.location });
-        res.destroy();
-      }
-    );
-    // Hard deadline: Bun ignores the `timeout` option, so one unresponsive site would stall the build
-    const deadline = setTimeout(() => {
-      req.destroy();
-      resolve(null);
-    }, timeout);
-    req.on("error", () => {
-      clearTimeout(deadline);
-      resolve(null);
-    });
-  });
-}
-
-function parseCSP(cspHeader) {
-  if (!cspHeader) return null;
-  const directives = {};
-  const parts = cspHeader.split(";").map((p) => p.trim());
-  for (const part of parts) {
-    const [directive, ...values] = part.split(/\s+/);
-    if (directive) directives[directive.toLowerCase()] = values;
-  }
-  return directives;
-}
-
-function wouldBlockUrl(csp, testUrl) {
-  if (!csp) return false;
-  const testHostname = new URL(testUrl).hostname;
-  const connectSrc = csp["connect-src"];
-  if (!connectSrc) return false;
-  if (connectSrc.length === 0) return true;
-
-  for (const source of connectSrc) {
-    if (source === "*") return false;
-    if (source === "'self'") continue;
-    if (source.includes("*")) {
-      const pattern = source.replace(/\./g, "\\.").replace(/\*/g, ".*").replace(/^https?:\/\//, "");
-      try {
-        if (new RegExp(`^${pattern}$`).test(testHostname)) return false;
-      } catch {}
-    }
-    try {
-      const sourceUrl = source.startsWith("http") ? source : `https://${source}`;
-      const sourceHostname = new URL(sourceUrl).hostname;
-      if (sourceHostname === testHostname || testHostname.endsWith(`.${sourceHostname}`)) return false;
-    } catch {}
-  }
-  return true;
-}
-
-async function checkSiteCSP(hostname) {
-  const url = `https://${hostname}`;
-  let result = await fetchHeaders(url);
-
-  let redirects = 0;
-  while (result?.location && redirects < 3) {
-    const redirectUrl = result.location.startsWith("http") ? result.location : new URL(result.location, url).href;
-    result = await fetchHeaders(redirectUrl);
-    redirects++;
-  }
-
-  if (!result) return { hostname, error: true, blocked: [] };
-
-  const cspHeader = result.headers["content-security-policy"] || result.headers["content-security-policy-report-only"];
-  if (!cspHeader) return { hostname, blocked: [] };
-
-  const csp = parseCSP(cspHeader);
-  const blocked = AD_TEST_URLS.filter((testUrl) => wouldBlockUrl(csp, testUrl));
-
-  return { hostname, blocked, allBlocked: blocked.length === AD_TEST_URLS.length };
-}
-
 function copyRecursive(src, dest) {
   const stat = fs.statSync(src);
   if (stat.isDirectory()) {
@@ -160,112 +62,6 @@ function copyRecursive(src, dest) {
 // ===================
 // Main Build Steps
 // ===================
-
-function loadCSPCache() {
-  try {
-    if (fs.existsSync(CSP_CACHE_FILE)) {
-      const cache = JSON.parse(fs.readFileSync(CSP_CACHE_FILE, "utf8"));
-      const age = Date.now() - cache.timestamp;
-      if (age < CSP_CACHE_MAX_AGE) {
-        return cache;
-      }
-    }
-  } catch {}
-  return null;
-}
-
-function saveCSPCache(restrictedSites) {
-  const cache = {
-    timestamp: Date.now(),
-    restrictedSites,
-  };
-  fs.writeFileSync(CSP_CACHE_FILE, JSON.stringify(cache, null, 2));
-}
-
-async function checkAllSitesCSP(sitelist) {
-  // Check cache first
-  const cache = loadCSPCache();
-  if (cache) {
-    const ageHours = Math.round((Date.now() - cache.timestamp) / (60 * 60 * 1000));
-    console.log(`\n🔍 Using cached CSP results (${ageHours}h old, ${cache.restrictedSites.length} restricted sites)`);
-    return cache.restrictedSites;
-  }
-
-  // Get merchants that have at least one tracking-based service (non-code, non-info)
-  // Code-based (DNB) and info-based (OBOS) services skip adblock detection, so CSP doesn't matter
-  const merchants = Object.entries(sitelist.merchants || {})
-    .filter(([_, merchant]) =>
-      merchant.offers.some((offer) => {
-        const type = SERVICES_BASE[offer.serviceId]?.type;
-        return type !== "code" && type !== "info";
-      })
-    )
-    .map(([host]) => host);
-  console.log(`\n🔍 Checking CSP on ${merchants.length} sites with tracking-based services (parallel)...`);
-
-  // Kept low: many parallel DNS lookups time out on some networks (e.g. behind Tailscale MagicDNS)
-  const CONCURRENCY = 5;
-  const previouslyRestricted = readCSPRestrictedSites();
-  const restrictedSites = [];
-  const unreachable = [];
-  let checked = 0;
-  let next = 0;
-
-  // Worker pool, so one slow site doesn't hold up the others
-  async function worker() {
-    while (next < merchants.length) {
-      const result = await checkSiteCSP(merchants[next++]);
-      checked++;
-      // An unreachable site keeps its previous status, so a flaky network can't wipe the list
-      if (result.error) {
-        unreachable.push(result.hostname);
-        if (previouslyRestricted.has(result.hostname)) restrictedSites.push(result.hostname);
-      } else if (result.allBlocked) {
-        restrictedSites.push(result.hostname);
-        console.log(`\n   [${checked}/${merchants.length}] ${result.hostname}: CSP blocks all test URLs`);
-      }
-      if (checked % 25 === 0) process.stdout.write(`\r   [${checked}/${merchants.length}] Checking...`);
-    }
-  }
-  await Promise.all(Array.from({ length: CONCURRENCY }, worker));
-
-  const sorted = restrictedSites.sort();
-  console.log(`\n   ✓ Found ${sorted.length} CSP-restricted sites`);
-  if (unreachable.length > 0) {
-    console.log(`   ⚠ ${unreachable.length} sites were unreachable and kept their previous status`);
-  }
-
-  // Save to cache
-  saveCSPCache(sorted);
-
-  return sorted;
-}
-
-const CONSTANTS_PATH = path.join("src", "config", "constants.ts");
-const CSP_RESTRICTED_SITES_PATTERN = /export const CSP_RESTRICTED_SITES = new Set\(\[\n([\s\S]*?)\]\);/;
-
-function readConstants() {
-  const constants = fs.readFileSync(CONSTANTS_PATH, "utf8");
-  const match = constants.match(CSP_RESTRICTED_SITES_PATTERN);
-  if (!match) throw new Error(`Could not find CSP_RESTRICTED_SITES in ${CONSTANTS_PATH}`);
-  return { constants, siteListCode: match[1] };
-}
-
-function readCSPRestrictedSites() {
-  const { siteListCode } = readConstants();
-  return new Set([...siteListCode.matchAll(/"([^"]+)"/g)].map((m) => m[1]));
-}
-
-function updateCSPRestrictedSites(restrictedSites) {
-  console.log("\n📝 Updating CSP_RESTRICTED_SITES in source files...");
-
-  const siteListCode = restrictedSites.map((s) => `  "${s}",`).join("\n");
-  const newSetCode = `export const CSP_RESTRICTED_SITES = new Set([\n${siteListCode}\n]);`;
-
-  const { constants } = readConstants();
-  fs.writeFileSync(CONSTANTS_PATH, constants.replace(CSP_RESTRICTED_SITES_PATTERN, newSetCode));
-  console.log(`   ✓ Updated ${CONSTANTS_PATH}`);
-}
 
 function createManifest(platform) {
   const manifest = JSON.parse(fs.readFileSync("manifest.json", "utf8"));
@@ -373,11 +169,6 @@ function updateGitignore() {
     updated = true;
   }
 
-  if (!gitignore.includes(CSP_CACHE_FILE)) {
-    gitignore = gitignore.trimEnd() + `\n${CSP_CACHE_FILE}\n`;
-    updated = true;
-  }
-
   if (updated) {
     fs.writeFileSync(gitignorePath, gitignore);
     console.log("   ✓ Updated .gitignore");
@@ -422,12 +213,6 @@ async function main() {
 
     // Copy to root sitelist.json (used for GitHub CDN fallback)
     fs.writeFileSync("sitelist.json", JSON.stringify(sitelist));
-
-    // Check CSP on all sites
-    const restrictedSites = await checkAllSitesCSP(sitelist);
-
-    // Update source files with new CSP-restricted sites list
-    updateCSPRestrictedSites(restrictedSites);
 
     // Bundle TypeScript source
     console.log("\n📦 Bundling TypeScript source...\n");

@@ -76,7 +76,7 @@ src/
 
 ### Build Scripts
 
-- `build.js` - Main build script (downloads feeds, checks CSP, bundles TS, creates packages)
+- `build.js` - Main build script (scrapes feeds, bundles TS, creates packages)
 - `scripts/bundle.ts` - Bun bundler for TypeScript → JS
 - `scripts/scrape-feeds.ts` - Scrapes merchant data from all services
 
@@ -98,7 +98,7 @@ Each platform (extension/userscript) provides its own implementations in `src/pl
 ## Key Features
 
 - **First-run service selector**: New users pick which services to enable
-- **Adblock detection**: URL fetch + DOM banner checks (skips on CSP-restricted sites)
+- **Adblock detection**: URL fetch + DOM banner checks (probes the page's CSP blocked are ignored)
 - **Settings pane**: Theme, start minimized, default position, hidden sites
 - **Draggable**: Drag notification to any corner, position saved per-site
 - **i18n**: 6 languages (no, en, sv, da, fr, es)
@@ -112,7 +112,7 @@ Each platform (extension/userscript) provides its own implementations in `src/pl
 - CSS custom properties (`--bg`, `--text`, `--accent`, etc.) enable theming
 - Theme applied via class on shadow host: `tbvl-light`, `tbvl-dark`, `tbvl-system`
 - Feed cached in browser storage for 48 hours
-- CSP-restricted sites skip URL-based adblock checks
+- Firefox applies the page's CSP to content-script requests (Chrome doesn't); adblock probes that fail with a `securitypolicyviolation` event are not counted
 
 ## Storage Keys (v1)
 
@@ -150,12 +150,10 @@ node build.js
 
 This will:
 1. Run `scripts/scrape-feeds.ts` to fetch merchant data
-2. Check CSP on merchant sites (cached for 24h)
-3. Update CSP_RESTRICTED_SITES in source files
-4. Bundle TypeScript via `scripts/bundle.ts`
-5. Create `dist/bonusvarsler-X.X.X.xpi` and `dist/bonusvarsler-X.X.X-chrome.zip`
+2. Bundle TypeScript via `scripts/bundle.ts`
+3. Create `dist/bonusvarsler-X.X.X.xpi` and `dist/bonusvarsler-X.X.X-chrome.zip`
 
-`--skip-scrape` skips step 1 and packages the feed the daily `update-feed.yml` workflow already committed. Sites the CSP check can't reach keep their previous status, so a flaky network can't wipe the list; delete `.csp-cache.json` to force a fresh check.
+`--skip-scrape` skips step 1 and packages the feed the daily `update-feed.yml` workflow already committed.
 
 ### Releasing
 

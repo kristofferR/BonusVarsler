@@ -246,7 +246,7 @@ export function createNotification(options: NotificationOptions): HTMLElement {
       recheckIcon.classList.add("spinning");
 
       try {
-        const isBlocked = await detectAdblock(fetcher, currentHost);
+        const isBlocked = await detectAdblock(fetcher);
 
         if (isBlocked) {
           actionBtn.classList.add("adblock");
@@ -283,7 +283,7 @@ export function createNotification(options: NotificationOptions): HTMLElement {
     });
 
     // Initial adblock check
-    detectAdblock(fetcher, currentHost).then((isBlocked) => {
+    detectAdblock(fetcher).then((isBlocked) => {
       if (isBlocked) {
         actionBtn.classList.add("adblock");
         if (actionBtn.childNodes[0]) {

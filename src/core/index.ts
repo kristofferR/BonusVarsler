@@ -15,4 +15,4 @@ export {
 } from "./merchant-matching.js";
 export type { MatchResult, ParsedCashbackRate } from "./merchant-matching.js";
 
-export { detectAdblock, isCspRestrictedSite } from "./adblock-detection.js";
+export { detectAdblock } from "./adblock-detection.js";

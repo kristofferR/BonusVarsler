@@ -266,61 +266,6 @@
     "homead",
     "ad-lead"
   ];
-  var CSP_RESTRICTED_SITES = /* @__PURE__ */ new Set([
-    "bikbok.com",
-    "cdon.com",
-    "cdon.no",
-    "dressmann.com",
-    "fabel.no",
-    "fyndiq.no",
-    "godtlevert.no",
-    "hoie.no",
-    "hunkemoller.no",
-    "junkyard.com",
-    "just-pleasure.com",
-    "loopia.no",
-    "nordpass.com",
-    "nordvpn.com",
-    "paperla.com",
-    "saily.com",
-    "sportsmagasinet.no",
-    "stockx.com",
-    "talkmore.no",
-    "vetzoo.no",
-    "www.authentic-europe.com",
-    "www.autodeler.co.no",
-    "www.autodoc.co.no",
-    "www.autodude.no",
-    "www.bookbeat.no",
-    "www.clickandboat.com",
-    "www.dbs.no",
-    "www.directferries.no",
-    "www.ekstralys.no",
-    "www.elite.se",
-    "www.elskling.no",
-    "www.eurodel.no",
-    "www.fortum.com",
-    "www.getyourguide.com",
-    "www.greatlife.no",
-    "www.holidu.no",
-    "www.joyland.no",
-    "www.londonpass.com",
-    "www.lovetoys.no",
-    "www.lufthansa.com",
-    "www.lusini.com",
-    "www.myprotein.no",
-    "www.omio.no",
-    "www.outdoorexperten.no",
-    "www.partyking.no",
-    "www.selected.com",
-    "www.shacks.co.uk",
-    "www.skyshowtime.com",
-    "www.sportmann.no",
-    "www.strikkia.no",
-    "www.superkul.no",
-    "www.valostore.no",
-    "www.vivara.no"
-  ]);
 
   // src/config/domain-aliases.ts
   var DOMAIN_ALIASES = {
@@ -2218,12 +2163,30 @@
   }
 
   // src/core/adblock-detection.ts
-  function isCspRestrictedSite(currentHost) {
-    if (CSP_RESTRICTED_SITES.has(currentHost)) return true;
-    return document.querySelector('meta[http-equiv="Content-Security-Policy"]') !== null;
+  var CSP_VIOLATION_GRACE_MS = 50;
+  function originOf(url) {
+    try {
+      return new URL(url).origin;
+    } catch {
+      return null;
+    }
   }
-  async function checkUrlBlocked(fetcher, url) {
-    return fetcher.checkUrlBlocked(url);
+  async function checkAdUrlsBlocked(fetcher, violationTarget = document) {
+    const cspBlockedOrigins = /* @__PURE__ */ new Set();
+    const onViolation = (event) => {
+      cspBlockedOrigins.add(originOf(event.blockedURI));
+    };
+    violationTarget.addEventListener("securitypolicyviolation", onViolation);
+    try {
+      const results = await Promise.all(
+        AD_TEST_URLS.map(async (url) => ({ url, blocked: await fetcher.checkUrlBlocked(url) }))
+      );
+      if (!results.some((result) => result.blocked)) return false;
+      await new Promise((resolve) => setTimeout(resolve, CSP_VIOLATION_GRACE_MS));
+      return results.some(({ url, blocked }) => blocked && !cspBlockedOrigins.has(originOf(url)));
+    } finally {
+      violationTarget.removeEventListener("securitypolicyviolation", onViolation);
+    }
   }
   async function checkBannerIds() {
     const container = document.createElement("div");
@@ -2252,14 +2215,10 @@
       new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), ms))
     ]);
   }
-  async function detectAdblock(fetcher, currentHost) {
-    const skipUrlChecks = isCspRestrictedSite(currentHost);
+  async function detectAdblock(fetcher) {
     try {
       const checks = await withTimeout(
-        Promise.all([
-          ...skipUrlChecks ? [] : AD_TEST_URLS.map((url) => checkUrlBlocked(fetcher, url)),
-          checkBannerIds()
-        ]),
+        Promise.all([checkAdUrlsBlocked(fetcher), checkBannerIds()]),
         CONFIG.adblockTimeout
       );
       return checks.some((blocked) => blocked);
@@ -2513,7 +2472,7 @@
         }
         recheckIcon.classList.add("spinning");
         try {
-          const isBlocked = await detectAdblock(fetcher, currentHost);
+          const isBlocked = await detectAdblock(fetcher);
           if (isBlocked) {
             actionBtn.classList.add("adblock");
             if (actionBtn.childNodes[0]) {
@@ -2545,7 +2504,7 @@
           handleRecheck(e);
         }
       });
-      detectAdblock(fetcher, currentHost).then((isBlocked) => {
+      detectAdblock(fetcher).then((isBlocked) => {
         if (isBlocked) {
           actionBtn.classList.add("adblock");
           if (actionBtn.childNodes[0]) {

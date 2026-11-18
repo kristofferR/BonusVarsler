@@ -4,22 +4,46 @@
  */
 
 import type { FetchAdapter } from "../network/types.js";
-import { AD_TEST_URLS, AD_BANNER_IDS, CSP_RESTRICTED_SITES, CONFIG } from "../config/constants.js";
+import { AD_TEST_URLS, AD_BANNER_IDS, CONFIG } from "../config/constants.js";
 
-/**
- * Check if current site has restrictive CSP
- */
-export function isCspRestrictedSite(currentHost: string): boolean {
-  if (CSP_RESTRICTED_SITES.has(currentHost)) return true;
-  // Check for CSP meta tag which indicates restrictive policy
-  return document.querySelector('meta[http-equiv="Content-Security-Policy"]') !== null;
+// Firefox reports the CSP violation just after the blocked fetch rejects
+const CSP_VIOLATION_GRACE_MS = 50;
+
+function originOf(url: string): string | null {
+  try {
+    return new URL(url).origin;
+  } catch {
+    return null; // e.g. "inline" or "eval"
+  }
 }
 
 /**
- * Check if a URL is blocked (for adblock detection)
+ * Check if any ad test URL is blocked.
+ * Firefox applies the page's CSP to content-script requests and userscripts may run in the
+ * page itself, so a probe can fail without any adblocker. Those failures come with a
+ * securitypolicyviolation event and are ignored.
  */
-async function checkUrlBlocked(fetcher: FetchAdapter, url: string): Promise<boolean> {
-  return fetcher.checkUrlBlocked(url);
+export async function checkAdUrlsBlocked(
+  fetcher: Pick<FetchAdapter, "checkUrlBlocked">,
+  violationTarget: EventTarget = document
+): Promise<boolean> {
+  const cspBlockedOrigins = new Set<string | null>();
+  const onViolation = (event: Event) => {
+    cspBlockedOrigins.add(originOf((event as SecurityPolicyViolationEvent).blockedURI));
+  };
+  violationTarget.addEventListener("securitypolicyviolation", onViolation);
+
+  try {
+    const results = await Promise.all(
+      AD_TEST_URLS.map(async (url) => ({ url, blocked: await fetcher.checkUrlBlocked(url) }))
+    );
+    if (!results.some((result) => result.blocked)) return false;
+
+    await new Promise((resolve) => setTimeout(resolve, CSP_VIOLATION_GRACE_MS));
+    return results.some(({ url, blocked }) => blocked && !cspBlockedOrigins.has(originOf(url)));
+  } finally {
+    violationTarget.removeEventListener("securitypolicyviolation", onViolation);
+  }
 }
 
 /**
@@ -66,19 +90,10 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 /**
  * Detect if adblock is enabled
  */
-export async function detectAdblock(
-  fetcher: FetchAdapter,
-  currentHost: string
-): Promise<boolean> {
-  // Skip URL checks on sites with strict CSP (causes false positives)
-  const skipUrlChecks = isCspRestrictedSite(currentHost);
-
+export async function detectAdblock(fetcher: FetchAdapter): Promise<boolean> {
   try {
     const checks = await withTimeout(
-      Promise.all([
-        ...(skipUrlChecks ? [] : AD_TEST_URLS.map((url) => checkUrlBlocked(fetcher, url))),
-        checkBannerIds(),
-      ]),
+      Promise.all([checkAdUrlsBlocked(fetcher), checkBannerIds()]),
       CONFIG.adblockTimeout
     );
 
