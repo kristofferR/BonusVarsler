@@ -188,6 +188,8 @@ export function createNotification(options: NotificationOptions): HTMLElement {
     const spennIdInput = settingsPanel.querySelector<HTMLInputElement>(".spenn-id-input");
     if (spennIdInput) {
       spennIdInput.value = settings.getSpennId() ?? "";
+      // Run the field's input handler to clear any stale invalid state
+      spennIdInput.dispatchEvent(new Event("input"));
     }
   };
   settingsBtn.addEventListener("click", openSettings);
