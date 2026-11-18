@@ -92,6 +92,14 @@
         return true;
       }
     }
+    async checkUrlBlockedOutsidePage(url) {
+      try {
+        const response = await browserAPI2.runtime.sendMessage({ type: "checkUrlBlocked", url });
+        return response?.blocked === true;
+      } catch {
+        return false;
+      }
+    }
   };
   var instance = null;
   function getExtensionFetch() {
@@ -190,7 +198,7 @@
     feedTime_v4: "BonusVarsler_FeedTime_v4",
     hostIndex_v4: "BonusVarsler_HostIndex_v4"
   };
-  var CURRENT_VERSION = "10.0";
+  var CURRENT_VERSION = "10.1";
   var MESSAGE_SHOWN_KEY_PREFIX = "BonusVarsler_MessageShown_";
   var PAGE_VISIT_COUNT_PREFIX = "BonusVarsler_PageVisits_";
   function getMessageShownKey(currentHost, currentPathname = "/") {
@@ -209,7 +217,9 @@
     "AdContainer",
     "AD_Top",
     "homead",
-    "ad-lead"
+    "ad-lead",
+    "ad_banner",
+    "carbonads"
   ];
 
   // src/config/domain-aliases.ts
@@ -2109,6 +2119,12 @@
 
   // src/core/adblock-detection.ts
   var CSP_VIOLATION_GRACE_MS = 50;
+  function settled(probe, timeoutMs) {
+    return new Promise((resolve) => {
+      const timer = setTimeout(() => resolve(false), timeoutMs);
+      probe.then(resolve, () => resolve(false)).finally(() => clearTimeout(timer));
+    });
+  }
   function originOf(url) {
     try {
       return new URL(url).origin;
@@ -2116,60 +2132,55 @@
       return null;
     }
   }
-  async function checkAdUrlsBlocked(fetcher, violationTarget = document) {
+  async function checkAdUrlsBlocked(fetcher, violationTarget = document, timeoutMs = CONFIG.adblockTimeout) {
     const cspBlockedOrigins = /* @__PURE__ */ new Set();
     const onViolation = (event) => {
-      cspBlockedOrigins.add(originOf(event.blockedURI));
+      const violation = event;
+      const origin = originOf(violation.blockedURI);
+      if (violation.disposition === "enforce" && origin) cspBlockedOrigins.add(origin);
     };
     violationTarget.addEventListener("securitypolicyviolation", onViolation);
+    let failed;
     try {
       const results = await Promise.all(
-        AD_TEST_URLS.map(async (url) => ({ url, blocked: await fetcher.checkUrlBlocked(url) }))
+        AD_TEST_URLS.map(async (url) => ({
+          url,
+          blocked: await settled(fetcher.checkUrlBlocked(url), timeoutMs)
+        }))
       );
-      if (!results.some((result) => result.blocked)) return false;
+      failed = results.filter((result) => result.blocked).map((result) => result.url);
+      if (failed.length === 0) return false;
       await new Promise((resolve) => setTimeout(resolve, CSP_VIOLATION_GRACE_MS));
-      return results.some(({ url, blocked }) => blocked && !cspBlockedOrigins.has(originOf(url)));
     } finally {
       violationTarget.removeEventListener("securitypolicyviolation", onViolation);
     }
+    if (failed.some((url) => !cspBlockedOrigins.has(new URL(url).origin))) return true;
+    const probeOutside = fetcher.checkUrlBlockedOutsidePage?.bind(fetcher);
+    if (!probeOutside) return false;
+    const outside = await Promise.all(failed.map((url) => settled(probeOutside(url), timeoutMs)));
+    return outside.some((blocked) => blocked);
   }
   async function checkBannerIds() {
     const container = document.createElement("div");
     container.style.cssText = "position:absolute;left:-9999px;top:-9999px;";
-    AD_BANNER_IDS.forEach((id) => {
+    const baits = AD_BANNER_IDS.map((id) => {
       const div = document.createElement("div");
       div.id = id;
       div.innerHTML = "&nbsp;";
       container.appendChild(div);
+      return div;
     });
     document.body.appendChild(container);
     await new Promise((resolve) => setTimeout(resolve, 100));
-    let blocked = false;
-    AD_BANNER_IDS.forEach((id) => {
-      const elem = document.getElementById(id);
-      if (!elem || elem.offsetHeight === 0 || elem.offsetParent === null) {
-        blocked = true;
-      }
-    });
+    const blocked = baits.some(
+      (bait) => !bait.isConnected || bait.offsetHeight === 0 || bait.offsetParent === null
+    );
     container.remove();
     return blocked;
   }
-  function withTimeout(promise, ms) {
-    return Promise.race([
-      promise,
-      new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), ms))
-    ]);
-  }
   async function detectAdblock(fetcher) {
-    try {
-      const checks = await withTimeout(
-        Promise.all([checkAdUrlsBlocked(fetcher), checkBannerIds()]),
-        CONFIG.adblockTimeout
-      );
-      return checks.some((blocked) => blocked);
-    } catch {
-      return false;
-    }
+    const checks = await Promise.all([checkAdUrlsBlocked(fetcher), checkBannerIds()]);
+    return checks.some((blocked) => blocked);
   }
 
   // src/ui/utils/clickthrough.ts

@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         BonusVarsler (for Trumf, SAS, OBOS, NAF, LOfavør, DNB, re:member++)
 // @namespace    http://tampermonkey.net/
-// @version      10.0
+// @version      10.1
 // @description  Varsler om bonuser, EuroBonus-poeng og cashback fra Trumf, SAS, OBOS, NAF, LOfavør, re:member, DNB, Sparebørsen og andre når du besøker nettsider som tilbyr dette. Norsk utvidelse.
 // @author       kristofferR
 // @match        *://*/*
@@ -166,7 +166,7 @@
   }
 
   // _locales/no/messages.json
-  var messages_default = { "extensionDescription": { "message": "Varsler om cashback og bonus fra Trumf, SAS EuroBonus, OBOS, NAF, LOfav\xF8r, re:member, DNB, LogBuy, Spareb\xF8rsen m.fl. Ingen sporing." }, "language": { "message": "Spr\xE5k" }, "languageSaved": { "message": "Spr\xE5k lagret" }, "optionsTitle": { "message": "BonusVarsler - Innstillinger" }, "appearance": { "message": "Utseende" }, "theme": { "message": "Tema" }, "themeLight": { "message": "Lys" }, "themeDark": { "message": "M\xF8rk" }, "themeSystem": { "message": "System" }, "behavior": { "message": "Oppf\xF8rsel" }, "startMinimized": { "message": "Start minimert" }, "startMinimizedDescription": { "message": "N\xE5r aktivert, vises varselet i minimert tilstand." }, "defaultPosition": { "message": "Posisjon" }, "positionTopLeft": { "message": "\xD8verst til venstre" }, "positionTopRight": { "message": "\xD8verst til h\xF8yre" }, "positionBottomLeft": { "message": "Nederst til venstre" }, "positionBottomRight": { "message": "Nederst til h\xF8yre" }, "dragPositionHint": { "message": "Du kan dra varselet til en annen posisjon p\xE5 spesifikke sider." }, "hiddenSites": { "message": "Skjulte sider" }, "noHiddenSites": { "message": "Ingen sider er skjult." }, "blacklistedSites": { "message": "Blokkerte sider" }, "blacklistDescription": { "message": "Sider hvor utvidelsen aldri skal kj\xF8re." }, "addSite": { "message": "Legg til" }, "blacklistPlaceholder": { "message": "eksempel.no" }, "noBlacklistedSites": { "message": "Ingen sider er blokkert." }, "siteBlacklisted": { "message": "$SITE$ blokkert", "placeholders": { "site": { "content": "$1" } } }, "siteUnblacklisted": { "message": "$SITE$ fjernet fra blokkeringslisten", "placeholders": { "site": { "content": "$1" } } }, "siteAlreadyBlacklisted": { "message": "Siden er allerede blokkert" }, "invalidDomain": { "message": "Ugyldig domene" }, "confirmResetBlacklist": { "message": "Er du sikker p\xE5 at du vil nullstille alle blokkerte sider?" }, "allBlacklistedSitesRemoved": { "message": "Alle blokkerte sider fjernet" }, "resetAll": { "message": "Nullstill alle" }, "reset": { "message": "Nullstill" }, "cache": { "message": "Cache" }, "cacheDescription": { "message": "Butikklisten caches i 48 timer for raskere lasting." }, "clearCache": { "message": "T\xF8m cache" }, "cashbackServices": { "message": "Cashback-tjenester" }, "servicesDescription": { "message": "Velg hvilke cashback-tjenester du vil bruke." }, "servicesSaved": { "message": "Innstillinger lagret" }, "cannotDisableAllServices": { "message": "Du m\xE5 ha minst \xE9n tjeneste aktivert" }, "comingSoon": { "message": "(kommer snart)" }, "reportIssue": { "message": "Rapporter problem" }, "themeSaved": { "message": "Tema lagret" }, "startMinimizedEnabled": { "message": "Start minimert aktivert" }, "startMinimizedDisabled": { "message": "Start minimert deaktivert" }, "positionSaved": { "message": "Posisjon lagret" }, "remove": { "message": "Fjern" }, "confirmResetHiddenSites": { "message": "Er du sikker p\xE5 at du vil nullstille alle skjulte sider?" }, "siteRemoved": { "message": "$SITE$ fjernet", "placeholders": { "site": { "content": "$1" } } }, "allHiddenSitesRemoved": { "message": "Alle skjulte sider fjernet" }, "cacheCleared": { "message": "Cache t\xF8mt" }, "ariaReminderLabel": { "message": "Cashback-bonus p\xE5minnelse" }, "ariaNotificationLabel": { "message": "Cashback-bonus varsling" }, "ariaMinimize": { "message": "Minimer" }, "ariaClose": { "message": "Lukk" }, "settings": { "message": "Innstillinger" }, "services": { "message": "Tjenester" }, "importantReminder": { "message": "Viktig p\xE5minnelse!" }, "reminderMessage": { "message": "For \xE5 v\xE6re sikker p\xE5 at bonusen registreres, m\xE5 du logge inn og klikke p\xE5 knappen som tar deg til butikken." }, "reminderAdblockWarning": { "message": "Det er viktig at adblocker-utvidelser er helt deaktivert, ikke bare hvitelistet." }, "reminderTip": { "message": "Tips: Vent til siden laster ferdig, og trykk deretter p\xE5 den store knappen som tar deg til butikken." }, "infoReminderTitle": { "message": "P\xE5minnelse" }, "infoReminderMessage": { "message": "Logg inn p\xE5 $SERVICE$ for \xE5 se rabattkoden din.", "placeholders": { "service": { "content": "$1" } } }, "trumfBonusAt": { "message": "Trumf-bonus hos $STORE$", "placeholders": { "store": { "content": "$1" } } }, "serviceBonusAt": { "message": "$SERVICE$-bonus hos $STORE$", "placeholders": { "service": { "content": "$1" }, "store": { "content": "$2" } } }, "rememberTo": { "message": "Husk \xE5:" }, "disableAdblockers": { "message": "Deaktivere uBlock/AdGuard Home/Pi-Hole" }, "acceptAllCookies": { "message": "Akseptere alle cookies" }, "emptyCart": { "message": "T\xF8mme handlevognen" }, "getTrumfBonus": { "message": "F\xE5 Trumf-bonus" }, "getServiceBonus": { "message": "F\xE5 $SERVICE$-bonus", "placeholders": { "service": { "content": "$1" } } }, "dontShowOnThisSite": { "message": "Ikke vis p\xE5 denne siden" }, "aboutExtension": { "message": "Om denne utvidelsen" }, "purchaseRegistered": { "message": "Hvis alt ble gjort riktig, skal kj\xF8pet ha blitt registrert." }, "adblockerDetected": { "message": "Adblocker funnet!" }, "checkingAdblock": { "message": "Sjekker..." }, "checkAdblockAgain": { "message": "Sjekk p\xE5 nytt" }, "trackingUnavailable": { "message": "Sporing utilgjengelig" }, "spennIdLabel": { "message": "SpennID" }, "spennIdPlaceholder": { "message": "9 siffer" }, "spennIdHint": { "message": "St\xE5r \xF8verst p\xE5 profilen din i Spenn-appen." }, "spennIdInvalid": { "message": "SpennID m\xE5 v\xE6re 9 siffer." }, "spennIdDescription": { "message": "Spenn registrerer kj\xF8p p\xE5 SpennID-en din. Den st\xE5r \xF8verst p\xE5 profilen din i Spenn-appen." }, "spennIdSave": { "message": "Lagre" }, "spennIdSaved": { "message": "SpennID lagret" }, "spennIdRemoved": { "message": "SpennID fjernet" }, "back": { "message": "\u2190 Tilbake" }, "hiddenSitesCount": { "message": "$COUNT$ side skjult", "placeholders": { "count": { "content": "$1" } } }, "hiddenSitesCountPlural": { "message": "$COUNT$ sider skjult", "placeholders": { "count": { "content": "$1" } } }, "dragToOverridePosition": { "message": "Dra varselet for \xE5 overstyre posisjonen p\xE5 denne siden." }, "thisStore": { "message": "denne butikken" }, "dnbInstruction1": { "message": "Registrer rabattkoden i handlekurven" }, "dnbInstruction2": { "message": "Sjekk at rabatten trekkes fra f\xF8r du betaler" }, "dnbInstruction3": { "message": "Betal med ditt DNB-kort (Visa eller Mastercard)" }, "copyCode": { "message": "Kopier kode" }, "copyFailed": { "message": "Kopiering feilet" }, "selectServices": { "message": "Velg bonusprogrammer" }, "saveServices": { "message": "Lagre tjenester" }, "serviceDiscountAt": { "message": "$SERVICE$-rabatt hos $STORE$", "placeholders": { "service": { "content": "$1" }, "store": { "content": "$2" } } }, "readMoreAboutDiscount": { "message": "Les mer om rabatten" }, "infoInstruction1": { "message": "Vis at du er medlem" }, "infoInstruction2": { "message": "Sjekk vilk\xE5rene for rabatten" } };
+  var messages_default = { "extensionDescription": { "message": "Varsler om cashback og bonus fra Trumf, SAS EuroBonus, DNB, OBOS, Spenn og flere bonusprogrammer. Ingen sporing." }, "language": { "message": "Spr\xE5k" }, "languageSaved": { "message": "Spr\xE5k lagret" }, "optionsTitle": { "message": "BonusVarsler - Innstillinger" }, "appearance": { "message": "Utseende" }, "theme": { "message": "Tema" }, "themeLight": { "message": "Lys" }, "themeDark": { "message": "M\xF8rk" }, "themeSystem": { "message": "System" }, "behavior": { "message": "Oppf\xF8rsel" }, "startMinimized": { "message": "Start minimert" }, "startMinimizedDescription": { "message": "N\xE5r aktivert, vises varselet i minimert tilstand." }, "defaultPosition": { "message": "Posisjon" }, "positionTopLeft": { "message": "\xD8verst til venstre" }, "positionTopRight": { "message": "\xD8verst til h\xF8yre" }, "positionBottomLeft": { "message": "Nederst til venstre" }, "positionBottomRight": { "message": "Nederst til h\xF8yre" }, "dragPositionHint": { "message": "Du kan dra varselet til en annen posisjon p\xE5 spesifikke sider." }, "hiddenSites": { "message": "Skjulte sider" }, "noHiddenSites": { "message": "Ingen sider er skjult." }, "blacklistedSites": { "message": "Blokkerte sider" }, "blacklistDescription": { "message": "Sider hvor utvidelsen aldri skal kj\xF8re." }, "addSite": { "message": "Legg til" }, "blacklistPlaceholder": { "message": "eksempel.no" }, "noBlacklistedSites": { "message": "Ingen sider er blokkert." }, "siteBlacklisted": { "message": "$SITE$ blokkert", "placeholders": { "site": { "content": "$1" } } }, "siteUnblacklisted": { "message": "$SITE$ fjernet fra blokkeringslisten", "placeholders": { "site": { "content": "$1" } } }, "siteAlreadyBlacklisted": { "message": "Siden er allerede blokkert" }, "invalidDomain": { "message": "Ugyldig domene" }, "confirmResetBlacklist": { "message": "Er du sikker p\xE5 at du vil nullstille alle blokkerte sider?" }, "allBlacklistedSitesRemoved": { "message": "Alle blokkerte sider fjernet" }, "resetAll": { "message": "Nullstill alle" }, "reset": { "message": "Nullstill" }, "cache": { "message": "Cache" }, "cacheDescription": { "message": "Butikklisten caches i 48 timer for raskere lasting." }, "clearCache": { "message": "T\xF8m cache" }, "cashbackServices": { "message": "Cashback-tjenester" }, "servicesDescription": { "message": "Velg hvilke cashback-tjenester du vil bruke." }, "servicesSaved": { "message": "Innstillinger lagret" }, "cannotDisableAllServices": { "message": "Du m\xE5 ha minst \xE9n tjeneste aktivert" }, "comingSoon": { "message": "(kommer snart)" }, "reportIssue": { "message": "Rapporter problem" }, "themeSaved": { "message": "Tema lagret" }, "startMinimizedEnabled": { "message": "Start minimert aktivert" }, "startMinimizedDisabled": { "message": "Start minimert deaktivert" }, "positionSaved": { "message": "Posisjon lagret" }, "remove": { "message": "Fjern" }, "confirmResetHiddenSites": { "message": "Er du sikker p\xE5 at du vil nullstille alle skjulte sider?" }, "siteRemoved": { "message": "$SITE$ fjernet", "placeholders": { "site": { "content": "$1" } } }, "allHiddenSitesRemoved": { "message": "Alle skjulte sider fjernet" }, "cacheCleared": { "message": "Cache t\xF8mt" }, "ariaReminderLabel": { "message": "Cashback-bonus p\xE5minnelse" }, "ariaNotificationLabel": { "message": "Cashback-bonus varsling" }, "ariaMinimize": { "message": "Minimer" }, "ariaClose": { "message": "Lukk" }, "settings": { "message": "Innstillinger" }, "services": { "message": "Tjenester" }, "importantReminder": { "message": "Viktig p\xE5minnelse!" }, "reminderMessage": { "message": "For \xE5 v\xE6re sikker p\xE5 at bonusen registreres, m\xE5 du logge inn og klikke p\xE5 knappen som tar deg til butikken." }, "reminderAdblockWarning": { "message": "Det er viktig at adblocker-utvidelser er helt deaktivert, ikke bare hvitelistet." }, "reminderTip": { "message": "Tips: Vent til siden laster ferdig, og trykk deretter p\xE5 den store knappen som tar deg til butikken." }, "infoReminderTitle": { "message": "P\xE5minnelse" }, "infoReminderMessage": { "message": "Logg inn p\xE5 $SERVICE$ for \xE5 se rabattkoden din.", "placeholders": { "service": { "content": "$1" } } }, "trumfBonusAt": { "message": "Trumf-bonus hos $STORE$", "placeholders": { "store": { "content": "$1" } } }, "serviceBonusAt": { "message": "$SERVICE$-bonus hos $STORE$", "placeholders": { "service": { "content": "$1" }, "store": { "content": "$2" } } }, "rememberTo": { "message": "Husk \xE5:" }, "disableAdblockers": { "message": "Deaktivere uBlock/AdGuard Home/Pi-Hole" }, "acceptAllCookies": { "message": "Akseptere alle cookies" }, "emptyCart": { "message": "T\xF8mme handlevognen" }, "getTrumfBonus": { "message": "F\xE5 Trumf-bonus" }, "getServiceBonus": { "message": "F\xE5 $SERVICE$-bonus", "placeholders": { "service": { "content": "$1" } } }, "dontShowOnThisSite": { "message": "Ikke vis p\xE5 denne siden" }, "aboutExtension": { "message": "Om denne utvidelsen" }, "purchaseRegistered": { "message": "Hvis alt ble gjort riktig, skal kj\xF8pet ha blitt registrert." }, "adblockerDetected": { "message": "Adblocker funnet!" }, "checkingAdblock": { "message": "Sjekker..." }, "checkAdblockAgain": { "message": "Sjekk p\xE5 nytt" }, "trackingUnavailable": { "message": "Sporing utilgjengelig" }, "spennIdLabel": { "message": "SpennID" }, "spennIdPlaceholder": { "message": "9 siffer" }, "spennIdHint": { "message": "St\xE5r \xF8verst p\xE5 profilen din i Spenn-appen." }, "spennIdInvalid": { "message": "SpennID m\xE5 v\xE6re 9 siffer." }, "spennIdDescription": { "message": "Spenn registrerer kj\xF8p p\xE5 SpennID-en din. Den st\xE5r \xF8verst p\xE5 profilen din i Spenn-appen." }, "spennIdSave": { "message": "Lagre" }, "spennIdSaved": { "message": "SpennID lagret" }, "spennIdRemoved": { "message": "SpennID fjernet" }, "back": { "message": "\u2190 Tilbake" }, "hiddenSitesCount": { "message": "$COUNT$ side skjult", "placeholders": { "count": { "content": "$1" } } }, "hiddenSitesCountPlural": { "message": "$COUNT$ sider skjult", "placeholders": { "count": { "content": "$1" } } }, "dragToOverridePosition": { "message": "Dra varselet for \xE5 overstyre posisjonen p\xE5 denne siden." }, "thisStore": { "message": "denne butikken" }, "dnbInstruction1": { "message": "Registrer rabattkoden i handlekurven" }, "dnbInstruction2": { "message": "Sjekk at rabatten trekkes fra f\xF8r du betaler" }, "dnbInstruction3": { "message": "Betal med ditt DNB-kort (Visa eller Mastercard)" }, "copyCode": { "message": "Kopier kode" }, "copyFailed": { "message": "Kopiering feilet" }, "selectServices": { "message": "Velg bonusprogrammer" }, "saveServices": { "message": "Lagre tjenester" }, "serviceDiscountAt": { "message": "$SERVICE$-rabatt hos $STORE$", "placeholders": { "service": { "content": "$1" }, "store": { "content": "$2" } } }, "readMoreAboutDiscount": { "message": "Les mer om rabatten" }, "infoInstruction1": { "message": "Vis at du er medlem" }, "infoInstruction2": { "message": "Sjekk vilk\xE5rene for rabatten" } };
 
   // src/i18n/static-i18n.ts
   var StaticI18n = class {
@@ -245,7 +245,7 @@
     feedTime_v4: "BonusVarsler_FeedTime_v4",
     hostIndex_v4: "BonusVarsler_HostIndex_v4"
   };
-  var CURRENT_VERSION = "10.0";
+  var CURRENT_VERSION = "10.1";
   var MESSAGE_SHOWN_KEY_PREFIX = "BonusVarsler_MessageShown_";
   var PAGE_VISIT_COUNT_PREFIX = "BonusVarsler_PageVisits_";
   function getMessageShownKey(currentHost, currentPathname = "/") {
@@ -264,7 +264,9 @@
     "AdContainer",
     "AD_Top",
     "homead",
-    "ad-lead"
+    "ad-lead",
+    "ad_banner",
+    "carbonads"
   ];
 
   // src/config/domain-aliases.ts
@@ -2164,6 +2166,12 @@
 
   // src/core/adblock-detection.ts
   var CSP_VIOLATION_GRACE_MS = 50;
+  function settled(probe, timeoutMs) {
+    return new Promise((resolve) => {
+      const timer = setTimeout(() => resolve(false), timeoutMs);
+      probe.then(resolve, () => resolve(false)).finally(() => clearTimeout(timer));
+    });
+  }
   function originOf(url) {
     try {
       return new URL(url).origin;
@@ -2171,60 +2179,55 @@
       return null;
     }
   }
-  async function checkAdUrlsBlocked(fetcher, violationTarget = document) {
+  async function checkAdUrlsBlocked(fetcher, violationTarget = document, timeoutMs = CONFIG.adblockTimeout) {
     const cspBlockedOrigins = /* @__PURE__ */ new Set();
     const onViolation = (event) => {
-      cspBlockedOrigins.add(originOf(event.blockedURI));
+      const violation = event;
+      const origin = originOf(violation.blockedURI);
+      if (violation.disposition === "enforce" && origin) cspBlockedOrigins.add(origin);
     };
     violationTarget.addEventListener("securitypolicyviolation", onViolation);
+    let failed;
     try {
       const results = await Promise.all(
-        AD_TEST_URLS.map(async (url) => ({ url, blocked: await fetcher.checkUrlBlocked(url) }))
+        AD_TEST_URLS.map(async (url) => ({
+          url,
+          blocked: await settled(fetcher.checkUrlBlocked(url), timeoutMs)
+        }))
       );
-      if (!results.some((result) => result.blocked)) return false;
+      failed = results.filter((result) => result.blocked).map((result) => result.url);
+      if (failed.length === 0) return false;
       await new Promise((resolve) => setTimeout(resolve, CSP_VIOLATION_GRACE_MS));
-      return results.some(({ url, blocked }) => blocked && !cspBlockedOrigins.has(originOf(url)));
     } finally {
       violationTarget.removeEventListener("securitypolicyviolation", onViolation);
     }
+    if (failed.some((url) => !cspBlockedOrigins.has(new URL(url).origin))) return true;
+    const probeOutside = fetcher.checkUrlBlockedOutsidePage?.bind(fetcher);
+    if (!probeOutside) return false;
+    const outside = await Promise.all(failed.map((url) => settled(probeOutside(url), timeoutMs)));
+    return outside.some((blocked) => blocked);
   }
   async function checkBannerIds() {
     const container = document.createElement("div");
     container.style.cssText = "position:absolute;left:-9999px;top:-9999px;";
-    AD_BANNER_IDS.forEach((id) => {
+    const baits = AD_BANNER_IDS.map((id) => {
       const div = document.createElement("div");
       div.id = id;
       div.innerHTML = "&nbsp;";
       container.appendChild(div);
+      return div;
     });
     document.body.appendChild(container);
     await new Promise((resolve) => setTimeout(resolve, 100));
-    let blocked = false;
-    AD_BANNER_IDS.forEach((id) => {
-      const elem = document.getElementById(id);
-      if (!elem || elem.offsetHeight === 0 || elem.offsetParent === null) {
-        blocked = true;
-      }
-    });
+    const blocked = baits.some(
+      (bait) => !bait.isConnected || bait.offsetHeight === 0 || bait.offsetParent === null
+    );
     container.remove();
     return blocked;
   }
-  function withTimeout(promise, ms) {
-    return Promise.race([
-      promise,
-      new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), ms))
-    ]);
-  }
   async function detectAdblock(fetcher) {
-    try {
-      const checks = await withTimeout(
-        Promise.all([checkAdUrlsBlocked(fetcher), checkBannerIds()]),
-        CONFIG.adblockTimeout
-      );
-      return checks.some((blocked) => blocked);
-    } catch {
-      return false;
-    }
+    const checks = await Promise.all([checkAdUrlsBlocked(fetcher), checkBannerIds()]);
+    return checks.some((blocked) => blocked);
   }
 
   // src/ui/utils/clickthrough.ts
