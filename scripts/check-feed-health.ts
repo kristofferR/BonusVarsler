@@ -15,6 +15,7 @@ const SERVICE_NAMES: Record<string, string> = {
   logbuy: "Visma LogBuy",
   spareborsen: "Sparebørsen",
   opra: "OPRA",
+  spenn: "Spenn",
 };
 
 interface ServiceHealthEntry {

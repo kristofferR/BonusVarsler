@@ -35,11 +35,21 @@ export interface ParsedCashbackRate {
   isVariable: boolean;
 }
 
+/** Parse a Norwegian-formatted number ("1,4", "1 020"; nb-NO groups thousands with spaces) */
+function parseNorwegianNumber(text: string): number {
+  return parseFloat(text.replace(/\s/g, "").replace(",", "."));
+}
+
 /**
  * Parse a cashback description into a comparable value
- * Handles: "5,4%", "Opptil 4,6%", "35kr", "Opptil 290kr", "up to 5%", "3-5%"
+ * Handles: "5,4%", "Opptil 4,6%", "35kr", "Opptil 290kr", "up to 5%", "3-5%".
+ * With `pointValueNok` (point-based services such as SAS EuroBonus and Spenn), also
+ * "25 poeng / 100 kr", "1,4 Spenn / 10 kr" and "480 Spenn", valued at that rate.
  */
-export function parseCashbackRate(description: string | undefined): ParsedCashbackRate {
+export function parseCashbackRate(
+  description: string | undefined,
+  pointValueNok?: number
+): ParsedCashbackRate {
   if (!description) return { value: 0, type: "percent", isVariable: false };
 
   const normalized = description.toLowerCase().trim();
@@ -62,6 +72,22 @@ export function parseCashbackRate(description: string | undefined): ParsedCashba
   if (percentMatch?.[1]) {
     const value = parseFloat(percentMatch[1].replace(",", "."));
     return { value, type: "percent", isVariable };
+  }
+
+  if (pointValueNok) {
+    // Points per spend (e.g., "25 poeng / 100 kr"): the kroner figure is the spend, not the reward
+    const rateMatch = cleanDesc.match(/^([\d\s]+(?:[,.]\d+)?)\s*(?!kr)\p{L}[^/]*\/\s*([\d\s]+(?:[,.]\d+)?)\s*kr/iu);
+    if (rateMatch?.[1] && rateMatch[2]) {
+      const points = parseNorwegianNumber(rateMatch[1]);
+      const spend = parseNorwegianNumber(rateMatch[2]);
+      return { value: ((points * pointValueNok) / spend) * 100, type: "percent", isVariable };
+    }
+
+    // Fixed points (e.g., "480 Spenn", "1 000 poeng som ny kunde")
+    const pointsMatch = cleanDesc.match(/^([\d\s]+(?:[,.]\d+)?)\s*(?!kr)\p{L}/iu);
+    if (pointsMatch?.[1]) {
+      return { value: parseNorwegianNumber(pointsMatch[1]) * pointValueNok, type: "fixed", isVariable };
+    }
   }
 
   // Check for fixed amount (e.g., "35kr", "290 kr")
@@ -230,8 +256,8 @@ export function findBestOffer(
         return specificityB - specificityA;
       }
 
-      const rateA = parseCashbackRate(a.cashbackDescription);
-      const rateB = parseCashbackRate(b.cashbackDescription);
+      const rateA = parseCashbackRate(a.cashbackDescription, services[a.serviceId]?.pointValueNok);
+      const rateB = parseCashbackRate(b.cashbackDescription, services[b.serviceId]?.pointValueNok);
       return compareCashbackRates(rateA, rateB);
     });
 

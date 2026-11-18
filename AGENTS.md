@@ -128,6 +128,7 @@ Defined in `src/config/constants.ts`:
 - `BonusVarsler_EnabledServices` - Array of enabled service IDs
 - `BonusVarsler_SetupComplete` - Boolean (first-run flow)
 - `BonusVarsler_SetupShowCount` - Number (first-run flow)
+- `BonusVarsler_SpennId` - User's 9-digit SpennID, filled into Spenn click links
 
 ## Development Workflow
 

@@ -15,7 +15,8 @@
       "reminderDomain": "onlineshopping.flysas.com",
       "cashbackPathPatterns": [
         "/nb-NO/butikker"
-      ]
+      ],
+      "pointValueNok": 0.1
     },
     "remember": {
       "name": "re:member",
@@ -82,6 +83,13 @@
       "color": "#a07a00",
       "defaultEnabled": false,
       "type": "info"
+    },
+    "spenn": {
+      "name": "Spenn",
+      "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store={urlName}&source=browser-extension&spennId={spennId}",
+      "color": "#E51E4F",
+      "defaultEnabled": false,
+      "pointValueNok": 0.1
     }
   },
   "merchants": {
@@ -168,6 +176,12 @@
           "serviceId": "remember",
           "urlName": "kitchn",
           "cashbackDescription": "4%"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "87f3f3e1-b35d-4603-af69-f34b64677a23",
+          "cashbackDescription": "Opptil 1,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=87f3f3e1-b35d-4603-af69-f34b64677a23&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -196,6 +210,12 @@
           "urlName": "01932f75-1211-7244-b60c-0fe79fd03b46",
           "cashbackDescription": "50 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/kicks/01932f75-1211-7244-b60c-0fe79fd03b46"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "be1ca9d0-3b34-4689-8896-58b2d687eaef",
+          "cashbackDescription": "4,1 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=be1ca9d0-3b34-4689-8896-58b2d687eaef&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -288,6 +308,12 @@
               "description": "i reward-rabatt på elektronikk"
             }
           ]
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "04b16a10-874f-4327-a827-09de71348116",
+          "cashbackDescription": "Opptil 2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=04b16a10-874f-4327-a827-09de71348116&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -337,6 +363,12 @@
           "serviceId": "logbuy",
           "urlName": "22283",
           "cashbackDescription": "10 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "ee0e7a0b-e8d9-4e57-acb8-8d9c12f5b885",
+          "cashbackDescription": "2,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=ee0e7a0b-e8d9-4e57-acb8-8d9c12f5b885&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -387,6 +419,12 @@
           "serviceId": "remember",
           "urlName": "bakeren-og-kokken",
           "cashbackDescription": "4%"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "b1741948-3bda-43b7-bbd1-709539ccc163",
+          "cashbackDescription": "1,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=b1741948-3bda-43b7-bbd1-709539ccc163&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -422,6 +460,11 @@
           "cashbackDescription": "6,2 %"
         },
         {
+          "serviceId": "remember",
+          "urlName": "radisson-hotel-group",
+          "cashbackDescription": "4%"
+        },
+        {
           "serviceId": "logbuy",
           "urlName": "20506",
           "cashbackDescription": "25 %"
@@ -430,11 +473,6 @@
           "serviceId": "spareborsen",
           "urlName": "radisson-hotels",
           "cashbackDescription": "3,8 %"
-        },
-        {
-          "serviceId": "remember",
-          "urlName": "radisson-hotel-group",
-          "cashbackDescription": "4%"
         },
         {
           "serviceId": "opra",
@@ -495,6 +533,12 @@
           "serviceId": "opra",
           "urlName": "outnorth",
           "cashbackDescription": "15 - 25 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "18742393-bfa8-4dae-8816-6a648a9241d1",
+          "cashbackDescription": "Opptil 2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=18742393-bfa8-4dae-8816-6a648a9241d1&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -523,6 +567,12 @@
           "urlName": "019cd736-905a-7300-8d5d-ae68b2a4bb95",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/skeidar/019cd736-905a-7300-8d5d-ae68b2a4bb95"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "be4ab6ad-9e7f-46cd-98c1-c4943a37b2ad",
+          "cashbackDescription": "1,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=be4ab6ad-9e7f-46cd-98c1-c4943a37b2ad&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -578,6 +628,12 @@
           "serviceId": "spareborsen",
           "urlName": "christiania-glasmagasin",
           "cashbackDescription": "5,7 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "89db0161-cb3b-4407-8212-6715bfb8176a",
+          "cashbackDescription": "2,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=89db0161-cb3b-4407-8212-6715bfb8176a&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -589,6 +645,12 @@
           "serviceId": "trumf",
           "urlName": "sephora-trumf",
           "cashbackDescription": "Opptil            \n\t            14 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "779e660f-cc58-4cbe-ad72-b509b51b7da7",
+          "cashbackDescription": "Opptil 8,6 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=779e660f-cc58-4cbe-ad72-b509b51b7da7&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -616,6 +678,12 @@
           "serviceId": "spareborsen",
           "urlName": "apotekhjem-no",
           "cashbackDescription": "6,7 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "8d4892ef-22f9-4e79-b873-0cd62607f5b3",
+          "cashbackDescription": "3,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=8d4892ef-22f9-4e79-b873-0cd62607f5b3&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -714,6 +782,12 @@
           "serviceId": "spareborsen",
           "urlName": "fotoknudsen",
           "cashbackDescription": "1 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "6919678d-6f68-43f3-ab8c-96a4627e0df6",
+          "cashbackDescription": "Opptil 2,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=6919678d-6f68-43f3-ab8c-96a4627e0df6&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -742,6 +816,12 @@
           "serviceId": "logbuy",
           "urlName": "22235",
           "cashbackDescription": "15 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "afb8906f-ac0d-4294-8965-b9f8f1ba3236",
+          "cashbackDescription": "3,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=afb8906f-ac0d-4294-8965-b9f8f1ba3236&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -835,6 +915,12 @@
           "serviceId": "opra",
           "urlName": "stormberg",
           "cashbackDescription": "15 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "089ca2a8-a330-4564-8224-af5f77b529b7",
+          "cashbackDescription": "3,1 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=089ca2a8-a330-4564-8224-af5f77b529b7&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -895,6 +981,12 @@
           "serviceId": "remember",
           "urlName": "vetzoo.no",
           "cashbackDescription": "6%"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "cd94e257-5594-44b8-a849-afd794955dc8",
+          "cashbackDescription": "Opptil 3,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=cd94e257-5594-44b8-a849-afd794955dc8&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -912,6 +1004,12 @@
           "urlName": "0189630c-53ac-70e1-8f0d-0841144fdf4f",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/eurodel/0189630c-53ac-70e1-8f0d-0841144fdf4f"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "a624d67b-4a79-465e-bec5-1d8141a32960",
+          "cashbackDescription": "2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=a624d67b-4a79-465e-bec5-1d8141a32960&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -938,6 +1036,12 @@
           "serviceId": "opra",
           "urlName": "nytelse",
           "cashbackDescription": "30 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "9093755c-514c-47b9-b3b5-f8f9ecd92a77",
+          "cashbackDescription": "7,2 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=9093755c-514c-47b9-b3b5-f8f9ecd92a77&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -1159,6 +1263,12 @@
           "serviceId": "spareborsen",
           "urlName": "inkclub",
           "cashbackDescription": "14,3 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "7ec48e5f-91df-4a57-99dd-6c057ca9a89e",
+          "cashbackDescription": "11 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=7ec48e5f-91df-4a57-99dd-6c057ca9a89e&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -1182,6 +1292,12 @@
           "serviceId": "logbuy",
           "urlName": "20524",
           "cashbackDescription": "5 - 10 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "b5a8a660-7208-4068-bd62-b125e3ca87f2",
+          "cashbackDescription": "1,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=b5a8a660-7208-4068-bd62-b125e3ca87f2&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -1247,6 +1363,12 @@
           "serviceId": "spareborsen",
           "urlName": "floyd",
           "cashbackDescription": "5,7 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "43d27756-e926-4902-910e-ca6b6ba53907",
+          "cashbackDescription": "2,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=43d27756-e926-4902-910e-ca6b6ba53907&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -1275,6 +1397,12 @@
           "urlName": "",
           "cashbackDescription": "10%",
           "code": "DNB4456"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "51a49cd7-c2c0-424c-bd1b-d21bb1e45635",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=51a49cd7-c2c0-424c-bd1b-d21bb1e45635&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -1402,6 +1530,12 @@
           "serviceId": "spareborsen",
           "urlName": "skruvat",
           "cashbackDescription": "5,7 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "a6040638-1885-484f-b735-a2fc5e2d0f85",
+          "cashbackDescription": "Opptil 4,3 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=a6040638-1885-484f-b735-a2fc5e2d0f85&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -1424,6 +1558,12 @@
           "serviceId": "spareborsen",
           "urlName": "polarn-o-pyret",
           "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "0fc80a4f-4099-4e09-8b8a-8cb164a141d8",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=0fc80a4f-4099-4e09-8b8a-8cb164a141d8&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -1451,6 +1591,12 @@
           "serviceId": "spareborsen",
           "urlName": "comforth-scandinavia",
           "cashbackDescription": "19 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "e43c8d13-6a1d-42ed-ba47-45fc4510f4fb",
+          "cashbackDescription": "12 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=e43c8d13-6a1d-42ed-ba47-45fc4510f4fb&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -1533,6 +1679,12 @@
           "serviceId": "opra",
           "urlName": "db",
           "cashbackDescription": "15 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "10b91357-c676-4b8f-8057-523e665aa621",
+          "cashbackDescription": "2,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=10b91357-c676-4b8f-8057-523e665aa621&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -1565,6 +1717,12 @@
           "serviceId": "opra",
           "urlName": "askeladden-navnelapper",
           "cashbackDescription": "10 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "b482c549-1b8e-496e-a623-1c9aff0bf7ed",
+          "cashbackDescription": "5,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=b482c549-1b8e-496e-a623-1c9aff0bf7ed&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -1626,6 +1784,12 @@
           "serviceId": "spareborsen",
           "urlName": "bubbleroom",
           "cashbackDescription": "3,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "b12c5cca-a388-43b6-88b6-839fb6e452f9",
+          "cashbackDescription": "1,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=b12c5cca-a388-43b6-88b6-839fb6e452f9&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -1796,6 +1960,12 @@
           "urlName": "019ea661-c4a1-73ab-b30f-241205d56b6e",
           "cashbackDescription": "35 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/badno/019ea661-c4a1-73ab-b30f-241205d56b6e"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "5cce324e-76e8-4b34-9628-bea81ccd3e64",
+          "cashbackDescription": "2,2 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=5cce324e-76e8-4b34-9628-bea81ccd3e64&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -1813,6 +1983,12 @@
           "urlName": "0199c3f9-87a4-73df-9412-b69270133dab",
           "cashbackDescription": "100 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/siemens/0199c3f9-87a4-73df-9412-b69270133dab"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "7690f317-6847-4c25-b056-971ce52fdfda",
+          "cashbackDescription": "2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=7690f317-6847-4c25-b056-971ce52fdfda&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -1864,6 +2040,12 @@
           "serviceId": "opra",
           "urlName": "helly-hansen",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "22b23b13-8dd7-41f0-987b-727d7a5bc02c",
+          "cashbackDescription": "Opptil 4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=22b23b13-8dd7-41f0-987b-727d7a5bc02c&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -1891,6 +2073,12 @@
           "serviceId": "spareborsen",
           "urlName": "elon",
           "cashbackDescription": "1,9 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "cc78c9f6-02c3-40cb-8dd2-f0747a1d4eaa",
+          "cashbackDescription": "Opptil 2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=cc78c9f6-02c3-40cb-8dd2-f0747a1d4eaa&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -1996,6 +2184,12 @@
           "serviceId": "remember",
           "urlName": "lunehjem.no",
           "cashbackDescription": "8%"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "aaec4f3e-4386-4a31-92f5-9b21d997d18c",
+          "cashbackDescription": "2,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=aaec4f3e-4386-4a31-92f5-9b21d997d18c&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -2024,6 +2218,12 @@
           "serviceId": "spareborsen",
           "urlName": "bosch-home",
           "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "ef9c5cab-8336-4239-91ca-9aa69be52caa",
+          "cashbackDescription": "2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=ef9c5cab-8336-4239-91ca-9aa69be52caa&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -2046,6 +2246,12 @@
           "serviceId": "spareborsen",
           "urlName": "autodoc",
           "cashbackDescription": "3,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "9b1f8353-e1a0-447c-8d16-e50a402f14f7",
+          "cashbackDescription": "Opptil 3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=9b1f8353-e1a0-447c-8d16-e50a402f14f7&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -2163,6 +2369,12 @@
           "serviceId": "opra",
           "urlName": "sharkninja",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "eafe92b3-df3b-4018-af9b-2e7360beafb6",
+          "cashbackDescription": "2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=eafe92b3-df3b-4018-af9b-2e7360beafb6&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -2202,6 +2414,12 @@
           "serviceId": "spareborsen",
           "urlName": "babybanden",
           "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "091c5619-4e85-47b1-999a-4f9bba8fb6aa",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=091c5619-4e85-47b1-999a-4f9bba8fb6aa&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -2375,6 +2593,12 @@
           "serviceId": "spareborsen",
           "urlName": "babysjarm",
           "cashbackDescription": "11,4 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "7e9a932d-1a68-42e7-981a-0f8f1ea7dcd2",
+          "cashbackDescription": "7,2 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=7e9a932d-1a68-42e7-981a-0f8f1ea7dcd2&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -2429,6 +2653,13 @@
           "serviceId": "spareborsen",
           "urlName": "viking-footwear",
           "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "1bd16862-bac1-456b-8d80-e86186f95527",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=1bd16862-bac1-456b-8d80-e86186f95527&source=browser-extension&spennId={spennId}",
+          "matchPathPrefix": "/no-NO"
         }
       ]
     },
@@ -2461,6 +2692,12 @@
           "serviceId": "spareborsen",
           "urlName": "homeroom",
           "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "aa1b8068-f95b-49e3-bb26-9cd469be1cde",
+          "cashbackDescription": "Opptil 3,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=aa1b8068-f95b-49e3-bb26-9cd469be1cde&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -2570,6 +2807,12 @@
           "serviceId": "spareborsen",
           "urlName": "kinogavekort-no",
           "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "1e868aed-10ea-4aca-96d2-e1ffef2cee3c",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=1e868aed-10ea-4aca-96d2-e1ffef2cee3c&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -2615,6 +2858,12 @@
           "serviceId": "spareborsen",
           "urlName": "batteriexperten",
           "cashbackDescription": "9,5 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "3585529c-ff6d-408c-861a-66c15abef36d",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=3585529c-ff6d-408c-861a-66c15abef36d&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -2686,6 +2935,12 @@
           "serviceId": "spareborsen",
           "urlName": "skyshowtime",
           "cashbackDescription": "176 kr"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "d5882ef6-62d0-44e6-94d2-50947957cc6f",
+          "cashbackDescription": "Opptil 1 020 Spenn (Årsabonnement)",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=d5882ef6-62d0-44e6-94d2-50947957cc6f&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -2707,6 +2962,12 @@
           "serviceId": "spareborsen",
           "urlName": "devold",
           "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "73fe0e2f-d49c-487a-b1f3-0db6a3bdba41",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=73fe0e2f-d49c-487a-b1f3-0db6a3bdba41&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -2773,6 +3034,12 @@
           "urlName": "019600d5-86e0-7351-87cd-959d2f332973",
           "cashbackDescription": "50 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/bilxtra/019600d5-86e0-7351-87cd-959d2f332973"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "e9d53bd0-d9ee-4d2d-bda8-d302ee5072fd",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=e9d53bd0-d9ee-4d2d-bda8-d302ee5072fd&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -2795,6 +3062,12 @@
           "serviceId": "spareborsen",
           "urlName": "electrolux-aftermarket",
           "cashbackDescription": "3,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "e54a0842-684f-423a-a52d-e7468f8c954c",
+          "cashbackDescription": "Opptil 4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=e54a0842-684f-423a-a52d-e7468f8c954c&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -2849,6 +3122,12 @@
           "serviceId": "opra",
           "urlName": "proteinfabrikken",
           "cashbackDescription": "10 - 25 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "3db6bd19-b826-4c88-a20a-c1363a8dca39",
+          "cashbackDescription": "1 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=3db6bd19-b826-4c88-a20a-c1363a8dca39&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -2892,6 +3171,12 @@
           "serviceId": "spareborsen",
           "urlName": "sofas-and-more",
           "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "79a19e5f-8fed-4f3b-81bc-f31b3406a512",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=79a19e5f-8fed-4f3b-81bc-f31b3406a512&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -2958,6 +3243,12 @@
           "serviceId": "spareborsen",
           "urlName": "l-occitane",
           "cashbackDescription": "6,7 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "22a6a7df-6d54-4ae3-99fc-60dcdd531fb2",
+          "cashbackDescription": "5,3 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=22a6a7df-6d54-4ae3-99fc-60dcdd531fb2&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -2975,6 +3266,12 @@
           "urlName": "0189630f-1164-724e-add9-82aae07ee93f",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/weekday/0189630f-1164-724e-add9-82aae07ee93f"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "02598be2-2fa4-4f08-bb8d-529d8bf48fb5",
+          "cashbackDescription": "2,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=02598be2-2fa4-4f08-bb8d-529d8bf48fb5&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3040,6 +3337,12 @@
           "serviceId": "spareborsen",
           "urlName": "smaaungene",
           "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "b506b1dd-f5c2-410d-8dbc-c622f7fc4fc3",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=b506b1dd-f5c2-410d-8dbc-c622f7fc4fc3&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3056,6 +3359,12 @@
           "serviceId": "spareborsen",
           "urlName": "stille",
           "cashbackDescription": "9,5 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "8981ac6a-54ab-43db-ad7a-fb704dbcb558",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=8981ac6a-54ab-43db-ad7a-fb704dbcb558&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3128,6 +3437,12 @@
           "urlName": "019f1dc6-1a6f-712c-9f9d-8b832b053cc4",
           "cashbackDescription": "10 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/fotono/019f1dc6-1a6f-712c-9f9d-8b832b053cc4"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "8459c0c8-93b9-420d-a7cc-f8a19748a791",
+          "cashbackDescription": "1,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=8459c0c8-93b9-420d-a7cc-f8a19748a791&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3144,6 +3459,12 @@
           "serviceId": "spareborsen",
           "urlName": "drommerom",
           "cashbackDescription": "7,1 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "80b2a8bc-4233-472a-b761-5aaefaea3014",
+          "cashbackDescription": "3,6 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=80b2a8bc-4233-472a-b761-5aaefaea3014&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3177,6 +3498,12 @@
           "serviceId": "spareborsen",
           "urlName": "trendcarpet",
           "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "0e418eb3-6d51-497c-9b6f-fe63225c3207",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=0e418eb3-6d51-497c-9b6f-fe63225c3207&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3204,6 +3531,12 @@
           "serviceId": "spareborsen",
           "urlName": "beautycos",
           "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "b7a6020c-c953-42c8-a68d-005fab123b7f",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=b7a6020c-c953-42c8-a68d-005fab123b7f&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3226,6 +3559,12 @@
           "serviceId": "spareborsen",
           "urlName": "bladkongen",
           "cashbackDescription": "9,5 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "17d977eb-394f-4cf7-bd62-8ce135052236",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=17d977eb-394f-4cf7-bd62-8ce135052236&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3341,6 +3680,12 @@
           "serviceId": "opra",
           "urlName": "nly-man",
           "cashbackDescription": "10 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "074ddc82-a30a-4183-833f-ce8adc99e76c",
+          "cashbackDescription": "1,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=074ddc82-a30a-4183-833f-ce8adc99e76c&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3385,6 +3730,12 @@
           "serviceId": "spareborsen",
           "urlName": "smartphoto",
           "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "b8bae7a1-0c92-4775-96e0-4e52e8a2aa24",
+          "cashbackDescription": "Opptil 8,2 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=b8bae7a1-0c92-4775-96e0-4e52e8a2aa24&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3451,6 +3802,12 @@
           "serviceId": "opra",
           "urlName": "electrolux",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "7f02b125-73fb-4e94-81ca-dd2ec69d0bb1",
+          "cashbackDescription": "Opptil 4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=7f02b125-73fb-4e94-81ca-dd2ec69d0bb1&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3532,6 +3889,12 @@
           "serviceId": "spareborsen",
           "urlName": "slikkepott",
           "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "596d12f4-45af-4371-9e71-f9170eef5ba1",
+          "cashbackDescription": "Opptil 3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=596d12f4-45af-4371-9e71-f9170eef5ba1&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3555,6 +3918,12 @@
           "serviceId": "spareborsen",
           "urlName": "philips-home-appliances",
           "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "e4e070dc-38f7-49af-bcf7-892c0c75aa16",
+          "cashbackDescription": "1,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=e4e070dc-38f7-49af-bcf7-892c0c75aa16&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3572,6 +3941,12 @@
           "urlName": "0189630b-f7b0-73db-a7c0-55cf9e666fa5",
           "cashbackDescription": "20 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/urverket.no/0189630b-f7b0-73db-a7c0-55cf9e666fa5"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "cc47c4b1-f0df-47f8-9428-24268633b825",
+          "cashbackDescription": "Opptil 3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=cc47c4b1-f0df-47f8-9428-24268633b825&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3594,6 +3969,12 @@
           "serviceId": "spareborsen",
           "urlName": "lampemesteren",
           "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "14bb5d55-7616-46c4-8d34-d655fbb3e48e",
+          "cashbackDescription": "Opptil 3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=14bb5d55-7616-46c4-8d34-d655fbb3e48e&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3645,6 +4026,12 @@
           "serviceId": "spareborsen",
           "urlName": "bjorn-borg",
           "cashbackDescription": "8,5 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "6859d3bc-468e-4b0a-8303-8f3ac0c588b5",
+          "cashbackDescription": "4,3 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=6859d3bc-468e-4b0a-8303-8f3ac0c588b5&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3678,6 +4065,12 @@
           "serviceId": "spareborsen",
           "urlName": "newport",
           "cashbackDescription": "5,7 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "e4e5010a-9f85-45d1-87b0-e5e1d28dbd96",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=e4e5010a-9f85-45d1-87b0-e5e1d28dbd96&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3719,6 +4112,11 @@
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/kinoklubb/0189630f-6485-7344-8ba0-244ec2bc7db7"
         },
         {
+          "serviceId": "remember",
+          "urlName": "kinoklubb.no",
+          "cashbackDescription": "50 kr"
+        },
+        {
           "serviceId": "logbuy",
           "urlName": "21387",
           "cashbackDescription": "10 - 40 %"
@@ -3729,9 +4127,10 @@
           "cashbackDescription": "40 kr"
         },
         {
-          "serviceId": "remember",
-          "urlName": "kinoklubb.no",
-          "cashbackDescription": "50 kr"
+          "serviceId": "spenn",
+          "urlName": "c9c75d8c-858a-44e1-8101-92b3a6f46d05",
+          "cashbackDescription": "480 Spenn (12-måneders abonnement)",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=c9c75d8c-858a-44e1-8101-92b3a6f46d05&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3758,6 +4157,12 @@
           "serviceId": "spareborsen",
           "urlName": "jbl",
           "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "70d50d9c-6799-4f2c-ae8f-9718ac9bb01e",
+          "cashbackDescription": "2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=70d50d9c-6799-4f2c-ae8f-9718ac9bb01e&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3811,6 +4216,12 @@
           "serviceId": "opra",
           "urlName": "brilleland",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "96ed9e38-d4b1-49a3-85b2-20e76db0b5fe",
+          "cashbackDescription": "2,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=96ed9e38-d4b1-49a3-85b2-20e76db0b5fe&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3827,6 +4238,12 @@
           "serviceId": "spareborsen",
           "urlName": "hudprodukter",
           "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "b01d359f-fcbd-4a66-8912-62af37c0e9bd",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=b01d359f-fcbd-4a66-8912-62af37c0e9bd&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3903,6 +4320,12 @@
           "serviceId": "spareborsen",
           "urlName": "libresse",
           "cashbackDescription": "9,5 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "c62495f8-0a6a-456a-92cc-a8aa8145ffe4",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=c62495f8-0a6a-456a-92cc-a8aa8145ffe4&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3974,6 +4397,12 @@
           "serviceId": "spareborsen",
           "urlName": "racketspesialisten",
           "cashbackDescription": "6,7 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "68660d71-62d0-4753-b0a5-5f0065fe2f15",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=68660d71-62d0-4753-b0a5-5f0065fe2f15&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -4017,6 +4446,12 @@
           "serviceId": "opra",
           "urlName": "autodude",
           "cashbackDescription": "10 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "1e40bc04-2e0e-418e-8199-6bd0e96ea398",
+          "cashbackDescription": "7,2 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=1e40bc04-2e0e-418e-8199-6bd0e96ea398&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -4061,6 +4496,12 @@
           "urlName": "",
           "cashbackDescription": "10%",
           "code": "DNB4456"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "f695276c-4406-47e4-a710-54ec9506394a",
+          "cashbackDescription": "1,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=f695276c-4406-47e4-a710-54ec9506394a&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -4088,6 +4529,12 @@
           "serviceId": "spareborsen",
           "urlName": "dekk-eu",
           "cashbackDescription": "3,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "233a9b59-90a7-4bd1-90e1-afa6a97ed5d8",
+          "cashbackDescription": "1,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=233a9b59-90a7-4bd1-90e1-afa6a97ed5d8&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -4144,6 +4591,12 @@
           "urlName": "0196b513-2638-7036-83ce-676479acc9ff",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/pilgrim/0196b513-2638-7036-83ce-676479acc9ff"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "53091d72-fd3e-4e98-9c20-f27904930cbb",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=53091d72-fd3e-4e98-9c20-f27904930cbb&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -4166,6 +4619,12 @@
           "serviceId": "spareborsen",
           "urlName": "xplora",
           "cashbackDescription": "9,5 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "df6278f0-459e-4bc8-a498-633f7b1c45f7",
+          "cashbackDescription": "Opptil 1 800 Spenn (Kjøp fra 1000 NOK)",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=df6278f0-459e-4bc8-a498-633f7b1c45f7&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -4185,14 +4644,20 @@
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/nordic-print/0189630f-e7ef-728b-81eb-be251fef4eb5"
         },
         {
+          "serviceId": "remember",
+          "urlName": "nordicprint",
+          "cashbackDescription": "20%"
+        },
+        {
           "serviceId": "spareborsen",
           "urlName": "nordicprint",
           "cashbackDescription": "19 %"
         },
         {
-          "serviceId": "remember",
-          "urlName": "nordicprint",
-          "cashbackDescription": "20%"
+          "serviceId": "spenn",
+          "urlName": "649a81e1-c970-4894-a9d4-53da5d5b336c",
+          "cashbackDescription": "9,6 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=649a81e1-c970-4894-a9d4-53da5d5b336c&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -4209,6 +4674,12 @@
           "serviceId": "spareborsen",
           "urlName": "uppababy",
           "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "718a6abb-e204-4f30-bb33-ecd1282c1947",
+          "cashbackDescription": "2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=718a6abb-e204-4f30-bb33-ecd1282c1947&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -4225,6 +4696,12 @@
           "serviceId": "spareborsen",
           "urlName": "aeg-aftermarket",
           "cashbackDescription": "3,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "28651855-2dee-44c5-bf77-03eb8c03788d",
+          "cashbackDescription": "Opptil 4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=28651855-2dee-44c5-bf77-03eb8c03788d&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -4422,6 +4899,12 @@
           "urlName": "018abc11-d5a3-703e-9a0c-6abafb58d5f7",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/interoptik/018abc11-d5a3-703e-9a0c-6abafb58d5f7"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "c79157d7-3aac-47dc-8a3a-6c856c05e847",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=c79157d7-3aac-47dc-8a3a-6c856c05e847&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -4455,6 +4938,12 @@
           "serviceId": "spareborsen",
           "urlName": "glowid",
           "cashbackDescription": "9,5 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "de4095c0-9f94-4a96-b3a0-1f6a15d1aefa",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=de4095c0-9f94-4a96-b3a0-1f6a15d1aefa&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -4531,6 +5020,12 @@
           "urlName": "019c7b32-49d5-70b2-b1c1-a7ba8153a087",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/bad-stil/019c7b32-49d5-70b2-b1c1-a7ba8153a087"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "59da0f68-c29e-4960-a61c-8b5ffc60cd0d",
+          "cashbackDescription": "2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=59da0f68-c29e-4960-a61c-8b5ffc60cd0d&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -4656,6 +5151,12 @@
           "serviceId": "remember",
           "urlName": "haglofs",
           "cashbackDescription": "8%"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "a51de343-1668-4fb9-b255-a52cfca5773c",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=a51de343-1668-4fb9-b255-a52cfca5773c&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -4780,6 +5281,12 @@
           "serviceId": "opra",
           "urlName": "aeg",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "a4d49f4f-77b0-4971-ae9b-b02654fca1d0",
+          "cashbackDescription": "Opptil 4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=a4d49f4f-77b0-4971-ae9b-b02654fca1d0&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -4823,6 +5330,12 @@
           "serviceId": "spareborsen",
           "urlName": "oslo-skinlab",
           "cashbackDescription": "100 kr"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "f30da96c-9b18-45c0-897f-7db8c8cd5b36",
+          "cashbackDescription": "1 200 Spenn",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=f30da96c-9b18-45c0-897f-7db8c8cd5b36&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -5013,6 +5526,12 @@
           "serviceId": "spareborsen",
           "urlName": "safira",
           "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "5876700f-aab4-4c5e-9b9d-84fc9417e09e",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=5876700f-aab4-4c5e-9b9d-84fc9417e09e&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -5057,6 +5576,12 @@
           "serviceId": "spareborsen",
           "urlName": "autodeler",
           "cashbackDescription": "3,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "546f6c7c-7755-45cb-8152-bcd789d71b27",
+          "cashbackDescription": "Opptil 3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=546f6c7c-7755-45cb-8152-bcd789d71b27&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -5095,6 +5620,12 @@
           "serviceId": "spareborsen",
           "urlName": "harmankardon",
           "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "8b3f64cc-681a-4354-a4a0-c10a88c5d59e",
+          "cashbackDescription": "2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=8b3f64cc-681a-4354-a4a0-c10a88c5d59e&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -5156,6 +5687,12 @@
           "serviceId": "spareborsen",
           "urlName": "chicastore-no",
           "cashbackDescription": "5,7 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "e6e28fbc-7bfc-490b-b083-0993a5a2e710",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=e6e28fbc-7bfc-490b-b083-0993a5a2e710&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -5183,6 +5720,12 @@
           "serviceId": "spareborsen",
           "urlName": "kouture",
           "cashbackDescription": "5,7 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "50519191-d94f-4b53-a7e9-c504f5024f32",
+          "cashbackDescription": "2,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=50519191-d94f-4b53-a7e9-c504f5024f32&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -5238,6 +5781,12 @@
           "urlName": "01a04319-8c3e-70f1-80fb-7c2cdc036ea8",
           "cashbackDescription": "50 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/onyx-cookware/01a04319-8c3e-70f1-80fb-7c2cdc036ea8"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "e04c4bde-80ee-4a2b-89e6-fb9580cdee71",
+          "cashbackDescription": "7,2 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=e04c4bde-80ee-4a2b-89e6-fb9580cdee71&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -5254,6 +5803,12 @@
           "serviceId": "remember",
           "urlName": "p-lindberg",
           "cashbackDescription": "8%"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "6298dbaa-fa72-4c45-a5cb-ae91b7267027",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=6298dbaa-fa72-4c45-a5cb-ae91b7267027&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -5283,14 +5838,14 @@
           "cashbackDescription": "2,3 %"
         },
         {
-          "serviceId": "spareborsen",
-          "urlName": "amisol",
-          "cashbackDescription": "2,8 %"
-        },
-        {
           "serviceId": "remember",
           "urlName": "amisol-travel",
           "cashbackDescription": "3%"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "amisol",
+          "cashbackDescription": "2,8 %"
         }
       ]
     },
@@ -5313,6 +5868,12 @@
           "serviceId": "spareborsen",
           "urlName": "hultens",
           "cashbackDescription": "6,7 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "8a69c9a3-8196-414e-ac69-af7775aaee8b",
+          "cashbackDescription": "3,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=8a69c9a3-8196-414e-ac69-af7775aaee8b&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -5459,6 +6020,12 @@
           "serviceId": "spareborsen",
           "urlName": "gront-fokus",
           "cashbackDescription": "1,9 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "51b8751e-0893-42af-b00c-adb3ff3786c3",
+          "cashbackDescription": "1 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=51b8751e-0893-42af-b00c-adb3ff3786c3&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -5524,6 +6091,12 @@
           "serviceId": "trumf",
           "urlName": "cest-normal-trumf",
           "cashbackDescription": "4,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "39ede318-ad97-4831-9aae-2d5285756af1",
+          "cashbackDescription": "2,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=39ede318-ad97-4831-9aae-2d5285756af1&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -5655,6 +6228,12 @@
           "serviceId": "trumf",
           "urlName": "vivara-trumf",
           "cashbackDescription": "Opptil            \n\t            4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "95d8465e-6e56-4030-ba6b-ead0437f96cd",
+          "cashbackDescription": "Opptil 2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=95d8465e-6e56-4030-ba6b-ead0437f96cd&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -5746,6 +6325,12 @@
           "serviceId": "spareborsen",
           "urlName": "detailshop",
           "cashbackDescription": "9,5 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "bf5682f2-6a0d-41b7-9b70-6e294541571f",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=bf5682f2-6a0d-41b7-9b70-6e294541571f&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -5768,6 +6353,12 @@
           "serviceId": "obos",
           "urlName": "farmasiet-apotek-pa-nett",
           "cashbackDescription": ""
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "7a158a03-4b98-481f-a4fc-8e44bca890d3",
+          "cashbackDescription": "2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=7a158a03-4b98-481f-a4fc-8e44bca890d3&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -5822,6 +6413,12 @@
           "serviceId": "spareborsen",
           "urlName": "euroflorist",
           "cashbackDescription": "9,5 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "f47d1282-ffbe-4d7e-991e-6e30f04305a0",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=f47d1282-ffbe-4d7e-991e-6e30f04305a0&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -5856,6 +6453,12 @@
           "serviceId": "remember",
           "urlName": "holdit",
           "cashbackDescription": "5%"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "ba875b48-73a9-46b4-9e57-1f24e67df5fa",
+          "cashbackDescription": "3,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=ba875b48-73a9-46b4-9e57-1f24e67df5fa&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -5977,6 +6580,12 @@
           "serviceId": "opra",
           "urlName": "samsung",
           "cashbackDescription": "3 - 10 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "be032947-6e9e-4e24-8a52-cf778a5667d2",
+          "cashbackDescription": "1,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=be032947-6e9e-4e24-8a52-cf778a5667d2&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -5999,6 +6608,12 @@
           "serviceId": "spareborsen",
           "urlName": "suitable",
           "cashbackDescription": "6,7 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "300a9505-5245-449e-a1a3-909ca8cc71f8",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=300a9505-5245-449e-a1a3-909ca8cc71f8&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -6062,6 +6677,12 @@
           "serviceId": "opra",
           "urlName": "bodystore",
           "cashbackDescription": "10 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "18830997-c9dd-49dc-a2f1-d37388722d76",
+          "cashbackDescription": "1 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=18830997-c9dd-49dc-a2f1-d37388722d76&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -6192,6 +6813,12 @@
           "serviceId": "spareborsen",
           "urlName": "dustin",
           "cashbackDescription": "1,9 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "3c91f2b5-af62-4f13-aded-1d5ef7aadaf5",
+          "cashbackDescription": "1 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=3c91f2b5-af62-4f13-aded-1d5ef7aadaf5&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -6532,6 +7159,12 @@
           "serviceId": "opra",
           "urlName": "acer",
           "cashbackDescription": "5 - 15 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "649f1b0b-5762-4596-8518-c43fd4523b66",
+          "cashbackDescription": "3,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=649f1b0b-5762-4596-8518-c43fd4523b66&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -6656,6 +7289,12 @@
           "serviceId": "spareborsen",
           "urlName": "interflora-no",
           "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "99b588cb-260e-49a2-9fb0-414c44125cb0",
+          "cashbackDescription": "5,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=99b588cb-260e-49a2-9fb0-414c44125cb0&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -6673,6 +7312,12 @@
           "serviceId": "spareborsen",
           "urlName": "sportgymbutikken-no",
           "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "6e41cb64-a8be-4a60-b3c1-ddc056333aad",
+          "cashbackDescription": "2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=6e41cb64-a8be-4a60-b3c1-ddc056333aad&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -6787,6 +7432,12 @@
           "urlName": "0189630f-5536-7329-883b-ceffb426d426",
           "cashbackDescription": "500 poeng som ny kunde",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/elskling/0189630f-5536-7329-883b-ceffb426d426"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "4de4c5cc-821e-4517-a250-b68663a9ead2",
+          "cashbackDescription": "600 Spenn (Strømbytte)",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=4de4c5cc-821e-4517-a250-b68663a9ead2&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -6823,6 +7474,12 @@
           "urlName": "01896307-9887-73f5-9de4-b4d03486a38e",
           "cashbackDescription": "200 poeng som ny kunde",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/cdon.com/01896307-9887-73f5-9de4-b4d03486a38e"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "1f008524-8bc5-4626-a528-a9e44df2ecc6",
+          "cashbackDescription": "Opptil 7,7 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=1f008524-8bc5-4626-a528-a9e44df2ecc6&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -6911,6 +7568,12 @@
           "serviceId": "spareborsen",
           "urlName": "nespresso-nordic",
           "cashbackDescription": "11,4 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "5706cfdf-733b-4f6d-bbec-0ac57dc2df7d",
+          "cashbackDescription": "5,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=5706cfdf-733b-4f6d-bbec-0ac57dc2df7d&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -7001,6 +7664,12 @@
           "urlName": "019b11f5-2adc-72f3-96b1-3428a999ce72",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/partyking/019b11f5-2adc-72f3-96b1-3428a999ce72"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "dcdf07d2-2519-4bd3-86b6-05bd009fc109",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=dcdf07d2-2519-4bd3-86b6-05bd009fc109&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -7048,6 +7717,12 @@
           "serviceId": "spareborsen",
           "urlName": "maxulin",
           "cashbackDescription": "100 kr"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "a7e67d95-b9de-4f09-b7ce-af9ece6bfed1",
+          "cashbackDescription": "2 100 Spenn",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=a7e67d95-b9de-4f09-b7ce-af9ece6bfed1&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -7248,6 +7923,12 @@
           "serviceId": "spareborsen",
           "urlName": "xlash",
           "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "da3a91ca-ab11-4d7a-b55d-c8df8929a43f",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=da3a91ca-ab11-4d7a-b55d-c8df8929a43f&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -7327,6 +8008,12 @@
           "serviceId": "spareborsen",
           "urlName": "prydligt",
           "cashbackDescription": "9,5 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "0cfd60a6-2fa2-4b6d-b3b3-17d4dd838131",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=0cfd60a6-2fa2-4b6d-b3b3-17d4dd838131&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -7373,6 +8060,12 @@
           "serviceId": "spareborsen",
           "urlName": "greatlife",
           "cashbackDescription": "9,5 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "f780bb43-e8e0-434c-a233-4924975c5dea",
+          "cashbackDescription": "Opptil 4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=f780bb43-e8e0-434c-a233-4924975c5dea&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -7390,6 +8083,12 @@
           "serviceId": "spareborsen",
           "urlName": "pace",
           "cashbackDescription": "14,3 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "82932600-9978-410d-8155-ec1db3d0af2c",
+          "cashbackDescription": "7,2 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=82932600-9978-410d-8155-ec1db3d0af2c&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -7474,6 +8173,12 @@
           "serviceId": "spareborsen",
           "urlName": "irobot",
           "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "b1dac4b6-f769-4c34-ba92-09e25afd90a4",
+          "cashbackDescription": "2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=b1dac4b6-f769-4c34-ba92-09e25afd90a4&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -7544,6 +8249,12 @@
           "urlName": "01896311-78a2-734c-aec3-9f2c9fdb7339",
           "cashbackDescription": "15 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/zooplus/01896311-78a2-734c-aec3-9f2c9fdb7339"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "7cd8057f-70b7-42aa-a42f-38227bd79f21",
+          "cashbackDescription": "Opptil 4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=7cd8057f-70b7-42aa-a42f-38227bd79f21&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -7573,6 +8284,12 @@
           "serviceId": "spareborsen",
           "urlName": "fyndiq",
           "cashbackDescription": "24 kr"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "07448fb6-6754-4743-b2d9-0ab06bc6747a",
+          "cashbackDescription": "180 Spenn",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=07448fb6-6754-4743-b2d9-0ab06bc6747a&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -7944,6 +8661,12 @@
               "description": "i reward-rabatt på Cables, TV Accessories, Office Supply, PC Accessories, Phones/Tablet Accessories"
             }
           ]
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "39d24592-869a-4c88-918e-167d67f26215",
+          "cashbackDescription": "Opptil 1,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=39d24592-869a-4c88-918e-167d67f26215&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -8059,6 +8782,12 @@
           "serviceId": "spareborsen",
           "urlName": "ralph-lauren",
           "cashbackDescription": "2,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "a57bef9a-dee5-4d17-a4eb-9f6a74c6f0c7",
+          "cashbackDescription": "1,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=a57bef9a-dee5-4d17-a4eb-9f6a74c6f0c7&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -8119,6 +8848,12 @@
           "serviceId": "remember",
           "urlName": "shopping4net",
           "cashbackDescription": "10%"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "c1d94837-791d-4467-a55f-30ef36b70e32",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=c1d94837-791d-4467-a55f-30ef36b70e32&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -8141,6 +8876,12 @@
           "serviceId": "remember",
           "urlName": "ulla-popken",
           "cashbackDescription": "5%"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "9cdec950-f728-41d1-a597-a86b92c31d0d",
+          "cashbackDescription": "2,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=9cdec950-f728-41d1-a597-a86b92c31d0d&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -8168,6 +8909,12 @@
           "serviceId": "spareborsen",
           "urlName": "wolt",
           "cashbackDescription": "82,8 kr"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "8cefec66-08f4-4f71-bff5-1de9919bd6ea",
+          "cashbackDescription": "474 Spenn",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=8cefec66-08f4-4f71-bff5-1de9919bd6ea&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -10871,6 +11618,12 @@
           "serviceId": "spareborsen",
           "urlName": "agelab",
           "cashbackDescription": "11,4 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "fee7fb21-41b6-401b-a4cd-62f60c2848ad",
+          "cashbackDescription": "5,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=fee7fb21-41b6-401b-a4cd-62f60c2848ad&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -10882,6 +11635,12 @@
           "serviceId": "spareborsen",
           "urlName": "asuro",
           "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "d62d8a4a-6cb6-4227-b436-1c30d2f8986e",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=d62d8a4a-6cb6-4227-b436-1c30d2f8986e&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -11036,6 +11795,12 @@
           "serviceId": "spareborsen",
           "urlName": "rennoa",
           "cashbackDescription": "26,1 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "357099b5-4745-4a17-ac09-aa75a3b03929",
+          "cashbackDescription": "12 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=357099b5-4745-4a17-ac09-aa75a3b03929&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -11124,6 +11889,12 @@
           "serviceId": "spareborsen",
           "urlName": "ufesa",
           "cashbackDescription": "23,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "2f4ab142-c0bb-4c12-a4e5-5bdf8d2d0d62",
+          "cashbackDescription": "12 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=2f4ab142-c0bb-4c12-a4e5-5bdf8d2d0d62&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -11157,6 +11928,12 @@
           "serviceId": "spareborsen",
           "urlName": "vuxen",
           "cashbackDescription": "21,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "85e656ad-3e41-450f-9d97-d48d5b8789b0",
+          "cashbackDescription": "11 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=85e656ad-3e41-450f-9d97-d48d5b8789b0&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -11201,6 +11978,12 @@
           "serviceId": "spareborsen",
           "urlName": "beconfident",
           "cashbackDescription": "19 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "5d415c60-675b-4bb5-af56-eeefb5e805e6",
+          "cashbackDescription": "9,6 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=5d415c60-675b-4bb5-af56-eeefb5e805e6&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -11223,6 +12006,12 @@
           "serviceId": "spareborsen",
           "urlName": "fotakutten",
           "cashbackDescription": "19 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "a92b59e5-50a0-445b-8194-458c5a8a8170",
+          "cashbackDescription": "9,6 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=a92b59e5-50a0-445b-8194-458c5a8a8170&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -11267,6 +12056,12 @@
           "serviceId": "spareborsen",
           "urlName": "livet-leker",
           "cashbackDescription": "19 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "20c70d88-a3cb-47b0-b728-705036aa63cf",
+          "cashbackDescription": "9,6 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=20c70d88-a3cb-47b0-b728-705036aa63cf&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -11509,6 +12304,12 @@
           "serviceId": "spareborsen",
           "urlName": "ajosepo",
           "cashbackDescription": "14,3 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "0cbbf2f6-8ad5-4d48-a6cd-9cff0c28e4d9",
+          "cashbackDescription": "7,2 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=0cbbf2f6-8ad5-4d48-a6cd-9cff0c28e4d9&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -11652,6 +12453,12 @@
           "serviceId": "spareborsen",
           "urlName": "norzen",
           "cashbackDescription": "14,3 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "16d8dddc-6a49-4c29-a983-7ed516bb9f82",
+          "cashbackDescription": "9,6 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=16d8dddc-6a49-4c29-a983-7ed516bb9f82&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -11828,6 +12635,12 @@
           "serviceId": "spareborsen",
           "urlName": "nordiskpuls",
           "cashbackDescription": "11,4 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "85c132ca-b46a-4000-9f56-3b3eb4007f55",
+          "cashbackDescription": "7,2 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=85c132ca-b46a-4000-9f56-3b3eb4007f55&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -11971,6 +12784,12 @@
           "serviceId": "spareborsen",
           "urlName": "airy",
           "cashbackDescription": "9,5 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "02eba11e-de4f-4c36-b901-13cbccd7eba8",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=02eba11e-de4f-4c36-b901-13cbccd7eba8&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -12015,6 +12834,12 @@
           "serviceId": "spareborsen",
           "urlName": "curli",
           "cashbackDescription": "9,5 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "76e5f8f5-7f28-406c-8352-6cb6360508f4",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=76e5f8f5-7f28-406c-8352-6cb6360508f4&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -12158,6 +12983,12 @@
           "serviceId": "spareborsen",
           "urlName": "introni",
           "cashbackDescription": "9,5 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "a765645e-009f-4ff8-890a-a71cb3422592",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=a765645e-009f-4ff8-890a-a71cb3422592&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -12246,6 +13077,12 @@
           "serviceId": "spareborsen",
           "urlName": "lysterapi",
           "cashbackDescription": "9,5 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "b712dc87-01c5-473a-a306-750609f93592",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=b712dc87-01c5-473a-a306-750609f93592&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -12301,6 +13138,12 @@
           "serviceId": "spareborsen",
           "urlName": "nemo",
           "cashbackDescription": "9,5 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "5513b0cc-5c71-4e83-b11f-e825e2b4df61",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=5513b0cc-5c71-4e83-b11f-e825e2b4df61&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -12532,6 +13375,12 @@
           "serviceId": "spareborsen",
           "urlName": "baalstedet",
           "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "09c1616a-b5f2-42da-b394-bde06a66610c",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=09c1616a-b5f2-42da-b394-bde06a66610c&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -12642,6 +13491,12 @@
           "serviceId": "spareborsen",
           "urlName": "homeheart",
           "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "15d4400f-781f-4fc5-a0e8-1990ab85ff38",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=15d4400f-781f-4fc5-a0e8-1990ab85ff38&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -12851,6 +13706,12 @@
           "serviceId": "spareborsen",
           "urlName": "woome-no",
           "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "10871099-6607-4e2b-9687-229c8c1fd8c0",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=10871099-6607-4e2b-9687-229c8c1fd8c0&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -12950,6 +13811,12 @@
           "serviceId": "spareborsen",
           "urlName": "sparkfix",
           "cashbackDescription": "6,7 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "dc10113a-a789-4dd7-a2f4-8bc067b1cd46",
+          "cashbackDescription": "3,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=dc10113a-a789-4dd7-a2f4-8bc067b1cd46&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -13005,6 +13872,12 @@
           "serviceId": "spareborsen",
           "urlName": "bast-sauna",
           "cashbackDescription": "5,7 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "b4aad694-d9ce-4b50-8fa4-f6551c6b6400",
+          "cashbackDescription": "4,3 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=b4aad694-d9ce-4b50-8fa4-f6551c6b6400&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -13093,6 +13966,12 @@
           "serviceId": "spareborsen",
           "urlName": "axkid",
           "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "4c94c221-9b49-452e-a5da-4e493b17c3aa",
+          "cashbackDescription": "2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=4c94c221-9b49-452e-a5da-4e493b17c3aa&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -13104,6 +13983,12 @@
           "serviceId": "spareborsen",
           "urlName": "babybrezza",
           "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "168d42bf-4022-49c5-ab90-c3195b34add7",
+          "cashbackDescription": "2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=168d42bf-4022-49c5-ab90-c3195b34add7&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -13137,6 +14022,12 @@
           "serviceId": "spareborsen",
           "urlName": "ecoride",
           "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "9245007c-200b-4612-bb34-be33078ec1df",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=9245007c-200b-4612-bb34-be33078ec1df&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -13170,6 +14061,12 @@
           "serviceId": "spareborsen",
           "urlName": "myoutdoorkitchen",
           "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "92ea0ebc-cca4-44b5-ad03-028df27a5dee",
+          "cashbackDescription": "2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=92ea0ebc-cca4-44b5-ad03-028df27a5dee&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -13203,6 +14100,12 @@
           "serviceId": "spareborsen",
           "urlName": "pyretosnackan",
           "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "5d592a35-fa25-4344-b3e5-30ce537e4d91",
+          "cashbackDescription": "2,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=5d592a35-fa25-4344-b3e5-30ce537e4d91&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -13236,6 +14139,12 @@
           "serviceId": "spareborsen",
           "urlName": "sportproffen",
           "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "ae2f6756-4fa4-4537-8a62-54e5b755409c",
+          "cashbackDescription": "2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=ae2f6756-4fa4-4537-8a62-54e5b755409c&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -13467,6 +14376,12 @@
           "serviceId": "spareborsen",
           "urlName": "vitaepro",
           "cashbackDescription": "160 kr"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "935770fc-92d0-4cbc-8a42-265b623a31fd",
+          "cashbackDescription": "2 100 Spenn",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=935770fc-92d0-4cbc-8a42-265b623a31fd&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -13522,6 +14437,12 @@
           "serviceId": "spareborsen",
           "urlName": "movanze",
           "cashbackDescription": "144 kr"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "9d38d250-e288-44e8-8602-bed5ccbb5966",
+          "cashbackDescription": "2 100 Spenn",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=9d38d250-e288-44e8-8602-bed5ccbb5966&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -14578,6 +15499,306 @@
           "serviceId": "opra",
           "urlName": "oh3kriger",
           "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "vikingfootwear.no": {
+      "hostName": "vikingfootwear.no",
+      "name": "Viking Footwear",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "1bd16862-bac1-456b-8d80-e86186f95527",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=1bd16862-bac1-456b-8d80-e86186f95527&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "aimn.no": {
+      "hostName": "aimn.no",
+      "name": "aim'n",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "046850e1-da8f-475a-9335-25f53c109c91",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=046850e1-da8f-475a-9335-25f53c109c91&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "dyson.com": {
+      "hostName": "dyson.com",
+      "name": "Dyson",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "1bca75e8-d582-49ed-813d-49f64d24c4c1",
+          "cashbackDescription": "2,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=1bca75e8-d582-49ed-813d-49f64d24c4c1&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "gymgrossisten.com": {
+      "hostName": "gymgrossisten.com",
+      "name": "Gymgrossisten",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "341d313b-9699-478a-affe-050acfb51c20",
+          "cashbackDescription": "1 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=341d313b-9699-478a-affe-050acfb51c20&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "swims.com": {
+      "hostName": "swims.com",
+      "name": "SWIMS",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "1cc687c1-be28-4682-b59b-6755def31b81",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=1cc687c1-be28-4682-b59b-6755def31b81&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "babyshop.com": {
+      "hostName": "babyshop.com",
+      "name": "Babyshop",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "85766b75-f78c-47d1-bd78-7f985cfd0a86",
+          "cashbackDescription": "1,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=85766b75-f78c-47d1-bd78-7f985cfd0a86&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "lifesum.com": {
+      "hostName": "lifesum.com",
+      "name": "Lifesum",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "3758b1ef-53b0-46aa-81d5-7b76364ab121",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=3758b1ef-53b0-46aa-81d5-7b76364ab121&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "cronjager.com": {
+      "hostName": "cronjager.com",
+      "name": "Cronjager",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "7d55a951-bbda-4ab0-8bf4-0385d5df7597",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=7d55a951-bbda-4ab0-8bf4-0385d5df7597&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "erverte.com": {
+      "hostName": "erverte.com",
+      "name": "Erverte Paris",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "6c4de687-012c-4900-b95e-09d98e0d317c",
+          "cashbackDescription": "7,2 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=6c4de687-012c-4900-b95e-09d98e0d317c&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "photowall.no": {
+      "hostName": "photowall.no",
+      "name": "Photowall",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "2602160e-addd-4198-8743-4e36ac272006",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=2602160e-addd-4198-8743-4e36ac272006&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "skistart.no": {
+      "hostName": "skistart.no",
+      "name": "Skistart",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "281b85e9-d7a2-4eea-8f81-a1359aac0aa8",
+          "cashbackDescription": "2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=281b85e9-d7a2-4eea-8f81-a1359aac0aa8&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "gear4music.no": {
+      "hostName": "gear4music.no",
+      "name": "Gear4Music",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "5524eac3-9cfe-4507-a189-530b7054a422",
+          "cashbackDescription": "Opptil 2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=5524eac3-9cfe-4507-a189-530b7054a422&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "zlikehair.com": {
+      "hostName": "zlikehair.com",
+      "name": "Zlike Hair",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "1b03cc3f-c7ba-4d3b-8d1e-986c5f040a9b",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=1b03cc3f-c7ba-4d3b-8d1e-986c5f040a9b&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "to.interoptik.no": {
+      "hostName": "to.interoptik.no",
+      "name": "Interoptik",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "c79157d7-3aac-47dc-8a3a-6c856c05e847",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=c79157d7-3aac-47dc-8a3a-6c856c05e847&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "northtrampoline.com": {
+      "hostName": "northtrampoline.com",
+      "name": "North Trampoline",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "4644131c-774a-4ea4-bb9b-c99946faf4ce",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=4644131c-774a-4ea4-bb9b-c99946faf4ce&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "bonheurjewelry.com": {
+      "hostName": "bonheurjewelry.com",
+      "name": "BONHEUR JEWELRY",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "a2fb9baf-9e00-45f1-b334-ec5995cd1abf",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=a2fb9baf-9e00-45f1-b334-ec5995cd1abf&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "trionic.no": {
+      "hostName": "trionic.no",
+      "name": "Trionic",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "e74e786b-926f-44c0-b24c-9dfc4e4dd318",
+          "cashbackDescription": "3,6 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=e74e786b-926f-44c0-b24c-9dfc4e4dd318&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "trotec.com": {
+      "hostName": "trotec.com",
+      "name": "Trotec",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "796d17ad-f5cd-4494-9cac-30288ac842ae",
+          "cashbackDescription": "2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=796d17ad-f5cd-4494-9cac-30288ac842ae&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "ulanzi.com": {
+      "hostName": "ulanzi.com",
+      "name": "Ulanzi",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "6386fac5-6957-46a5-a715-22ba9cb24084",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=6386fac5-6957-46a5-a715-22ba9cb24084&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "goboken.no": {
+      "hostName": "goboken.no",
+      "name": "Goboken",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "1b13f041-e2f3-4de6-98a4-f54b06ca1f29",
+          "cashbackDescription": "600 Spenn (Goboken Bokklubb)",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=1b13f041-e2f3-4de6-98a4-f54b06ca1f29&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "journeylife.no": {
+      "hostName": "journeylife.no",
+      "name": "JourneyLife",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "d953c154-9c51-4b91-95e0-34fde0cf8633",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=d953c154-9c51-4b91-95e0-34fde0cf8633&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "abonera.no": {
+      "hostName": "abonera.no",
+      "name": "Abonera",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "480556c4-5f68-4f0b-b397-796360a8efcc",
+          "cashbackDescription": "7,2 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=480556c4-5f68-4f0b-b397-796360a8efcc&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "kockumsjernverk.no": {
+      "hostName": "kockumsjernverk.no",
+      "name": "Kockums Jernverk NO",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "c41d57bc-3eda-4847-97e3-6c0c4b9f7384",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=c41d57bc-3eda-4847-97e3-6c0c4b9f7384&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "babyland.no": {
+      "hostName": "babyland.no",
+      "name": "Babyland",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "d50695eb-4a6d-4679-b5c4-da6ce7c028c4",
+          "cashbackDescription": "1,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=d50695eb-4a6d-4679-b5c4-da6ce7c028c4&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "vallesyproducts.com": {
+      "hostName": "vallesyproducts.com",
+      "name": "Vallesy",
+      "offers": [
+        {
+          "serviceId": "spenn",
+          "urlName": "f87e9613-705b-4426-9e4c-01ec2326544a",
+          "cashbackDescription": "5,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=f87e9613-705b-4426-9e4c-01ec2326544a&source=browser-extension&spennId={spennId}"
         }
       ]
     }

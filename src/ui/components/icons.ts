@@ -15,8 +15,9 @@ import LOGO_ICON_LOFAVOR_URL from "../../../icons/icon-64-lofavor.png";
 import LOGO_ICON_LOGBUY_URL from "../../../icons/icon-64-logbuy.png";
 import LOGO_ICON_SPAREBORSEN_URL from "../../../icons/icon-64-spareborsen.png";
 import LOGO_ICON_OPRA_URL from "../../../icons/icon-64-opra.png";
+import LOGO_ICON_SPENN_URL from "../../../icons/icon-64-spenn.png";
 
-export { LOGO_ICON_URL, LOGO_ICON_REMEMBER_URL, LOGO_ICON_SAS_URL, LOGO_ICON_DNB_URL, LOGO_ICON_OBOS_URL, LOGO_ICON_NAF_URL, LOGO_ICON_LOFAVOR_URL, LOGO_ICON_LOGBUY_URL, LOGO_ICON_SPAREBORSEN_URL, LOGO_ICON_OPRA_URL };
+export { LOGO_ICON_URL, LOGO_ICON_REMEMBER_URL, LOGO_ICON_SAS_URL, LOGO_ICON_DNB_URL, LOGO_ICON_OBOS_URL, LOGO_ICON_NAF_URL, LOGO_ICON_LOFAVOR_URL, LOGO_ICON_LOGBUY_URL, LOGO_ICON_SPAREBORSEN_URL, LOGO_ICON_OPRA_URL, LOGO_ICON_SPENN_URL };
 
 // Service ID type derived from SERVICE_ORDER
 export type ServiceId = (typeof SERVICE_ORDER)[number];
@@ -33,6 +34,7 @@ const SERVICE_LOGO_ICONS: Readonly<Partial<Record<ServiceId, string>>> = {
   logbuy: LOGO_ICON_LOGBUY_URL,
   spareborsen: LOGO_ICON_SPAREBORSEN_URL,
   opra: LOGO_ICON_OPRA_URL,
+  spenn: LOGO_ICON_SPENN_URL,
 } as const;
 
 // Settings gear icon

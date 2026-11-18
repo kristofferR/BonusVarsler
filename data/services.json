@@ -14,6 +14,7 @@
     "reminderDomain": "onlineshopping.flysas.com",
     "cashbackPathPatterns": ["/nb-NO/butikker"],
     "color": "#0F1E82",
+    "pointValueNok": 0.1,
     "defaultEnabled": false
   },
   "remember": {
@@ -83,5 +84,13 @@
     "color": "#a07a00",
     "defaultEnabled": false,
     "type": "info"
+  },
+  "spenn": {
+    "id": "spenn",
+    "name": "Spenn",
+    "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store={urlName}&source=browser-extension&spennId={spennId}",
+    "color": "#E51E4F",
+    "pointValueNok": 0.1,
+    "defaultEnabled": false
   }
 }

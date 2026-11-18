@@ -27,6 +27,7 @@ export interface SettingsCache {
   enabledServices: string[] | null;
   setupComplete: boolean;
   setupShowCount: number;
+  spennId: string | null;
 }
 
 export function createDefaultSettings(): SettingsCache {
@@ -40,6 +41,7 @@ export function createDefaultSettings(): SettingsCache {
     enabledServices: null,
     setupComplete: false,
     setupShowCount: 0,
+    spennId: null,
   };
 }
 
@@ -149,6 +151,7 @@ export class Settings {
     // Load first-run setup status
     this.cache.setupComplete = await this.storage.get<boolean>(STORAGE_KEYS.setupComplete, false);
     this.cache.setupShowCount = await this.storage.get<number>(STORAGE_KEYS.setupShowCount, 0);
+    this.cache.spennId = await this.storage.get<string | null>(STORAGE_KEYS.spennId, null);
   }
 
   // ==================
@@ -367,5 +370,23 @@ export class Settings {
   async incrementSetupShowCount(): Promise<void> {
     this.cache.setupShowCount++;
     await this.storage.set(STORAGE_KEYS.setupShowCount, this.cache.setupShowCount);
+  }
+
+  // ==================
+  // SpennID
+  // ==================
+
+  getSpennId(): string | null {
+    return this.cache.spennId;
+  }
+
+  /** Store a validated SpennID, or null to forget it. */
+  async setSpennId(spennId: string | null): Promise<void> {
+    this.cache.spennId = spennId;
+    if (spennId) {
+      await this.storage.set(STORAGE_KEYS.spennId, spennId);
+    } else {
+      await this.storage.remove([STORAGE_KEYS.spennId]);
+    }
   }
 }

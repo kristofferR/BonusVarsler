@@ -4,6 +4,7 @@
  * Uses Playwright to scrape all merchants from:
  * - trumfnetthandel.no/kategori (Trumf - tracking-based cashback)
  * - onlineshopping.loyaltykey.com (SAS EuroBonus - API-based points)
+ * - spenn-cdn.refunder.com (Spenn - public catalog used by Spenn's own browser extension)
  * - dnb.no/kundeprogram/fordeler/faste-rabatter (DNB - code-based rebates)
  * - spareborsen.no/partnere (Sparebørsen - tracking-based cashback, sitemap + store pages)
  *
@@ -148,6 +149,11 @@ const SPAREBORSEN_PAGE_CONCURRENCY = 4;
 const SPAREBORSEN_USER_AGENT =
   "Mozilla/5.0 (compatible; BonusVarsler/1.0; +https://github.com/kristofferR/BonusVarsler)";
 
+// Spenn's official browser extension reads this unauthenticated catalog (market NO, locale nb).
+const SPENN_CATALOG_URL = "https://spenn-cdn.refunder.com/extension/v1/no/catalog.nb.json";
+const SPENN_CATALOG_TIMEOUT_MS = 15_000;
+const SPENN_CLICK_HOST = "spenn.refunder.com";
+
 // Cache configuration
 const CACHE_FILE = join(import.meta.dir, "..", ".scraper-cache.json");
 const CACHE_MAX_AGE = 5 * 60 * 60 * 1000; // 5 hours in ms
@@ -234,6 +240,7 @@ const MONITORED_SERVICE_IDS = [
   "logbuy",
   "spareborsen",
   "opra",
+  "spenn",
 ] as const;
 
 type ServiceId = (typeof MONITORED_SERVICE_IDS)[number];
@@ -250,6 +257,7 @@ interface ScraperCache {
   logbuyMerchants: ScrapedMerchant[];
   spareborsenMerchants: ScrapedMerchant[];
   opraMerchants: ScrapedMerchant[];
+  spennMerchants: ScrapedMerchant[];
   urlNameToHostname: Record<string, string>;
 }
 
@@ -280,7 +288,7 @@ interface ServiceRunResult {
  * Loads and validates the scraper cache file, returning it when current and well-formed.
  *
  * Validations performed: cache file exists and parses as JSON, contains array entries for all monitored services
- * (`trumfMerchants`, `rememberMerchants`, `dnbMerchants`, `obosMerchants`, `nafMerchants`, `lofavorMerchants`, `logbuyMerchants`, `spareborsenMerchants`, `opraMerchants`),
+ * (`trumfMerchants`, `rememberMerchants`, `dnbMerchants`, `obosMerchants`, `nafMerchants`, `lofavorMerchants`, `logbuyMerchants`, `spareborsenMerchants`, `opraMerchants`, `spennMerchants`),
  * has a well-formed `urlNameToHostname` map, every LogBuy merchant has a numeric `slug`, and the cache timestamp is newer than `CACHE_MAX_AGE`.
  *
  * @returns The parsed `ScraperCache` when present and valid; `null` otherwise.
@@ -302,7 +310,8 @@ async function loadCache(): Promise<ScraperCache | null> {
       Array.isArray(cache.lofavorMerchants) &&
       Array.isArray(cache.logbuyMerchants) &&
       Array.isArray(cache.spareborsenMerchants) &&
-      Array.isArray(cache.opraMerchants);
+      Array.isArray(cache.opraMerchants) &&
+      Array.isArray(cache.spennMerchants);
     const hasUrlNameToHostname =
       typeof cache.urlNameToHostname === "object" &&
       cache.urlNameToHostname !== null &&
@@ -386,6 +395,8 @@ const HOSTNAME_ALIASES: Record<string, string> = {
   "go.saily.site": "saily.com",
   "nespresso.prf.hn": "www.nespresso.com",
   "iherb.prf.hn": "no.iherb.com",
+  // Spenn's catalog drops the xn-- prefix from småungene.no's punycode host
+  "smungene-b0a.no": "xn--smungene-b0a.no",
 };
 
 // ===================
@@ -421,6 +432,7 @@ interface ServiceDefinition {
   color: string;
   defaultEnabled: boolean;
   type?: "code" | "info";
+  pointValueNok?: number;
 }
 
 interface SiteList {
@@ -3423,6 +3435,133 @@ async function scrapeOpra(previousFeed: SiteList): Promise<ScrapedMerchant[]> {
 }
 
 // ===================
+// Spenn Scraping
+// ===================
+
+interface SpennMatchRule {
+  host: string;
+  path: string;
+  query: Record<string, string>;
+}
+
+interface SpennRate {
+  value: number;
+  unit: string | null;
+  fixed: boolean;
+  up_to: boolean;
+  condition: string | null;
+}
+
+interface SpennStore {
+  id: string;
+  name: string;
+  spenn: string | null;
+  rate: SpennRate | null;
+  activation_url: string;
+  extension: { popup: boolean };
+  match_rules: SpennMatchRule[];
+}
+
+interface SpennCatalog {
+  version: number;
+  market: string;
+  stores: SpennStore[];
+}
+
+/**
+ * Formats a Spenn rate compactly, e.g. "1,4 Spenn / 10 kr", "Opptil 1 020 Spenn (Årsabonnement)".
+ * Falls back to the catalog's own label for rate units we don't recognize.
+ */
+function formatSpennDescription(rate: SpennRate | null, label: string | null): string {
+  const fallback = label?.trim() ?? "";
+  if (!rate) {
+    return fallback;
+  }
+
+  const prefix = rate.up_to ? "Opptil " : "";
+  const amount = rate.value.toLocaleString("nb-NO", { maximumFractionDigits: 2 });
+  if (rate.fixed) {
+    const condition = rate.condition?.trim();
+    return `${prefix}${amount} Spenn${condition ? ` (${condition})` : ""}`;
+  }
+  if (rate.unit === "per 10 kr") {
+    return `${prefix}${amount} Spenn / 10 kr`;
+  }
+  return fallback;
+}
+
+/**
+ * Fetches the Spenn shopping catalog (one request) and returns one merchant per store host.
+ * Stores whose merchants disallow extension pop-ups (`extension.popup: false`) are skipped,
+ * matching Spenn's own extension.
+ */
+async function scrapeSpenn(): Promise<ScrapedMerchant[]> {
+  console.log("\n=== Scraping Spenn ===");
+
+  const response = await fetch(SPENN_CATALOG_URL, {
+    headers: { "User-Agent": "Mozilla/5.0 (compatible; BonusVarsler)" },
+    signal: AbortSignal.timeout(SPENN_CATALOG_TIMEOUT_MS),
+  });
+  if (!response.ok) {
+    throw new Error(`Spenn catalog returned HTTP ${response.status}`);
+  }
+
+  const catalog = (await response.json()) as SpennCatalog;
+  if (catalog.version !== 1 || catalog.market !== "NO" || !Array.isArray(catalog.stores)) {
+    throw new Error("Spenn catalog has an unexpected shape");
+  }
+  console.log(`  Found ${catalog.stores.length} Spenn stores`);
+
+  const merchants: ScrapedMerchant[] = [];
+  let popupDisallowed = 0;
+  let unusable = 0;
+
+  for (const store of catalog.stores) {
+    if (!store.extension?.popup) {
+      popupDisallowed++;
+      continue;
+    }
+
+    const cashbackDescription = formatSpennDescription(store.rate, store.spenn);
+    let clickHost: string | null = null;
+    try {
+      clickHost = new URL(store.activation_url).hostname;
+    } catch {
+      // Invalid activation URL
+    }
+    if (!store.id || !cashbackDescription || clickHost !== SPENN_CLICK_HOST) {
+      unusable++;
+      continue;
+    }
+
+    for (const rule of store.match_rules ?? []) {
+      const host = rule.host?.trim().toLowerCase();
+      // Query-specific rules can't be expressed in the feed's host/path matching.
+      if (!host || Object.keys(rule.query ?? {}).length > 0) {
+        continue;
+      }
+
+      const pathPrefix = rule.path?.replace(/\/+$/, "");
+      merchants.push({
+        name: store.name.trim(),
+        cashbackDescription,
+        slug: store.id,
+        storeUrl: `https://${host}${pathPrefix || ""}`,
+        clickthroughUrl: store.activation_url,
+        ...(pathPrefix && { matchPathPrefix: pathPrefix }),
+      });
+    }
+  }
+
+  console.log(`  Skipped ${popupDisallowed} stores that disallow extension pop-ups`);
+  if (unusable > 0) {
+    console.log(`  Skipped ${unusable} stores without a usable rate or click URL`);
+  }
+  console.log(`  Extracted ${merchants.length} Spenn merchant host mappings`);
+  return merchants;
+}
+
+// ===================
 // Main Logic
 /**
  * Orchestrates the full scraping pipeline to produce an updated data/sitelist.json.
@@ -3485,6 +3624,7 @@ async function main() {
   let logbuyMerchants: ScrapedMerchant[];
   let spareborsenMerchants: ScrapedMerchant[];
   let opraMerchants: ScrapedMerchant[];
+  let spennMerchants: ScrapedMerchant[];
   let urlNameToHostname: Map<string, string>;
   let trumfResult: ServiceRunResult;
   let sasResult: ServiceRunResult;
@@ -3496,6 +3636,7 @@ async function main() {
   let logbuyResult: ServiceRunResult;
   let spareborsenResult: ServiceRunResult;
   let opraResult: ServiceRunResult;
+  let spennResult: ServiceRunResult;
 
   if (cache) {
     const ageHours = Math.round((Date.now() - cache.timestamp) / (60 * 60 * 1000));
@@ -3510,6 +3651,7 @@ async function main() {
     logbuyMerchants = cache.logbuyMerchants || [];
     spareborsenMerchants = cache.spareborsenMerchants || [];
     opraMerchants = cache.opraMerchants || [];
+    spennMerchants = cache.spennMerchants || [];
     urlNameToHostname = new Map(Object.entries(cache.urlNameToHostname));
     console.log(`  Trumf: ${trumfMerchants.length} merchants`);
     console.log(`  SAS EuroBonus: ${sasMerchants.length} merchants`);
@@ -3521,6 +3663,7 @@ async function main() {
     console.log(`  LogBuy: ${logbuyMerchants.length} merchants`);
     console.log(`  Sparebørsen: ${spareborsenMerchants.length} merchants`);
     console.log(`  OPRA: ${opraMerchants.length} merchants`);
+    console.log(`  Spenn: ${spennMerchants.length} merchants`);
 
     trumfResult = {
       serviceId: "trumf",
@@ -3620,6 +3763,16 @@ async function main() {
       failureReason: null,
       baselineCount: feedHealth.services.opra.lastSuccessfulCount,
       currentCount: opraMerchants.length,
+      consecutiveFailureDays: 0,
+    };
+    spennResult = {
+      serviceId: "spenn",
+      serviceName: "Spenn",
+      merchants: spennMerchants,
+      success: true,
+      failureReason: null,
+      baselineCount: feedHealth.services.spenn.lastSuccessfulCount,
+      currentCount: spennMerchants.length,
       consecutiveFailureDays: 0,
     };
 
@@ -3848,6 +4001,24 @@ async function main() {
         opraMerchants = [];
       }
 
+      // ===================
+      // Step 9: Scrape Spenn merchants (no browser needed)
+      // ===================
+      if (shouldScrape("spenn")) {
+        spennResult = await runServiceScrape({
+          serviceId: "spenn",
+          serviceName: "Spenn",
+          baselineCount: feedHealth.services.spenn.lastSuccessfulCount,
+          today,
+          feedHealth,
+          scrape: () => scrapeSpenn(),
+        });
+        spennMerchants = spennResult.merchants;
+      } else {
+        spennResult = skipResult("spenn", "Spenn");
+        spennMerchants = [];
+      }
+
       const scrapedResults = [
         trumfResult,
         sasResult,
@@ -3859,6 +4030,7 @@ async function main() {
         logbuyResult,
         spareborsenResult,
         opraResult,
+        spennResult,
       ].filter((result) => shouldScrape(result.serviceId));
 
       const hasServiceFailures = scrapedResults.some((result) => !result.success);
@@ -3875,6 +4047,7 @@ async function main() {
           logbuyMerchants,
           spareborsenMerchants,
           opraMerchants,
+          spennMerchants,
           urlNameToHostname: Object.fromEntries(urlNameToHostname),
         });
       } else if (onlyService) {
@@ -3902,6 +4075,7 @@ async function main() {
     logbuyResult,
     spareborsenResult,
     opraResult,
+    spennResult,
   ];
   const alertServices = serviceRuns.filter(
     (result) =>
@@ -3944,6 +4118,7 @@ async function main() {
   const unmappedDnb: string[] = [];
   const unmappedLogbuy: string[] = [];
   const unmappedSpareborsen: string[] = [];
+  const unmappedSpenn: string[] = [];
 
   // In single-service mode, restore all skipped services from existing sitelist
   if (onlyService) {
@@ -4678,6 +4853,61 @@ async function main() {
 
   console.log(`  OPRA: ${opraMapped} offers mapped`);
 
+  // Process Spenn merchants
+  let spennMapped = 0;
+  for (const merchant of spennMerchants) {
+    let hostname: string | null = null;
+    try {
+      hostname = merchant.storeUrl ? new URL(merchant.storeUrl).hostname : null;
+    } catch {
+      // Invalid URL
+    }
+
+    if (!hostname || hostname.length < 4) {
+      unmappedSpenn.push(`${merchant.name} (store: ${merchant.slug})`);
+      continue;
+    }
+
+    hostname = normalizeHostname(hostname);
+    const merchantKey = findMerchantKey(hostname) || hostname;
+    if (!merchants[merchantKey]) {
+      merchants[merchantKey] = {
+        hostName: merchantKey,
+        name: merchant.name,
+        offers: [],
+      };
+    }
+
+    const spennPathPrefix = merchant.matchPathPrefix ?? null;
+    const hasSpennOffer = merchants[merchantKey].offers.some(
+      (o) =>
+        o.serviceId === "spenn" &&
+        o.urlName === merchant.slug &&
+        (o.matchPathPrefix ?? null) === spennPathPrefix
+    );
+    if (!hasSpennOffer) {
+      merchants[merchantKey].offers.push({
+        serviceId: "spenn",
+        urlName: merchant.slug,
+        cashbackDescription: merchant.cashbackDescription,
+        ...(merchant.clickthroughUrl && { clickthroughUrl: merchant.clickthroughUrl }),
+        ...(merchant.matchPathPrefix && { matchPathPrefix: merchant.matchPathPrefix }),
+      });
+      spennMapped++;
+    }
+  }
+
+  if (!spennResult.success) {
+    const restoredOffers = restoreServiceOffersFromExisting(
+      merchants,
+      existingSitelist,
+      "spenn"
+    );
+    console.log(`  Spenn: restored ${restoredOffers} existing offers`);
+  }
+
+  console.log(`  Spenn: ${spennMapped} mapped`);
+
   // The matcher uses the first host variant it finds, so fold bare-host records
   // into their www. twin to keep every offer reachable from either variant.
   for (const wwwKey of Object.keys(merchants)) {
@@ -4716,6 +4946,7 @@ async function main() {
     if (svc.reminderDomain) entry.reminderDomain = svc.reminderDomain;
     if (svc.cashbackPathPatterns) entry.cashbackPathPatterns = svc.cashbackPathPatterns;
     if (svc.type) entry.type = svc.type;
+    if (svc.pointValueNok) entry.pointValueNok = svc.pointValueNok;
     services[id] = entry;
   }
 
@@ -4765,6 +4996,9 @@ async function main() {
   const opraCount = Object.values(merchants).filter((m) =>
     m.offers.some((o) => o.serviceId === "opra")
   ).length;
+  const spennCount = Object.values(merchants).filter((m) =>
+    m.offers.some((o) => o.serviceId === "spenn")
+  ).length;
 
   console.log(`  - With Trumf offers: ${trumfCount}`);
   console.log(`  - With SAS EuroBonus offers: ${sasCount}`);
@@ -4776,6 +5010,7 @@ async function main() {
   console.log(`  - With Visma LogBuy offers: ${logbuyCount}`);
   console.log(`  - With Sparebørsen offers: ${spareborsenCount}`);
   console.log(`  - With OPRA offers: ${opraCount}`);
+  console.log(`  - With Spenn offers: ${spennCount}`);
   console.log(`  - Unmapped Trumf: ${unmappedTrumf.length}`);
   console.log(`  - Unmapped SAS EuroBonus: ${unmappedSas.length}`);
   console.log(`  - Unmapped re:member: ${unmappedRemember.length}`);
@@ -4786,6 +5021,7 @@ async function main() {
   console.log(`  - Unmapped Visma LogBuy: ${unmappedLogbuy.length}`);
   console.log(`  - Unmapped Sparebørsen: ${unmappedSpareborsen.length}`);
   console.log(`  - Unmapped OPRA: ${unmappedOpra.length}`);
+  console.log(`  - Unmapped Spenn: ${unmappedSpenn.length}`);
 
   if (unmappedTrumf.length > 0) {
     console.log("\nUnmapped Trumf merchants (need manual hostname mapping):");
@@ -4884,6 +5120,16 @@ async function main() {
     }
     if (unmappedOpra.length > 10) {
       console.log(`  ... and ${unmappedOpra.length - 10} more`);
+    }
+  }
+
+  if (unmappedSpenn.length > 0) {
+    console.log("\nUnmapped Spenn merchants:");
+    for (const m of unmappedSpenn.slice(0, 10)) {
+      console.log(`  - ${m}`);
+    }
+    if (unmappedSpenn.length > 10) {
+      console.log(`  ... and ${unmappedSpenn.length - 10} more`);
     }
   }
 

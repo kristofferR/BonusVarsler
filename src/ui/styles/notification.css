@@ -273,6 +273,54 @@
     text-decoration: underline;
 }
 
+/* SpennID field (Spenn click links need the user's SpennID) */
+.spenn-id {
+    margin-top: 14px;
+}
+
+.spenn-id[hidden] {
+    display: none;
+}
+
+.spenn-id .setting-label {
+    margin-bottom: 0;
+}
+
+.spenn-id-input {
+    display: block;
+    width: 100%;
+    margin-top: 6px;
+    padding: 8px 10px;
+    background: var(--btn-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 14px;
+    letter-spacing: 0.04em;
+}
+
+.spenn-id-input:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+}
+
+.spenn-id-input[aria-invalid="true"] {
+    border-color: #c50000;
+}
+
+.spenn-id-hint {
+    display: block;
+    margin-top: 4px;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+/* Text color stays theme-aware for contrast; the red input border marks the error. */
+.spenn-id-hint.invalid {
+    color: var(--text);
+    font-weight: 600;
+}
+
 /* Info link */
 .info-link {
     position: absolute;

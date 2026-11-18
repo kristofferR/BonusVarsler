@@ -13,6 +13,9 @@ export interface Service {
   color: string;
   defaultEnabled?: boolean;
   type?: "code" | "info"; // "code" for code-based (DNB), "info" for informational (OBOS, OPRA)
+  // NOK value of one point for point-based services, used only to rank their offers against
+  // percentage and kroner offers from other services.
+  pointValueNok?: number;
   comingSoon?: boolean;
 }
 
@@ -40,6 +43,8 @@ export const SERVICES_FALLBACK: ServiceRegistry = {
     reminderDomain: "onlineshopping.flysas.com",
     cashbackPathPatterns: ["/nb-NO/butikker"],
     color: "#0F1E82",
+    // EuroBonus points are typically worth 7-11 øre on award flights
+    pointValueNok: 0.1,
     defaultEnabled: false,
   },
   remember: {
@@ -113,10 +118,21 @@ export const SERVICES_FALLBACK: ServiceRegistry = {
     defaultEnabled: false,
     type: "info",
   },
+  spenn: {
+    id: "spenn",
+    name: "Spenn",
+    // Spenn's public Refunder click endpoint (site= is Spenn's Norwegian Refunder site,
+    // shared by every store). {spennId} is filled with the user's own SpennID on click.
+    clickthroughUrl: "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store={urlName}&source=browser-extension&spennId={spennId}",
+    color: "#E51E4F",
+    // REMA 1000 redeems 100 Spenn for 10 kr, its stated minimum value
+    pointValueNok: 0.1,
+    defaultEnabled: false,
+  },
 };
 
 // Service display order (active services first, then coming soon)
-export const SERVICE_ORDER = ["trumf", "sas", "remember", "dnb", "obos", "naf", "lofavor", "logbuy", "spareborsen", "opra"] as const;
+export const SERVICE_ORDER = ["trumf", "sas", "remember", "dnb", "obos", "naf", "lofavor", "logbuy", "spareborsen", "opra", "spenn"] as const;
 
 /**
  * Get default enabled services

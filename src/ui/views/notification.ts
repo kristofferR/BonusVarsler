@@ -23,6 +23,7 @@ import { getLogoIconForService, SETTINGS_ICON_URI } from "../components/icons.js
 import { makeCornerDraggable, type CleanupFunction } from "../components/draggable.js";
 import { detectAdblock } from "../../core/adblock-detection.js";
 import { resolveClickthroughUrl, restoreActionButtonHref } from "../utils/clickthrough.js";
+import { fillSpennId, needsSpennId, normalizeSpennId } from "../../core/spenn-id.js";
 
 export interface NotificationOptions {
   match: MatchResult;
@@ -46,7 +47,8 @@ export function createNotification(options: NotificationOptions): HTMLElement {
   // Create shadow host
   const shadowHost = createShadowHost();
   appendToBody(shadowHost);
-  const shadowRoot = shadowHost.attachShadow({ mode: "open" });
+  // Closed so page scripts (and session-replay tools) can't read the saved SpennID
+  const shadowRoot = shadowHost.attachShadow({ mode: "closed" });
 
   // Inject styles
   injectStyles(shadowRoot, getNotificationStyles());
@@ -100,9 +102,10 @@ export function createNotification(options: NotificationOptions): HTMLElement {
   const checklist = createChecklist(service, i18n);
 
   // Action button
-  const { actionBtn, recheckIcon } = createActionButton(
+  const { actionBtn, recheckIcon, spennIdField } = createActionButton(
     match,
     service,
+    settings,
     i18n,
     sessionStorage,
     currentHost,
@@ -123,6 +126,9 @@ export function createNotification(options: NotificationOptions): HTMLElement {
   content.appendChild(subtitle);
   content.appendChild(reminder);
   content.appendChild(checklist);
+  if (spennIdField) {
+    content.appendChild(spennIdField.element);
+  }
   content.appendChild(actionBtn);
   content.appendChild(hideSiteLink);
   body.appendChild(content);
@@ -178,6 +184,13 @@ export function createNotification(options: NotificationOptions): HTMLElement {
     e.stopPropagation();
     content.classList.add("hidden");
     settingsPanel.classList.add("active");
+    // The inline field may have saved an ID since the panel was built
+    const spennIdInput = settingsPanel.querySelector<HTMLInputElement>(".spenn-id-input");
+    if (spennIdInput) {
+      spennIdInput.value = settings.getSpennId() ?? "";
+      // Run the field's input handler to clear any stale invalid state
+      spennIdInput.dispatchEvent(new Event("input"));
+    }
   };
   settingsBtn.addEventListener("click", openSettings);
   settingsBtn.addEventListener("keydown", (e) => {
@@ -460,25 +473,137 @@ function createChecklist(service: Service, i18n: I18nAdapter): HTMLOListElement 
   return checklist;
 }
 
+interface SpennIdField {
+  element: HTMLDivElement;
+  input: HTMLInputElement;
+  showInvalid: (focus?: boolean) => void;
+}
+
+// Unique hint ids within the shadow root (inline field and settings field)
+let spennIdFieldCount = 0;
+
+function createSpennIdField(
+  i18n: I18nAdapter,
+  initialValue: string,
+  onEnter?: () => void
+): SpennIdField {
+  const element = document.createElement("div");
+  element.className = "spenn-id";
+
+  const label = document.createElement("label");
+  label.className = "setting-label";
+  label.textContent = i18n.getMessage("spennIdLabel");
+
+  const input = document.createElement("input");
+  input.className = "spenn-id-input";
+  input.type = "text";
+  input.inputMode = "numeric";
+  input.autocomplete = "off";
+  input.spellcheck = false;
+  input.placeholder = i18n.getMessage("spennIdPlaceholder");
+  input.value = initialValue;
+  label.appendChild(input);
+
+  const hintText = i18n.getMessage("spennIdHint");
+  const hint = document.createElement("span");
+  hint.className = "spenn-id-hint";
+  hint.id = `spenn-id-hint-${++spennIdFieldCount}`;
+  hint.setAttribute("aria-live", "polite");
+  hint.textContent = hintText;
+  input.setAttribute("aria-describedby", hint.id);
+
+  input.addEventListener("input", () => {
+    input.removeAttribute("aria-invalid");
+    hint.classList.remove("invalid");
+    hint.textContent = hintText;
+  });
+  if (onEnter) {
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        onEnter();
+      }
+    });
+  }
+
+  element.append(label, hint);
+  return {
+    element,
+    input,
+    showInvalid: (focus = true) => {
+      input.setAttribute("aria-invalid", "true");
+      hint.classList.add("invalid");
+      hint.textContent = i18n.getMessage("spennIdInvalid");
+      if (focus) {
+        input.focus();
+      }
+    },
+  };
+}
+
 function createActionButton(
   match: MatchResult,
   service: Service,
+  settings: Settings,
   i18n: I18nAdapter,
   sessionStorage: SessionStorageAdapter,
   currentHost: string,
   currentPathname: string,
   content: HTMLDivElement
-): { actionBtn: HTMLAnchorElement; recheckIcon: HTMLSpanElement } {
+): { actionBtn: HTMLAnchorElement; recheckIcon: HTMLSpanElement; spennIdField: SpennIdField | null } {
   const actionBtn = document.createElement("a");
   actionBtn.className = "action-btn";
 
   // Build clickthrough URL
-  const clickthroughUrl = resolveClickthroughUrl(
+  const resolvedUrl = resolveClickthroughUrl(
     match.offer.clickthroughUrl,
     service,
     match.urlName || ""
   );
+  // Spenn links credit the SpennID in the URL; ask for it inline until one is saved.
+  const spennTemplate = needsSpennId(resolvedUrl) ? resolvedUrl : null;
+  const savedSpennId = settings.getSpennId();
+  const clickthroughUrl =
+    spennTemplate && savedSpennId ? fillSpennId(spennTemplate, savedSpennId) : resolvedUrl;
   restoreActionButtonHref(actionBtn, clickthroughUrl);
+  let spennIdField =
+    spennTemplate && !savedSpennId ? createSpennIdField(i18n, "", () => actionBtn.click()) : null;
+
+  // Fill the current SpennID into the link before any navigation, saving a valid
+  // inline entry. Without a valid ID, block the navigation and ask for one.
+  const prepareSpennLink = (e: Event): boolean => {
+    if (!spennTemplate) return true;
+    const spennId = settings.getSpennId() ?? normalizeSpennId(spennIdField?.input.value ?? "");
+    if (!spennId) {
+      e.preventDefault();
+      if (spennIdField) {
+        spennIdField.showInvalid();
+      } else {
+        // The saved ID was cleared in the settings panel after this notification rendered
+        spennIdField = createSpennIdField(i18n, "", () => actionBtn.click());
+        actionBtn.before(spennIdField.element);
+        spennIdField.input.focus();
+      }
+      return false;
+    }
+    actionBtn.href = fillSpennId(spennTemplate, spennId);
+    if (spennIdField) {
+      void settings.setSpennId(spennId);
+      spennIdField.element.remove();
+      spennIdField = null;
+    }
+    return true;
+  };
+  if (spennTemplate) {
+    // Middle-click and the context menu skip the click handler
+    const onOtherNavigation = (e: MouseEvent) => {
+      if (e.type === "auxclick" && e.button !== 1) return;
+      if (!actionBtn.hasAttribute("href")) return; // disabled, e.g. adblock detected
+      prepareSpennLink(e);
+    };
+    actionBtn.addEventListener("auxclick", onOtherNavigation);
+    actionBtn.addEventListener("contextmenu", onOtherNavigation);
+  }
 
   // For code-based services, show the rebate code
   if (service.type === "code" && match.offer?.code) {
@@ -542,6 +667,10 @@ function createActionButton(
       e.preventDefault();
     }
 
+    if (!prepareSpennLink(e)) {
+      return;
+    }
+
     sessionStorage.set(getMessageShownKey(currentHost, currentPathname), Date.now().toString());
 
     // Info-type services: just let the link open naturally
@@ -594,7 +723,7 @@ function createActionButton(
     content.appendChild(confirmation);
   });
 
-  return { actionBtn, recheckIcon };
+  return { actionBtn, recheckIcon, spennIdField };
 }
 
 function createSettingsPanel(
@@ -612,6 +741,12 @@ function createSettingsPanel(
   servicesRow.className = "setting-row";
 
   const servicesContainer = document.createElement("div");
+
+  // Shown only while Spenn is enabled; the Spenn toggle below updates it
+  const spennIdField = services.spenn ? createSpennIdSettingsField(settings, i18n) : null;
+  if (spennIdField) {
+    spennIdField.hidden = !settings.isServiceEnabled("spenn");
+  }
 
   for (const svc of Object.values(services)) {
     const row = document.createElement("div");
@@ -644,6 +779,9 @@ function createSettingsPanel(
 
     toggle.addEventListener("click", async () => {
       const isActive = toggle.classList.toggle("active");
+      if (svc.id === "spenn" && spennIdField) {
+        spennIdField.hidden = !isActive;
+      }
       await settings.setServiceEnabled(svc.id, isActive);
     });
 
@@ -653,6 +791,10 @@ function createSettingsPanel(
   }
 
   servicesRow.appendChild(servicesContainer);
+
+  if (spennIdField) {
+    servicesRow.appendChild(spennIdField);
+  }
 
   // Settings grid
   const settingsGrid = document.createElement("div");
@@ -690,6 +832,25 @@ function createSettingsPanel(
   panel.appendChild(backLink);
 
   return panel;
+}
+
+function createSpennIdSettingsField(settings: Settings, i18n: I18nAdapter): HTMLDivElement {
+  const field = createSpennIdField(i18n, settings.getSpennId() ?? "");
+  field.input.addEventListener("change", async () => {
+    if (!field.input.value.trim()) {
+      await settings.setSpennId(null);
+      return;
+    }
+    const spennId = normalizeSpennId(field.input.value);
+    if (!spennId) {
+      // Runs on blur, so don't pull focus back into the field.
+      field.showInvalid(false);
+      return;
+    }
+    field.input.value = spennId;
+    await settings.setSpennId(spennId);
+  });
+  return field.element;
 }
 
 function createThemeRow(
