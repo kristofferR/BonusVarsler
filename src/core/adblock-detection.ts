@@ -21,15 +21,18 @@ function originOf(url: string): string | null {
  * Check if any ad test URL is blocked.
  * Firefox applies the page's CSP to content-script requests and userscripts may run in the
  * page itself, so a probe can fail without any adblocker. Those failures come with a
- * securitypolicyviolation event and are ignored.
+ * securitypolicyviolation event and are ignored. Report-only policies fire the event too but
+ * block nothing, so only enforced violations count.
  */
 export async function checkAdUrlsBlocked(
   fetcher: Pick<FetchAdapter, "checkUrlBlocked">,
   violationTarget: EventTarget = document
 ): Promise<boolean> {
-  const cspBlockedOrigins = new Set<string | null>();
+  const cspBlockedOrigins = new Set<string>();
   const onViolation = (event: Event) => {
-    cspBlockedOrigins.add(originOf((event as SecurityPolicyViolationEvent).blockedURI));
+    const violation = event as SecurityPolicyViolationEvent;
+    const origin = originOf(violation.blockedURI);
+    if (violation.disposition === "enforce" && origin) cspBlockedOrigins.add(origin);
   };
   violationTarget.addEventListener("securitypolicyviolation", onViolation);
 
@@ -40,7 +43,7 @@ export async function checkAdUrlsBlocked(
     if (!results.some((result) => result.blocked)) return false;
 
     await new Promise((resolve) => setTimeout(resolve, CSP_VIOLATION_GRACE_MS));
-    return results.some(({ url, blocked }) => blocked && !cspBlockedOrigins.has(originOf(url)));
+    return results.some(({ url, blocked }) => blocked && !cspBlockedOrigins.has(new URL(url).origin));
   } finally {
     violationTarget.removeEventListener("securitypolicyviolation", onViolation);
   }

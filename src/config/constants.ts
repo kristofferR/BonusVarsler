@@ -73,10 +73,14 @@ export const AD_TEST_URLS = [
 ] as const;
 
 // Banner IDs for DOM-based adblock detection
+// Bait elements adblockers hide. uBlock Origin's default lists hide ad_banner and carbonads
+// (checked 2026-11), which matters where the page's CSP leaves the URL probes inconclusive.
 export const AD_BANNER_IDS = [
   "AdHeader",
   "AdContainer",
   "AD_Top",
   "homead",
   "ad-lead",
+  "ad_banner",
+  "carbonads",
 ] as const;
