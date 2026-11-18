@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import { readFileSync } from "node:fs";
 import { AD_TEST_URLS } from "../src/config/constants.ts";
 import { checkAdUrlsBlocked } from "../src/core/adblock-detection.ts";
 
@@ -69,4 +70,12 @@ describe("checkAdUrlsBlocked", () => {
   test("reports nothing when every probe succeeds", async () => {
     expect(await probe({})).toBe(false);
   });
+});
+
+// background.js is hand-written and cannot import the constants
+test("background.js allows exactly the probe URLs", () => {
+  const source = readFileSync(new URL("../background.js", import.meta.url), "utf8");
+  const list = source.match(/const AD_TEST_URLS = \[([^\]]*)\]/)?.[1] ?? "";
+  const allowed = [...list.matchAll(/"([^"]+)"/g)].map((match) => match[1]);
+  expect(allowed).toEqual([...AD_TEST_URLS]);
 });

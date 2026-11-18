@@ -10,6 +10,15 @@ const CONFIG = {
   retryDelays: [100, 500, 1000, 2000, 4000],
 };
 
+// The only URLs the adblock probe may fetch. Keep in sync with AD_TEST_URLS in
+// src/config/constants.ts (tests/adblock-detection.test.ts compares the two).
+const AD_TEST_URLS = [
+  "https://widgets.outbrain.com/outbrain.js",
+  "https://adligature.com/",
+  "https://secure.quantserve.com/quant.js",
+  "https://srvtrck.com/assets/css/LineIcons.css",
+];
+
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -79,7 +88,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true; // Keep the message channel open for async response
   }
 
-  if (message.type === "checkUrlBlocked") {
+  if (message.type === "checkUrlBlocked" && AD_TEST_URLS.includes(message.url)) {
     // Adblock probe repeated here when the page's CSP blocked it in the content script.
     // No referrer or credentials: the ad network learns nothing about the user.
     fetch(message.url, {
