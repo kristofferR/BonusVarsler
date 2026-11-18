@@ -36,7 +36,8 @@ export class ExtensionFetch implements FetchAdapter {
 
   async checkUrlBlocked(url: string): Promise<boolean> {
     try {
-      await fetch(url, { mode: "no-cors" });
+      // no-referrer: the ad network must not learn which shop the user is on
+      await fetch(url, { mode: "no-cors", referrerPolicy: "no-referrer" });
       // With no-cors, we can't read the response, but if we get here, it wasn't blocked
       return false;
     } catch {

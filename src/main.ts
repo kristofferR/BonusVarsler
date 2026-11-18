@@ -6,10 +6,17 @@
 import type { StorageAdapter, SessionStorageAdapter } from "./storage/types.js";
 import type { FetchAdapter } from "./network/types.js";
 import type { I18nAdapter } from "./i18n/types.js";
-import { PAGE_VISIT_COUNT_PREFIX, CONFIG, STORAGE_KEYS, getMessageShownKey } from "./config/constants.js";
+import {
+  PAGE_VISIT_COUNT_PREFIX,
+  CONFIG,
+  CURRENT_VERSION,
+  STORAGE_KEYS,
+  getMessageShownKey,
+} from "./config/constants.js";
 import { DOMAIN_ALIASES } from "./config/domain-aliases.js";
+import { SERVICES_FALLBACK } from "./config/services.js";
 import { Settings } from "./core/settings.js";
-import { FeedManager } from "./core/feed.js";
+import { FeedManager, isKnownMerchantHost } from "./core/feed.js";
 import { findBestOffer } from "./core/merchant-matching.js";
 
 /**
@@ -23,17 +30,40 @@ export interface PlatformAdapters {
 }
 
 /**
- * Early bailout checks (before any async work)
+ * Cheap gate that runs on every page, before anything is written to the page.
+ * Returns true when the page cannot need any UI: not a known merchant, not a
+ * cashback portal, and no migration or first-run setup pending.
+ */
+export async function canSkipPage(
+  storage: StorageAdapter,
+  currentHost: string,
+  currentPathname: string
+): Promise<boolean> {
+  // Cashback portals get a reminder even though they are not merchants
+  const allServiceIds = Object.keys(SERVICES_FALLBACK);
+  if (isOnCashbackPage(currentHost, currentPathname, allServiceIds, SERVICES_FALLBACK).isOnPage) {
+    return false;
+  }
+
+  const [version, setupComplete, isKnownHost] = await Promise.all([
+    storage.get<string | null>(STORAGE_KEYS.version, null),
+    storage.get<boolean>(STORAGE_KEYS.setupComplete, false),
+    isKnownMerchantHost(storage, currentHost, DOMAIN_ALIASES),
+  ]);
+
+  // A pending migration, unfinished setup or missing host index needs the full flow
+  return version === CURRENT_VERSION && setupComplete && isKnownHost === false;
+}
+
+/**
+ * Count this page visit and check the per-page cooldown.
  * Returns true if we should skip the notification
  */
-export function shouldBailOutEarly(
+export function countVisitAndCheckCooldown(
   sessionStorage: SessionStorageAdapter,
   currentHost: string,
   currentPathname = "/"
 ): boolean {
-  // Skip iframes entirely
-  if (window.top !== window.self) return true;
-
   // Track page visits per host
   const pageVisitKey = `${PAGE_VISIT_COUNT_PREFIX}${currentHost}`;
   const currentVisits = parseInt(sessionStorage.get(pageVisitKey) ?? "0", 10);
@@ -97,7 +127,7 @@ export async function initialize(
   const feedManager = new FeedManager(storage, fetcher);
 
   // Quick host check (if index is cached)
-  const isKnown = await feedManager.isKnownMerchantHost(currentHost, DOMAIN_ALIASES);
+  const isKnown = await isKnownMerchantHost(storage, currentHost, DOMAIN_ALIASES);
   if (isKnown === false) {
     return { status: "no-match", settings }; // Definitely not a merchant
   }
