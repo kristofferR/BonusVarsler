@@ -184,6 +184,11 @@ export function createNotification(options: NotificationOptions): HTMLElement {
     e.stopPropagation();
     content.classList.add("hidden");
     settingsPanel.classList.add("active");
+    // The inline field may have saved an ID since the panel was built
+    const spennIdInput = settingsPanel.querySelector<HTMLInputElement>(".spenn-id-input");
+    if (spennIdInput) {
+      spennIdInput.value = settings.getSpennId() ?? "";
+    }
   };
   settingsBtn.addEventListener("click", openSettings);
   settingsBtn.addEventListener("keydown", (e) => {
@@ -472,6 +477,9 @@ interface SpennIdField {
   showInvalid: (focus?: boolean) => void;
 }
 
+// Unique hint ids within the shadow root (inline field and settings field)
+let spennIdFieldCount = 0;
+
 function createSpennIdField(
   i18n: I18nAdapter,
   initialValue: string,
@@ -497,8 +505,10 @@ function createSpennIdField(
   const hintText = i18n.getMessage("spennIdHint");
   const hint = document.createElement("span");
   hint.className = "spenn-id-hint";
+  hint.id = `spenn-id-hint-${++spennIdFieldCount}`;
   hint.setAttribute("aria-live", "polite");
   hint.textContent = hintText;
+  input.setAttribute("aria-describedby", hint.id);
 
   input.addEventListener("input", () => {
     input.removeAttribute("aria-invalid");
@@ -730,6 +740,12 @@ function createSettingsPanel(
 
   const servicesContainer = document.createElement("div");
 
+  // Shown only while Spenn is enabled; the Spenn toggle below updates it
+  const spennIdField = services.spenn ? createSpennIdSettingsField(settings, i18n) : null;
+  if (spennIdField) {
+    spennIdField.hidden = !settings.isServiceEnabled("spenn");
+  }
+
   for (const svc of Object.values(services)) {
     const row = document.createElement("div");
     row.className = "service-toggle-row";
@@ -761,6 +777,9 @@ function createSettingsPanel(
 
     toggle.addEventListener("click", async () => {
       const isActive = toggle.classList.toggle("active");
+      if (svc.id === "spenn" && spennIdField) {
+        spennIdField.hidden = !isActive;
+      }
       await settings.setServiceEnabled(svc.id, isActive);
     });
 
@@ -771,8 +790,8 @@ function createSettingsPanel(
 
   servicesRow.appendChild(servicesContainer);
 
-  if (services.spenn && settings.isServiceEnabled("spenn")) {
-    servicesRow.appendChild(createSpennIdSettingsField(settings, i18n));
+  if (spennIdField) {
+    servicesRow.appendChild(spennIdField);
   }
 
   // Settings grid

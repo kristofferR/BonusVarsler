@@ -395,6 +395,8 @@ const HOSTNAME_ALIASES: Record<string, string> = {
   "go.saily.site": "saily.com",
   "nespresso.prf.hn": "www.nespresso.com",
   "iherb.prf.hn": "no.iherb.com",
+  // Spenn's catalog drops the xn-- prefix from småungene.no's punycode host
+  "smungene-b0a.no": "xn--smungene-b0a.no",
 };
 
 // ===================
