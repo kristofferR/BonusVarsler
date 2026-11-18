@@ -112,7 +112,7 @@ Each platform (extension/userscript) provides its own implementations in `src/pl
 - CSS custom properties (`--bg`, `--text`, `--accent`, etc.) enable theming
 - Theme applied via class on shadow host: `tbvl-light`, `tbvl-dark`, `tbvl-system`
 - Feed cached in browser storage for 48 hours
-- Firefox applies the page's CSP to content-script requests (Chrome doesn't); adblock probes that fail with a `securitypolicyviolation` event are not counted
+- Firefox applies the page's CSP to content-script requests (Chrome doesn't). Adblock probes that fail with an enforced `securitypolicyviolation` are repeated from the background script, which catches DNS-level blockers; the bait elements catch uBlock Origin there, since it does not block another extension's background requests
 
 ## Storage Keys (v1)
 

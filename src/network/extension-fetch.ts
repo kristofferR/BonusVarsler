@@ -44,6 +44,17 @@ export class ExtensionFetch implements FetchAdapter {
       return true;
     }
   }
+
+  async checkUrlBlockedOutsidePage(url: string): Promise<boolean> {
+    try {
+      const response = (await browserAPI.runtime.sendMessage({ type: "checkUrlBlocked", url })) as {
+        blocked?: boolean;
+      } | null;
+      return response?.blocked === true;
+    } catch {
+      return false; // no answer from the background is no evidence of a blocker
+    }
+  }
 }
 
 // Singleton instance

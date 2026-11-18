@@ -78,6 +78,21 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     });
     return true; // Keep the message channel open for async response
   }
+
+  if (message.type === "checkUrlBlocked") {
+    // Adblock probe repeated here when the page's CSP blocked it in the content script.
+    // No referrer or credentials: the ad network learns nothing about the user.
+    fetch(message.url, {
+      mode: "no-cors",
+      referrerPolicy: "no-referrer",
+      credentials: "omit",
+      cache: "no-store",
+    }).then(
+      () => sendResponse({ blocked: false }),
+      () => sendResponse({ blocked: true })
+    );
+    return true;
+  }
 });
 
 // Handle extension icon click - open options page

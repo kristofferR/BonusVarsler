@@ -31,4 +31,10 @@ export interface FetchAdapter {
    * @returns true if blocked, false otherwise
    */
   checkUrlBlocked(url: string): Promise<boolean>;
+
+  /**
+   * The same check from outside the page, where the page's CSP does not apply.
+   * Absent on platforms without such a context.
+   */
+  checkUrlBlockedOutsidePage?(url: string): Promise<boolean>;
 }
