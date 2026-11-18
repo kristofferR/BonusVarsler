@@ -67,6 +67,15 @@
     "color": "#ee2e24",
     "defaultEnabled": false
   },
+  "spareborsen": {
+    "id": "spareborsen",
+    "name": "Sparebørsen",
+    "clickthroughUrl": "https://spareborsen.no/partnere/{urlName}",
+    "reminderDomain": "spareborsen.no",
+    "cashbackPathPatterns": ["/partnere/"],
+    "color": "#B8903A",
+    "defaultEnabled": false
+  },
   "spenn": {
     "id": "spenn",
     "name": "Spenn",

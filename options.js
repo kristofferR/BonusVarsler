@@ -52,6 +52,12 @@ const SERVICES_FALLBACK = {
     name: "Visma LogBuy",
     color: "#ee2e24",
   },
+  spareborsen: {
+    id: "spareborsen",
+    name: "Sparebørsen",
+    color: "#B8903A",
+    defaultEnabled: false,
+  },
   spenn: {
     id: "spenn",
     name: "Spenn",

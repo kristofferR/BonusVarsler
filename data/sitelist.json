@@ -66,6 +66,16 @@
         "/WebPages/ShowDeal/"
       ]
     },
+    "spareborsen": {
+      "name": "Sparebørsen",
+      "clickthroughUrl": "https://spareborsen.no/partnere/{urlName}",
+      "color": "#B8903A",
+      "defaultEnabled": false,
+      "reminderDomain": "spareborsen.no",
+      "cashbackPathPatterns": [
+        "/partnere/"
+      ]
+    },
     "spenn": {
       "name": "Spenn",
       "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store={urlName}&source=browser-extension&spennId={spennId}",
@@ -147,6 +157,17 @@
           "urlName": "01896312-734c-72c1-9980-4a5923b4462d",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/kitchn-norge/01896312-734c-72c1-9980-4a5923b4462d"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "kitchn",
+          "cashbackDescription": "4%"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "87f3f3e1-b35d-4603-af69-f34b64677a23",
+          "cashbackDescription": "Opptil 1,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=87f3f3e1-b35d-4603-af69-f34b64677a23&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -234,6 +255,11 @@
           "serviceId": "logbuy",
           "urlName": "20483",
           "cashbackDescription": "15 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "strawberry",
+          "cashbackDescription": "2,8 %"
         }
       ]
     },
@@ -290,6 +316,11 @@
           "serviceId": "lofavor",
           "urlName": "ferie-og-opplevelser/scandic-hotels",
           "cashbackDescription": "14 % rabatt"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "scandic",
+          "cashbackDescription": "3,8 %"
         }
       ]
     },
@@ -347,6 +378,11 @@
           "serviceId": "remember",
           "urlName": "lindex",
           "cashbackDescription": "8%"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "lindex",
+          "cashbackDescription": "7,6 %"
         }
       ]
     },
@@ -410,9 +446,19 @@
           "cashbackDescription": "6,2 %"
         },
         {
+          "serviceId": "remember",
+          "urlName": "radisson-hotel-group",
+          "cashbackDescription": "4%"
+        },
+        {
           "serviceId": "logbuy",
           "urlName": "20506",
           "cashbackDescription": "25 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "radisson-hotels",
+          "cashbackDescription": "3,8 %"
         }
       ]
     },
@@ -555,6 +601,11 @@
           "cashbackDescription": "6%"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "christiania-glasmagasin",
+          "cashbackDescription": "5,7 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "89db0161-cb3b-4407-8212-6715bfb8176a",
           "cashbackDescription": "2,9 Spenn / 10 kr",
@@ -600,6 +651,11 @@
           "cashbackDescription": "7%"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "apotekhjem-no",
+          "cashbackDescription": "6,7 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "8d4892ef-22f9-4e79-b873-0cd62607f5b3",
           "cashbackDescription": "3,4 Spenn / 10 kr",
@@ -643,6 +699,11 @@
               "description": "i reward-rabatt på solbriller"
             }
           ]
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "lensway",
+          "cashbackDescription": "7,6 %"
         }
       ]
     },
@@ -670,6 +731,11 @@
           "serviceId": "logbuy",
           "urlName": "21781",
           "cashbackDescription": "2 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "cs-megastore",
+          "cashbackDescription": "3,8 %"
         }
       ]
     },
@@ -687,6 +753,11 @@
           "urlName": "01896309-e373-70a7-a93c-65f007a65dd3",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/fotoknudsen/01896309-e373-70a7-a93c-65f007a65dd3"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "fotoknudsen",
+          "cashbackDescription": "1 %"
         },
         {
           "serviceId": "spenn",
@@ -744,6 +815,11 @@
           "urlName": "0189630d-f2db-71f5-ba8d-da548207ca78",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/elektroimportøren.no/0189630d-f2db-71f5-ba8d-da548207ca78"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "elektroimportoren-no",
+          "cashbackDescription": "4,8 %"
         }
       ]
     },
@@ -777,6 +853,11 @@
           "urlName": "01896311-ed1e-72a2-b624-0b81184ec29e",
           "cashbackDescription": "30 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/vy-buss/01896311-ed1e-72a2-b624-0b81184ec29e"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "vy-buss",
+          "cashbackDescription": "3,8 %"
         }
       ]
     },
@@ -908,6 +989,11 @@
           "cashbackDescription": "15 - 25 %"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "nytelse-no",
+          "cashbackDescription": "9,5 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "9093755c-514c-47b9-b3b5-f8f9ecd92a77",
           "cashbackDescription": "7,2 Spenn / 10 kr",
@@ -972,6 +1058,11 @@
           "serviceId": "logbuy",
           "urlName": "20488",
           "cashbackDescription": "10 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "gymgrossisten",
+          "cashbackDescription": "4,8 %"
         }
       ]
     },
@@ -1005,6 +1096,11 @@
           "serviceId": "remember",
           "urlName": "getyourguide",
           "cashbackDescription": "7%"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "getyourguide-no",
+          "cashbackDescription": "4,8 %"
         }
       ]
     },
@@ -1049,6 +1145,11 @@
           "serviceId": "logbuy",
           "urlName": "20469",
           "cashbackDescription": "10 - 15 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "lampegiganten",
+          "cashbackDescription": "7,6 %"
         }
       ]
     },
@@ -1093,6 +1194,11 @@
           "serviceId": "logbuy",
           "urlName": "20468",
           "cashbackDescription": "10 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "inkclub",
+          "cashbackDescription": "14,3 %"
         },
         {
           "serviceId": "spenn",
@@ -1155,6 +1261,11 @@
           "serviceId": "logbuy",
           "urlName": "22345",
           "cashbackDescription": "Tilbud"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "adidas",
+          "cashbackDescription": "5,7 %"
         }
       ]
     },
@@ -1183,6 +1294,11 @@
           "serviceId": "logbuy",
           "urlName": "22068",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "floyd",
+          "cashbackDescription": "5,7 %"
         },
         {
           "serviceId": "spenn",
@@ -1274,6 +1390,11 @@
           "serviceId": "remember",
           "urlName": "lenson",
           "cashbackDescription": "4.5%"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "lenson",
+          "cashbackDescription": "7,6 %"
         }
       ]
     },
@@ -1337,6 +1458,11 @@
           ]
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "skruvat",
+          "cashbackDescription": "5,7 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "a6040638-1885-484f-b735-a2fc5e2d0f85",
           "cashbackDescription": "Opptil 4,3 Spenn / 10 kr",
@@ -1358,6 +1484,11 @@
           "urlName": "0189630a-4f00-71b4-b13a-6a93082439a9",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/polarnopyret/0189630a-4f00-71b4-b13a-6a93082439a9"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "polarn-o-pyret",
+          "cashbackDescription": "7,6 %"
         },
         {
           "serviceId": "spenn",
@@ -1386,6 +1517,11 @@
           "serviceId": "logbuy",
           "urlName": "21142",
           "cashbackDescription": "15 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "comforth-scandinavia",
+          "cashbackDescription": "19 %"
         },
         {
           "serviceId": "spenn",
@@ -1466,6 +1602,11 @@
           "cashbackDescription": "Tilbud"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "db-journey",
+          "cashbackDescription": "5,7 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "10b91357-c676-4b8f-8057-523e665aa621",
           "cashbackDescription": "2,9 Spenn / 10 kr",
@@ -1492,6 +1633,11 @@
           "serviceId": "remember",
           "urlName": "askeladden-navnelapper",
           "cashbackDescription": "12%"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "askeladden-navnelapper",
+          "cashbackDescription": "11,4 %"
         },
         {
           "serviceId": "spenn",
@@ -1554,6 +1700,11 @@
           "serviceId": "remember",
           "urlName": "bubbleroom",
           "cashbackDescription": "4%"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "bubbleroom",
+          "cashbackDescription": "3,8 %"
         },
         {
           "serviceId": "spenn",
@@ -1633,6 +1784,11 @@
           "urlName": "019f374b-74f0-73aa-82f5-e11c748d36c2",
           "cashbackDescription": "50 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/kost1/019f374b-74f0-73aa-82f5-e11c748d36c2"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "kost1",
+          "cashbackDescription": "7,6 %"
         }
       ]
     },
@@ -1693,6 +1849,11 @@
           "serviceId": "logbuy",
           "urlName": "20461",
           "cashbackDescription": "10 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "bodystore",
+          "cashbackDescription": "4,8 %"
         }
       ]
     },
@@ -1815,6 +1976,11 @@
           "cashbackDescription": ""
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "elon",
+          "cashbackDescription": "1,9 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "cc78c9f6-02c3-40cb-8dd2-f0747a1d4eaa",
           "cashbackDescription": "Opptil 2,4 Spenn / 10 kr",
@@ -1841,6 +2007,11 @@
           "serviceId": "trumf",
           "urlName": "bonprix-trumf",
           "cashbackDescription": "6,2 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "bonprix",
+          "cashbackDescription": "6,7 %"
         }
       ]
     },
@@ -1950,6 +2121,11 @@
           "cashbackDescription": "10 %"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "bosch-home",
+          "cashbackDescription": "4,8 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "ef9c5cab-8336-4239-91ca-9aa69be52caa",
           "cashbackDescription": "2,4 Spenn / 10 kr",
@@ -1971,6 +2147,11 @@
           "urlName": "01896310-e823-72b0-8d74-6b3da56a30e3",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/autodoc/01896310-e823-72b0-8d74-6b3da56a30e3"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "autodoc",
+          "cashbackDescription": "3,8 %"
         },
         {
           "serviceId": "spenn",
@@ -2004,6 +2185,11 @@
           "serviceId": "logbuy",
           "urlName": "21541",
           "cashbackDescription": "Tilbud"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "dyson",
+          "cashbackDescription": "3,8 %"
         }
       ]
     },
@@ -2047,6 +2233,11 @@
           "serviceId": "naf",
           "urlName": "bildeler",
           "cashbackDescription": "15 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "bildeler-no",
+          "cashbackDescription": "7,6 %"
         }
       ]
     },
@@ -2069,6 +2260,11 @@
           "serviceId": "logbuy",
           "urlName": "22624",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "sharkninja",
+          "cashbackDescription": "1,9 %"
         },
         {
           "serviceId": "spenn",
@@ -2109,6 +2305,11 @@
           "urlName": "019fb246-096a-73ea-826f-90c50a2c9402",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/babybanden/019fb246-096a-73ea-826f-90c50a2c9402"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "babybanden",
+          "cashbackDescription": "7,6 %"
         },
         {
           "serviceId": "spenn",
@@ -2191,6 +2392,11 @@
           "serviceId": "logbuy",
           "urlName": "20484",
           "cashbackDescription": "8 - 70 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "sembo",
+          "cashbackDescription": "6,7 %"
         }
       ]
     },
@@ -2265,6 +2471,11 @@
           "cashbackDescription": "12%"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "babysjarm",
+          "cashbackDescription": "11,4 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "7e9a932d-1a68-42e7-981a-0f8f1ea7dcd2",
           "cashbackDescription": "7,2 Spenn / 10 kr",
@@ -2286,6 +2497,11 @@
           "urlName": "01896310-3933-7051-a2d0-a041a003871e",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/jakt-friluft/01896310-3933-7051-a2d0-a041a003871e"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "jakt--friluft",
+          "cashbackDescription": "6%"
         }
       ]
     },
@@ -2313,6 +2529,11 @@
           "serviceId": "remember",
           "urlName": "viking-footwear",
           "cashbackDescription": "8%"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "viking-footwear",
+          "cashbackDescription": "7,6 %"
         },
         {
           "serviceId": "spenn",
@@ -2349,6 +2570,11 @@
           "cashbackDescription": "5 - 15 %"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "homeroom",
+          "cashbackDescription": "7,6 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "aa1b8068-f95b-49e3-bb26-9cd469be1cde",
           "cashbackDescription": "Opptil 3,4 Spenn / 10 kr",
@@ -2376,6 +2602,11 @@
           "serviceId": "remember",
           "urlName": "philips-hue",
           "cashbackDescription": "7%"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "philips-hue-no-aff",
+          "cashbackDescription": "9,5 %"
         }
       ]
     },
@@ -2398,6 +2629,11 @@
           "serviceId": "trumf",
           "urlName": "budget-trumf",
           "cashbackDescription": "Opptil            \n\t            9,3 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "budget-leiebiler",
+          "cashbackDescription": "8%"
         }
       ]
     },
@@ -2442,6 +2678,11 @@
           "serviceId": "logbuy",
           "urlName": "21387",
           "cashbackDescription": "10 - 40 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "kinogavekort-no",
+          "cashbackDescription": "7,6 %"
         },
         {
           "serviceId": "spenn",
@@ -2490,6 +2731,11 @@
           "matchPathPrefix": "/no"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "batteriexperten",
+          "cashbackDescription": "9,5 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "3585529c-ff6d-408c-861a-66c15abef36d",
           "cashbackDescription": "4,8 Spenn / 10 kr",
@@ -2505,6 +2751,11 @@
           "serviceId": "trumf",
           "urlName": "engrospris-trumf",
           "cashbackDescription": "Opptil            \n\t            15,6 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "engrospris-no",
+          "cashbackDescription": "19 %"
         }
       ]
     },
@@ -2557,6 +2808,11 @@
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/sky-showtime/01918df2-dab9-710b-8016-dbfec600d48f"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "skyshowtime",
+          "cashbackDescription": "176 kr"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "d5882ef6-62d0-44e6-94d2-50947957cc6f",
           "cashbackDescription": "Opptil 1 020 Spenn (Årsabonnement)",
@@ -2577,6 +2833,11 @@
           "serviceId": "remember",
           "urlName": "devold",
           "cashbackDescription": "8%"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "devold",
+          "cashbackDescription": "7,6 %"
         },
         {
           "serviceId": "spenn",
@@ -2600,6 +2861,11 @@
           "urlName": "019f4b4d-3fc9-7184-a233-bc63156570b5",
           "cashbackDescription": "50 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/bokia/019f4b4d-3fc9-7184-a233-bc63156570b5"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "bokia",
+          "cashbackDescription": "13,3 %"
         }
       ]
     },
@@ -2622,6 +2888,11 @@
           "serviceId": "remember",
           "urlName": "dekkonline.com",
           "cashbackDescription": "2%"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "dekkonline-com",
+          "cashbackDescription": "2,8 %"
         }
       ]
     },
@@ -2662,6 +2933,11 @@
           "urlName": "01896311-41e5-71ce-a786-88cf89a16243",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/electrolux-spares-accessories/01896311-41e5-71ce-a786-88cf89a16243"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "electrolux-aftermarket",
+          "cashbackDescription": "3,8 %"
         },
         {
           "serviceId": "spenn",
@@ -2714,6 +2990,11 @@
           "cashbackDescription": "10 %"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "proteinfabrikken",
+          "cashbackDescription": "4,8 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "3db6bd19-b826-4c88-a20a-c1363a8dca39",
           "cashbackDescription": "1 Spenn / 10 kr",
@@ -2729,6 +3010,11 @@
           "serviceId": "trumf",
           "urlName": "teknikmagasinet-trumf",
           "cashbackDescription": "2,3 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "teknikmagasinet",
+          "cashbackDescription": "2,8 %"
         }
       ]
     },
@@ -2751,6 +3037,11 @@
           "serviceId": "logbuy",
           "urlName": "22414",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "sofas-and-more",
+          "cashbackDescription": "7,6 %"
         },
         {
           "serviceId": "spenn",
@@ -2820,6 +3111,11 @@
           "cashbackDescription": "10 %"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "l-occitane",
+          "cashbackDescription": "6,7 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "22a6a7df-6d54-4ae3-99fc-60dcdd531fb2",
           "cashbackDescription": "5,3 Spenn / 10 kr",
@@ -2886,6 +3182,11 @@
           "urlName": "0191bc6a-8a5f-72c5-9a44-119d164df38e",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/skogstad-sport/0191bc6a-8a5f-72c5-9a44-119d164df38e"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "skogstad-sport",
+          "cashbackDescription": "6,7 %"
         }
       ]
     },
@@ -2897,6 +3198,11 @@
           "serviceId": "trumf",
           "urlName": "smaungene-trumf",
           "cashbackDescription": "6,2 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "smaaungene",
+          "cashbackDescription": "7,6 %"
         }
       ]
     },
@@ -2908,6 +3214,11 @@
           "serviceId": "trumf",
           "urlName": "stille-trumf",
           "cashbackDescription": "7,8 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "stille",
+          "cashbackDescription": "9,5 %"
         },
         {
           "serviceId": "spenn",
@@ -2964,6 +3275,11 @@
           "serviceId": "naf",
           "urlName": "go-nordic-cruiseline",
           "cashbackDescription": "15 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "go-nordic-cruiseline",
+          "cashbackDescription": "5,5 %"
         }
       ]
     },
@@ -3000,6 +3316,11 @@
           "cashbackDescription": "5,4 %"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "drommerom",
+          "cashbackDescription": "7,1 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "80b2a8bc-4233-472a-b761-5aaefaea3014",
           "cashbackDescription": "3,6 Spenn / 10 kr",
@@ -3034,6 +3355,11 @@
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/trendcarpet/0197c10c-695d-734a-80cb-afa6b257734f"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "trendcarpet",
+          "cashbackDescription": "7,6 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "0e418eb3-6d51-497c-9b6f-fe63225c3207",
           "cashbackDescription": "3,8 Spenn / 10 kr",
@@ -3062,6 +3388,11 @@
           "cashbackDescription": "12%"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "beautycos",
+          "cashbackDescription": "7,6 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "b7a6020c-c953-42c8-a68d-005fab123b7f",
           "cashbackDescription": "3,8 Spenn / 10 kr",
@@ -3085,6 +3416,11 @@
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/bladkongen.no/01896307-d495-71ba-b745-e065da1ab693"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "bladkongen",
+          "cashbackDescription": "9,5 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "17d977eb-394f-4cf7-bd62-8ce135052236",
           "cashbackDescription": "4,8 Spenn / 10 kr",
@@ -3106,6 +3442,11 @@
           "urlName": "01896309-1356-70ef-9d7f-f03e87d2ee25",
           "cashbackDescription": "10 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/vida-xl-se/01896309-1356-70ef-9d7f-f03e87d2ee25"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "vidaxl",
+          "cashbackDescription": "6,7 %"
         }
       ]
     },
@@ -3129,6 +3470,11 @@
           "serviceId": "remember",
           "urlName": "timarco",
           "cashbackDescription": "7%"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "timarco",
+          "cashbackDescription": "9,5 %"
         }
       ]
     },
@@ -3140,6 +3486,11 @@
           "serviceId": "trumf",
           "urlName": "auto-europe-notrumf",
           "cashbackDescription": "4,6 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "auto-europe",
+          "cashbackDescription": "5,7 %"
         }
       ]
     },
@@ -3151,6 +3502,11 @@
           "serviceId": "trumf",
           "urlName": "trumfsuperkul",
           "cashbackDescription": "5,4 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "superkul-no",
+          "cashbackDescription": "6,7 %"
         }
       ]
     },
@@ -3226,6 +3582,11 @@
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/smartphoto-se/0189630d-6184-73b8-af87-07c88542f28c"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "smartphoto",
+          "cashbackDescription": "4,8 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "b8bae7a1-0c92-4775-96e0-4e52e8a2aa24",
           "cashbackDescription": "Opptil 8,2 Spenn / 10 kr",
@@ -3265,6 +3626,11 @@
           "cashbackDescription": "15 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/fjordline/019f3747-400d-72e3-b288-b8a2c230d3f1",
           "matchPathPrefix": "/nb"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "fjordline",
+          "cashbackDescription": "4,8 %"
         }
       ]
     },
@@ -3281,6 +3647,11 @@
           "serviceId": "logbuy",
           "urlName": "20448",
           "cashbackDescription": "Tilbud"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "electrolux-brandshop",
+          "cashbackDescription": "3,8 %"
         },
         {
           "serviceId": "spenn",
@@ -3309,6 +3680,11 @@
           "serviceId": "remember",
           "urlName": "i-love-dogs",
           "cashbackDescription": "12%"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "i-love-dogs",
+          "cashbackDescription": "6,7 %"
         }
       ]
     },
@@ -3355,6 +3731,11 @@
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/slikkepott/01896308-cbba-717c-b38b-bcf4e27a3d91"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "slikkepott",
+          "cashbackDescription": "7,6 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "596d12f4-45af-4371-9e71-f9170eef5ba1",
           "cashbackDescription": "Opptil 3,8 Spenn / 10 kr",
@@ -3377,6 +3758,11 @@
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/philips/01896307-ce95-73ec-b705-8d5a7c4410b2",
           "matchPathPrefix": "/no/no"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "philips-home-appliances",
+          "cashbackDescription": "4,8 %"
         },
         {
           "serviceId": "spenn",
@@ -3423,6 +3809,11 @@
           "urlName": "01896308-b758-703a-8f2a-7d8ab49b690e",
           "cashbackDescription": "50 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/lampemesteren/01896308-b758-703a-8f2a-7d8ab49b690e"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "lampemesteren",
+          "cashbackDescription": "7,6 %"
         },
         {
           "serviceId": "spenn",
@@ -3477,6 +3868,11 @@
           "cashbackDescription": "10%"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "bjorn-borg",
+          "cashbackDescription": "8,5 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "6859d3bc-468e-4b0a-8303-8f3ac0c588b5",
           "cashbackDescription": "4,3 Spenn / 10 kr",
@@ -3509,6 +3905,11 @@
           "urlName": "0189630d-4e7a-7014-9943-41d6625a52b9",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/newport/0189630d-4e7a-7014-9943-41d6625a52b9"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "newport",
+          "cashbackDescription": "5,7 %"
         },
         {
           "serviceId": "spenn",
@@ -3556,9 +3957,25 @@
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/kinoklubb/0189630f-6485-7344-8ba0-244ec2bc7db7"
         },
         {
+          "serviceId": "remember",
+          "urlName": "kinoklubb.no",
+          "cashbackDescription": "50 kr"
+        },
+        {
           "serviceId": "logbuy",
           "urlName": "21387",
           "cashbackDescription": "10 - 40 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "kinoklubb-no",
+          "cashbackDescription": "40 kr"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "c9c75d8c-858a-44e1-8101-92b3a6f46d05",
+          "cashbackDescription": "480 Spenn (12-måneders abonnement)",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=c9c75d8c-858a-44e1-8101-92b3a6f46d05&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -3580,6 +3997,11 @@
           "serviceId": "logbuy",
           "urlName": "21212",
           "cashbackDescription": "10 - 20 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "jbl",
+          "cashbackDescription": "4,8 %"
         },
         {
           "serviceId": "spenn",
@@ -3631,6 +4053,11 @@
           "cashbackDescription": "10 - 20 %"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "brilleland",
+          "cashbackDescription": "7,6 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "96ed9e38-d4b1-49a3-85b2-20e76db0b5fe",
           "cashbackDescription": "2,9 Spenn / 10 kr",
@@ -3648,6 +4075,11 @@
           "cashbackDescription": "6,2 %"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "hudprodukter",
+          "cashbackDescription": "7,6 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "b01d359f-fcbd-4a66-8912-62af37c0e9bd",
           "cashbackDescription": "3,8 Spenn / 10 kr",
@@ -3663,6 +4095,11 @@
           "serviceId": "trumf",
           "urlName": "beauty-mall",
           "cashbackDescription": "9,3 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "beauty-mall",
+          "cashbackDescription": "11,4 %"
         }
       ]
     },
@@ -3697,6 +4134,11 @@
           "urlName": "0189630d-090d-71ba-a708-cc740649c2f0",
           "cashbackDescription": "50 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/youwish/0189630d-090d-71ba-a708-cc740649c2f0"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "youwish",
+          "cashbackDescription": "7,6 %"
         }
       ]
     },
@@ -3713,6 +4155,11 @@
           "serviceId": "remember",
           "urlName": "libresse",
           "cashbackDescription": "10%"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "libresse",
+          "cashbackDescription": "9,5 %"
         },
         {
           "serviceId": "spenn",
@@ -3787,6 +4234,11 @@
           "cashbackDescription": "4%"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "racketspesialisten",
+          "cashbackDescription": "6,7 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "68660d71-62d0-4753-b0a5-5f0065fe2f15",
           "cashbackDescription": "4,8 Spenn / 10 kr",
@@ -3824,6 +4276,11 @@
           "serviceId": "logbuy",
           "urlName": "22675",
           "cashbackDescription": "10 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "autodude",
+          "cashbackDescription": "9,5 %"
         },
         {
           "serviceId": "spenn",
@@ -3904,6 +4361,11 @@
           "cashbackDescription": "3,1 %"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "dekk-eu",
+          "cashbackDescription": "3,8 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "233a9b59-90a7-4bd1-90e1-afa6a97ed5d8",
           "cashbackDescription": "1,9 Spenn / 10 kr",
@@ -3942,6 +4404,11 @@
           "serviceId": "logbuy",
           "urlName": "21332",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "swims",
+          "cashbackDescription": "7,6 %"
         }
       ]
     },
@@ -3984,6 +4451,11 @@
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/xplora/0189630b-fef3-70b3-953f-1b0c8875ef34"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "xplora",
+          "cashbackDescription": "9,5 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "df6278f0-459e-4bc8-a498-633f7b1c45f7",
           "cashbackDescription": "Opptil 1 800 Spenn (Kjøp fra 1000 NOK)",
@@ -4005,6 +4477,22 @@
           "urlName": "0189630f-e7ef-728b-81eb-be251fef4eb5",
           "cashbackDescription": "50 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/nordic-print/0189630f-e7ef-728b-81eb-be251fef4eb5"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "nordicprint",
+          "cashbackDescription": "20%"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "nordicprint",
+          "cashbackDescription": "19 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "649a81e1-c970-4894-a9d4-53da5d5b336c",
+          "cashbackDescription": "9,6 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=649a81e1-c970-4894-a9d4-53da5d5b336c&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -4016,6 +4504,11 @@
           "serviceId": "trumf",
           "urlName": "uppababy-trumf",
           "cashbackDescription": "14 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "uppababy",
+          "cashbackDescription": "4,8 %"
         },
         {
           "serviceId": "spenn",
@@ -4033,6 +4526,11 @@
           "serviceId": "trumf",
           "urlName": "aeg-reservedeler-og-tilbehor-trumf",
           "cashbackDescription": "7,8 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "aeg-aftermarket",
+          "cashbackDescription": "3,8 %"
         },
         {
           "serviceId": "spenn",
@@ -4077,6 +4575,11 @@
           "serviceId": "naf",
           "urlName": "fabel",
           "cashbackDescription": "15 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "fabel",
+          "cashbackDescription": "36 kr"
         }
       ]
     },
@@ -4122,6 +4625,11 @@
           "serviceId": "trumf",
           "urlName": "didriksons-trumf",
           "cashbackDescription": "4,6 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "didriksons",
+          "cashbackDescription": "4 %"
         }
       ]
     },
@@ -4144,6 +4652,11 @@
           "serviceId": "trumf",
           "urlName": "kayani-trumf",
           "cashbackDescription": "10,1 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "kayani",
+          "cashbackDescription": "12,4 %"
         }
       ]
     },
@@ -4173,6 +4686,11 @@
           "serviceId": "trumf",
           "urlName": "fyrklovern-trumf",
           "cashbackDescription": "6,2 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "fyrklovern",
+          "cashbackDescription": "9,5 %"
         }
       ]
     },
@@ -4242,6 +4760,11 @@
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/glowid/019fcd29-9ce6-7071-9fba-2e9c939d55fb"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "glowid",
+          "cashbackDescription": "9,5 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "de4095c0-9f94-4a96-b3a0-1f6a15d1aefa",
           "cashbackDescription": "4,8 Spenn / 10 kr",
@@ -4257,6 +4780,11 @@
           "serviceId": "trumf",
           "urlName": "smartasaker-trumf",
           "cashbackDescription": "7,8 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "smartasaker",
+          "cashbackDescription": "7,6 %"
         }
       ]
     },
@@ -4268,6 +4796,11 @@
           "serviceId": "trumf",
           "urlName": "foodstuff-trumf",
           "cashbackDescription": "7,8 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "foodstuff-no",
+          "cashbackDescription": "9,5 %"
         }
       ]
     },
@@ -4279,6 +4812,11 @@
           "serviceId": "trumf",
           "urlName": "yoursurprise-trumf",
           "cashbackDescription": "6,2 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "yoursurprise-no",
+          "cashbackDescription": "7,6 %"
         }
       ]
     },
@@ -4395,6 +4933,11 @@
           "serviceId": "logbuy",
           "urlName": "22158",
           "cashbackDescription": "5 - 15 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "acer",
+          "cashbackDescription": "4,8 %"
         }
       ]
     },
@@ -4450,6 +4993,11 @@
           "serviceId": "remember",
           "urlName": "tripx",
           "cashbackDescription": "5%"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "tripx",
+          "cashbackDescription": "4,8 %"
         }
       ]
     },
@@ -4545,6 +5093,11 @@
           "cashbackDescription": "Tilbud"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "aeg-brandshop",
+          "cashbackDescription": "3,8 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "a4d49f4f-77b0-4971-ae9b-b02654fca1d0",
           "cashbackDescription": "Opptil 4,8 Spenn / 10 kr",
@@ -4565,6 +5118,11 @@
           "serviceId": "logbuy",
           "urlName": "20925",
           "cashbackDescription": "Tilbud"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "nextory",
+          "cashbackDescription": "63 kr"
         }
       ]
     },
@@ -4582,6 +5140,11 @@
           "urlName": "0189630d-de8e-70ab-86a4-6a9fa9db16c6",
           "cashbackDescription": "500 poeng som ny kunde",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/oslo-skin-lab/0189630d-de8e-70ab-86a4-6a9fa9db16c6"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "oslo-skinlab",
+          "cashbackDescription": "100 kr"
         },
         {
           "serviceId": "spenn",
@@ -4622,6 +5185,11 @@
           "urlName": "",
           "cashbackDescription": "10%",
           "code": "DNB4456"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "berg-watches",
+          "cashbackDescription": "9,5 %"
         }
       ]
     },
@@ -4770,6 +5338,11 @@
           "matchPathPrefix": "/no"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "safira",
+          "cashbackDescription": "7,6 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "5876700f-aab4-4c5e-9b9d-84fc9417e09e",
           "cashbackDescription": "3,8 Spenn / 10 kr",
@@ -4815,6 +5388,11 @@
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/autodeler/01a163d8-2fe4-72a7-8c0c-ba042bc82dd0"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "autodeler",
+          "cashbackDescription": "3,8 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "546f6c7c-7755-45cb-8152-bcd789d71b27",
           "cashbackDescription": "Opptil 3,8 Spenn / 10 kr",
@@ -4830,6 +5408,11 @@
           "serviceId": "trumf",
           "urlName": "bemz-trumf",
           "cashbackDescription": "6,2 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "bemz",
+          "cashbackDescription": "7,6 %"
         }
       ]
     },
@@ -4847,6 +5430,11 @@
           "urlName": "0189630e-44e6-7162-ae73-4bfd5722176c",
           "cashbackDescription": "15 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/harman-kardon/0189630e-44e6-7162-ae73-4bfd5722176c"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "harmankardon",
+          "cashbackDescription": "4,8 %"
         },
         {
           "serviceId": "spenn",
@@ -4882,6 +5470,11 @@
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/nicebeauty/01896311-cd52-7367-8aae-0c4b46a3188e",
           "matchPathPrefix": "/no"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "nicebeauty",
+          "cashbackDescription": "6,7 %"
         }
       ]
     },
@@ -4904,6 +5497,11 @@
           "serviceId": "trumf",
           "urlName": "chicastore-trumf",
           "cashbackDescription": "6,2 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "chicastore-no",
+          "cashbackDescription": "5,7 %"
         },
         {
           "serviceId": "spenn",
@@ -4932,6 +5530,11 @@
           "serviceId": "trumf",
           "urlName": "kouture-trumf",
           "cashbackDescription": "4,6 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "kouture",
+          "cashbackDescription": "5,7 %"
         },
         {
           "serviceId": "spenn",
@@ -5048,6 +5651,16 @@
           "serviceId": "trumf",
           "urlName": "amisol-trumfs",
           "cashbackDescription": "2,3 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "amisol-travel",
+          "cashbackDescription": "3%"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "amisol",
+          "cashbackDescription": "2,8 %"
         }
       ]
     },
@@ -5065,6 +5678,11 @@
           "urlName": "0189630a-c6f7-7291-8c71-3010f6b9bab2",
           "cashbackDescription": "50 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/hultens/0189630a-c6f7-7291-8c71-3010f6b9bab2"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "hultens",
+          "cashbackDescription": "6,7 %"
         },
         {
           "serviceId": "spenn",
@@ -5093,6 +5711,11 @@
           "serviceId": "remember",
           "urlName": "interhome",
           "cashbackDescription": "10%"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "interhome",
+          "cashbackDescription": "7,6 %"
         }
       ]
     },
@@ -5104,6 +5727,11 @@
           "serviceId": "trumf",
           "urlName": "elite-hotels-of-sweden-trumf",
           "cashbackDescription": "3,9 %"
+        },
+        {
+          "serviceId": "remember",
+          "urlName": "elite-hotels",
+          "cashbackDescription": "5%"
         }
       ]
     },
@@ -5159,6 +5787,11 @@
           "serviceId": "trumf",
           "urlName": "sf-anytime-trumf",
           "cashbackDescription": "5 kr"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "sf-anytime",
+          "cashbackDescription": "2,8 kr"
         }
       ]
     },
@@ -5199,6 +5832,11 @@
           "cashbackDescription": "2%"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "gront-fokus",
+          "cashbackDescription": "1,9 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "51b8751e-0893-42af-b00c-adb3ff3786c3",
           "cashbackDescription": "1 Spenn / 10 kr",
@@ -5236,6 +5874,11 @@
           "serviceId": "remember",
           "urlName": "dentway",
           "cashbackDescription": "134 kr"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "dentway",
+          "cashbackDescription": "80 kr"
         }
       ]
     },
@@ -5302,6 +5945,11 @@
           "serviceId": "trumf",
           "urlName": "direct-ferries-trumf",
           "cashbackDescription": "Opptil            \n\t            3,1 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "direct-ferries",
+          "cashbackDescription": "2,8 %"
         }
       ]
     },
@@ -5346,6 +5994,11 @@
           "serviceId": "remember",
           "urlName": "tirendo.no",
           "cashbackDescription": "3%"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "tirendo",
+          "cashbackDescription": "3,8 %"
         }
       ]
     },
@@ -5374,6 +6027,11 @@
           "urlName": "01a0b396-bcad-7228-b050-cc49a5084adb",
           "cashbackDescription": "50 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/pergolux/01a0b396-bcad-7228-b050-cc49a5084adb"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "pergolux",
+          "cashbackDescription": "1,9 %"
         }
       ]
     },
@@ -5479,6 +6137,11 @@
           "cashbackDescription": "10%"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "detailshop",
+          "cashbackDescription": "9,5 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "bf5682f2-6a0d-41b7-9b70-6e294541571f",
           "cashbackDescription": "4,8 Spenn / 10 kr",
@@ -5555,6 +6218,11 @@
           "serviceId": "logbuy",
           "urlName": "20442",
           "cashbackDescription": "12 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "euroflorist",
+          "cashbackDescription": "9,5 %"
         },
         {
           "serviceId": "spenn",
@@ -5640,6 +6308,11 @@
           "serviceId": "remember",
           "urlName": "hunkemoller",
           "cashbackDescription": "15%"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "hunkemoller",
+          "cashbackDescription": "6,7 %"
         }
       ]
     },
@@ -5709,6 +6382,11 @@
           "cashbackDescription": "44 %"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "samsung",
+          "cashbackDescription": "2,8 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "be032947-6e9e-4e24-8a52-cf778a5667d2",
           "cashbackDescription": "1,4 Spenn / 10 kr",
@@ -5732,6 +6410,11 @@
           "cashbackDescription": "7%"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "suitable",
+          "cashbackDescription": "6,7 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "300a9505-5245-449e-a1a3-909ca8cc71f8",
           "cashbackDescription": "4,8 Spenn / 10 kr",
@@ -5748,6 +6431,11 @@
           "urlName": "01896307-ab79-72ea-bf3a-8259132aba47",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/shopping4net/01896307-ab79-72ea-bf3a-8259132aba47"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "shopping4net",
+          "cashbackDescription": "7,6 %"
         }
       ]
     },
@@ -5772,6 +6460,11 @@
           "urlName": "01896308-35e5-7100-9665-4122177f0b78",
           "cashbackDescription": "80 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/lux-case/01896308-35e5-7100-9665-4122177f0b78"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "lux-case-no",
+          "cashbackDescription": "16,6 %"
         }
       ]
     },
@@ -5874,6 +6567,11 @@
           "urlName": "0189630a-fa9b-7234-a4ac-8518c60e5deb",
           "cashbackDescription": "50 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/iphonehuset/0189630a-fa9b-7234-a4ac-8518c60e5deb"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "iphonehuset",
+          "cashbackDescription": "9,5 %"
         }
       ]
     },
@@ -5910,6 +6608,11 @@
           "urlName": "0189630b-a1fd-7133-b07a-084f91874cd8",
           "cashbackDescription": "10 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/dustin-1/0189630b-a1fd-7133-b07a-084f91874cd8"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "dustin",
+          "cashbackDescription": "1,9 %"
         },
         {
           "serviceId": "spenn",
@@ -5964,6 +6667,11 @@
           "urlName": "0189630c-4ce6-7044-9ea1-fd1ac49aae97",
           "cashbackDescription": "50 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/rito/0189630c-4ce6-7044-9ea1-fd1ac49aae97"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "ritohobby-no-garn-og-hobby",
+          "cashbackDescription": "6,7 %"
         }
       ]
     },
@@ -6072,6 +6780,11 @@
           "urlName": "0189630e-2ae5-7184-adab-1a84e70c6254",
           "cashbackDescription": "100 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/nordvpn/0189630e-2ae5-7184-adab-1a84e70c6254"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "nordvpn",
+          "cashbackDescription": "38 %"
         }
       ]
     },
@@ -6219,6 +6932,11 @@
           "urlName": "01896310-495b-7167-9bb1-1bb2f17b7094",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/hairlust/01896310-495b-7167-9bb1-1bb2f17b7094"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "hairlust",
+          "cashbackDescription": "7,6 %"
         }
       ]
     },
@@ -6358,6 +7076,11 @@
           "cashbackDescription": "12 %"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "interflora-no",
+          "cashbackDescription": "7,6 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "99b588cb-260e-49a2-9fb0-414c44125cb0",
           "cashbackDescription": "5,8 Spenn / 10 kr",
@@ -6374,6 +7097,11 @@
           "urlName": "0189630a-018c-7202-bf9f-048efc5cbd33",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/sportgymbutiken/0189630a-018c-7202-bf9f-048efc5cbd33"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "sportgymbutikken-no",
+          "cashbackDescription": "4,8 %"
         },
         {
           "serviceId": "spenn",
@@ -6585,6 +7313,11 @@
           "urlName": "01896310-a12c-72d3-94cf-a00f63cc73ed",
           "cashbackDescription": "1 000 poeng som ny kunde",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/memira/01896310-a12c-72d3-94cf-a00f63cc73ed"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "memira",
+          "cashbackDescription": "168 kr"
         }
       ]
     },
@@ -6615,6 +7348,17 @@
           "serviceId": "logbuy",
           "urlName": "22008",
           "cashbackDescription": "25 - 30 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "nespresso-nordic",
+          "cashbackDescription": "11,4 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "5706cfdf-733b-4f6d-bbec-0ac57dc2df7d",
+          "cashbackDescription": "5,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=5706cfdf-733b-4f6d-bbec-0ac57dc2df7d&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -6688,6 +7432,11 @@
           "urlName": "01896308-f18d-71b5-9064-ffc3c373972f",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/sporttema/01896308-f18d-71b5-9064-ffc3c373972f"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "sporttema",
+          "cashbackDescription": "7,6 %"
         }
       ]
     },
@@ -6731,6 +7480,11 @@
           "urlName": "019c9e5b-4248-7122-8cf8-20e9b93bff42",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/kokkeglede/019c9e5b-4248-7122-8cf8-20e9b93bff42"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "kokkeglede",
+          "cashbackDescription": "11,4 %"
         }
       ]
     },
@@ -6743,6 +7497,11 @@
           "urlName": "019662cf-bd3a-73ba-840e-37bb81369e8e",
           "cashbackDescription": "1 000 poeng som ny kunde",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/maxulin/019662cf-bd3a-73ba-840e-37bb81369e8e"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "maxulin",
+          "cashbackDescription": "100 kr"
         },
         {
           "serviceId": "spenn",
@@ -6761,6 +7520,11 @@
           "urlName": "019cdce7-2ed7-7005-8f10-66221e21be2f",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/steelseries/019cdce7-2ed7-7005-8f10-66221e21be2f"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "steelseries",
+          "cashbackDescription": "9,5 %"
         }
       ]
     },
@@ -6822,6 +7586,11 @@
           "urlName": "019dbf16-b3c9-7016-8fbf-a877d50c1123",
           "cashbackDescription": "50 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/nordhost/019dbf16-b3c9-7016-8fbf-a877d50c1123"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "nordhost-hosting-paa-norsk-siden-1999",
+          "cashbackDescription": "9,5 %"
         }
       ]
     },
@@ -6891,6 +7660,11 @@
           "urlName": "018abc11-d276-70ea-b149-50ae4e0bd6bb",
           "cashbackDescription": "50 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/vinlagringskompaniet/018abc11-d276-70ea-b149-50ae4e0bd6bb"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "vinlagringskompaniet",
+          "cashbackDescription": "9,5 %"
         }
       ]
     },
@@ -6929,6 +7703,11 @@
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/xlash/01a03912-eef1-71ec-886b-3915314acf5f",
           "matchPathPrefix": "/no-no"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "xlash",
+          "cashbackDescription": "7,6 %"
         },
         {
           "serviceId": "spenn",
@@ -7011,6 +7790,11 @@
           "matchPathPrefix": "/no"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "prydligt",
+          "cashbackDescription": "9,5 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "0cfd60a6-2fa2-4b6d-b3b3-17d4dd838131",
           "cashbackDescription": "4,8 Spenn / 10 kr",
@@ -7027,6 +7811,11 @@
           "urlName": "01896311-52f1-73e7-808c-3b4e7aea9371",
           "cashbackDescription": "2 000 poeng som ny kunde",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/ishavskraft-strøm/01896311-52f1-73e7-808c-3b4e7aea9371"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "ishavskraft-strom",
+          "cashbackDescription": "3,8 %"
         }
       ]
     },
@@ -7053,6 +7842,11 @@
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/greatlife/0189630b-10b8-708b-b9e7-cd96f178c7c2"
         },
         {
+          "serviceId": "spareborsen",
+          "urlName": "greatlife",
+          "cashbackDescription": "9,5 %"
+        },
+        {
           "serviceId": "spenn",
           "urlName": "f780bb43-e8e0-434c-a233-4924975c5dea",
           "cashbackDescription": "Opptil 4,8 Spenn / 10 kr",
@@ -7069,6 +7863,11 @@
           "urlName": "01a0afae-eb49-7379-b85b-a13ca010d7fa",
           "cashbackDescription": "50 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/pace/01a0afae-eb49-7379-b85b-a13ca010d7fa"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "pace",
+          "cashbackDescription": "14,3 %"
         },
         {
           "serviceId": "spenn",
@@ -7113,6 +7912,11 @@
           "urlName": "019fdc53-27e8-718c-96ec-7a21ea0cc9f2",
           "cashbackDescription": "2 000 poeng som ny kunde",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/trondermobil/019fdc53-27e8-718c-96ec-7a21ea0cc9f2"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "trondermobil",
+          "cashbackDescription": "150 kr"
         }
       ]
     },
@@ -7149,6 +7953,11 @@
           "urlName": "01a13f7b-f1a0-7345-8750-1411c32e7f85",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/irobot/01a13f7b-f1a0-7345-8750-1411c32e7f85"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "irobot",
+          "cashbackDescription": "4,8 %"
         },
         {
           "serviceId": "spenn",
@@ -7191,6 +8000,11 @@
           "urlName": "0189630c-cd49-700d-b0e0-9bb47f03628a",
           "cashbackDescription": "15 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/flixbus/0189630c-cd49-700d-b0e0-9bb47f03628a"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "flixbus",
+          "cashbackDescription": "4,8 %"
         }
       ]
     },
@@ -7203,6 +8017,11 @@
           "urlName": "01a16286-1d6b-7005-8fd7-a4c11e525a76",
           "cashbackDescription": "25 poeng / 100 kr",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/aktivvinterno/01a16286-1d6b-7005-8fd7-a4c11e525a76"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "aktivvinter-no",
+          "cashbackDescription": "7,6 %"
         }
       ]
     },
@@ -7245,6 +8064,11 @@
           "urlName": "0189630a-3059-73d7-9526-637d8af50232",
           "cashbackDescription": "50 poeng som ny kunde",
           "clickthroughUrl": "https://onlineshopping.flysas.com/nb-NO/butikker/fyndiq/0189630a-3059-73d7-9526-637d8af50232"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "fyndiq",
+          "cashbackDescription": "24 kr"
         },
         {
           "serviceId": "spenn",
@@ -7347,17 +8171,6 @@
         }
       ]
     },
-    "amisol.no": {
-      "hostName": "amisol.no",
-      "name": "Amisol Travel",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "amisol-travel",
-          "cashbackDescription": "3%"
-        }
-      ]
-    },
     "www.addresshotels.com": {
       "hostName": "www.addresshotels.com",
       "name": "Address Hotels",
@@ -7411,17 +8224,6 @@
           "serviceId": "remember",
           "urlName": "bose",
           "cashbackDescription": "3%"
-        }
-      ]
-    },
-    "budget.no": {
-      "hostName": "budget.no",
-      "name": "Budget leiebiler",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "budget-leiebiler",
-          "cashbackDescription": "8%"
         }
       ]
     },
@@ -7504,17 +8306,6 @@
           "serviceId": "remember",
           "urlName": "dustin-home",
           "cashbackDescription": "2%"
-        }
-      ]
-    },
-    "elite.se": {
-      "hostName": "elite.se",
-      "name": "Elite Hotels",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "elite-hotels",
-          "cashbackDescription": "5%"
         }
       ]
     },
@@ -7602,51 +8393,6 @@
           "serviceId": "remember",
           "urlName": "houdini-sportswear",
           "cashbackDescription": "7%"
-        }
-      ]
-    },
-    "jaktogfriluft.no": {
-      "hostName": "jaktogfriluft.no",
-      "name": "Jakt & Friluft",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "jakt--friluft",
-          "cashbackDescription": "6%"
-        }
-      ]
-    },
-    "kinoklubb.no": {
-      "hostName": "kinoklubb.no",
-      "name": "Kinoklubb.no",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "kinoklubb.no",
-          "cashbackDescription": "50 kr"
-        },
-        {
-          "serviceId": "spenn",
-          "urlName": "c9c75d8c-858a-44e1-8101-92b3a6f46d05",
-          "cashbackDescription": "480 Spenn (12-måneders abonnement)",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=c9c75d8c-858a-44e1-8101-92b3a6f46d05&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "kitchn.no": {
-      "hostName": "kitchn.no",
-      "name": "Kitch'n",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "kitchn",
-          "cashbackDescription": "4%"
-        },
-        {
-          "serviceId": "spenn",
-          "urlName": "87f3f3e1-b35d-4603-af69-f34b64677a23",
-          "cashbackDescription": "Opptil 1,9 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=87f3f3e1-b35d-4603-af69-f34b64677a23&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -7739,6 +8485,11 @@
           "serviceId": "remember",
           "urlName": "munk-store",
           "cashbackDescription": "10%"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "munk-store",
+          "cashbackDescription": "7,6 %"
         }
       ]
     },
@@ -7770,23 +8521,6 @@
         }
       ]
     },
-    "nordicprint.no": {
-      "hostName": "nordicprint.no",
-      "name": "Nordicprint",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "nordicprint",
-          "cashbackDescription": "20%"
-        },
-        {
-          "serviceId": "spenn",
-          "urlName": "649a81e1-c970-4894-a9d4-53da5d5b336c",
-          "cashbackDescription": "9,6 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=649a81e1-c970-4894-a9d4-53da5d5b336c&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
     "no.norton.com": {
       "hostName": "no.norton.com",
       "name": "Norton",
@@ -7809,17 +8543,6 @@
         }
       ]
     },
-    "radissonhotels.com": {
-      "hostName": "radissonhotels.com",
-      "name": "Radisson Hotel Group",
-      "offers": [
-        {
-          "serviceId": "remember",
-          "urlName": "radisson-hotel-group",
-          "cashbackDescription": "4%"
-        }
-      ]
-    },
     "reforma.no": {
       "hostName": "reforma.no",
       "name": "Reforma",
@@ -7839,6 +8562,11 @@
           "serviceId": "remember",
           "urlName": "ralph-lauren",
           "cashbackDescription": "3%"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "ralph-lauren",
+          "cashbackDescription": "2,8 %"
         },
         {
           "serviceId": "spenn",
@@ -7961,6 +8689,11 @@
           "serviceId": "remember",
           "urlName": "wolt",
           "cashbackDescription": "103 kr"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "wolt",
+          "cashbackDescription": "82,8 kr"
         },
         {
           "serviceId": "spenn",
@@ -8221,6 +8954,11 @@
           "urlName": "",
           "cashbackDescription": "10%",
           "code": "DNB4456"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "smartlapper-no",
+          "cashbackDescription": "48 kr"
         }
       ]
     },
@@ -9465,6 +10203,11 @@
           "serviceId": "logbuy",
           "urlName": "20476",
           "cashbackDescription": "Tilbud"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "talkmore-no",
+          "cashbackDescription": "252 kr"
         }
       ]
     },
@@ -9651,6 +10394,11 @@
           "serviceId": "naf",
           "urlName": "tui",
           "cashbackDescription": ""
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "tui-no-opplevelser",
+          "cashbackDescription": "7,1 %"
         }
       ]
     },
@@ -9826,6 +10574,11 @@
           "serviceId": "naf",
           "urlName": "citybox-hotels",
           "cashbackDescription": "20 %"
+        },
+        {
+          "serviceId": "spareborsen",
+          "urlName": "citybox-hotels",
+          "cashbackDescription": "9,5 %"
         }
       ]
     },
@@ -10547,6 +11300,3095 @@
         }
       ]
     },
+    "agelab.no": {
+      "hostName": "agelab.no",
+      "name": "Agelab",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "agelab",
+          "cashbackDescription": "11,4 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "fee7fb21-41b6-401b-a4cd-62f60c2848ad",
+          "cashbackDescription": "5,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=fee7fb21-41b6-401b-a4cd-62f60c2848ad&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "asuro.no": {
+      "hostName": "asuro.no",
+      "name": "Asuro",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "asuro",
+          "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "d62d8a4a-6cb6-4227-b436-1c30d2f8986e",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=d62d8a4a-6cb6-4227-b436-1c30d2f8986e&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "temblit.com": {
+      "hostName": "temblit.com",
+      "name": "Temblit",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "temblit",
+          "cashbackDescription": "57 %"
+        }
+      ]
+    },
+    "www.crosspeaksoftware.com": {
+      "hostName": "www.crosspeaksoftware.com",
+      "name": "CrossPeak Software",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "crosspeak-software",
+          "cashbackDescription": "38 %"
+        }
+      ]
+    },
+    "contentbase.com": {
+      "hostName": "contentbase.com",
+      "name": "ContentBASE",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "contentbase",
+          "cashbackDescription": "36,6 %"
+        }
+      ]
+    },
+    "www.multifolks.com": {
+      "hostName": "www.multifolks.com",
+      "name": "Multifolks",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "multifolks",
+          "cashbackDescription": "33,3 %"
+        }
+      ]
+    },
+    "www.qanoid.com": {
+      "hostName": "www.qanoid.com",
+      "name": "Qanoid",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "qanoid",
+          "cashbackDescription": "33,3 %"
+        }
+      ]
+    },
+    "www.amigosim.com": {
+      "hostName": "www.amigosim.com",
+      "name": "Amigo eSIM",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "amigo-esim",
+          "cashbackDescription": "28,5 %"
+        }
+      ]
+    },
+    "arbaglobal.store": {
+      "hostName": "arbaglobal.store",
+      "name": "Arba Global",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "arba-global",
+          "cashbackDescription": "28,5 %"
+        }
+      ]
+    },
+    "www.coolstore.no": {
+      "hostName": "www.coolstore.no",
+      "name": "Coolstore",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "coolstore",
+          "cashbackDescription": "28,5 %"
+        }
+      ]
+    },
+    "www.digimartsystems.com": {
+      "hostName": "www.digimartsystems.com",
+      "name": "DigiMart",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "digimart",
+          "cashbackDescription": "28,5 %"
+        }
+      ]
+    },
+    "no.formulaswiss.com": {
+      "hostName": "no.formulaswiss.com",
+      "name": "Formula Swiss",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "formula-swiss",
+          "cashbackDescription": "28,5 %"
+        }
+      ]
+    },
+    "nordpass.com": {
+      "hostName": "nordpass.com",
+      "name": "NordPass",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "nordpass",
+          "cashbackDescription": "28,5 %"
+        }
+      ]
+    },
+    "sooz.ai": {
+      "hostName": "sooz.ai",
+      "name": "Sooz",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "sooz",
+          "cashbackDescription": "28,5 %"
+        }
+      ]
+    },
+    "www.epost.no": {
+      "hostName": "www.epost.no",
+      "name": "Epost.no",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "epost-no",
+          "cashbackDescription": "26,6 %"
+        }
+      ]
+    },
+    "rennoa.eu": {
+      "hostName": "rennoa.eu",
+      "name": "Rennoa",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "rennoa",
+          "cashbackDescription": "26,1 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "357099b5-4745-4a17-ac09-aa75a3b03929",
+          "cashbackDescription": "12 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=357099b5-4745-4a17-ac09-aa75a3b03929&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "www.dentaworks.no": {
+      "hostName": "www.dentaworks.no",
+      "name": "DentaWorks",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "dentaworks",
+          "cashbackDescription": "23,8 %"
+        }
+      ]
+    },
+    "lfhcs.com": {
+      "hostName": "lfhcs.com",
+      "name": "LFHCS",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "lfhcs",
+          "cashbackDescription": "23,8 %"
+        }
+      ]
+    },
+    "likeink.com": {
+      "hostName": "likeink.com",
+      "name": "Like ink",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "like-ink",
+          "cashbackDescription": "23,8 %"
+        }
+      ]
+    },
+    "luxeviora.com": {
+      "hostName": "luxeviora.com",
+      "name": "Luxeviora",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "luxeviora",
+          "cashbackDescription": "23,8 %"
+        }
+      ]
+    },
+    "www.naturecan.no": {
+      "hostName": "www.naturecan.no",
+      "name": "Naturecan",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "naturecan",
+          "cashbackDescription": "23,8 %"
+        }
+      ]
+    },
+    "www.riibase.com": {
+      "hostName": "www.riibase.com",
+      "name": "Riibase CRM",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "riibase-crm",
+          "cashbackDescription": "23,8 %"
+        }
+      ]
+    },
+    "snabbtesta.se": {
+      "hostName": "snabbtesta.se",
+      "name": "Snabbtesta.se",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "snabbtesta-se",
+          "cashbackDescription": "23,8 %"
+        }
+      ]
+    },
+    "ufesa.no": {
+      "hostName": "ufesa.no",
+      "name": "Ufesa",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "ufesa",
+          "cashbackDescription": "23,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "2f4ab142-c0bb-4c12-a4e5-5bdf8d2d0d62",
+          "cashbackDescription": "12 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=2f4ab142-c0bb-4c12-a4e5-5bdf8d2d0d62&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "www.woodbelt.eu": {
+      "hostName": "www.woodbelt.eu",
+      "name": "Wood Belt",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "wood-belt",
+          "cashbackDescription": "23,8 %"
+        }
+      ]
+    },
+    "www.pocketboard.io": {
+      "hostName": "www.pocketboard.io",
+      "name": "Pocketboard",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "pocketboard",
+          "cashbackDescription": "21,8 %"
+        }
+      ]
+    },
+    "www.vuxen.no": {
+      "hostName": "www.vuxen.no",
+      "name": "Vuxen",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "vuxen",
+          "cashbackDescription": "21,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "85e656ad-3e41-450f-9d97-d48d5b8789b0",
+          "cashbackDescription": "11 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=85e656ad-3e41-450f-9d97-d48d5b8789b0&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "bymoller.no": {
+      "hostName": "bymoller.no",
+      "name": "ByMøller",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "bymoller",
+          "cashbackDescription": "20 %"
+        }
+      ]
+    },
+    "www.alinasleep.com": {
+      "hostName": "www.alinasleep.com",
+      "name": "Alinasleep",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "alinasleep",
+          "cashbackDescription": "19 %"
+        }
+      ]
+    },
+    "tickets.museocerabcn.com": {
+      "hostName": "tickets.museocerabcn.com",
+      "name": "Barcelona Wax Museum",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "barcelona-wax-museum",
+          "cashbackDescription": "19 %"
+        }
+      ]
+    },
+    "beconfident.com": {
+      "hostName": "beconfident.com",
+      "name": "Beconfident®",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "beconfident",
+          "cashbackDescription": "19 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "5d415c60-675b-4bb5-af56-eeefb5e805e6",
+          "cashbackDescription": "9,6 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=5d415c60-675b-4bb5-af56-eeefb5e805e6&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "beewiseamsterdam.com": {
+      "hostName": "beewiseamsterdam.com",
+      "name": "Beewise",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "beewise",
+          "cashbackDescription": "19 %"
+        }
+      ]
+    },
+    "fotakutten.no": {
+      "hostName": "fotakutten.no",
+      "name": "Fotakutten",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "fotakutten",
+          "cashbackDescription": "19 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "a92b59e5-50a0-445b-8194-458c5a8a8170",
+          "cashbackDescription": "9,6 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=a92b59e5-50a0-445b-8194-458c5a8a8170&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "www.gococo.se": {
+      "hostName": "www.gococo.se",
+      "name": "Gococo",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "gococo",
+          "cashbackDescription": "19 %"
+        }
+      ]
+    },
+    "keytive.com": {
+      "hostName": "keytive.com",
+      "name": "Keytive",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "keytive",
+          "cashbackDescription": "19 %"
+        }
+      ]
+    },
+    "www.lampster.se": {
+      "hostName": "www.lampster.se",
+      "name": "Lampster",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "lampster",
+          "cashbackDescription": "19 %"
+        }
+      ]
+    },
+    "livetleker.no": {
+      "hostName": "livetleker.no",
+      "name": "Livet Leker",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "livet-leker",
+          "cashbackDescription": "19 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "20c70d88-a3cb-47b0-b728-705036aa63cf",
+          "cashbackDescription": "9,6 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=20c70d88-a3cb-47b0-b728-705036aa63cf&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "www.marjoe.no": {
+      "hostName": "www.marjoe.no",
+      "name": "Marjoe.no",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "marjoe-no",
+          "cashbackDescription": "19 %"
+        }
+      ]
+    },
+    "www.martinaottecosmetics.com": {
+      "hostName": "www.martinaottecosmetics.com",
+      "name": "Martina Otte Cosmetics®",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "martina-otte-cosmetics",
+          "cashbackDescription": "19 %"
+        }
+      ]
+    },
+    "www.merlykke.no": {
+      "hostName": "www.merlykke.no",
+      "name": "MerLykke",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "merlykke",
+          "cashbackDescription": "19 %"
+        }
+      ]
+    },
+    "myangrysocks.com": {
+      "hostName": "myangrysocks.com",
+      "name": "My Angry Socks",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "my-angry-socks",
+          "cashbackDescription": "19 %"
+        }
+      ]
+    },
+    "nordicsheep.no": {
+      "hostName": "nordicsheep.no",
+      "name": "Nordic Sheep",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "nordic-sheep",
+          "cashbackDescription": "19 %"
+        }
+      ]
+    },
+    "nordkey.no": {
+      "hostName": "nordkey.no",
+      "name": "Nordkey",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "nordkey",
+          "cashbackDescription": "19 %"
+        }
+      ]
+    },
+    "www.parvale.com": {
+      "hostName": "www.parvale.com",
+      "name": "Parvale",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "parvale",
+          "cashbackDescription": "19 %"
+        }
+      ]
+    },
+    "www.sisonebeauty.com": {
+      "hostName": "www.sisonebeauty.com",
+      "name": "SISÓNE BEAUTY",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "sisone-beauty",
+          "cashbackDescription": "19 %"
+        }
+      ]
+    },
+    "saueskinnet.no": {
+      "hostName": "saueskinnet.no",
+      "name": "Saueskinnet.no",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "saueskinnet-no",
+          "cashbackDescription": "19 %"
+        }
+      ]
+    },
+    "simplesmile.com": {
+      "hostName": "simplesmile.com",
+      "name": "Simplesmile",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "simplesmile",
+          "cashbackDescription": "19 %"
+        }
+      ]
+    },
+    "www.softwarekoenig.de": {
+      "hostName": "www.softwarekoenig.de",
+      "name": "Softwarekönig",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "softwarekonig",
+          "cashbackDescription": "19 %"
+        }
+      ]
+    },
+    "taztycandy.com": {
+      "hostName": "taztycandy.com",
+      "name": "TaztyCandy",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "taztycandy",
+          "cashbackDescription": "19 %"
+        }
+      ]
+    },
+    "tornett.com": {
+      "hostName": "tornett.com",
+      "name": "Tornett",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "tornett",
+          "cashbackDescription": "19 %"
+        }
+      ]
+    },
+    "www.airhelp.no": {
+      "hostName": "www.airhelp.no",
+      "name": "TravelpPass by Airhelp",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "travelppass-by-airhelp",
+          "cashbackDescription": "19 %"
+        }
+      ]
+    },
+    "www.careofgerd.se": {
+      "hostName": "www.careofgerd.se",
+      "name": "c/o GERD",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "c-o-gerd",
+          "cashbackDescription": "19 %"
+        }
+      ]
+    },
+    "finesmile.eu": {
+      "hostName": "finesmile.eu",
+      "name": "Finesmile",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "finesmile",
+          "cashbackDescription": "17,1 %"
+        }
+      ]
+    },
+    "www.posterbox.no": {
+      "hostName": "www.posterbox.no",
+      "name": "Posterbox",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "posterbox",
+          "cashbackDescription": "17,1 %"
+        }
+      ]
+    },
+    "scandinavianrest.eu": {
+      "hostName": "scandinavianrest.eu",
+      "name": "Scandinavianrest",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "scandinavianrest",
+          "cashbackDescription": "17,1 %"
+        }
+      ]
+    },
+    "scandiface.com": {
+      "hostName": "scandiface.com",
+      "name": "SCANDIFACE",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "scandiface",
+          "cashbackDescription": "16,2 %"
+        }
+      ]
+    },
+    "www.amor.no": {
+      "hostName": "www.amor.no",
+      "name": "Amor.no",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "amor-no",
+          "cashbackDescription": "15,3 %"
+        }
+      ]
+    },
+    "www.minnelea.com": {
+      "hostName": "www.minnelea.com",
+      "name": "Azienda Agricola Minnelea",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "azienda-agricola-minnelea",
+          "cashbackDescription": "14,7 %"
+        }
+      ]
+    },
+    "www.ajosepo.com": {
+      "hostName": "www.ajosepo.com",
+      "name": "AJOSEPO",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "ajosepo",
+          "cashbackDescription": "14,3 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "0cbbf2f6-8ad5-4d48-a6cd-9cff0c28e4d9",
+          "cashbackDescription": "7,2 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=0cbbf2f6-8ad5-4d48-a6cd-9cff0c28e4d9&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "beautical.com": {
+      "hostName": "beautical.com",
+      "name": "BEAUTICAL",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "beautical",
+          "cashbackDescription": "14,3 %"
+        }
+      ]
+    },
+    "www.beemondo.co": {
+      "hostName": "www.beemondo.co",
+      "name": "Beemondo",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "beemondo",
+          "cashbackDescription": "14,3 %"
+        }
+      ]
+    },
+    "www.billige-tester.no": {
+      "hostName": "www.billige-tester.no",
+      "name": "Billige-Tester.no",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "billige-tester-no",
+          "cashbackDescription": "14,3 %"
+        }
+      ]
+    },
+    "no.bymagnet.com": {
+      "hostName": "no.bymagnet.com",
+      "name": "ByMagnet",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "bymagnet",
+          "cashbackDescription": "14,3 %"
+        }
+      ]
+    },
+    "www.cheekywipes.com": {
+      "hostName": "www.cheekywipes.com",
+      "name": "Cheeky Wipes & Cheeky Pants",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "cheeky-wipes-cheeky-pants",
+          "cashbackDescription": "14,3 %"
+        }
+      ]
+    },
+    "www.itsmysaga.com": {
+      "hostName": "www.itsmysaga.com",
+      "name": "ItsMySaga",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "itsmysaga",
+          "cashbackDescription": "14,3 %"
+        }
+      ]
+    },
+    "kidsdreamstore.no": {
+      "hostName": "kidsdreamstore.no",
+      "name": "Kidsdreamstore",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "kidsdreamstore",
+          "cashbackDescription": "14,3 %"
+        }
+      ]
+    },
+    "www.kuben.se": {
+      "hostName": "www.kuben.se",
+      "name": "Kuben",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "kuben",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "www.maisondulaurier.fr": {
+      "hostName": "www.maisondulaurier.fr",
+      "name": "Maison Du Laurier",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "maison-du-laurier",
+          "cashbackDescription": "14,3 %"
+        }
+      ]
+    },
+    "manufakturx.no": {
+      "hostName": "manufakturx.no",
+      "name": "ManufakturX",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "manufakturx",
+          "cashbackDescription": "14,3 %"
+        }
+      ]
+    },
+    "min-lille-kjaere.no": {
+      "hostName": "min-lille-kjaere.no",
+      "name": "Min lille Kjære",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "min-lille-kjaere",
+          "cashbackDescription": "14,3 %"
+        }
+      ]
+    },
+    "www.nicandmel.com": {
+      "hostName": "www.nicandmel.com",
+      "name": "Nic & Mel",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "nic-mel",
+          "cashbackDescription": "14,3 %"
+        }
+      ]
+    },
+    "norzen.no": {
+      "hostName": "norzen.no",
+      "name": "Norzen",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "norzen",
+          "cashbackDescription": "14,3 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "16d8dddc-6a49-4c29-a983-7ed516bb9f82",
+          "cashbackDescription": "9,6 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=16d8dddc-6a49-4c29-a983-7ed516bb9f82&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "nuvibody.com": {
+      "hostName": "nuvibody.com",
+      "name": "Nuvibody",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "nuvibody",
+          "cashbackDescription": "14,3 %"
+        }
+      ]
+    },
+    "odenson.com": {
+      "hostName": "odenson.com",
+      "name": "Odenson",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "odenson",
+          "cashbackDescription": "14,3 %"
+        }
+      ]
+    },
+    "paperla.com": {
+      "hostName": "paperla.com",
+      "name": "Paperla",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "paperla",
+          "cashbackDescription": "14,3 %"
+        }
+      ]
+    },
+    "petgood.com": {
+      "hostName": "petgood.com",
+      "name": "Petgood",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "petgood",
+          "cashbackDescription": "14,3 %"
+        }
+      ]
+    },
+    "satana.no": {
+      "hostName": "satana.no",
+      "name": "Satana",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "satana",
+          "cashbackDescription": "14,3 %"
+        }
+      ]
+    },
+    "www.stoltski.com": {
+      "hostName": "www.stoltski.com",
+      "name": "Stolt of Sweden",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "stolt-of-sweden",
+          "cashbackDescription": "14,3 %"
+        }
+      ]
+    },
+    "xnails.no": {
+      "hostName": "xnails.no",
+      "name": "XNails",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "xnails",
+          "cashbackDescription": "14,3 %"
+        }
+      ]
+    },
+    "memmo.me": {
+      "hostName": "memmo.me",
+      "name": "Memmo.Me",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "memmo-me",
+          "cashbackDescription": "14,3 %"
+        }
+      ]
+    },
+    "grillmatte.no": {
+      "hostName": "grillmatte.no",
+      "name": "Grillmatte",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "grillmatte",
+          "cashbackDescription": "13,3 %"
+        }
+      ]
+    },
+    "www.banggood.com": {
+      "hostName": "www.banggood.com",
+      "name": "Banggood.com",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "banggood-com",
+          "cashbackDescription": "12,4 %"
+        }
+      ]
+    },
+    "www.phonelife.no": {
+      "hostName": "www.phonelife.no",
+      "name": "PhoneLife",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "phonelife",
+          "cashbackDescription": "12,4 %"
+        }
+      ]
+    },
+    "www.kapselsystem.com": {
+      "hostName": "www.kapselsystem.com",
+      "name": "Kapsel",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "kapsel",
+          "cashbackDescription": "11,9 %"
+        }
+      ]
+    },
+    "geekcrate.co.uk": {
+      "hostName": "geekcrate.co.uk",
+      "name": "Geek Crate",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "geek-crate",
+          "cashbackDescription": "11,4 %"
+        }
+      ]
+    },
+    "www.gooddenimjeans.com": {
+      "hostName": "www.gooddenimjeans.com",
+      "name": "Good Denim Jeans",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "good-denim-jeans",
+          "cashbackDescription": "11,4 %"
+        }
+      ]
+    },
+    "minibirk.com": {
+      "hostName": "minibirk.com",
+      "name": "MINIBIRK",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "minibirk",
+          "cashbackDescription": "11,4 %"
+        }
+      ]
+    },
+    "nordiskpuls.no": {
+      "hostName": "nordiskpuls.no",
+      "name": "NordiskPuls",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "nordiskpuls",
+          "cashbackDescription": "11,4 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "85c132ca-b46a-4000-9f56-3b3eb4007f55",
+          "cashbackDescription": "7,2 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=85c132ca-b46a-4000-9f56-3b3eb4007f55&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "www.sonjasapotek.se": {
+      "hostName": "www.sonjasapotek.se",
+      "name": "Sonjas Apotek",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "sonjas-apotek",
+          "cashbackDescription": "11,4 %"
+        }
+      ]
+    },
+    "www.swedishcold.com": {
+      "hostName": "www.swedishcold.com",
+      "name": "Swedish Cold",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "swedish-cold",
+          "cashbackDescription": "11,4 %"
+        }
+      ]
+    },
+    "www.consciousbreathing.com": {
+      "hostName": "www.consciousbreathing.com",
+      "name": "Conscious Breathing",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "conscious-breathing",
+          "cashbackDescription": "11 %"
+        }
+      ]
+    },
+    "www.bloomcabin.com": {
+      "hostName": "www.bloomcabin.com",
+      "name": "Bloomcabin",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "bloomcabin",
+          "cashbackDescription": "10,5 %"
+        }
+      ]
+    },
+    "www.luxvindu.no": {
+      "hostName": "www.luxvindu.no",
+      "name": "Luxvindu",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "luxvindu",
+          "cashbackDescription": "10,5 %"
+        }
+      ]
+    },
+    "www.otticanet.com": {
+      "hostName": "www.otticanet.com",
+      "name": "Otticanet",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "otticanet",
+          "cashbackDescription": "10,5 %"
+        }
+      ]
+    },
+    "www.premiumvinduer.no": {
+      "hostName": "www.premiumvinduer.no",
+      "name": "Premium Vinduer",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "premium-vinduer",
+          "cashbackDescription": "10,5 %"
+        }
+      ]
+    },
+    "www.reliefr.no": {
+      "hostName": "www.reliefr.no",
+      "name": "Reliefr",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "reliefr",
+          "cashbackDescription": "10,5 %"
+        }
+      ]
+    },
+    "www.darkdepartment.com": {
+      "hostName": "www.darkdepartment.com",
+      "name": "DARK Department",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "dark-department",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "www.ledlyskilder.no": {
+      "hostName": "www.ledlyskilder.no",
+      "name": "Ledlyskilder.no",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "ledlyskilder-no",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "www.lovetoys.no": {
+      "hostName": "www.lovetoys.no",
+      "name": "Lovetoys.no",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "lovetoys-no",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "zexy.no": {
+      "hostName": "zexy.no",
+      "name": "Zexy.no",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "zexy-no",
+          "cashbackDescription": "10 %"
+        }
+      ]
+    },
+    "www.airy.green": {
+      "hostName": "www.airy.green",
+      "name": "AIRY",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "airy",
+          "cashbackDescription": "9,5 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "02eba11e-de4f-4c36-b901-13cbccd7eba8",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=02eba11e-de4f-4c36-b901-13cbccd7eba8&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "www.aarjahealth.no": {
+      "hostName": "www.aarjahealth.no",
+      "name": "Aarja health",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "aarja-health",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "www.bybenson.com": {
+      "hostName": "www.bybenson.com",
+      "name": "By Benson",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "by-benson",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "byhappyme.com": {
+      "hostName": "byhappyme.com",
+      "name": "Byhappyme Norge",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "byhappyme-norge",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "www.curli.no": {
+      "hostName": "www.curli.no",
+      "name": "CURLI",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "curli",
+          "cashbackDescription": "9,5 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "76e5f8f5-7f28-406c-8352-6cb6360508f4",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=76e5f8f5-7f28-406c-8352-6cb6360508f4&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "contourdesign.no": {
+      "hostName": "contourdesign.no",
+      "name": "Contour Design",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "contour-design",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "eu.danielwellington.com": {
+      "hostName": "eu.danielwellington.com",
+      "name": "Daniel Wellington",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "daniel-wellington",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "www.dibea.no": {
+      "hostName": "www.dibea.no",
+      "name": "Dibea",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "dibea",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "english.army": {
+      "hostName": "english.army",
+      "name": "English Army",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "english-army",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "www.filterhuset.no": {
+      "hostName": "www.filterhuset.no",
+      "name": "Filterhuset",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "filterhuset",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "www.flexboxpostkasser.no": {
+      "hostName": "www.flexboxpostkasser.no",
+      "name": "Flexbox",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "flexbox",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "gamedog.no": {
+      "hostName": "gamedog.no",
+      "name": "Gamedog Hundefòr",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "gamedog-hundefor",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "www.geggamoja.com": {
+      "hostName": "www.geggamoja.com",
+      "name": "Geggamoja",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "geggamoja",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "www.godaddy.com": {
+      "hostName": "www.godaddy.com",
+      "name": "GoDaddy.com",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "godaddy-com",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "herbert-freresoeur.com": {
+      "hostName": "herbert-freresoeur.com",
+      "name": "HERBERT Frère Soeur",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "herbert-frere-soeur",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "iwantyounaked.com": {
+      "hostName": "iwantyounaked.com",
+      "name": "I WANT YOU NAKED",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "i-want-you-naked",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "www.iwao.no": {
+      "hostName": "www.iwao.no",
+      "name": "IWAO",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "iwao",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "www.introni.no": {
+      "hostName": "www.introni.no",
+      "name": "Introni",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "introni",
+          "cashbackDescription": "9,5 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "a765645e-009f-4ff8-890a-a71cb3422592",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=a765645e-009f-4ff8-890a-a71cb3422592&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "irish.army": {
+      "hostName": "irish.army",
+      "name": "Irish Army",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "irish-army",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "just-pleasure.com": {
+      "hostName": "just-pleasure.com",
+      "name": "Just Pleasure",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "just-pleasure",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "www.kondomkongen.no": {
+      "hostName": "www.kondomkongen.no",
+      "name": "Kondomkongen",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "kondomkongen",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "kule-sokker.no": {
+      "hostName": "kule-sokker.no",
+      "name": "Kule Sokker",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "kule-sokker",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "www.legology.co": {
+      "hostName": "www.legology.co",
+      "name": "Legology",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "legology",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "liromaredlight.com": {
+      "hostName": "liromaredlight.com",
+      "name": "Liroma",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "liroma",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "lukaki.dk": {
+      "hostName": "lukaki.dk",
+      "name": "Lukaki",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "lukaki",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "www.lysterapi.no": {
+      "hostName": "www.lysterapi.no",
+      "name": "Lysterapi",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "lysterapi",
+          "cashbackDescription": "9,5 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "b712dc87-01c5-473a-a306-750609f93592",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=b712dc87-01c5-473a-a306-750609f93592&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "metilde.com": {
+      "hostName": "metilde.com",
+      "name": "Metilde",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "metilde",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "www.miamily.eu": {
+      "hostName": "www.miamily.eu",
+      "name": "MiaMily",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "miamily",
+          "cashbackDescription": "2,8 %"
+        }
+      ]
+    },
+    "www.ntgear.no": {
+      "hostName": "www.ntgear.no",
+      "name": "NTGear",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "ntgear",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "naturesbody.com.au": {
+      "hostName": "naturesbody.com.au",
+      "name": "Nature's Body",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "nature-s-body",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "nemo.no": {
+      "hostName": "nemo.no",
+      "name": "Nemo",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "nemo",
+          "cashbackDescription": "9,5 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "5513b0cc-5c71-4e83-b11f-e825e2b4df61",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=5513b0cc-5c71-4e83-b11f-e825e2b4df61&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "www.profonlinestore.com": {
+      "hostName": "www.profonlinestore.com",
+      "name": "PROF",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "prof",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "www.parallels.com": {
+      "hostName": "www.parallels.com",
+      "name": "Parallels",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "parallels",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "planctology.com": {
+      "hostName": "planctology.com",
+      "name": "Planctology",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "planctology",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "www.quandify.com": {
+      "hostName": "www.quandify.com",
+      "name": "Quandify",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "quandify",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "reirei.se": {
+      "hostName": "reirei.se",
+      "name": "Reirei",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "reirei",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "saily.com": {
+      "hostName": "saily.com",
+      "name": "Saily",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "saily",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "www.skovhuus-strik.com": {
+      "hostName": "www.skovhuus-strik.com",
+      "name": "Skovhuus Strik",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "skovhuus-strik",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "solarcamp.no": {
+      "hostName": "solarcamp.no",
+      "name": "SolarCamp.no",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "solarcamp-no",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "www.sor-tre.no": {
+      "hostName": "www.sor-tre.no",
+      "name": "Sør Tre",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "sor-tre",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "www.theshirtcompany.com": {
+      "hostName": "www.theshirtcompany.com",
+      "name": "The Shirt Company",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "the-shirt-company",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "www.unsolved.no": {
+      "hostName": "www.unsolved.no",
+      "name": "Unsolved",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "unsolved",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "www.valostore.no": {
+      "hostName": "www.valostore.no",
+      "name": "Valostore",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "valostore",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "velvetcandies.com": {
+      "hostName": "velvetcandies.com",
+      "name": "Velvet Candies",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "velvet-candies",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "whiskywithus.com": {
+      "hostName": "whiskywithus.com",
+      "name": "Whisky With Us",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "whisky-with-us",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "www.woodstocklaundry.eu": {
+      "hostName": "www.woodstocklaundry.eu",
+      "name": "Woodstock Laundry",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "woodstock-laundry",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "byravn.no": {
+      "hostName": "byravn.no",
+      "name": "byRavn.no",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "byravn-no",
+          "cashbackDescription": "9,5 %"
+        }
+      ]
+    },
+    "bobohome.no": {
+      "hostName": "bobohome.no",
+      "name": "BOBOHome.no",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "bobohome-no",
+          "cashbackDescription": "8,5 %"
+        }
+      ]
+    },
+    "www.joyland.no": {
+      "hostName": "www.joyland.no",
+      "name": "Joyland",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "joyland",
+          "cashbackDescription": "8 %"
+        }
+      ]
+    },
+    "formen.no": {
+      "hostName": "formen.no",
+      "name": "4 Men 4 Women",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "4-men-4-women",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "www.beslagsmanden.no": {
+      "hostName": "www.beslagsmanden.no",
+      "name": "Beslagsmanden",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "beslagsmanden",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "baalstedet.no": {
+      "hostName": "baalstedet.no",
+      "name": "Bålstedet",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "baalstedet",
+          "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "09c1616a-b5f2-42da-b394-bde06a66610c",
+          "cashbackDescription": "4,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=09c1616a-b5f2-42da-b394-bde06a66610c&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "dgspetproducts.no": {
+      "hostName": "dgspetproducts.no",
+      "name": "Dog Gone Smart",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "dog-gone-smart",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "dogsome.no": {
+      "hostName": "dogsome.no",
+      "name": "Dogsome",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "dogsome",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "estore.no": {
+      "hostName": "estore.no",
+      "name": "Estore",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "estore",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "www.fidelitystore.bargains": {
+      "hostName": "www.fidelitystore.bargains",
+      "name": "Fidelity Store",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "fidelity-store",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "fuglebutikken.no": {
+      "hostName": "fuglebutikken.no",
+      "name": "Fuglebutikken",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "fuglebutikken",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "gnagerbutikken.no": {
+      "hostName": "gnagerbutikken.no",
+      "name": "Gnagerbutikken",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "gnagerbutikken",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "eu.htvront.com": {
+      "hostName": "eu.htvront.com",
+      "name": "HTVRONT",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "htvront",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "www.hansenracing.no": {
+      "hostName": "www.hansenracing.no",
+      "name": "Hansen Racing",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "hansen-racing",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "www.der-fellmann.de": {
+      "hostName": "www.der-fellmann.de",
+      "name": "Hollert Leather",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "hollert-leather",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "homeheart.no": {
+      "hostName": "homeheart.no",
+      "name": "Homeheart",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "homeheart",
+          "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "15d4400f-781f-4fc5-a0e8-1990ab85ff38",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=15d4400f-781f-4fc5-a0e8-1990ab85ff38&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "hundinorge.no": {
+      "hostName": "hundinorge.no",
+      "name": "Hund i Norge",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "hund-i-norge",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "id-merke.no": {
+      "hostName": "id-merke.no",
+      "name": "IDmerke -My-family",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "idmerke-my-family",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "www.jumperhelse.no": {
+      "hostName": "www.jumperhelse.no",
+      "name": "Jumper Helse",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "jumper-helse",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "kattinorge.no": {
+      "hostName": "kattinorge.no",
+      "name": "Katt i Norge",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "katt-i-norge",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "kronch.no": {
+      "hostName": "kronch.no",
+      "name": "Kronch hund og kattefòr",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "kronch-hund-og-kattefor",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "www.lysman.no": {
+      "hostName": "www.lysman.no",
+      "name": "Lysman.no",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "lysman-no",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "minifinder.com": {
+      "hostName": "minifinder.com",
+      "name": "MiniFinder",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "minifinder",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "no.northtrampoline.com": {
+      "hostName": "no.northtrampoline.com",
+      "name": "North Trampoline",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "north-trampoline",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "www.ourosjewels.com": {
+      "hostName": "www.ourosjewels.com",
+      "name": "Ouros Jewels",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "ouros-jewels",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "reptil.no": {
+      "hostName": "reptil.no",
+      "name": "Reptil.no",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "reptil-no",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "skafferimat.se": {
+      "hostName": "skafferimat.se",
+      "name": "Skafferimat",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "skafferimat",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "sportshund.no": {
+      "hostName": "sportshund.no",
+      "name": "Sportshund",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "sportshund",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "no.staybeautiful.dk": {
+      "hostName": "no.staybeautiful.dk",
+      "name": "Staybeautiful Norge",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "staybeautiful-norge",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "www.strongerlabel.com": {
+      "hostName": "www.strongerlabel.com",
+      "name": "Strongerlabel",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "strongerlabel",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "www.tacticalstore.se": {
+      "hostName": "www.tacticalstore.se",
+      "name": "Tacticalstore",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "tacticalstore",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "lade.tropehagen.no": {
+      "hostName": "lade.tropehagen.no",
+      "name": "Tropehagen Lade Arena",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "tropehagen-lade-arena",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "utefugl.no": {
+      "hostName": "utefugl.no",
+      "name": "Utefugl.no - Fuglemat og utstyr for hage",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "utefugl-no-fuglemat-og-utstyr-for-hage",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "vstarcam.shop": {
+      "hostName": "vstarcam.shop",
+      "name": "Vstarcam Skandinavia",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "vstarcam-skandinavia",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "woome.no": {
+      "hostName": "woome.no",
+      "name": "Woome.no",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "woome-no",
+          "cashbackDescription": "7,6 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "10871099-6607-4e2b-9687-229c8c1fd8c0",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=10871099-6607-4e2b-9687-229c8c1fd8c0&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "shop.air-q.com": {
+      "hostName": "shop.air-q.com",
+      "name": "air-Q",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "air-q",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "www.heilys.eu": {
+      "hostName": "www.heilys.eu",
+      "name": "Heilys®",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "heilys",
+          "cashbackDescription": "7,6 %"
+        }
+      ]
+    },
+    "dogman.no": {
+      "hostName": "dogman.no",
+      "name": "Dogman and friends",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "dogman-and-friends",
+          "cashbackDescription": "7,3 %"
+        }
+      ]
+    },
+    "seniorlife.no": {
+      "hostName": "seniorlife.no",
+      "name": "Seniorlife",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "seniorlife",
+          "cashbackDescription": "7,3 %"
+        }
+      ]
+    },
+    "murlongcres.com": {
+      "hostName": "murlongcres.com",
+      "name": "Murlong Cres",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "murlong-cres",
+          "cashbackDescription": "6,7 %"
+        }
+      ]
+    },
+    "northwalleu.com": {
+      "hostName": "northwalleu.com",
+      "name": "Northwall",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "northwall",
+          "cashbackDescription": "6,7 %"
+        }
+      ]
+    },
+    "www.pfc.no": {
+      "hostName": "www.pfc.no",
+      "name": "PFC Nordic",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "pfc-nordic",
+          "cashbackDescription": "6,7 %"
+        }
+      ]
+    },
+    "www.sexonic.eu": {
+      "hostName": "www.sexonic.eu",
+      "name": "Sexonic",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "sexonic",
+          "cashbackDescription": "6,7 %"
+        }
+      ]
+    },
+    "sparkfix.no": {
+      "hostName": "sparkfix.no",
+      "name": "Sparkfix",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "sparkfix",
+          "cashbackDescription": "6,7 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "dc10113a-a789-4dd7-a2f4-8bc067b1cd46",
+          "cashbackDescription": "3,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=dc10113a-a789-4dd7-a2f4-8bc067b1cd46&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "tulipart.eu": {
+      "hostName": "tulipart.eu",
+      "name": "Tulipart",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "tulipart",
+          "cashbackDescription": "6,7 %"
+        }
+      ]
+    },
+    "www.aliexpress.com": {
+      "hostName": "www.aliexpress.com",
+      "name": "Ali Express",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "ali-express",
+          "cashbackDescription": "6 %"
+        }
+      ]
+    },
+    "www.8wines.com": {
+      "hostName": "www.8wines.com",
+      "name": "8Wines",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "8wines",
+          "cashbackDescription": "1 %"
+        }
+      ]
+    },
+    "akvaristikk.no": {
+      "hostName": "akvaristikk.no",
+      "name": "Akvaristikk.no",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "akvaristikk-no",
+          "cashbackDescription": "5,7 %"
+        }
+      ]
+    },
+    "www.bastsauna.com": {
+      "hostName": "www.bastsauna.com",
+      "name": "Bast sauna",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "bast-sauna",
+          "cashbackDescription": "5,7 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "b4aad694-d9ce-4b50-8fa4-f6551c6b6400",
+          "cashbackDescription": "4,3 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=b4aad694-d9ce-4b50-8fa4-f6551c6b6400&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "collagenprolenk.no": {
+      "hostName": "collagenprolenk.no",
+      "name": "CollagenPROlenk",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "collagenprolenk",
+          "cashbackDescription": "5,7 %"
+        }
+      ]
+    },
+    "dyrebutikk.no": {
+      "hostName": "dyrebutikk.no",
+      "name": "Dyrebutikk.no",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "dyrebutikk-no",
+          "cashbackDescription": "5,7 %"
+        }
+      ]
+    },
+    "earsdecor.com": {
+      "hostName": "earsdecor.com",
+      "name": "Ears Decor Limited",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "ears-decor-limited",
+          "cashbackDescription": "5,7 %"
+        }
+      ]
+    },
+    "oldgemhouse.com": {
+      "hostName": "oldgemhouse.com",
+      "name": "OldGem House",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "oldgem-house",
+          "cashbackDescription": "5,7 %"
+        }
+      ]
+    },
+    "www.stigefabrikken.no": {
+      "hostName": "www.stigefabrikken.no",
+      "name": "Stigefabrikken.no",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "stigefabrikken-no",
+          "cashbackDescription": "5,7 %"
+        }
+      ]
+    },
+    "tropehagen.no": {
+      "hostName": "tropehagen.no",
+      "name": "Tropehagen.no",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "tropehagen-no",
+          "cashbackDescription": "5,7 %"
+        }
+      ]
+    },
+    "www.biopeiser-shop.no": {
+      "hostName": "www.biopeiser-shop.no",
+      "name": "Biopeiser-Shop.No",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "biopeiser-shop-no",
+          "cashbackDescription": "5 %"
+        }
+      ]
+    },
+    "www.axkid.com": {
+      "hostName": "www.axkid.com",
+      "name": "Axkid",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "axkid",
+          "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "4c94c221-9b49-452e-a5da-4e493b17c3aa",
+          "cashbackDescription": "2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=4c94c221-9b49-452e-a5da-4e493b17c3aa&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "no.babybrezza.se": {
+      "hostName": "no.babybrezza.se",
+      "name": "Babybrezza",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "babybrezza",
+          "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "168d42bf-4022-49c5-ab90-c3195b34add7",
+          "cashbackDescription": "2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=168d42bf-4022-49c5-ab90-c3195b34add7&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "www.borastapeter.com": {
+      "hostName": "www.borastapeter.com",
+      "name": "Borastapeter",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "borastapeter",
+          "cashbackDescription": "4,8 %"
+        }
+      ]
+    },
+    "bumprider.com": {
+      "hostName": "bumprider.com",
+      "name": "Bumprider",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "bumprider",
+          "cashbackDescription": "4,8 %"
+        }
+      ]
+    },
+    "www.ecoride.com": {
+      "hostName": "www.ecoride.com",
+      "name": "Ecoride",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "ecoride",
+          "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "9245007c-200b-4612-bb34-be33078ec1df",
+          "cashbackDescription": "3,8 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=9245007c-200b-4612-bb34-be33078ec1df&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "fortunadigital.net": {
+      "hostName": "fortunadigital.net",
+      "name": "Fortuna Digital",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "fortuna-digital",
+          "cashbackDescription": "4,8 %"
+        }
+      ]
+    },
+    "www.gshopper.com": {
+      "hostName": "www.gshopper.com",
+      "name": "Gshopper",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "gshopper",
+          "cashbackDescription": "4,8 %"
+        }
+      ]
+    },
+    "www.myoutdoorkitchen.no": {
+      "hostName": "www.myoutdoorkitchen.no",
+      "name": "Myoutdoorkitchen",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "myoutdoorkitchen",
+          "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "92ea0ebc-cca4-44b5-ad03-028df27a5dee",
+          "cashbackDescription": "2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=92ea0ebc-cca4-44b5-ad03-028df27a5dee&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "www.myrangecooker.no": {
+      "hostName": "www.myrangecooker.no",
+      "name": "Myrangecooker",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "myrangecooker",
+          "cashbackDescription": "4,8 %"
+        }
+      ]
+    },
+    "explore.omsystem.com": {
+      "hostName": "explore.omsystem.com",
+      "name": "OM System",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "om-system",
+          "cashbackDescription": "4,8 %"
+        }
+      ]
+    },
+    "www.pyretosnackan.no": {
+      "hostName": "www.pyretosnackan.no",
+      "name": "Pyretosnackan",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "pyretosnackan",
+          "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "5d592a35-fa25-4344-b3e5-30ce537e4d91",
+          "cashbackDescription": "2,9 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=5d592a35-fa25-4344-b3e5-30ce537e4d91&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "www.shacks.co.uk": {
+      "hostName": "www.shacks.co.uk",
+      "name": "Shacks",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "shacks",
+          "cashbackDescription": "4,8 %"
+        }
+      ]
+    },
+    "www.sologstrand.no": {
+      "hostName": "www.sologstrand.no",
+      "name": "Sologstrand.no",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "sologstrand-no",
+          "cashbackDescription": "4,8 %"
+        }
+      ]
+    },
+    "www.sportproffen.no": {
+      "hostName": "www.sportproffen.no",
+      "name": "Sportproffen",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "sportproffen",
+          "cashbackDescription": "4,8 %"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "ae2f6756-4fa4-4537-8a62-54e5b755409c",
+          "cashbackDescription": "2,4 Spenn / 10 kr",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=ae2f6756-4fa4-4537-8a62-54e5b755409c&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "no.iherb.com": {
+      "hostName": "no.iherb.com",
+      "name": "iHerb",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "iherb",
+          "cashbackDescription": "4,8 %"
+        }
+      ]
+    },
+    "redheal.no": {
+      "hostName": "redheal.no",
+      "name": "REDHEAL",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "redheal",
+          "cashbackDescription": "4,7 %"
+        }
+      ]
+    },
+    "fiskeonline.com": {
+      "hostName": "fiskeonline.com",
+      "name": "Fiskeonline",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "fiskeonline",
+          "cashbackDescription": "3,8 %"
+        }
+      ]
+    },
+    "www.klimatime.no": {
+      "hostName": "www.klimatime.no",
+      "name": "Klimatime",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "klimatime",
+          "cashbackDescription": "120 kr"
+        }
+      ]
+    },
+    "stylingagenten.com": {
+      "hostName": "stylingagenten.com",
+      "name": "Stylingagenten",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "stylingagenten",
+          "cashbackDescription": "3,8 %"
+        }
+      ]
+    },
+    "campio.no": {
+      "hostName": "campio.no",
+      "name": "Campio",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "campio",
+          "cashbackDescription": "3,3 %"
+        }
+      ]
+    },
+    "www.cancercareparcel.com": {
+      "hostName": "www.cancercareparcel.com",
+      "name": "Cancer Care Parcel",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "cancer-care-parcel",
+          "cashbackDescription": "2,8 %"
+        }
+      ]
+    },
+    "ankerstjerne.no": {
+      "hostName": "ankerstjerne.no",
+      "name": "Dr Stine (NO)",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "dr-stine-no",
+          "cashbackDescription": "2,8 %"
+        }
+      ]
+    },
+    "www.ferryhopper.com": {
+      "hostName": "www.ferryhopper.com",
+      "name": "Ferryhopper",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "ferryhopper",
+          "cashbackDescription": "2,8 %"
+        }
+      ]
+    },
+    "eu.yozmasport.com": {
+      "hostName": "eu.yozmasport.com",
+      "name": "YozmaSport",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "yozmasport",
+          "cashbackDescription": "2,8 %"
+        }
+      ]
+    },
+    "redmagic.gg": {
+      "hostName": "redmagic.gg",
+      "name": "Redmagic",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "redmagic",
+          "cashbackDescription": "2,4 %"
+        }
+      ]
+    },
+    "www.lot.com": {
+      "hostName": "www.lot.com",
+      "name": "LOT Global",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "lot-global",
+          "cashbackDescription": "1,4 %"
+        }
+      ]
+    },
+    "www.sensorem.com": {
+      "hostName": "www.sensorem.com",
+      "name": "Sensorem",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "sensorem",
+          "cashbackDescription": "550 kr"
+        }
+      ]
+    },
+    "cheapenergy.no": {
+      "hostName": "cheapenergy.no",
+      "name": "Cheap Energy",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "cheap-energy",
+          "cashbackDescription": "280 kr"
+        }
+      ]
+    },
+    "kildenkraft.no": {
+      "hostName": "kildenkraft.no",
+      "name": "Kilden Kraft",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "kilden-kraft",
+          "cashbackDescription": "280 kr"
+        }
+      ]
+    },
+    "www.vitaliv.com": {
+      "hostName": "www.vitaliv.com",
+      "name": "Vitaliv",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "vitaliv",
+          "cashbackDescription": "270 kr"
+        }
+      ]
+    },
+    "www.lyca-mobile.no": {
+      "hostName": "www.lyca-mobile.no",
+      "name": "Lyca Mobile",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "lyca-mobile",
+          "cashbackDescription": "217,6 kr"
+        }
+      ]
+    },
+    "tjenestetorget.no": {
+      "hostName": "tjenestetorget.no",
+      "name": "Tjenestetorget",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "tjenestetorget",
+          "cashbackDescription": "70 kr"
+        }
+      ]
+    },
+    "www.flyforsinkelser.no": {
+      "hostName": "www.flyforsinkelser.no",
+      "name": "Flyforsinkelser",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "flyforsinkelser",
+          "cashbackDescription": "176 kr"
+        }
+      ]
+    },
+    "www.barnasbokverden.no": {
+      "hostName": "www.barnasbokverden.no",
+      "name": "Barnas Bokverden - Tanum Bokklubber",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "barnas-bokverden-tanum-bokklubber",
+          "cashbackDescription": "163,2 kr"
+        }
+      ]
+    },
+    "www.vitaepro.no": {
+      "hostName": "www.vitaepro.no",
+      "name": "VitaePro",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "vitaepro",
+          "cashbackDescription": "160 kr"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "935770fc-92d0-4cbc-8a42-265b623a31fd",
+          "cashbackDescription": "2 100 Spenn",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=935770fc-92d0-4cbc-8a42-265b623a31fd&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "flyhjelp.no": {
+      "hostName": "flyhjelp.no",
+      "name": "Flyhjelp",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "flyhjelp",
+          "cashbackDescription": "154 kr"
+        }
+      ]
+    },
+    "www.leselove.no": {
+      "hostName": "www.leselove.no",
+      "name": "Leseløveklubben",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "leseloveklubben",
+          "cashbackDescription": "147,2 kr"
+        }
+      ]
+    },
+    "volt.com": {
+      "hostName": "volt.com",
+      "name": "Volt Male Enhancement",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "volt-male-enhancement",
+          "cashbackDescription": "147 kr"
+        }
+      ]
+    },
+    "www.krimklubben.no": {
+      "hostName": "www.krimklubben.no",
+      "name": "Krimklubben - Tanum Bokklubber",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "krimklubben-tanum-bokklubber",
+          "cashbackDescription": "144 kr"
+        }
+      ]
+    },
+    "www.movanze.no": {
+      "hostName": "www.movanze.no",
+      "name": "Movanze",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "movanze",
+          "cashbackDescription": "144 kr"
+        },
+        {
+          "serviceId": "spenn",
+          "urlName": "9d38d250-e288-44e8-8602-bed5ccbb5966",
+          "cashbackDescription": "2 100 Spenn",
+          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=9d38d250-e288-44e8-8602-bed5ccbb5966&source=browser-extension&spennId={spennId}"
+        }
+      ]
+    },
+    "romega.no": {
+      "hostName": "romega.no",
+      "name": "Romega Brain Health",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "romega-brain-health",
+          "cashbackDescription": "136,5 kr"
+        }
+      ]
+    },
+    "t-complex.no": {
+      "hostName": "t-complex.no",
+      "name": "T-complex TestoBooster",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "t-complex-testobooster",
+          "cashbackDescription": "135 kr"
+        }
+      ]
+    },
+    "melatoninvital.no": {
+      "hostName": "melatoninvital.no",
+      "name": "Melatonin Vital",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "melatonin-vital",
+          "cashbackDescription": "127,5 kr"
+        }
+      ]
+    },
+    "craveless.no": {
+      "hostName": "craveless.no",
+      "name": "Craveless",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "craveless",
+          "cashbackDescription": "120 kr"
+        }
+      ]
+    },
+    "www.mummiklubben.no": {
+      "hostName": "www.mummiklubben.no",
+      "name": "Mummiklubben",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "mummiklubben",
+          "cashbackDescription": "120 kr"
+        }
+      ]
+    },
+    "belean.no": {
+      "hostName": "belean.no",
+      "name": "BeLean - Diet for Men",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "belean-diet-for-men",
+          "cashbackDescription": "115,5 kr"
+        }
+      ]
+    },
+    "regrowth.no": {
+      "hostName": "regrowth.no",
+      "name": "ReGrowth",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "regrowth",
+          "cashbackDescription": "115,5 kr"
+        }
+      ]
+    },
+    "rootify.no": {
+      "hostName": "rootify.no",
+      "name": "Rootify",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "rootify",
+          "cashbackDescription": "115,5 kr"
+        }
+      ]
+    },
+    "collaxan.no": {
+      "hostName": "collaxan.no",
+      "name": "Collaxan",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "collaxan",
+          "cashbackDescription": "105 kr"
+        }
+      ]
+    },
+    "estrodoxin.com": {
+      "hostName": "estrodoxin.com",
+      "name": "Estrodoxin",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "estrodoxin",
+          "cashbackDescription": "105 kr"
+        }
+      ]
+    },
+    "vigrovital.com": {
+      "hostName": "vigrovital.com",
+      "name": "VigroVital T-powr",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "vigrovital-t-powr",
+          "cashbackDescription": "105 kr"
+        }
+      ]
+    },
+    "vitaliv.no": {
+      "hostName": "vitaliv.no",
+      "name": "Vitaliv Bilberry Forte",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "vitaliv-bilberry-forte",
+          "cashbackDescription": "105 kr"
+        }
+      ]
+    },
+    "mory.no": {
+      "hostName": "mory.no",
+      "name": "Mory - Lose Weight",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "mory-lose-weight",
+          "cashbackDescription": "97,5 kr"
+        }
+      ]
+    },
+    "nuclosan.no": {
+      "hostName": "nuclosan.no",
+      "name": "Nuclosan",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "nuclosan",
+          "cashbackDescription": "94,5 kr"
+        }
+      ]
+    },
+    "nutracare.no": {
+      "hostName": "nutracare.no",
+      "name": "Nutracare AktivPros+",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "nutracare-aktivpros",
+          "cashbackDescription": "94,5 kr"
+        }
+      ]
+    },
+    "probagluco.no": {
+      "hostName": "probagluco.no",
+      "name": "Proba Gluco",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "proba-gluco",
+          "cashbackDescription": "93,3 kr"
+        }
+      ]
+    },
+    "prostaqr.no": {
+      "hostName": "prostaqr.no",
+      "name": "ProstaQr",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "prostaqr",
+          "cashbackDescription": "84 kr"
+        }
+      ]
+    },
+    "lifeseeds.com": {
+      "hostName": "lifeseeds.com",
+      "name": "Lifeseeds",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "lifeseeds",
+          "cashbackDescription": "75 kr"
+        }
+      ]
+    },
+    "lectinect.no": {
+      "hostName": "lectinect.no",
+      "name": "Lectinect Glucerol Pro",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "lectinect-glucerol-pro",
+          "cashbackDescription": "63 kr"
+        }
+      ]
+    },
+    "liverqr.no": {
+      "hostName": "liverqr.no",
+      "name": "LiverQR",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "liverqr",
+          "cashbackDescription": "63 kr"
+        }
+      ]
+    },
+    "magnexan.no": {
+      "hostName": "magnexan.no",
+      "name": "Magnexan",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "magnexan",
+          "cashbackDescription": "63 kr"
+        }
+      ]
+    },
+    "menosol.no": {
+      "hostName": "menosol.no",
+      "name": "Menosol",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "menosol",
+          "cashbackDescription": "63 kr"
+        }
+      ]
+    },
+    "www.golfbru.co": {
+      "hostName": "www.golfbru.co",
+      "name": "GOLFBRU",
+      "offers": [
+        {
+          "serviceId": "spareborsen",
+          "urlName": "golfbru",
+          "cashbackDescription": "30 kr"
+        }
+      ]
+    },
     "vikingfootwear.no": {
       "hostName": "vikingfootwear.no",
       "name": "Viking Footwear",
@@ -10607,30 +14449,6 @@
         }
       ]
     },
-    "sportproffen.no": {
-      "hostName": "sportproffen.no",
-      "name": "Sportproffen",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "ae2f6756-4fa4-4537-8a62-54e5b755409c",
-          "cashbackDescription": "2,4 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=ae2f6756-4fa4-4537-8a62-54e5b755409c&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "bastsauna.com": {
-      "hostName": "bastsauna.com",
-      "name": "Bast Sauna",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "b4aad694-d9ce-4b50-8fa4-f6551c6b6400",
-          "cashbackDescription": "4,3 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=b4aad694-d9ce-4b50-8fa4-f6551c6b6400&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
     "babyshop.com": {
       "hostName": "babyshop.com",
       "name": "Babyshop",
@@ -10679,42 +14497,6 @@
         }
       ]
     },
-    "sparkfix.no": {
-      "hostName": "sparkfix.no",
-      "name": "Sparkfix",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "dc10113a-a789-4dd7-a2f4-8bc067b1cd46",
-          "cashbackDescription": "3,4 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=dc10113a-a789-4dd7-a2f4-8bc067b1cd46&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "pyretosnackan.no": {
-      "hostName": "pyretosnackan.no",
-      "name": "Pyret & Snäckan",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "5d592a35-fa25-4344-b3e5-30ce537e4d91",
-          "cashbackDescription": "2,9 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=5d592a35-fa25-4344-b3e5-30ce537e4d91&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "ecoride.com": {
-      "hostName": "ecoride.com",
-      "name": "Ecoride",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "9245007c-200b-4612-bb34-be33078ec1df",
-          "cashbackDescription": "3,8 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=9245007c-200b-4612-bb34-be33078ec1df&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
     "photowall.no": {
       "hostName": "photowall.no",
       "name": "Photowall",
@@ -10751,30 +14533,6 @@
         }
       ]
     },
-    "agelab.no": {
-      "hostName": "agelab.no",
-      "name": "Agelab",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "fee7fb21-41b6-401b-a4cd-62f60c2848ad",
-          "cashbackDescription": "5,8 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=fee7fb21-41b6-401b-a4cd-62f60c2848ad&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "lysterapi.no": {
-      "hostName": "lysterapi.no",
-      "name": "Lysterapi",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "b712dc87-01c5-473a-a306-750609f93592",
-          "cashbackDescription": "3,8 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=b712dc87-01c5-473a-a306-750609f93592&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
     "zlikehair.com": {
       "hostName": "zlikehair.com",
       "name": "Zlike Hair",
@@ -10784,42 +14542,6 @@
           "urlName": "1b03cc3f-c7ba-4d3b-8d1e-986c5f040a9b",
           "cashbackDescription": "3,8 Spenn / 10 kr",
           "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=1b03cc3f-c7ba-4d3b-8d1e-986c5f040a9b&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "axkid.com": {
-      "hostName": "axkid.com",
-      "name": "Axkid",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "4c94c221-9b49-452e-a5da-4e493b17c3aa",
-          "cashbackDescription": "2,4 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=4c94c221-9b49-452e-a5da-4e493b17c3aa&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "vitaepro.no": {
-      "hostName": "vitaepro.no",
-      "name": "VitaePro",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "935770fc-92d0-4cbc-8a42-265b623a31fd",
-          "cashbackDescription": "2 100 Spenn",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=935770fc-92d0-4cbc-8a42-265b623a31fd&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "woome.no": {
-      "hostName": "woome.no",
-      "name": "Woome",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "10871099-6607-4e2b-9687-229c8c1fd8c0",
-          "cashbackDescription": "3,8 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=10871099-6607-4e2b-9687-229c8c1fd8c0&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -10835,18 +14557,6 @@
         }
       ]
     },
-    "norzen.no": {
-      "hostName": "norzen.no",
-      "name": "Norzen",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "16d8dddc-6a49-4c29-a983-7ed516bb9f82",
-          "cashbackDescription": "9,6 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=16d8dddc-6a49-4c29-a983-7ed516bb9f82&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
     "smungene-b0a.no": {
       "hostName": "smungene-b0a.no",
       "name": "Småungene",
@@ -10859,18 +14569,6 @@
         }
       ]
     },
-    "nespresso.prf.hn": {
-      "hostName": "nespresso.prf.hn",
-      "name": "Nespresso Nordic",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "5706cfdf-733b-4f6d-bbec-0ac57dc2df7d",
-          "cashbackDescription": "5,8 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=5706cfdf-733b-4f6d-bbec-0ac57dc2df7d&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
     "northtrampoline.com": {
       "hostName": "northtrampoline.com",
       "name": "North Trampoline",
@@ -10880,90 +14578,6 @@
           "urlName": "4644131c-774a-4ea4-bb9b-c99946faf4ce",
           "cashbackDescription": "3,8 Spenn / 10 kr",
           "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=4644131c-774a-4ea4-bb9b-c99946faf4ce&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "movanze.no": {
-      "hostName": "movanze.no",
-      "name": "Movanze.no",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "9d38d250-e288-44e8-8602-bed5ccbb5966",
-          "cashbackDescription": "2 100 Spenn",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=9d38d250-e288-44e8-8602-bed5ccbb5966&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "asuro.no": {
-      "hostName": "asuro.no",
-      "name": "Asuro",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "d62d8a4a-6cb6-4227-b436-1c30d2f8986e",
-          "cashbackDescription": "3,8 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=d62d8a4a-6cb6-4227-b436-1c30d2f8986e&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "livetleker.no": {
-      "hostName": "livetleker.no",
-      "name": "Livet Leker",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "20c70d88-a3cb-47b0-b728-705036aa63cf",
-          "cashbackDescription": "9,6 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=20c70d88-a3cb-47b0-b728-705036aa63cf&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "nemo.no": {
-      "hostName": "nemo.no",
-      "name": "Nemo",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "5513b0cc-5c71-4e83-b11f-e825e2b4df61",
-          "cashbackDescription": "4,8 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=5513b0cc-5c71-4e83-b11f-e825e2b4df61&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "introni.no": {
-      "hostName": "introni.no",
-      "name": "Introni",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "a765645e-009f-4ff8-890a-a71cb3422592",
-          "cashbackDescription": "4,8 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=a765645e-009f-4ff8-890a-a71cb3422592&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "curli.no": {
-      "hostName": "curli.no",
-      "name": "CURLI",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "76e5f8f5-7f28-406c-8352-6cb6360508f4",
-          "cashbackDescription": "4,8 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=76e5f8f5-7f28-406c-8352-6cb6360508f4&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "beconfident.com": {
-      "hostName": "beconfident.com",
-      "name": "Beconfident",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "5d415c60-675b-4bb5-af56-eeefb5e805e6",
-          "cashbackDescription": "9,6 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=5d415c60-675b-4bb5-af56-eeefb5e805e6&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -10991,18 +14605,6 @@
         }
       ]
     },
-    "fotakutten.no": {
-      "hostName": "fotakutten.no",
-      "name": "Fotakutten",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "a92b59e5-50a0-445b-8194-458c5a8a8170",
-          "cashbackDescription": "9,6 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=a92b59e5-50a0-445b-8194-458c5a8a8170&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
     "trotec.com": {
       "hostName": "trotec.com",
       "name": "Trotec",
@@ -11027,18 +14629,6 @@
         }
       ]
     },
-    "no.babybrezza.se": {
-      "hostName": "no.babybrezza.se",
-      "name": "Baby Brezza",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "168d42bf-4022-49c5-ab90-c3195b34add7",
-          "cashbackDescription": "2,4 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=168d42bf-4022-49c5-ab90-c3195b34add7&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
     "goboken.no": {
       "hostName": "goboken.no",
       "name": "Goboken",
@@ -11048,18 +14638,6 @@
           "urlName": "1b13f041-e2f3-4de6-98a4-f54b06ca1f29",
           "cashbackDescription": "600 Spenn (Goboken Bokklubb)",
           "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=1b13f041-e2f3-4de6-98a4-f54b06ca1f29&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "homeheart.no": {
-      "hostName": "homeheart.no",
-      "name": "Homeheart",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "15d4400f-781f-4fc5-a0e8-1990ab85ff38",
-          "cashbackDescription": "3,8 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=15d4400f-781f-4fc5-a0e8-1990ab85ff38&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -11087,30 +14665,6 @@
         }
       ]
     },
-    "ajosepo.com": {
-      "hostName": "ajosepo.com",
-      "name": "AJOSEPO",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "0cbbf2f6-8ad5-4d48-a6cd-9cff0c28e4d9",
-          "cashbackDescription": "7,2 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=0cbbf2f6-8ad5-4d48-a6cd-9cff0c28e4d9&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "airy.green": {
-      "hostName": "airy.green",
-      "name": "AIRY",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "02eba11e-de4f-4c36-b901-13cbccd7eba8",
-          "cashbackDescription": "4,8 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=02eba11e-de4f-4c36-b901-13cbccd7eba8&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
     "kockumsjernverk.no": {
       "hostName": "kockumsjernverk.no",
       "name": "Kockums Jernverk NO",
@@ -11120,18 +14674,6 @@
           "urlName": "c41d57bc-3eda-4847-97e3-6c0c4b9f7384",
           "cashbackDescription": "4,8 Spenn / 10 kr",
           "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=c41d57bc-3eda-4847-97e3-6c0c4b9f7384&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "baalstedet.no": {
-      "hostName": "baalstedet.no",
-      "name": "Bålstedet",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "09c1616a-b5f2-42da-b394-bde06a66610c",
-          "cashbackDescription": "4,8 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=09c1616a-b5f2-42da-b394-bde06a66610c&source=browser-extension&spennId={spennId}"
         }
       ]
     },
@@ -11156,66 +14698,6 @@
           "urlName": "f87e9613-705b-4426-9e4c-01ec2326544a",
           "cashbackDescription": "5,8 Spenn / 10 kr",
           "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=f87e9613-705b-4426-9e4c-01ec2326544a&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "nordiskpuls.no": {
-      "hostName": "nordiskpuls.no",
-      "name": "NordiskPuls",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "85c132ca-b46a-4000-9f56-3b3eb4007f55",
-          "cashbackDescription": "7,2 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=85c132ca-b46a-4000-9f56-3b3eb4007f55&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "ufesa.no": {
-      "hostName": "ufesa.no",
-      "name": "Ufesa",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "2f4ab142-c0bb-4c12-a4e5-5bdf8d2d0d62",
-          "cashbackDescription": "12 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=2f4ab142-c0bb-4c12-a4e5-5bdf8d2d0d62&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "vuxen.no": {
-      "hostName": "vuxen.no",
-      "name": "Vuxen",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "85e656ad-3e41-450f-9d97-d48d5b8789b0",
-          "cashbackDescription": "11 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=85e656ad-3e41-450f-9d97-d48d5b8789b0&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "myoutdoorkitchen.no": {
-      "hostName": "myoutdoorkitchen.no",
-      "name": "Myoutdoorkitchen",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "92ea0ebc-cca4-44b5-ad03-028df27a5dee",
-          "cashbackDescription": "2,4 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=92ea0ebc-cca4-44b5-ad03-028df27a5dee&source=browser-extension&spennId={spennId}"
-        }
-      ]
-    },
-    "rennoa.eu": {
-      "hostName": "rennoa.eu",
-      "name": "Rennoa",
-      "offers": [
-        {
-          "serviceId": "spenn",
-          "urlName": "357099b5-4745-4a17-ac09-aa75a3b03929",
-          "cashbackDescription": "12 Spenn / 10 kr",
-          "clickthroughUrl": "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store=357099b5-4745-4a17-ac09-aa75a3b03929&source=browser-extension&spennId={spennId}"
         }
       ]
     }

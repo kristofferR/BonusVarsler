@@ -95,6 +95,16 @@ export const SERVICES_FALLBACK: ServiceRegistry = {
     color: "#ee2e24",
     defaultEnabled: false,
   },
+  spareborsen: {
+    id: "spareborsen",
+    name: "Sparebørsen",
+    clickthroughUrl: "https://spareborsen.no/partnere/{urlName}",
+    reminderDomain: "spareborsen.no",
+    // Store pages; the default /cashback/, /shop/, /reward/ prefixes don't exist on spareborsen.no
+    cashbackPathPatterns: ["/partnere/"],
+    color: "#B8903A",
+    defaultEnabled: false,
+  },
   spenn: {
     id: "spenn",
     name: "Spenn",
@@ -107,7 +117,7 @@ export const SERVICES_FALLBACK: ServiceRegistry = {
 };
 
 // Service display order (active services first, then coming soon)
-export const SERVICE_ORDER = ["trumf", "sas", "remember", "dnb", "obos", "naf", "lofavor", "logbuy", "spenn"] as const;
+export const SERVICE_ORDER = ["trumf", "sas", "remember", "dnb", "obos", "naf", "lofavor", "logbuy", "spareborsen", "spenn"] as const;
 
 /**
  * Get default enabled services
