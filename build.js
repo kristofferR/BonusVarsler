@@ -66,15 +66,20 @@ function fetchHeaders(url, timeout = 5000) {
     const protocol = url.startsWith("https") ? https : http;
     const req = protocol.get(
       url,
-      { timeout, headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" } },
+      { headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" } },
       (res) => {
+        clearTimeout(deadline);
         resolve({ statusCode: res.statusCode, headers: res.headers, location: res.headers.location });
         res.destroy();
       }
     );
-    req.on("error", () => resolve(null));
-    req.on("timeout", () => {
+    // Hard deadline: Bun ignores the `timeout` option, so one unresponsive site would stall the build
+    const deadline = setTimeout(() => {
       req.destroy();
+      resolve(null);
+    }, timeout);
+    req.on("error", () => {
+      clearTimeout(deadline);
       resolve(null);
     });
   });
@@ -198,27 +203,37 @@ async function checkAllSitesCSP(sitelist) {
     .map(([host]) => host);
   console.log(`\n🔍 Checking CSP on ${merchants.length} sites with tracking-based services (parallel)...`);
 
-  const CONCURRENCY = 30;
+  // Kept low: many parallel DNS lookups time out on some networks (e.g. behind Tailscale MagicDNS)
+  const CONCURRENCY = 5;
+  const previouslyRestricted = readCSPRestrictedSites();
   const restrictedSites = [];
+  const unreachable = [];
   let checked = 0;
+  let next = 0;
 
-  // Process in parallel batches
-  for (let i = 0; i < merchants.length; i += CONCURRENCY) {
-    const batch = merchants.slice(i, i + CONCURRENCY);
-    const results = await Promise.all(batch.map((hostname) => checkSiteCSP(hostname)));
-
-    for (const result of results) {
+  // Worker pool, so one slow site doesn't hold up the others
+  async function worker() {
+    while (next < merchants.length) {
+      const result = await checkSiteCSP(merchants[next++]);
       checked++;
-      if (result.allBlocked) {
+      // An unreachable site keeps its previous status, so a flaky network can't wipe the list
+      if (result.error) {
+        unreachable.push(result.hostname);
+        if (previouslyRestricted.has(result.hostname)) restrictedSites.push(result.hostname);
+      } else if (result.allBlocked) {
         restrictedSites.push(result.hostname);
-        console.log(`   [${checked}/${merchants.length}] ${result.hostname}: CSP blocks all test URLs`);
+        console.log(`\n   [${checked}/${merchants.length}] ${result.hostname}: CSP blocks all test URLs`);
       }
+      if (checked % 25 === 0) process.stdout.write(`\r   [${checked}/${merchants.length}] Checking...`);
     }
-    process.stdout.write(`\r   [${checked}/${merchants.length}] Checking...`);
   }
+  await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 
   const sorted = restrictedSites.sort();
   console.log(`\n   ✓ Found ${sorted.length} CSP-restricted sites`);
+  if (unreachable.length > 0) {
+    console.log(`   ⚠ ${unreachable.length} sites were unreachable and kept their previous status`);
+  }
 
   // Save to cache
   saveCSPCache(sorted);
@@ -226,24 +241,30 @@ async function checkAllSitesCSP(sitelist) {
   return sorted;
 }
 
+const CONSTANTS_PATH = path.join("src", "config", "constants.ts");
+const CSP_RESTRICTED_SITES_PATTERN = /export const CSP_RESTRICTED_SITES = new Set\(\[\n([\s\S]*?)\]\);/;
+
+function readConstants() {
+  const constants = fs.readFileSync(CONSTANTS_PATH, "utf8");
+  const match = constants.match(CSP_RESTRICTED_SITES_PATTERN);
+  if (!match) throw new Error(`Could not find CSP_RESTRICTED_SITES in ${CONSTANTS_PATH}`);
+  return { constants, siteListCode: match[1] };
+}
+
+function readCSPRestrictedSites() {
+  const { siteListCode } = readConstants();
+  return new Set([...siteListCode.matchAll(/"([^"]+)"/g)].map((m) => m[1]));
+}
+
 function updateCSPRestrictedSites(restrictedSites) {
   console.log("\n📝 Updating CSP_RESTRICTED_SITES in source files...");
 
-  const constantsPath = path.join("src", "config", "constants.ts");
   const siteListCode = restrictedSites.map((s) => `  "${s}",`).join("\n");
   const newSetCode = `export const CSP_RESTRICTED_SITES = new Set([\n${siteListCode}\n]);`;
 
-  const constants = fs.readFileSync(constantsPath, "utf8");
-  const restrictedSitesPattern =
-    /export const CSP_RESTRICTED_SITES = new Set\(\[\n[\s\S]*?\]\);/;
-
-  if (!restrictedSitesPattern.test(constants)) {
-    throw new Error(`Could not find CSP_RESTRICTED_SITES in ${constantsPath}`);
-  }
-
-  const updatedConstants = constants.replace(restrictedSitesPattern, newSetCode);
-  fs.writeFileSync(constantsPath, updatedConstants);
-  console.log(`   ✓ Updated ${constantsPath}`);
+  const { constants } = readConstants();
+  fs.writeFileSync(CONSTANTS_PATH, constants.replace(CSP_RESTRICTED_SITES_PATTERN, newSetCode));
+  console.log(`   ✓ Updated ${CONSTANTS_PATH}`);
 }
 
 function createManifest(platform) {
@@ -371,12 +392,17 @@ async function main() {
   try {
     console.log("🚀 Building BonusVarsler\n");
 
-    // Run the scraper script to get fresh merchant data from all services
-    console.log("📥 Running merchant scraper...\n");
-    try {
-      execSync("bun scripts/scrape-feeds.ts", { stdio: "inherit" });
-    } catch (error) {
-      console.error("   ⚠ Scraper failed, continuing with existing sitelist.json");
+    // Run the scraper script to get fresh merchant data from all services.
+    // --skip-scrape packages the feed the daily update-feed workflow already committed.
+    if (process.argv.includes("--skip-scrape")) {
+      console.log("📥 Skipping merchant scraper, using committed sitelist.json\n");
+    } else {
+      console.log("📥 Running merchant scraper...\n");
+      try {
+        execSync("bun scripts/scrape-feeds.ts", { stdio: "inherit" });
+      } catch (error) {
+        console.error("   ⚠ Scraper failed, continuing with existing sitelist.json");
+      }
     }
 
     // Load the sitelist that was created/updated by the scraper
