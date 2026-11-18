@@ -315,6 +315,8 @@
       reminderDomain: "onlineshopping.flysas.com",
       cashbackPathPatterns: ["/nb-NO/butikker"],
       color: "#0F1E82",
+      // EuroBonus points are typically worth 7-11 øre on award flights
+      pointValueNok: 0.1,
       defaultEnabled: false
     },
     remember: {
@@ -395,6 +397,8 @@
       // shared by every store). {spennId} is filled with the user's own SpennID on click.
       clickthroughUrl: "https://spenn.refunder.com/click?site=4aefb3fa-6549-11ef-be75-0aaed722973b&store={urlName}&source=browser-extension&spennId={spennId}",
       color: "#E51E4F",
+      // REMA 1000 redeems 100 Spenn for 10 kr, its stated minimum value
+      pointValueNok: 0.1,
       defaultEnabled: false
     }
   };
@@ -809,8 +813,10 @@
   };
 
   // src/core/merchant-matching.ts
-  var SPENN_VALUE_NOK = 0.1;
-  function parseCashbackRate(description) {
+  function parseNorwegianNumber(text) {
+    return parseFloat(text.replace(/\s/g, "").replace(",", "."));
+  }
+  function parseCashbackRate(description, pointValueNok) {
     if (!description) return { value: 0, type: "percent", isVariable: false };
     const normalized = description.toLowerCase().trim();
     const isVariable = normalized.startsWith("opptil") || normalized.startsWith("opp til") || normalized.startsWith("up to") || /\d+\s*[-\u2013]\s*\d+/.test(normalized);
@@ -825,16 +831,17 @@
       const value = parseFloat(percentMatch[1].replace(",", "."));
       return { value, type: "percent", isVariable };
     }
-    const spennRateMatch = cleanDesc.match(/(\d+[,.]?\d*)\s*spenn\s*\/\s*(\d+[,.]?\d*)\s*kr/i);
-    if (spennRateMatch?.[1] && spennRateMatch[2]) {
-      const spenn = parseFloat(spennRateMatch[1].replace(",", "."));
-      const spend = parseFloat(spennRateMatch[2].replace(",", "."));
-      return { value: spenn * SPENN_VALUE_NOK / spend * 100, type: "percent", isVariable };
-    }
-    const fixedSpennMatch = cleanDesc.match(/(\d[\d\s]*(?:[,.]\d+)?)\s*spenn/i);
-    if (fixedSpennMatch?.[1]) {
-      const spenn = parseFloat(fixedSpennMatch[1].replace(/\s/g, "").replace(",", "."));
-      return { value: spenn * SPENN_VALUE_NOK, type: "fixed", isVariable };
+    if (pointValueNok) {
+      const rateMatch = cleanDesc.match(/^([\d\s]+(?:[,.]\d+)?)\s*(?!kr)\p{L}[^/]*\/\s*([\d\s]+(?:[,.]\d+)?)\s*kr/iu);
+      if (rateMatch?.[1] && rateMatch[2]) {
+        const points = parseNorwegianNumber(rateMatch[1]);
+        const spend = parseNorwegianNumber(rateMatch[2]);
+        return { value: points * pointValueNok / spend * 100, type: "percent", isVariable };
+      }
+      const pointsMatch = cleanDesc.match(/^([\d\s]+(?:[,.]\d+)?)\s*(?!kr)\p{L}/iu);
+      if (pointsMatch?.[1]) {
+        return { value: parseNorwegianNumber(pointsMatch[1]) * pointValueNok, type: "fixed", isVariable };
+      }
     }
     const fixedMatch = cleanDesc.match(/(\d+[,.]?\d*)\s*kr/i);
     if (fixedMatch?.[1]) {
@@ -936,8 +943,8 @@
         if (specificityA !== specificityB) {
           return specificityB - specificityA;
         }
-        const rateA = parseCashbackRate(a.cashbackDescription);
-        const rateB = parseCashbackRate(b.cashbackDescription);
+        const rateA = parseCashbackRate(a.cashbackDescription, services[a.serviceId]?.pointValueNok);
+        const rateB = parseCashbackRate(b.cashbackDescription, services[b.serviceId]?.pointValueNok);
         return compareCashbackRates(rateA, rateB);
       });
       const bestOffer = availableOffers[0];
