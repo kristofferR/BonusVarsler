@@ -12,7 +12,7 @@ export interface Service {
   cashbackPathPatterns?: string[]; // Path prefixes that indicate cashback pages (e.g., ["/cashback/", "/shop/"])
   color: string;
   defaultEnabled?: boolean;
-  type?: "code" | "info"; // "code" for code-based (DNB), "info" for informational (OBOS)
+  type?: "code" | "info"; // "code" for code-based (DNB), "info" for informational (OBOS, OPRA)
   comingSoon?: boolean;
 }
 
@@ -105,10 +105,18 @@ export const SERVICES_FALLBACK: ServiceRegistry = {
     color: "#B8903A",
     defaultEnabled: false,
   },
+  opra: {
+    id: "opra",
+    name: "OPRA",
+    clickthroughUrl: "https://opra.no/stottespillere/{urlName}",
+    color: "#a07a00",
+    defaultEnabled: false,
+    type: "info",
+  },
 };
 
 // Service display order (active services first, then coming soon)
-export const SERVICE_ORDER = ["trumf", "sas", "remember", "dnb", "obos", "naf", "lofavor", "logbuy", "spareborsen"] as const;
+export const SERVICE_ORDER = ["trumf", "sas", "remember", "dnb", "obos", "naf", "lofavor", "logbuy", "spareborsen", "opra"] as const;
 
 /**
  * Get default enabled services

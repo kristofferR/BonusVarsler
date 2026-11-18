@@ -58,6 +58,12 @@ const SERVICES_FALLBACK = {
     color: "#B8903A",
     defaultEnabled: false,
   },
+  opra: {
+    id: "opra",
+    name: "OPRA",
+    color: "#a07a00",
+    type: "info",
+  },
 };
 
 // Mutate this registry in place so Object.keys(SERVICES) keeps fallback order.
