@@ -36,8 +36,15 @@ export interface ParsedCashbackRate {
 }
 
 /**
+ * Approximate NOK value of one Spenn, used only to rank Spenn offers against
+ * other services. Spenn publishes no fixed value; redemption is about 10 øre.
+ */
+const SPENN_VALUE_NOK = 0.1;
+
+/**
  * Parse a cashback description into a comparable value
- * Handles: "5,4%", "Opptil 4,6%", "35kr", "Opptil 290kr", "up to 5%", "3-5%"
+ * Handles: "5,4%", "Opptil 4,6%", "35kr", "Opptil 290kr", "up to 5%", "3-5%",
+ * "1,4 Spenn / 10 kr", "480 Spenn"
  */
 export function parseCashbackRate(description: string | undefined): ParsedCashbackRate {
   if (!description) return { value: 0, type: "percent", isVariable: false };
@@ -62,6 +69,21 @@ export function parseCashbackRate(description: string | undefined): ParsedCashba
   if (percentMatch?.[1]) {
     const value = parseFloat(percentMatch[1].replace(",", "."));
     return { value, type: "percent", isVariable };
+  }
+
+  // Spenn per spend (e.g., "1,4 Spenn / 10 kr"): "10 kr" is the spend, not the reward
+  const spennRateMatch = cleanDesc.match(/(\d+[,.]?\d*)\s*spenn\s*\/\s*(\d+[,.]?\d*)\s*kr/i);
+  if (spennRateMatch?.[1] && spennRateMatch[2]) {
+    const spenn = parseFloat(spennRateMatch[1].replace(",", "."));
+    const spend = parseFloat(spennRateMatch[2].replace(",", "."));
+    return { value: ((spenn * SPENN_VALUE_NOK) / spend) * 100, type: "percent", isVariable };
+  }
+
+  // Fixed Spenn (e.g., "480 Spenn", "1 020 Spenn"; nb-NO groups thousands with spaces)
+  const fixedSpennMatch = cleanDesc.match(/(\d[\d\s]*(?:[,.]\d+)?)\s*spenn/i);
+  if (fixedSpennMatch?.[1]) {
+    const spenn = parseFloat(fixedSpennMatch[1].replace(/\s/g, "").replace(",", "."));
+    return { value: spenn * SPENN_VALUE_NOK, type: "fixed", isVariable };
   }
 
   // Check for fixed amount (e.g., "35kr", "290 kr")

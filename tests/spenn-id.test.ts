@@ -2,6 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { SERVICES_FALLBACK } from "../src/config/services.ts";
 import { fillSpennId, needsSpennId, normalizeSpennId } from "../src/core/spenn-id.ts";
 import { resolveClickthroughUrl } from "../src/ui/utils/clickthrough.ts";
+import { compareCashbackRates, parseCashbackRate } from "../src/core/merchant-matching.ts";
 
 const spenn = SERVICES_FALLBACK.spenn!;
 const storeId = "39d24592-869a-4c88-918e-167d67f26215";
@@ -41,5 +42,24 @@ describe("Spenn clickthrough", () => {
       storeId
     );
     expect(resolved.startsWith("https://spenn.refunder.com/click?")).toBe(true);
+  });
+});
+
+describe("Spenn rate ranking", () => {
+  test("reads the spend as a denominator, not a fixed kroner reward", () => {
+    const low = parseCashbackRate("1 Spenn / 10 kr");
+    const high = parseCashbackRate("Opptil 12 Spenn / 10 kr");
+    expect(low).toEqual({ value: 1, type: "percent", isVariable: false });
+    expect(high.value).toBeCloseTo(12);
+    expect(compareCashbackRates(high, low)).toBe(-1);
+  });
+
+  test("values fixed Spenn rewards, including nb-NO thousand separators", () => {
+    expect(parseCashbackRate("480 Spenn").value).toBeCloseTo(48);
+    expect(parseCashbackRate("Opptil 1 020 Spenn (Årsabonnement)")).toMatchObject({
+      type: "fixed",
+      isVariable: true,
+    });
+    expect(parseCashbackRate("Opptil 1 020 Spenn (Årsabonnement)").value).toBeCloseTo(102);
   });
 });
