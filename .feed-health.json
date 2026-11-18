@@ -5,13 +5,13 @@
       "consecutiveFailureDays": 0,
       "lastFailureDate": null,
       "lastFailureReason": null,
-      "lastSuccessfulCount": 270
+      "lastSuccessfulCount": 272
     },
     "sas": {
       "consecutiveFailureDays": 0,
       "lastFailureDate": null,
       "lastFailureReason": null,
-      "lastSuccessfulCount": 278
+      "lastSuccessfulCount": 277
     },
     "remember": {
       "consecutiveFailureDays": 0,
@@ -50,9 +50,9 @@
       "lastSuccessfulCount": 135
     },
     "spareborsen": {
-      "consecutiveFailureDays": 0,
-      "lastFailureDate": null,
-      "lastFailureReason": null,
+      "consecutiveFailureDays": 1,
+      "lastFailureDate": "2026-11-18",
+      "lastFailureReason": "Sparebørsen sitemap fetch failed: The operation timed out.",
       "lastSuccessfulCount": 422
     },
     "opra": {
@@ -65,7 +65,7 @@
       "consecutiveFailureDays": 0,
       "lastFailureDate": null,
       "lastFailureReason": null,
-      "lastSuccessfulCount": 177
+      "lastSuccessfulCount": 178
     }
   }
 }
