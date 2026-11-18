@@ -2544,6 +2544,7 @@
       const spennIdInput = settingsPanel.querySelector(".spenn-id-input");
       if (spennIdInput) {
         spennIdInput.value = settings.getSpennId() ?? "";
+        spennIdInput.dispatchEvent(new Event("input"));
       }
     };
     settingsBtn.addEventListener("click", openSettings);
