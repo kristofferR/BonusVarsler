@@ -155,6 +155,17 @@ This will:
 4. Bundle TypeScript via `scripts/bundle.ts`
 5. Create `dist/bonusvarsler-X.X.X.xpi` and `dist/bonusvarsler-X.X.X-chrome.zip`
 
+`--skip-scrape` skips step 1 and packages the feed the daily `update-feed.yml` workflow already committed. Sites the CSP check can't reach keep their previous status, so a flaky network can't wipe the list; delete `.csp-cache.json` to force a fresh check.
+
+### Releasing
+
+1. Bump the version in `manifest.json`, `package.json`, `scripts/package.json`, `CURRENT_VERSION` in `src/config/constants.ts` and the README badge (userscript headers follow the manifest).
+2. Write release notes in `store/amo/release-notes/<version>.nb-NO.md` and `.en-US.md`, and update `store/amo/summary.*` / `description.*` if the listing text changed.
+3. `bun run build.js --skip-scrape`, then commit, tag `v<version>` and push.
+4. `gh release create v<version> dist/bonusvarsler-<version>.xpi dist/bonusvarsler-<version>-chrome.zip`.
+
+Publishing the GitHub release runs `.github/workflows/publish-amo.yml`, which uploads the XPI with a source archive to addons.mozilla.org and syncs the release notes and listing text (`scripts/publish-amo.ts`, secrets `AMO_JWT_ISSUER` / `AMO_JWT_SECRET`). The Chrome Web Store is still uploaded by hand: its API can't edit the listing text.
+
 ### Scraper Cache
 
 The scraper caches results for 5 hours in `.scraper-cache.json`.
