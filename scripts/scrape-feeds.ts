@@ -432,6 +432,7 @@ interface ServiceDefinition {
   color: string;
   defaultEnabled: boolean;
   type?: "code" | "info";
+  pointValueNok?: number;
 }
 
 interface SiteList {
@@ -4945,6 +4946,7 @@ async function main() {
     if (svc.reminderDomain) entry.reminderDomain = svc.reminderDomain;
     if (svc.cashbackPathPatterns) entry.cashbackPathPatterns = svc.cashbackPathPatterns;
     if (svc.type) entry.type = svc.type;
+    if (svc.pointValueNok) entry.pointValueNok = svc.pointValueNok;
     services[id] = entry;
   }
 

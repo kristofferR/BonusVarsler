@@ -45,21 +45,29 @@ describe("Spenn clickthrough", () => {
   });
 });
 
-describe("Spenn rate ranking", () => {
+describe("point-based rate ranking", () => {
+  const spennValue = spenn.pointValueNok;
+  const sasValue = SERVICES_FALLBACK.sas!.pointValueNok;
+
   test("reads the spend as a denominator, not a fixed kroner reward", () => {
-    const low = parseCashbackRate("1 Spenn / 10 kr");
-    const high = parseCashbackRate("Opptil 12 Spenn / 10 kr");
+    const low = parseCashbackRate("1 Spenn / 10 kr", spennValue);
+    const high = parseCashbackRate("Opptil 12 Spenn / 10 kr", spennValue);
     expect(low).toEqual({ value: 1, type: "percent", isVariable: false });
     expect(high.value).toBeCloseTo(12);
     expect(compareCashbackRates(high, low)).toBe(-1);
   });
 
-  test("values fixed Spenn rewards, including nb-NO thousand separators", () => {
-    expect(parseCashbackRate("480 Spenn").value).toBeCloseTo(48);
-    expect(parseCashbackRate("Opptil 1 020 Spenn (Årsabonnement)")).toMatchObject({
-      type: "fixed",
-      isVariable: true,
-    });
-    expect(parseCashbackRate("Opptil 1 020 Spenn (Årsabonnement)").value).toBeCloseTo(102);
+  test("values fixed points, including nb-NO thousand separators", () => {
+    expect(parseCashbackRate("480 Spenn", spennValue).value).toBeCloseTo(48);
+    const yearly = parseCashbackRate("Opptil 1 020 Spenn (Årsabonnement)", spennValue);
+    expect(yearly).toMatchObject({ type: "fixed", isVariable: true });
+    expect(yearly.value).toBeCloseTo(102);
+    expect(parseCashbackRate("1 000 poeng som ny kunde", sasValue).value).toBeCloseTo(100);
+  });
+
+  test("ranks SAS points by value instead of as a 100 kr reward", () => {
+    const sas = parseCashbackRate("25 poeng / 100 kr", sasValue);
+    expect(sas).toEqual({ value: 2.5, type: "percent", isVariable: false });
+    expect(compareCashbackRates(parseCashbackRate("3,9 %"), sas)).toBe(-1);
   });
 });
