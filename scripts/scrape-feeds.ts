@@ -23,6 +23,14 @@ import { readFile, writeFile } from "fs/promises";
 import { isIP } from "net";
 import { join } from "path";
 import {
+  extractJsonAfterKey,
+  extractNextFlightPayload,
+  formatOpraDiscounts,
+  getOpraDomains,
+  previousOpraEntries,
+  type OpraBusiness,
+} from "./opra.ts";
+import {
   formatSpareborsenCashback,
   parseSpareborsenPartner,
   parseSpareborsenSitemap,
@@ -64,6 +72,9 @@ const LOGBUY_DEFAULT_EXTENSION_ZIP = join(
 const LOGBUY_REDIRECT_USER_AGENT =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Safari/537.36";
 const publicHostLookupCache = new Map<string, Promise<boolean>>();
+const OPRA_BASE_URL = "https://opra.no";
+const OPRA_TIMEOUT_MS = 15_000;
+const OPRA_DETAIL_CONCURRENCY = 4;
 
 const LOGBUY_INTERNAL_DOMAINS = [
   "mylogbuy.com",
@@ -228,6 +239,7 @@ const MONITORED_SERVICE_IDS = [
   "lofavor",
   "logbuy",
   "spareborsen",
+  "opra",
   "spenn",
 ] as const;
 
@@ -244,6 +256,7 @@ interface ScraperCache {
   lofavorMerchants: ScrapedMerchant[];
   logbuyMerchants: ScrapedMerchant[];
   spareborsenMerchants: ScrapedMerchant[];
+  opraMerchants: ScrapedMerchant[];
   spennMerchants: ScrapedMerchant[];
   urlNameToHostname: Record<string, string>;
 }
@@ -275,7 +288,7 @@ interface ServiceRunResult {
  * Loads and validates the scraper cache file, returning it when current and well-formed.
  *
  * Validations performed: cache file exists and parses as JSON, contains array entries for all monitored services
- * (`trumfMerchants`, `rememberMerchants`, `dnbMerchants`, `obosMerchants`, `nafMerchants`, `lofavorMerchants`, `logbuyMerchants`, `spareborsenMerchants`, `spennMerchants`),
+ * (`trumfMerchants`, `rememberMerchants`, `dnbMerchants`, `obosMerchants`, `nafMerchants`, `lofavorMerchants`, `logbuyMerchants`, `spareborsenMerchants`, `opraMerchants`, `spennMerchants`),
  * has a well-formed `urlNameToHostname` map, every LogBuy merchant has a numeric `slug`, and the cache timestamp is newer than `CACHE_MAX_AGE`.
  *
  * @returns The parsed `ScraperCache` when present and valid; `null` otherwise.
@@ -297,6 +310,7 @@ async function loadCache(): Promise<ScraperCache | null> {
       Array.isArray(cache.lofavorMerchants) &&
       Array.isArray(cache.logbuyMerchants) &&
       Array.isArray(cache.spareborsenMerchants) &&
+      Array.isArray(cache.opraMerchants) &&
       Array.isArray(cache.spennMerchants);
     const hasUrlNameToHostname =
       typeof cache.urlNameToHostname === "object" &&
@@ -3329,6 +3343,95 @@ async function scrapeSpareborsen(): Promise<ScrapedMerchant[]> {
 }
 
 // ===================
+// OPRA Scraping
+// ===================
+
+async function fetchOpraPayload(path: string): Promise<string> {
+  const response = await fetch(`${OPRA_BASE_URL}${path}`, {
+    signal: AbortSignal.timeout(OPRA_TIMEOUT_MS),
+  });
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status} for ${path}`);
+  }
+  return extractNextFlightPayload(await response.text());
+}
+
+/**
+ * Scrapes OPRA's public supporter pages (parsing lives in ./opra.ts).
+ *
+ * Returns one entry per detected domain, or a single entry without `storeUrl`
+ * when no domain is found so manual mappings and name matching can resolve it.
+ * Partners whose page fails keep their offers from `previousFeed`.
+ */
+async function scrapeOpra(previousFeed: SiteList): Promise<ScrapedMerchant[]> {
+  console.log("\n=== Scraping OPRA ===");
+
+  const listPayload = await fetchOpraPayload("/stottespillere");
+  const partners = (extractJsonAfterKey<OpraBusiness[]>(listPayload, "businesses") ?? []).flatMap(
+    (partner) => {
+      const slug = partner.slug?.current;
+      return slug ? [{ slug, name: (partner.name || slug).trim() }] : [];
+    }
+  );
+  if (partners.length === 0) {
+    throw new Error("OPRA supporter list contained no partners");
+  }
+  console.log(`  Found ${partners.length} partners`);
+
+  const details = await mapWithConcurrency(partners, OPRA_DETAIL_CONCURRENCY, async (partner) => {
+    try {
+      const payload = await fetchOpraPayload(`/stottespillere/${encodeURIComponent(partner.slug)}`);
+      const business = extractJsonAfterKey<OpraBusiness>(payload, "business");
+      if (!business) throw new Error("no business data in page");
+      return { ...partner, business };
+    } catch (error) {
+      console.log(`  Failed to load ${partner.slug}: ${summarizeError(error)}`);
+      return { ...partner, business: null };
+    }
+  });
+
+  const failed = details.filter((detail) => !detail.business);
+  // Carrying everything over would hide a broken scraper behind a healthy count
+  if (failed.length > partners.length * FAILURE_RATIO_THRESHOLD) {
+    throw new Error(`${failed.length} of ${partners.length} OPRA partner pages failed`);
+  }
+  const merchants: ScrapedMerchant[] = previousOpraEntries(
+    previousFeed,
+    new Map(failed.map(({ slug, name }) => [slug, name]))
+  );
+  const carriedOver = merchants.length;
+
+  let withoutDiscounts = 0;
+  for (const { slug, business } of details) {
+    if (!business) continue;
+    const discounts = business.discounts ?? [];
+    // Supporters without a public discount have nothing to show
+    if (discounts.length === 0) {
+      withoutDiscounts++;
+      continue;
+    }
+
+    const base = {
+      name: (business.name || slug).trim(),
+      slug,
+      cashbackDescription: formatOpraDiscounts(discounts),
+    };
+    const domains = getOpraDomains(business);
+    if (domains.length === 0) {
+      merchants.push(base);
+    }
+    for (const domain of domains) {
+      merchants.push({ ...base, storeUrl: `https://${domain}` });
+    }
+  }
+
+  console.log(
+    `  Extracted ${merchants.length} OPRA entries (${withoutDiscounts} partners without public discounts, ${failed.length} failed pages, ${carriedOver} entries kept from the previous feed)`
+  );
+  return merchants;
+}
+
+// ===================
 // Spenn Scraping
 // ===================
 
@@ -3517,6 +3620,7 @@ async function main() {
   let lofavorMerchants: ScrapedMerchant[];
   let logbuyMerchants: ScrapedMerchant[];
   let spareborsenMerchants: ScrapedMerchant[];
+  let opraMerchants: ScrapedMerchant[];
   let spennMerchants: ScrapedMerchant[];
   let urlNameToHostname: Map<string, string>;
   let trumfResult: ServiceRunResult;
@@ -3528,6 +3632,7 @@ async function main() {
   let lofavorResult: ServiceRunResult;
   let logbuyResult: ServiceRunResult;
   let spareborsenResult: ServiceRunResult;
+  let opraResult: ServiceRunResult;
   let spennResult: ServiceRunResult;
 
   if (cache) {
@@ -3542,6 +3647,7 @@ async function main() {
     lofavorMerchants = cache.lofavorMerchants || [];
     logbuyMerchants = cache.logbuyMerchants || [];
     spareborsenMerchants = cache.spareborsenMerchants || [];
+    opraMerchants = cache.opraMerchants || [];
     spennMerchants = cache.spennMerchants || [];
     urlNameToHostname = new Map(Object.entries(cache.urlNameToHostname));
     console.log(`  Trumf: ${trumfMerchants.length} merchants`);
@@ -3553,6 +3659,7 @@ async function main() {
     console.log(`  LOfavør: ${lofavorMerchants.length} merchants`);
     console.log(`  LogBuy: ${logbuyMerchants.length} merchants`);
     console.log(`  Sparebørsen: ${spareborsenMerchants.length} merchants`);
+    console.log(`  OPRA: ${opraMerchants.length} merchants`);
     console.log(`  Spenn: ${spennMerchants.length} merchants`);
 
     trumfResult = {
@@ -3643,6 +3750,16 @@ async function main() {
       failureReason: null,
       baselineCount: feedHealth.services.spareborsen.lastSuccessfulCount,
       currentCount: spareborsenMerchants.length,
+      consecutiveFailureDays: 0,
+    };
+    opraResult = {
+      serviceId: "opra",
+      serviceName: "OPRA",
+      merchants: opraMerchants,
+      success: true,
+      failureReason: null,
+      baselineCount: feedHealth.services.opra.lastSuccessfulCount,
+      currentCount: opraMerchants.length,
       consecutiveFailureDays: 0,
     };
     spennResult = {
@@ -3864,6 +3981,24 @@ async function main() {
       }
 
       // ===================
+      // Step 10: Scrape OPRA merchants (no browser needed)
+      // ===================
+      if (shouldScrape("opra")) {
+        opraResult = await runServiceScrape({
+          serviceId: "opra",
+          serviceName: "OPRA",
+          baselineCount: feedHealth.services.opra.lastSuccessfulCount,
+          today,
+          feedHealth,
+          scrape: () => scrapeOpra(existingSitelist),
+        });
+        opraMerchants = opraResult.merchants;
+      } else {
+        opraResult = skipResult("opra", "OPRA");
+        opraMerchants = [];
+      }
+
+      // ===================
       // Step 9: Scrape Spenn merchants (no browser needed)
       // ===================
       if (shouldScrape("spenn")) {
@@ -3891,6 +4026,7 @@ async function main() {
         lofavorResult,
         logbuyResult,
         spareborsenResult,
+        opraResult,
         spennResult,
       ].filter((result) => shouldScrape(result.serviceId));
 
@@ -3907,6 +4043,7 @@ async function main() {
           lofavorMerchants,
           logbuyMerchants,
           spareborsenMerchants,
+          opraMerchants,
           spennMerchants,
           urlNameToHostname: Object.fromEntries(urlNameToHostname),
         });
@@ -3934,6 +4071,7 @@ async function main() {
     lofavorResult,
     logbuyResult,
     spareborsenResult,
+    opraResult,
     spennResult,
   ];
   const alertServices = serviceRuns.filter(
@@ -4628,6 +4766,90 @@ async function main() {
 
   console.log(`  Sparebørsen: ${spareborsenMapped} mapped`);
 
+  // Process OPRA merchants
+  let opraDomainMappings: Record<string, string> = {};
+  try {
+    const mappingContent = await readFile(
+      join(import.meta.dir, "..", "data", "opra-domains.json"),
+      "utf-8"
+    );
+    opraDomainMappings = JSON.parse(mappingContent);
+  } catch {
+    console.log("  Note: Could not load data/opra-domains.json");
+  }
+
+  const unmappedOpra: string[] = [];
+  let opraMapped = 0;
+
+  // OPRA partners are mostly brands other services already carry, under the
+  // host shoppers actually land on (stormberg.no redirects to www.stormberg.com)
+  const opraNameToHostMap = new Map<string, string>();
+  for (const [hostname, merchant] of Object.entries(merchants)) {
+    opraNameToHostMap.set(normalizeStoreName(merchant.name), hostname);
+  }
+
+  for (const merchant of opraMerchants) {
+    const hostnames = new Set<string>();
+
+    // Manual mapping replaces everything detected for the partner
+    const manualHostname = opraDomainMappings[merchant.slug];
+    if (manualHostname) {
+      hostnames.add(manualHostname);
+    } else {
+      if (merchant.storeUrl) {
+        try {
+          hostnames.add(new URL(merchant.storeUrl).hostname);
+        } catch {
+          // Invalid URL
+        }
+      }
+      const nameMatch = opraNameToHostMap.get(normalizeStoreName(merchant.name));
+      if (nameMatch) hostnames.add(nameMatch);
+    }
+
+    if (hostnames.size === 0) {
+      unmappedOpra.push(`${merchant.name} (slug: ${merchant.slug})`);
+      continue;
+    }
+
+    for (const hostname of hostnames) {
+      const normalized = normalizeHostname(hostname);
+      const merchantKey = findMerchantKey(normalized) || normalized;
+
+      if (!merchants[merchantKey]) {
+        merchants[merchantKey] = {
+          hostName: merchantKey,
+          name: merchant.name,
+          offers: [],
+        };
+      }
+
+      // Partners with several domains yield one entry per domain, all sharing the slug
+      const hasOpraOffer = merchants[merchantKey].offers.some(
+        (o) => o.serviceId === "opra" && o.urlName === merchant.slug
+      );
+      if (!hasOpraOffer) {
+        merchants[merchantKey].offers.push({
+          serviceId: "opra",
+          urlName: merchant.slug,
+          cashbackDescription: merchant.cashbackDescription,
+        });
+        opraMapped++;
+      }
+    }
+  }
+
+  if (!opraResult.success) {
+    const restoredOffers = restoreServiceOffersFromExisting(
+      merchants,
+      existingSitelist,
+      "opra"
+    );
+    console.log(`  OPRA: restored ${restoredOffers} existing offers`);
+  }
+
+  console.log(`  OPRA: ${opraMapped} offers mapped`);
+
   // Process Spenn merchants
   let spennMapped = 0;
   for (const merchant of spennMerchants) {
@@ -4767,6 +4989,9 @@ async function main() {
   const spareborsenCount = Object.values(merchants).filter((m) =>
     m.offers.some((o) => o.serviceId === "spareborsen")
   ).length;
+  const opraCount = Object.values(merchants).filter((m) =>
+    m.offers.some((o) => o.serviceId === "opra")
+  ).length;
   const spennCount = Object.values(merchants).filter((m) =>
     m.offers.some((o) => o.serviceId === "spenn")
   ).length;
@@ -4780,6 +5005,7 @@ async function main() {
   console.log(`  - With LOfavør offers: ${lofavorCount}`);
   console.log(`  - With Visma LogBuy offers: ${logbuyCount}`);
   console.log(`  - With Sparebørsen offers: ${spareborsenCount}`);
+  console.log(`  - With OPRA offers: ${opraCount}`);
   console.log(`  - With Spenn offers: ${spennCount}`);
   console.log(`  - Unmapped Trumf: ${unmappedTrumf.length}`);
   console.log(`  - Unmapped SAS EuroBonus: ${unmappedSas.length}`);
@@ -4790,6 +5016,7 @@ async function main() {
   console.log(`  - Unmapped LOfavør: ${unmappedLofavor.length}`);
   console.log(`  - Unmapped Visma LogBuy: ${unmappedLogbuy.length}`);
   console.log(`  - Unmapped Sparebørsen: ${unmappedSpareborsen.length}`);
+  console.log(`  - Unmapped OPRA: ${unmappedOpra.length}`);
   console.log(`  - Unmapped Spenn: ${unmappedSpenn.length}`);
 
   if (unmappedTrumf.length > 0) {
@@ -4879,6 +5106,16 @@ async function main() {
     }
     if (unmappedSpareborsen.length > 10) {
       console.log(`  ... and ${unmappedSpareborsen.length - 10} more`);
+    }
+  }
+
+  if (unmappedOpra.length > 0) {
+    console.log("\nUnmapped OPRA merchants (add to data/opra-domains.json):");
+    for (const m of unmappedOpra.slice(0, 10)) {
+      console.log(`  - ${m}`);
+    }
+    if (unmappedOpra.length > 10) {
+      console.log(`  ... and ${unmappedOpra.length - 10} more`);
     }
   }
 
