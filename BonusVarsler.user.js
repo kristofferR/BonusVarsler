@@ -958,6 +958,7 @@
   };
 
   // src/core/merchant-matching.ts
+  var SPENN_VALUE_NOK = 0.1;
   function parseCashbackRate(description) {
     if (!description) return { value: 0, type: "percent", isVariable: false };
     const normalized = description.toLowerCase().trim();
@@ -972,6 +973,17 @@
     if (percentMatch?.[1]) {
       const value = parseFloat(percentMatch[1].replace(",", "."));
       return { value, type: "percent", isVariable };
+    }
+    const spennRateMatch = cleanDesc.match(/(\d+[,.]?\d*)\s*spenn\s*\/\s*(\d+[,.]?\d*)\s*kr/i);
+    if (spennRateMatch?.[1] && spennRateMatch[2]) {
+      const spenn = parseFloat(spennRateMatch[1].replace(",", "."));
+      const spend = parseFloat(spennRateMatch[2].replace(",", "."));
+      return { value: spenn * SPENN_VALUE_NOK / spend * 100, type: "percent", isVariable };
+    }
+    const fixedSpennMatch = cleanDesc.match(/(\d[\d\s]*(?:[,.]\d+)?)\s*spenn/i);
+    if (fixedSpennMatch?.[1]) {
+      const spenn = parseFloat(fixedSpennMatch[1].replace(/\s/g, "").replace(",", "."));
+      return { value: spenn * SPENN_VALUE_NOK, type: "fixed", isVariable };
     }
     const fixedMatch = cleanDesc.match(/(\d+[,.]?\d*)\s*kr/i);
     if (fixedMatch?.[1]) {
