@@ -1556,6 +1556,10 @@
     margin-top: 14px;
 }
 
+.spenn-id[hidden] {
+    display: none;
+}
+
 .spenn-id .setting-label {
     margin-bottom: 0;
 }
@@ -2381,6 +2385,10 @@
       e.stopPropagation();
       content.classList.add("hidden");
       settingsPanel.classList.add("active");
+      const spennIdInput = settingsPanel.querySelector(".spenn-id-input");
+      if (spennIdInput) {
+        spennIdInput.value = settings.getSpennId() ?? "";
+      }
     };
     settingsBtn.addEventListener("click", openSettings);
     settingsBtn.addEventListener("keydown", (e) => {
@@ -2596,6 +2604,7 @@
     });
     return checklist;
   }
+  var spennIdFieldCount = 0;
   function createSpennIdField(i18n, initialValue, onEnter) {
     const element = document.createElement("div");
     element.className = "spenn-id";
@@ -2614,8 +2623,10 @@
     const hintText = i18n.getMessage("spennIdHint");
     const hint = document.createElement("span");
     hint.className = "spenn-id-hint";
+    hint.id = `spenn-id-hint-${++spennIdFieldCount}`;
     hint.setAttribute("aria-live", "polite");
     hint.textContent = hintText;
+    input.setAttribute("aria-describedby", hint.id);
     input.addEventListener("input", () => {
       input.removeAttribute("aria-invalid");
       hint.classList.remove("invalid");
@@ -2788,6 +2799,10 @@
     const servicesRow = document.createElement("div");
     servicesRow.className = "setting-row";
     const servicesContainer = document.createElement("div");
+    const spennIdField = services.spenn ? createSpennIdSettingsField(settings, i18n) : null;
+    if (spennIdField) {
+      spennIdField.hidden = !settings.isServiceEnabled("spenn");
+    }
     for (const svc of Object.values(services)) {
       const row = document.createElement("div");
       row.className = "service-toggle-row";
@@ -2812,6 +2827,9 @@
       toggle.dataset.serviceId = svc.id;
       toggle.addEventListener("click", async () => {
         const isActive = toggle.classList.toggle("active");
+        if (svc.id === "spenn" && spennIdField) {
+          spennIdField.hidden = !isActive;
+        }
         await settings.setServiceEnabled(svc.id, isActive);
       });
       row.appendChild(info);
@@ -2819,8 +2837,8 @@
       servicesContainer.appendChild(row);
     }
     servicesRow.appendChild(servicesContainer);
-    if (services.spenn && settings.isServiceEnabled("spenn")) {
-      servicesRow.appendChild(createSpennIdSettingsField(settings, i18n));
+    if (spennIdField) {
+      servicesRow.appendChild(spennIdField);
     }
     const settingsGrid = document.createElement("div");
     settingsGrid.className = "settings-grid";
