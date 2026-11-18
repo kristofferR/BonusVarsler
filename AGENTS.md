@@ -162,7 +162,7 @@ This will:
 3. `bun run build.js --skip-scrape`, then commit, tag `v<version>` and push.
 4. `gh release create v<version> dist/bonusvarsler-<version>.xpi dist/bonusvarsler-<version>-chrome.zip`.
 
-Publishing the GitHub release runs `.github/workflows/publish-amo.yml`, which uploads the XPI with a source archive to addons.mozilla.org and syncs the release notes and listing text (`scripts/publish-amo.ts`, secrets `AMO_JWT_ISSUER` / `AMO_JWT_SECRET`). The Chrome Web Store is still uploaded by hand: its API can't edit the listing text. Paste `store/amo/description.*` there as the long description. Chrome rejects lists of program names as keyword spam, so the descriptions and `extensionDescription` in `_locales` name at most a couple of programs in a sentence.
+Publishing the GitHub release runs `.github/workflows/publish-amo.yml`, which uploads the XPI with a source archive to addons.mozilla.org and syncs the release notes and listing text (`scripts/publish-amo.ts`, secrets `AMO_JWT_ISSUER` / `AMO_JWT_SECRET`). The Chrome Web Store is still uploaded by hand: its API can't edit the listing text. Paste `store/chrome/description.*` there as the long description. Chrome's spam policy allows at most five brand names in a description (10.0 was rejected for listing more), so those files and `extensionDescription` in `_locales` name five programs and link to the full list. AMO has no such cap, so `store/amo/` keeps the full list.
 
 ### Scraper Cache
 
