@@ -1,4 +1,4 @@
-Trumf, SAS EuroBonus, re:member, DNB, OBOS, NAF, LOfavør, Visma LogBuy, Sparebørsen, OPRA and Spenn give you cashback, discounts or points at hundreds of online stores, but only when you start your shopping trip from their websites. This unofficial extension displays a notification when you visit a store that participates in one of the programs, so you don't miss out on your bonus.
+Bonus programs such as Trumf and SAS EuroBonus give you cashback, discounts or points at hundreds of online stores, but only when you start your shopping trip from their websites. This unofficial extension displays a notification when you visit a store that participates in one of the programs, so you don't miss out on your bonus.
 
 ✓ Supports eleven bonus programs, and you choose which ones you want notifications for
 ✓ Adblocker check (some programs require adblockers to be turned off)
@@ -9,6 +9,6 @@ Trumf, SAS EuroBonus, re:member, DNB, OBOS, NAF, LOfavør, Visma LogBuy, Spareb�
 ✓ Hide the notification on sites where you don't want it
 ✓ Respects your privacy, no tracking. Your SpennID is stored only locally and is sent to Spenn only when you click the Spenn button yourself.
 
-This is an independent hobby project and has no affiliation with Trumf, NorgesGruppen, SAS, re:member, DNB, OBOS, NAF, LO, Visma, Sparebørsen, OPRA, Spenn or any other bonus program.
+This is an independent hobby project with no affiliation to the bonus programs or the stores.
 
 Open source: https://github.com/kristofferR/BonusVarsler

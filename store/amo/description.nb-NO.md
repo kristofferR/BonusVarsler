@@ -1,4 +1,4 @@
-Trumf, SAS EuroBonus, re:member, DNB, OBOS, NAF, LOfavør, Visma LogBuy, Sparebørsen, OPRA og Spenn gir deg cashback, rabatter eller poeng hos hundrevis av nettbutikker, men bare når du starter handelen via deres nettsider. Denne uoffisielle utvidelsen viser et varsel når du besøker en butikk som deltar i et av programmene, slik at du ikke går glipp av bonusen.
+Bonusprogrammer som Trumf og SAS EuroBonus gir deg cashback, rabatter eller poeng hos hundrevis av nettbutikker, men bare når du starter handelen via deres nettsider. Denne uoffisielle utvidelsen viser et varsel når du besøker en butikk som deltar i et av programmene, slik at du ikke går glipp av bonusen.
 
 ✓ Støtter elleve bonusprogrammer, og du velger selv hvilke du vil ha varsler for
 ✓ Adblocker-sjekk (noen bonusprogrammer krever at adblocker er avslått)
@@ -9,6 +9,6 @@ Trumf, SAS EuroBonus, re:member, DNB, OBOS, NAF, LOfavør, Visma LogBuy, Spareb�
 ✓ Skjul varselet på nettsteder du ikke vil se det på
 ✓ Respekterer personvernet ditt, ingen sporing. SpennID-en din lagres bare lokalt og sendes kun til Spenn når du selv klikker på Spenn-knappen.
 
-Dette er et uavhengig hobbyprosjekt og har ingen tilknytning til Trumf, NorgesGruppen, SAS, re:member, DNB, OBOS, NAF, LO, Visma, Sparebørsen, OPRA, Spenn eller andre bonusprogrammer.
+Dette er et uavhengig hobbyprosjekt uten tilknytning til bonusprogrammene eller nettbutikkene.
 
 Åpen kildekode: https://github.com/kristofferR/BonusVarsler
